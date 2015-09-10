@@ -5,22 +5,126 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <Button
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cadastrar"
-        android:id="@+id/register_button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:inputType="textPersonName"
+        android:text="Nome"
+        android:ems="10"
+        android:id="@+id/nameField"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="33dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/user_name"
-        android:layout_above="@+id/register_button"
-        android:layout_alignLeft="@+id/register_button"
-        android:layout_alignStart="@+id/register_button"
-        android:layout_marginBottom="68dp"
-        android:layout_alignRight="@+id/register_button"
-        android:layout_alignEnd="@+id/register_button" />
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/birthDateField"
+        android:text="Data de Nascimento"
+        android:layout_below="@+id/nameField"
+        android:layout_alignLeft="@+id/nameField"
+        android:layout_alignStart="@+id/nameField" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/mailField"
+        android:text="E-mail"
+        android:layout_below="@+id/loginField"
+        android:layout_alignLeft="@+id/mailConfirmField"
+        android:layout_alignStart="@+id/mailConfirmField"
+        android:layout_alignRight="@+id/passwordField"
+        android:layout_alignEnd="@+id/passwordField" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/mailConfirmField"
+        android:text="Confirme seu e-mail"
+        android:layout_below="@+id/mailField"
+        android:layout_alignLeft="@+id/birthDateField"
+        android:layout_alignStart="@+id/birthDateField" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginField"
+        android:layout_below="@+id/birthDateField"
+        android:layout_alignLeft="@+id/mailField"
+        android:layout_alignStart="@+id/mailField"
+        android:text="Login"
+        android:layout_alignRight="@+id/mailField"
+        android:layout_alignEnd="@+id/mailField" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Senha"
+        android:id="@+id/passwordLabel"
+        android:textSize="18dp"
+        android:textColor="#202020"
+        android:layout_below="@+id/mailConfirmField"
+        android:layout_alignLeft="@+id/mailConfirmField"
+        android:layout_alignStart="@+id/mailConfirmField"
+        android:layout_marginLeft="5.5dp"
+        android:layout_marginTop="6dp"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/passwordField"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/passwordLabel"
+        android:layout_toEndOf="@+id/passwordLabel"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirme a senha"
+        android:id="@+id/passwordConfLabel"
+        android:textSize="18dp"
+        android:textColor="#202020"
+        android:layout_below="@+id/passwordField"
+        android:layout_alignLeft="@+id/passwordLabel"
+        android:layout_alignStart="@+id/passwordLabel"
+        android:layout_marginTop="13dp"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/confirmPasswordField"
+        android:layout_below="@+id/passwordLabel"
+        android:layout_toRightOf="@+id/passwordConfLabel"
+        android:layout_alignRight="@+id/passwordField"
+        android:layout_alignEnd="@+id/passwordField"
+        android:layout_marginTop="3.5dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar"
+        android:id="@+id/registerButton"
+        android:layout_below="@+id/confirmPasswordField"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:background="#00C0C3"
+        android:textColor="#FFFFFF" />
+
 </RelativeLayout>

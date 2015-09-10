@@ -9,16 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import dao.UserDAO;
-
+import model.User;
 public class MainActivity extends Activity implements View.OnClickListener {
-
-    EditText username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button register = (Button)findViewById(R.id.register_button);
+        Button register = (Button)findViewById(R.id.registerButton);
 
         //register listeners
         register.setOnClickListener(this);
@@ -46,15 +44,38 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
+    private void registerUser(User user){
+
+        UserDAO userDAO = new UserDAO(MainActivity.this);
+        userDAO.save(user);
+
+    }
     public void onClick(View v) {
 
-        username = (EditText) findViewById(R.id.user_name);
+        EditText usernameField = (EditText) findViewById(R.id.loginField);
+        String username = usernameField.getText().toString();
 
-        String userName = username.getText().toString();
+        EditText nameField = (EditText) findViewById(R.id.nameField);
+        String name = nameField.getText().toString();
 
-        UserDAO userDao = new UserDAO(MainActivity.this);
+        EditText passwordField = (EditText) findViewById(R.id.passwordField);
+        String password = passwordField.getText().toString();
 
-        String result = userDao.save(userName);
+        EditText mailField = (EditText) findViewById(R.id.mailField);
+        String mail = mailField.getText().toString();
+
+        EditText birthDateField = (EditText) findViewById(R.id.birthDateField);
+        String birthDate = birthDateField.getText().toString();
+
+        User user = new User(name, username, mail, password, birthDate);
+        registerUser(user);
+
+
+        //String userName = username.getText().toString();
+
+        //UserDAO userDao = new UserDAO(MainActivity.this);
+
+        //String result = userDao.save(userName);
 
         //Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
     }
