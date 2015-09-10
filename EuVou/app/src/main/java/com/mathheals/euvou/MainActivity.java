@@ -1,16 +1,27 @@
 package com.mathheals.euvou;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+import dao.UserDAO;
+
+public class MainActivity extends Activity implements View.OnClickListener {
+
+    EditText username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button register = (Button)findViewById(R.id.register_button);
+
+        //register listeners
+        register.setOnClickListener(this);
     }
 
     @Override
@@ -34,4 +45,17 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-}
+
+    public void onClick(View v) {
+
+        username = (EditText) findViewById(R.id.user_name);
+
+        String userName = username.getText().toString();
+
+        UserDAO userDao = new UserDAO(MainActivity.this);
+
+        String result = userDao.save(userName);
+
+        //Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
+    }
+ }
