@@ -1,13 +1,13 @@
 <?php
-require_once("database.php");
+require_once("db.php");
 
 /**
  * Set these constants to your specific database values
  */
-define("HOST", "localhost");
-define("USERNAME", "root");
-define("PASSWORD", "");
-define("DATABASE_NAME", "webservice");
+define("HOST", "mysql.hostinger.com.br");
+define("USERNAME", "u956965464_euvou");
+define("PASSWORD", "loveteam");
+define("DATABASE_NAME", "u956965464_euvou");
 /** 
  */
 
@@ -31,7 +31,6 @@ if($_POST){
         $database->disconnect();
 
     }else{
-        // Could connect to DB or the requested database does not exists.
         $response = json_encode(array("status" => 0));
     }
 
