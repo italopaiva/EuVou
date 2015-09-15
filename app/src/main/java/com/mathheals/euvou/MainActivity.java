@@ -61,11 +61,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
         EditText passwordField = (EditText) findViewById(R.id.passwordField);
         String password = passwordField.getText().toString();
 
+        EditText passwordcConfirmField = (EditText) findViewById(R.id.passwordConfirmField);
+        String passwordcConfirm = passwordField.getText().toString();
+
         EditText mailField = (EditText) findViewById(R.id.mailField);
         String mail = mailField.getText().toString();
 
+        EditText mailConfirmField = (EditText) findViewById(R.id.mailConfirmField);
+        String mailConfirm = mailField.getText().toString();
+
         EditText birthDateField = (EditText) findViewById(R.id.birthDateField);
         String birthDate = birthDateField.getText().toString();
+
+        /*Falta Validação antes do envio*/
 
         User user = new User(name, username, mail, password, birthDate);
         registerUser(user);
