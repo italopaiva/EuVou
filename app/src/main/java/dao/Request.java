@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Request extends Activity{
 
-    private static final String DATABASE_WEB_SERVICE_URL = "http://192.168.25.18/webservice/database_access.php";
+    private static final String DATABASE_WEB_SERVICE_URL = "http://euvou.esy.es/database_access.php";
     private static final String POST_METHOD = "POST";
     private static final String GET_METHOD = "GET";
 
