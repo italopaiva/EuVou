@@ -29,11 +29,10 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/PlaceName"
+        android:id="@+id/placeName"
         android:layout_below="@+id/labelSearchPlace"
         android:layout_marginTop="45dp"
-        android:layout_alignLeft="@+id/btnSearchPlace"
-        android:layout_alignStart="@+id/btnSearchPlace"
-        android:layout_alignRight="@+id/labelSearchPlace"
-        android:layout_alignEnd="@+id/labelSearchPlace" />
+        android:hint="Coloque o nome do local a ser pesquisado"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

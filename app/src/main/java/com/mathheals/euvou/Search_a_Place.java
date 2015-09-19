@@ -1,7 +1,7 @@
 package com.mathheals.euvou;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,9 +40,27 @@ public class Search_a_Place extends Activity implements View.OnClickListener {
 
     public void onClick(View v)
     {
-        EditText placeNameField = (EditText) findViewById(R.id.PlaceName);
-        String placeName = placeNameField.getText().toString();
+        EditText placeNameField = (EditText) findViewById(R.id.placeName);
+        String placeName = placeNameField.getText().toString().trim();
+        validadeNotEmptyfield(placeNameField);
 
+        
 
+    }
+//validating search place name field not null
+    @SuppressLint("NewApi")
+    public boolean validadeNotEmptyfield(EditText editText)
+    {
+        // false = the field is not empty; true = the field is empty;
+        EditText placeNameField = (EditText) findViewById(R.id.placeName);
+        String placeName = placeNameField.getText().toString().trim();
+
+        if(placeName.isEmpty())
+        {
+           return true;
+        }else
+        {
+            return false;
+        }
     }
 }
