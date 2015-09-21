@@ -17,7 +17,12 @@ public class UserDAO extends DAO{
         this.executeQuery("INSERT INTO tb_user(nameUser, login,passwordUser,birthDate, email)VALUES" +
                 "(\"" + user.getName() + "\", \"" + user.getUsername() +  "\", \"" + user.getPassword() +  "\"," +
                 " STR_TO_DATE(\"" + user.getBirthDate() +  "\",'%d/%m/%Y'),\"" + user.getEmail() +  "\")");
+    }
 
+    public void update(User user){
+        this.executeQuery("UPDATE tb_user SET(nameUser=\"" + user.getName() + "\",  login=\"" + user.getUsername() + "\",  " +
+                "passwordUser=\"" + user.getPassword() + "\", birthDate=\"" + user.getBirthDate() + "\"," +
+                "email=\"" + user.getEmail() + "\"");
     }
 
 
