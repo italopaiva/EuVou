@@ -43,4 +43,40 @@ public class Validator {
 
         return isValid;
     }
+
+    public final static boolean isMailValid(String mail) {
+        boolean isValid = true;
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    public final static boolean isMailConfirmationValid(String mail, String confirmMail) {
+        boolean isValid = true;
+        if(mail.compareTo(confirmMail) != 0) {
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    public final static boolean isMailValidAndConfirmated(String mail, EditText mailField, EditText confirmMailField, String confirmMail) {
+        boolean isValid=true;
+        if(!isMailValid(mail)){
+            mailField.requestFocus();
+            mailField.setError("Ops, e-mail inválido");
+            isValid=false;
+        }
+
+        else if(!isMailConfirmationValid(mail, confirmMail)){
+            confirmMailField.requestFocus();
+            confirmMailField.setError("Ops, os e-mails não conferem");
+            isValid=false;
+        }
+
+        return isValid;
+    }
+
 }
