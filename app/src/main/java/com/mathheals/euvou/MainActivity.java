@@ -50,6 +50,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         userDAO.save(user);
 
     }
+
     public void onClick(View v) {
 
         EditText usernameField = (EditText) findViewById(R.id.loginField);

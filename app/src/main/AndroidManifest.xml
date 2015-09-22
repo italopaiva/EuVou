@@ -22,6 +22,10 @@
             android:name=".Search_a_Place"
             android:label="@string/title_activity_search_a__place" >
         </activity>
+        <activity
+            android:name=".UpdateActivity"
+            android:label="@string/title_activity_update" >
+        </activity>
     </application>
 
 </manifest>
