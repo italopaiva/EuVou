@@ -1,7 +1,8 @@
 package com.mathheals.euvou.controller;
-
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.text.TextUtils;
 import android.widget.EditText;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -47,6 +48,7 @@ public class Validator {
         return isValid;
     }
 
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public final static boolean isMailValid(String mail) {
         boolean isValid = true;
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
@@ -84,7 +86,6 @@ public class Validator {
 
     public static boolean isDataValida(String data, EditText dateField) {
         boolean isValid = true;
-        ;
         SimpleDateFormat FORMAT = new SimpleDateFormat("dd/MM/yyyy");
         try {
             FORMAT.setLenient(false);
@@ -97,6 +98,105 @@ public class Validator {
         }
 
         return isValid;
+    }
+
+    public static boolean isNameEmpty(String name){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(name)) {
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
+
+    public static boolean isDateEmpty(String date){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(date)) {
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
+
+    public static boolean isMailEmpty(String mail){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(mail)) {
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
+
+    public static boolean isConfirmMailEmpty(String confirmMail){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(confirmMail)) {
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
+
+    public static boolean isLoginEmpty(String login){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(login)) {
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
+
+    public static boolean isPasswordEmpty(String password){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(password)) {
+            isEmpty=true;
+        }
+        return isEmpty;
+    }
+
+    public static boolean isConfirmPasswordEmpty(String confirmPassword){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(confirmPassword)) {
+            isEmpty=true;
+        }
+        return isEmpty;
+    }
+
+    public static boolean isEmptyFields(String name, EditText nameField, String date, EditText dateField, String mail, EditText mailField, String confirmMail,
+                                        EditText confirmMailField, String login, EditText loginField, String password, EditText passwordField, String confirmPassword, EditText confirmPasswordField) {
+        boolean isEmpty = false;
+        if (isNameEmpty(name)) {
+            nameField.requestFocus();
+            nameField.setError("Hey, acho que você está esquecendo de nos dizer seu nome");
+            isEmpty = true;
+        }
+        if (isDateEmpty(date)) {
+            dateField.requestFocus();
+            dateField.setError("Hey, acho que você está esquecendo de nos dizer sua data de nascimento");
+            isEmpty = true;
+        }
+        if (isMailEmpty(mail)) {
+            mailField.requestFocus();
+            mailField.setError("Hey, acho que você está esquecendo de nos dizer seu e-mail");
+            isEmpty = true;
+        }
+        if (isConfirmMailEmpty(confirmMail)) {
+            confirmMailField.requestFocus();
+            confirmMailField.setError("Você deve confirmar seu e-mail digitando-o novamente");
+            isEmpty = true;
+        }
+        if (isLoginEmpty(login)) {
+            loginField.requestFocus();
+            loginField.setError("Hey, acho que você está esquecendo de nos dizer seu login");
+            isEmpty = true;
+        }
+        if (isPasswordEmpty(password)) {
+            passwordField.requestFocus();
+            passwordField.setError("Você deve escolher uma senha pra sua conta");
+            isEmpty = true;
+        }
+
+        if (isConfirmMailEmpty(confirmPassword)) {
+            confirmPasswordField.requestFocus();
+            confirmPasswordField.setError("Você deve confirmar sua senha digitando-a novamente");
+            isEmpty = true;
+        }
+
+        return isEmpty;
     }
 
 }
