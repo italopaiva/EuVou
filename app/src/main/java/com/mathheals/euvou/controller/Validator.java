@@ -2,6 +2,9 @@ package com.mathheals.euvou.controller;
 
 import android.widget.EditText;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by julliana on 21/09/15.
  */
@@ -74,6 +77,23 @@ public class Validator {
             confirmMailField.requestFocus();
             confirmMailField.setError("Ops, os e-mails não conferem");
             isValid=false;
+        }
+
+        return isValid;
+    }
+
+    public static boolean isDataValida(String data, EditText dateField) {
+        boolean isValid = true;
+        ;
+        SimpleDateFormat FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            FORMAT.setLenient(false);
+            FORMAT.parse(data);
+        } catch (ParseException excecao) {
+            dateField.setError("Ops, essa data é inválida");
+            dateField.setFocusable(true);
+            dateField.requestFocus();
+            isValid = false;
         }
 
         return isValid;
