@@ -9,16 +9,17 @@ import java.util.Date;
 
 import exception.UserException;
 
-/**
- * Created by igor on 07/09/15.
- */
+
 public class User {
 
     public static final String NAME_CANT_BE_EMPTY_NAME = "Hey, acho que você está esquecendo de nos dizer seu nome.";
-    public static final String NAME_CANT_BE_HIGHER_THAN_200 = "Hey, acho que você ultrapassou o número de caracteres permitid, tente novamente.";
-
+    public static final String NAME_CANT_BE_HIGHER_THAN_200 = "Hey, acho que você ultrapassou o número de caracteres permitido para o nome, tente novamente.";
+    public static final String EMAIL_CANT_BE_EMPTY_EMAIL = "Hey, acho que você está esquecendo de nos dizer seu email.";
+    public static final String EMAIL_CANT_BE_HIGHER_THAN_150 = "Hey, acho que você ultrapassou o número de caracteres permitido para email, tente novamente.";
 
     private static final int MAX_LENGTH_NAME = 200;
+    private static final int MAX_LENGTH_EMAIL = 150;
+
 
     private int idUser;
     private String name;
@@ -43,6 +44,7 @@ public class User {
     }
 
 
+
     private void setIdUser(int idUser){
         this.idUser = idUser;
     }
@@ -62,9 +64,32 @@ public class User {
         }
     }
 
+    private  void  setEmail(String email) throws UserException{
+
+        if (!isEmailEmpty(email)) {
+            if(email.length() <= MAX_LENGTH_EMAIL){
+                this.email = email;
+            }
+            else{
+                throw  new UserException(EMAIL_CANT_BE_HIGHER_THAN_150);
+            }
+        }else{
+            throw  new UserException(EMAIL_CANT_BE_EMPTY_EMAIL);
+        }
+
+    }
+
     private boolean isNameEmpty(String name){
         boolean isEmpty = false;
         if (TextUtils.isEmpty(name)) {
+            isEmpty = true;
+        }
+        return isEmpty;
+    }
+
+    private boolean isEmailEmpty(String email){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(email)) {
             isEmpty = true;
         }
         return isEmpty;
@@ -89,17 +114,7 @@ public class User {
         }
     }
 
-    private void setEmail(String email){
-        try{
-            if(email.length()<=150) {
-                this.email = email;
-            }else{
-                Log.d(email, "O email deve conter no máximo 150 caracteres");
-            }
-        }catch (NullPointerException e){
-            Log.d(email, "O campo email é obrigatório");
-        }
-    }
+
 
     private void setPassword(String password){
         try{

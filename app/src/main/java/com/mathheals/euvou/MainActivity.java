@@ -79,12 +79,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
             User user = new User(name, username, mail, password, birthDate);
             //registerUser(user);
         } catch (UserException e) {
+            String message = e.getMessage();
 
-            switch (e.getMessage()) {
+            switch (message) {
                 case User.NAME_CANT_BE_EMPTY_NAME:
                 case User.NAME_CANT_BE_HIGHER_THAN_200:
                     nameField.requestFocus();
-                    nameField.setError(e.getMessage());
+                    nameField.setError(message);
+                    break;
+
+                case User.EMAIL_CANT_BE_EMPTY_EMAIL:
+                case User.EMAIL_CANT_BE_HIGHER_THAN_150:
+                    mailField.requestFocus();
+                    mailField.setError(message);
                     break;
             }
         }
