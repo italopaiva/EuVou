@@ -17,6 +17,7 @@ import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 
@@ -109,6 +110,15 @@ public class HomePage extends ActionBarActivity {
             return true;
         }
         // Handle your other action bar items...
+        switch(item.getItemId()) {
+            case R.id.edit_register:
+                // Put here code for "Alterar Cadastro"
+                return true;
+            case R.id.settings:
+                Toast.makeText(getBaseContext(), "Configuracoes", Toast.LENGTH_LONG).show();
+                return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

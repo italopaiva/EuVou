@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.mathheals.euvou.R;
+
 public class Search_a_Place extends Activity implements View.OnClickListener {
 
     @Override

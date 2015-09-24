@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.mathheals.euvou.R;
+
 import dao.UserDAO;
 import model.User;
 public class MainActivity extends Activity implements View.OnClickListener {
