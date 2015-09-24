@@ -14,8 +14,6 @@ public abstract class DAO {
 
     protected Activity activity;
 
-    public DAO(){}
-
     public DAO(Activity activity){
 
         setCurrentActivity(activity);
@@ -26,9 +24,9 @@ public abstract class DAO {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair(QUERY_KEY, query));
 
-        Request request = new Request(params, this.currentActivity());
+        Consult consult = new Consult(params, this.currentActivity());
 
-        String result = request.execute();
+        String result = consult.execute();
 
         return result;
     }
