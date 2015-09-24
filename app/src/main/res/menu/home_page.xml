@@ -3,13 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mathheals.euvou.controller.home_page.HomePage">
 
-    <!-- Help -->
     <item android:id="@+id/edit_register"
-        android:title="Entrar"
+        android:title="Alterar cadastro"
         app:showAsAction="never"/>
 
-    <!-- Check updates -->
     <item android:id="@+id/settings"
-        android:title="Cadastrar"
+        android:title="Configurações"
         app:showAsAction="never" />
 </menu>
