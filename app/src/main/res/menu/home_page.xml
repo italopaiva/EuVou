@@ -3,6 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mathheals.euvou.controller.home_page.HomePage">
 
+    <item android:id="@+id/action_search"
+        android:icon="@drawable/ic_action_search"
+        android:title="Pesquisa"
+        app:showAsAction="always"
+        android:actionViewClass="android.widget.SearchView"/>
+
+    <item android:id="@+id/visualize_profile"
+        android:title="Perfil"
+        app:showAsAction="never"/>
+
     <item android:id="@+id/edit_register"
         android:title="Alterar cadastro"
         app:showAsAction="never"/>

@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -117,6 +118,8 @@ public class HomePage extends ActionBarActivity {
             case R.id.settings:
                 Toast.makeText(getBaseContext(), "Configuracoes", Toast.LENGTH_LONG).show();
                 return true;
+            case R.id.visualize_profile:
+                //Put here code for "Visualizar Usuario"
         }
 
         return super.onOptionsItemSelected(item);
