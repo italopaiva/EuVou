@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import dao.UserDAO;
+import exception.UserException;
 import model.User;
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -74,11 +75,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
         EditText birthDateField = (EditText) findViewById(R.id.birthDateField);
         String birthDate = birthDateField.getText().toString();
 
-        /*Falta Validação antes do envio*/
+        try {
+            User user = new User(name, username, mail, password, birthDate);
+            //registerUser(user);
+        } catch (UserException e) {
 
-        User user = new User(name, username, mail, password, birthDate);
-        registerUser(user);
-
+            switch (e.getMessage()) {
+                case User.NAME_CANT_BE_EMPTY_NAME:
+                case User.NAME_CANT_BE_HIGHER_THAN_200:
+                    nameField.requestFocus();
+                    nameField.setError(e.getMessage());
+                    break;
+            }
+        }
 
         //String userName = username.getText().toString();
 

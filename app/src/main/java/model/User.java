@@ -1,15 +1,24 @@
 package model;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import exception.UserException;
+
 /**
  * Created by igor on 07/09/15.
  */
 public class User {
+
+    public static final String NAME_CANT_BE_EMPTY_NAME = "Hey, acho que você está esquecendo de nos dizer seu nome.";
+    public static final String NAME_CANT_BE_HIGHER_THAN_200 = "Hey, acho que você ultrapassou o número de caracteres permitid, tente novamente.";
+
+
+    private static final int MAX_LENGTH_NAME = 200;
 
     private int idUser;
     private String name;
@@ -18,19 +27,19 @@ public class User {
     private String password;
     private String birthDate;
 
-    public User(int idUser, String name, String birthDate, String email){
-        this.idUser=idUser;
-        this.name=name;
-        this.email=email;
-        this.birthDate=birthDate;
+    public User(int idUser, String name, String birthDate, String email) throws UserException {
+        setName(name);
+        setIdUser(idUser);
+        setEmail(email);
+        setBirthDate(birthDate);
     }
 
-    public User(String name, String username, String email, String password, String birthDate){
-        this.name=name;
-        this.username=username;
-        this.email=email;
-        this.password=password;
-        this.birthDate=birthDate;
+    public User(String name, String username, String email, String password, String birthDate) throws UserException {
+        setName(name);
+        setUsername(username);
+        setEmail(email);
+        setPassword(password);
+        setBirthDate(birthDate);
     }
 
 
@@ -38,16 +47,27 @@ public class User {
         this.idUser = idUser;
     }
 
-    private void setName(String name){
-        try{
-            if (name.length()<=200){
-                this.name=name;
-            }else {
-                Log.d(name, "O nome digitado precisa ter quantidade de caracteres menor ou igual a 200");
+    private void setName(String name) throws UserException {
+
+        if(!isNameEmpty(name)){
+
+            if(name.length() <= MAX_LENGTH_NAME){
+                this.name = name;
+            }else{
+                throw new UserException(NAME_CANT_BE_HIGHER_THAN_200);
             }
-        }catch (NullPointerException e){
-            Log.d(name, "O campo email é obrigatório");
+
+        }else{
+            throw new UserException(NAME_CANT_BE_EMPTY_NAME);
         }
+    }
+
+    private boolean isNameEmpty(String name){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(name)) {
+            isEmpty = true;
+        }
+        return isEmpty;
     }
 
     public void setUsername (String username) {
