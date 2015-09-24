@@ -1,5 +1,6 @@
 package com.mathheals.euvou.controller.home_page;
 
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -21,6 +22,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 
 public class HomePage extends ActionBarActivity {
     private CharSequence mTitle;
@@ -110,13 +112,17 @@ public class HomePage extends ActionBarActivity {
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         // Handle your other action bar items...
         switch(item.getItemId()) {
             case R.id.edit_register:
                 // Put here code for "Alterar Cadastro"
                 return true;
             case R.id.settings:
-                Toast.makeText(getBaseContext(), "Configuracoes", Toast.LENGTH_LONG).show();
+                fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment());
+                fragmentTransaction.commit();
                 return true;
             case R.id.visualize_profile:
                 //Put here code for "Visualizar Usuario"
