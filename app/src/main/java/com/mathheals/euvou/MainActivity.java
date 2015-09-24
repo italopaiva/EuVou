@@ -93,6 +93,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     mailField.requestFocus();
                     mailField.setError(message);
                     break;
+
+                case User.USERNAME_CANT_BE_EMPTY_USERNAME:
+                case User.USERNAME_CANT_BE_HIGHER_THAN_100:
+                    usernameField.requestFocus();
+                    usernameField.setError(message);
+                    break;
             }
         }
 

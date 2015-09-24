@@ -16,10 +16,13 @@ public class User {
     public static final String NAME_CANT_BE_HIGHER_THAN_200 = "Hey, acho que você ultrapassou o número de caracteres permitido para o nome, tente novamente.";
     public static final String EMAIL_CANT_BE_EMPTY_EMAIL = "Hey, acho que você está esquecendo de nos dizer seu email.";
     public static final String EMAIL_CANT_BE_HIGHER_THAN_150 = "Hey, acho que você ultrapassou o número de caracteres permitido para email, tente novamente.";
+    public static final String USERNAME_CANT_BE_EMPTY_USERNAME = "Hey, acho que você está esquecendo de nos dizer seu login.";
+    public static final String USERNAME_CANT_BE_HIGHER_THAN_100 = "Hey, acho que você ultrapassou o número de caracteres permitido para o login, tente novamente.";
+
 
     private static final int MAX_LENGTH_NAME = 200;
     private static final int MAX_LENGTH_EMAIL = 150;
-
+    private static final int MAX_LENGTH_USERNAME = 100;
 
     private int idUser;
     private String name;
@@ -79,6 +82,21 @@ public class User {
 
     }
 
+    private  void  setUsername (String username) throws UserException{
+
+        if (!isUsernameEmpty(username)) {
+            if(username.length() <= MAX_LENGTH_USERNAME){
+                this.username = username;
+            }
+            else{
+                throw  new UserException(USERNAME_CANT_BE_HIGHER_THAN_100);
+            }
+        }else{
+            throw  new UserException(USERNAME_CANT_BE_EMPTY_USERNAME);
+        }
+
+    }
+
     private boolean isNameEmpty(String name){
         boolean isEmpty = false;
         if (TextUtils.isEmpty(name)) {
@@ -95,24 +113,15 @@ public class User {
         return isEmpty;
     }
 
-    public void setUsername (String username) {
-        int count=0;
-
-        try{
-            for(int i=0; i<username.length(); i++){
-                if(username.charAt(i)==' '){
-                    count++;
-                }
-            }
-            if (username.length()<=200 && count==0){
-                this.username=username;
-            }else {
-                Log.d(username, "O login digitado precisa ter quantidade de caracteres menor ou igual a 200 e não pode conter espaços em branco");
-            }
-        }catch (NullPointerException e){
-            Log.d(username, "O campo email é obrigatório");
+    private boolean isUsernameEmpty(String username){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(username)) {
+            isEmpty = true;
         }
+        return isEmpty;
     }
+
+
 
 
 
