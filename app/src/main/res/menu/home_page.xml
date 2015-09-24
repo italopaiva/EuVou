@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.mathheals.euvou.controller.home_page.HomePage">
+
+    <!-- Help -->
+    <item android:id="@+id/edit_register"
+        android:title="Entrar"
+        app:showAsAction="never"/>
+
+    <!-- Check updates -->
+    <item android:id="@+id/settings"
+        android:title="Cadastrar"
+        app:showAsAction="never" />
+</menu>

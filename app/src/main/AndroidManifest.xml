@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".controller.MainActivity"
+            android:name=".controller.home_page.HomePage"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,12 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.Search_a_Place"
-            android:label="@string/title_activity_search_a__place" >
-        </activity>
-        <activity
-            android:name=".UpdateActivity"
-            android:label="@string/title_activity_update" >
+            android:name=".controller.MainActivity"
+            android:label="Main" >
         </activity>
     </application>
 
