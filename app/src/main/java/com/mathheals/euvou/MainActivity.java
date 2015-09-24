@@ -90,6 +90,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 case User.EMAIL_CANT_BE_EMPTY_EMAIL:
                 case User.EMAIL_CANT_BE_HIGHER_THAN_150:
+                case User.INVALID_EMAIL:
                     mailField.requestFocus();
                     mailField.setError(message);
                     break;

@@ -2,6 +2,7 @@ package model;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,7 @@ public class User {
     public static final String EMAIL_CANT_BE_HIGHER_THAN_150 = "Hey, acho que você ultrapassou o número de caracteres permitido para email, tente novamente.";
     public static final String USERNAME_CANT_BE_EMPTY_USERNAME = "Hey, acho que você está esquecendo de nos dizer seu login.";
     public static final String USERNAME_CANT_BE_HIGHER_THAN_100 = "Hey, acho que você ultrapassou o número de caracteres permitido para o login, tente novamente.";
-
+    public static final String INVALID_EMAIL = "Ops, acho que você não nos informou um email.";
 
     private static final int MAX_LENGTH_NAME = 200;
     private static final int MAX_LENGTH_EMAIL = 150;
@@ -46,8 +47,6 @@ public class User {
         setBirthDate(birthDate);
     }
 
-
-
     private void setIdUser(int idUser){
         this.idUser = idUser;
     }
@@ -71,7 +70,15 @@ public class User {
 
         if (!isEmailEmpty(email)) {
             if(email.length() <= MAX_LENGTH_EMAIL){
-                this.email = email;
+                CharSequence emailCharSequence = email;
+                boolean emailIsOk = Patterns.EMAIL_ADDRESS.matcher(emailCharSequence).matches();
+
+                if(emailIsOk){
+                    this.email = email;
+                }else{
+                    throw  new UserException(INVALID_EMAIL);
+                }
+
             }
             else{
                 throw  new UserException(EMAIL_CANT_BE_HIGHER_THAN_150);
