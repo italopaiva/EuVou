@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Consult extends Activity{
 
-    private static final String DATABASE_WEB_SERVICE_URL = "http://192.168.25.18/webservice/query.php";
+    private static final String DATABASE_WEB_SERVICE_URL = "http://euvou.esy.es/query.php";
     private static final String POST_METHOD = "POST";
 
     private List<NameValuePair> params;
