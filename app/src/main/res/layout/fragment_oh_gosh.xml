@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.mathheals.euvou.controller.remove_user.OhGoshFragment">
+
+    <TextView
+        android:id="@+id/gosh_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gosh_message"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="35dp"
+        android:textColor="@color/black"
+        />
+
+</RelativeLayout>

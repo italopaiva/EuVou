@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
+import com.mathheals.euvou.controller.remove_user.OhGoshFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 
 public class HomePage extends ActionBarActivity {
@@ -163,9 +164,22 @@ public class HomePage extends ActionBarActivity {
 
     }
 
-    public void disableAccountButtonOnClick(View view) {
+    public void configurationButtonsOnClick(View view) {
+        // Handling all configuration's buttons onClick
+
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_frame, new DisableAccountFragment());
-        fragmentTransaction.commit();
+        switch(view.getId()) {
+            case R.id.button_disable_account_id:
+                fragmentTransaction.replace(R.id.content_frame, new OhGoshFragment());
+                fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment());
+                fragmentTransaction.commit();
+                return;
+            case R.id.button_yes_id:
+                Toast.makeText(getBaseContext(), "YES BUTTON", Toast.LENGTH_LONG).show();
+                return;
+            case R.id.button_no_id:
+                Toast.makeText(getBaseContext(), "NO BUTTON", Toast.LENGTH_LONG).show();
+                return;
+        }
     }
 }

@@ -9,7 +9,7 @@
     tools:context="com.mathheals.euvou.controller.remove_user.RemoveUserFragment">
 
     <Switch
-        android:id="@+id/gps_txt"
+        android:id="@+id/switcher_disable_account_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
@@ -24,10 +24,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:textSize="@dimen/font_size"
-        android:layout_below="@+id/gps_txt"
-        android:textColor="@color/black"/>
+        android:layout_below="@+id/switcher_disable_account_id"
+        android:textColor="@color/black"
+        android:onClick="configurationButtonsOnClick"
+        />
 
     <Button
+        android:id="@+id/button_disable_account_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/unable_message"
@@ -35,6 +38,6 @@
         android:layout_marginTop="215dp"
         android:layout_marginLeft="20dp"
         android:background="@color/Turquoise"
-        android:onClick="disableAccountButtonOnClick"
+        android:onClick="configurationButtonsOnClick"
         />
 </RelativeLayout>
