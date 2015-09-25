@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 
 public class HomePage extends ActionBarActivity {
@@ -113,7 +114,6 @@ public class HomePage extends ActionBarActivity {
             return true;
         }
 
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         // Handle your other action bar items...
         switch(item.getItemId()) {
@@ -161,5 +161,11 @@ public class HomePage extends ActionBarActivity {
         currentFragment.setArguments(args);
         replaceFragment(currentFragment);
 
+    }
+
+    public void disableAccountButtonOnClick(View view) {
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, new DisableAccountFragment());
+        fragmentTransaction.commit();
     }
 }
