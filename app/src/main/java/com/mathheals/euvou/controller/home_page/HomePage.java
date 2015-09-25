@@ -1,6 +1,6 @@
 package com.mathheals.euvou.controller.home_page;
 
-import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,7 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -26,9 +25,11 @@ import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
 import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
 import com.mathheals.euvou.controller.remove_user.OhGoshFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
+import com.mathheals.euvou.controller.remove_user.RemoveUserVIewMessages;
 
 public class HomePage extends ActionBarActivity {
     private static final String DISABLE_ACCOUNT_FRAGMENT_TAG = "disable_account_fragment_tag";
+    private static final String SETTINGS_FRAGMENT = "settings_fragment_tag";
     private CharSequence mTitle;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
@@ -124,7 +125,9 @@ public class HomePage extends ActionBarActivity {
                 // Put here code for "Alterar Cadastro"
                 return true;
             case R.id.settings:
-                fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment());
+                clearBackStack();
+                fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment(), SETTINGS_FRAGMENT);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 return true;
             case R.id.visualize_profile:
@@ -170,27 +173,43 @@ public class HomePage extends ActionBarActivity {
         // Handling all configuration's buttons onClick
 
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        Context homePageContext = getBaseContext();
+
         switch(view.getId()) {
             case R.id.button_disable_account_id:
                 fragmentTransaction.replace(R.id.content_frame, new OhGoshFragment());
                 fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment(), DISABLE_ACCOUNT_FRAGMENT_TAG);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(DISABLE_ACCOUNT_FRAGMENT_TAG);
                 fragmentTransaction.commit();
                 return;
             case R.id.button_yes_id:
-                Toast.makeText(getBaseContext(), "YES BUTTON", Toast.LENGTH_LONG).show();
+                fragmentManager.popBackStack();
+                RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
                 return;
             case R.id.button_no_id:
                 android.support.v4.app.Fragment disableAccountFragment = getSupportFragmentManager().findFragmentByTag(DISABLE_ACCOUNT_FRAGMENT_TAG);
                 fragmentTransaction.remove(disableAccountFragment);
                 fragmentTransaction.add(R.id.content_frame, new DisableAccountLoginConfirmation());
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 return;
             case R.id.button_back_id:
-                Toast.makeText(getBaseContext(), "SEJA BEM VINDO NOVAMENTE", Toast.LENGTH_LONG).show();
+                fragmentManager.popBackStack(DISABLE_ACCOUNT_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
                 return;
             case R.id.button_disable_account_confirmation_id:
-                Toast.makeText(getBaseContext(), "CONTA DESATIVADA", Toast.LENGTH_LONG).show();
+                clearBackStack();
+                RemoveUserVIewMessages.showAccountDeactivateMessage(homePageContext);
                 return;
+        }
+    }
+    private void clearBackStack() {
+        FragmentManager manager = getSupportFragmentManager();
+        if (manager.getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
+            manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 }

@@ -32,20 +32,7 @@
     <string name="option_frag_txt03">Frag03</string>
     <string name="option_frag_txt04">Frag04</string>
 
-    <!-- Remove user strings -->
 
-    <string name="allow_gps_message">Permitir usar minha localização</string>
-    <string name="disable_account">Desativar conta</string>
-    <string name="gosh_message">Poxa vida :(</string>
-    <string name="some_more_message">Deseja ficar um pouco mais?</string>
-    <string name="unable_message">Desativar</string>
-    <string name="no">Não</string>
-    <string name="yes">Sim</string>
-    <string name="login">Usuário:</string>
-    <string name="password">Senha:</string>
-    <string name="login_hint">Confirme seu usuário</string>
-    <string name="password_hint">e senha</string>
-    <string name="back">Voltar</string>
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
