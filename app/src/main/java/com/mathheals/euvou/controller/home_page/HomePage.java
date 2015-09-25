@@ -23,10 +23,12 @@ import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
+import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
 import com.mathheals.euvou.controller.remove_user.OhGoshFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 
 public class HomePage extends ActionBarActivity {
+    private static final String DISABLE_ACCOUNT_FRAGMENT_TAG = "disable_account_fragment_tag";
     private CharSequence mTitle;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
@@ -171,14 +173,23 @@ public class HomePage extends ActionBarActivity {
         switch(view.getId()) {
             case R.id.button_disable_account_id:
                 fragmentTransaction.replace(R.id.content_frame, new OhGoshFragment());
-                fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment());
+                fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment(), DISABLE_ACCOUNT_FRAGMENT_TAG);
                 fragmentTransaction.commit();
                 return;
             case R.id.button_yes_id:
                 Toast.makeText(getBaseContext(), "YES BUTTON", Toast.LENGTH_LONG).show();
                 return;
             case R.id.button_no_id:
-                Toast.makeText(getBaseContext(), "NO BUTTON", Toast.LENGTH_LONG).show();
+                android.support.v4.app.Fragment disableAccountFragment = getSupportFragmentManager().findFragmentByTag(DISABLE_ACCOUNT_FRAGMENT_TAG);
+                fragmentTransaction.remove(disableAccountFragment);
+                fragmentTransaction.add(R.id.content_frame, new DisableAccountLoginConfirmation());
+                fragmentTransaction.commit();
+                return;
+            case R.id.button_back_id:
+                Toast.makeText(getBaseContext(), "SEJA BEM VINDO NOVAMENTE", Toast.LENGTH_LONG).show();
+                return;
+            case R.id.button_disable_account_confirmation_id:
+                Toast.makeText(getBaseContext(), "CONTA DESATIVADA", Toast.LENGTH_LONG).show();
                 return;
         }
     }
