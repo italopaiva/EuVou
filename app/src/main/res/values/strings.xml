@@ -34,12 +34,12 @@
 
     <!-- Remove user strings -->
 
-    <string name="allow_gps_message">Permitir localização por meio de GPS</string>
+    <string name="allow_gps_message">Permitir usar minha localização</string>
     <string name="disable_account">Desativar conta</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="unable_message">Desativar</string>
 
 
 </resources>
