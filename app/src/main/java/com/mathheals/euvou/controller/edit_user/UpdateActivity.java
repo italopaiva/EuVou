@@ -1,6 +1,6 @@
 package com.mathheals.euvou.controller.edit_user;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,14 +13,14 @@ import com.mathheals.euvou.R;
 import dao.UserDAO;
 import model.User;
 
-public class UpdateActivity extends Activity implements View.OnClickListener {
+public class UpdateActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
-        Button update = (Button)findViewById(R.id.updateButton);
 
+        Button update = (Button)findViewById(R.id.updateButton);
         update.setOnClickListener(this);
     }
 
@@ -47,10 +47,8 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
     }
 
     private void updateUser(User user){
-
         UserDAO userDAO = new UserDAO(UpdateActivity.this);
         userDAO.update(user);
-
     }
 
     @Override

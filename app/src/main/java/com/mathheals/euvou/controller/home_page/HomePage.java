@@ -1,6 +1,6 @@
 package com.mathheals.euvou.controller.home_page;
 
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,12 +16,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.edit_user.UpdateActivity;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 
 public class HomePage extends ActionBarActivity {
@@ -119,6 +118,10 @@ public class HomePage extends ActionBarActivity {
         switch(item.getItemId()) {
             case R.id.edit_register:
                 // Put here code for "Alterar Cadastro"
+
+                Intent i = new Intent(this, UpdateActivity.class);
+                //startActivityForResult(i, 1);
+                startActivity(i);
                 return true;
             case R.id.settings:
                 fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment());

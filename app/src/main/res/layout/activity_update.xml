@@ -147,5 +147,4 @@
         android:layout_below="@+id/confirmPasswordField"
         android:layout_centerHorizontal="true" />
 
-
 </RelativeLayout>
