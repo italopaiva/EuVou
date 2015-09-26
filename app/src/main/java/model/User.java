@@ -22,6 +22,8 @@ public class User {
     public static final String USERNAME_CANT_BE_HIGHER_THAN_100 = "Hey, acho que você ultrapassou o número de caracteres permitido para o login, tente novamente.";
     public static final String PASSWORD_CANT_BE_EMPTY_PASSWORD = "Hey, acho que você está esquecendo de nos dizer sua senha.";
     public static final String PASSWORD_CANT_BE_LESS_THAN_6 = "Hey, acho que vocẽ não atingiu o número mínimo de caracteres.";
+    public static final String BIRTH_DATE_CANT_BE_EMPTY_BIRTH_DATE = "Hey, acho que você está esquecendo de nos dizer um dia muito especial, a data do seu nascimento.";
+
 
     private static final int MAX_LENGTH_NAME = 200;
     private static final int MAX_LENGTH_EMAIL = 150;
@@ -35,14 +37,14 @@ public class User {
     private String password;
     private String birthDate;
 
-    public User(int idUser, String name, String birthDate, String email) throws UserException {
+    public User(int idUser, String name, String birthDate, String email) throws UserException, ParseException {
         setName(name);
         setIdUser(idUser);
         setEmail(email);
         setBirthDate(birthDate);
     }
 
-    public User(String name, String username, String email, String password, String birthDate) throws UserException {
+    public User(String name, String username, String email, String password, String birthDate) throws UserException, ParseException {
         setName(name);
         setUsername(username);
         setEmail(email);
@@ -122,6 +124,16 @@ public class User {
 
     }
 
+    private void setBirthDate(String birthDate) throws UserException, ParseException {
+        if(!isBirthDateEmpty(birthDate)){
+            SimpleDateFormat FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+            FORMAT.setLenient(false);
+            FORMAT.parse(birthDate);
+        }else{
+            throw new UserException(BIRTH_DATE_CANT_BE_EMPTY_BIRTH_DATE);
+        }
+    }
+
     private boolean isNameEmpty(String name){
         boolean isEmpty = false;
         if (TextUtils.isEmpty(name)) {
@@ -154,18 +166,16 @@ public class User {
         return isEmpty;
     }
 
-
-    private void setBirthDate(String birthDate){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        sdf.setLenient(false);
-
-        try{
-            Date date = sdf.parse(birthDate);
-            this.birthDate=birthDate;
-        }catch (ParseException e){
-            Log.d(birthDate, "Data inválida");
+    private boolean isBirthDateEmpty(String birthDate){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(birthDate)) {
+            isEmpty = true;
         }
+        return isEmpty;
     }
+
+
+
 
     public int getIdUser(){
         return idUser;

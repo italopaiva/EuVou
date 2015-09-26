@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.text.ParseException;
+
 import dao.UserDAO;
 import exception.UserException;
 import model.User;
@@ -69,6 +71,8 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
         try {
             user = new User(idUser, name, birthDate, mail);
         } catch (UserException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         updateUser(user);

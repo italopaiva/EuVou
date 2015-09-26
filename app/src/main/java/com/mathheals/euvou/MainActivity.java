@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.text.ParseException;
+
 import dao.UserDAO;
 import exception.UserException;
 import model.User;
@@ -76,7 +78,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         String birthDate = birthDateField.getText().toString();
 
         try {
-            User user = new User(name, username, mail, password, birthDate);
+            User user = new User(name, username, mail, password, birthDate) ;
             //registerUser(user);
         } catch (UserException e) {
             String message = e.getMessage();
@@ -107,6 +109,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     passwordField.setError(message);
                     break;
 
+                case User.BIRTH_DATE_CANT_BE_EMPTY_BIRTH_DATE:
+                    birthDateField.requestFocus();
+                    birthDateField.setError(message);
+                    break;
             }
         }
 
