@@ -16,8 +16,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button register = (Button)findViewById(R.id.registerButton);
+        setContentView(R.layout.register_user);
+        Button register = (Button)findViewById(R.id.saveButton);
 
         //register listeners
         register.setOnClickListener(this);
@@ -72,7 +72,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         EditText mailConfirmField = (EditText) findViewById(R.id.mailConfirmField);
         String mailConfirm = mailField.getText().toString();
 
-        EditText birthDateField = (EditText) findViewById(R.id.birthDateField);
+        EditText birthDateField = (EditText) findViewById(R.id.dateField);
         String birthDate = birthDateField.getText().toString();
 
         try {
@@ -100,15 +100,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     usernameField.requestFocus();
                     usernameField.setError(message);
                     break;
+
+                case User.PASSWORD_CANT_BE_EMPTY_PASSWORD:
+                case User.PASSWORD_CANT_BE_LESS_THAN_6:
+                    passwordField.requestFocus();
+                    passwordField.setError(message);
+                    break;
+
             }
         }
 
         //String userName = username.getText().toString();
 
-        //UserDAO userDao = new UserDAO(MainActivity.this);
+        //UserDAO userDao = new UserDAO(MainActivity2.this);
 
         //String result = userDao.save(userName);
 
-        //Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity2.this, result, Toast.LENGTH_LONG).show();
     }
  }

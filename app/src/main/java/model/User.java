@@ -17,13 +17,16 @@ public class User {
     public static final String NAME_CANT_BE_HIGHER_THAN_200 = "Hey, acho que você ultrapassou o número de caracteres permitido para o nome, tente novamente.";
     public static final String EMAIL_CANT_BE_EMPTY_EMAIL = "Hey, acho que você está esquecendo de nos dizer seu email.";
     public static final String EMAIL_CANT_BE_HIGHER_THAN_150 = "Hey, acho que você ultrapassou o número de caracteres permitido para email, tente novamente.";
+    public static final String INVALID_EMAIL = "Ops, acho que você não nos informou um email.";
     public static final String USERNAME_CANT_BE_EMPTY_USERNAME = "Hey, acho que você está esquecendo de nos dizer seu login.";
     public static final String USERNAME_CANT_BE_HIGHER_THAN_100 = "Hey, acho que você ultrapassou o número de caracteres permitido para o login, tente novamente.";
-    public static final String INVALID_EMAIL = "Ops, acho que você não nos informou um email.";
+    public static final String PASSWORD_CANT_BE_EMPTY_PASSWORD = "Hey, acho que você está esquecendo de nos dizer sua senha.";
+    public static final String PASSWORD_CANT_BE_LESS_THAN_6 = "Hey, acho que vocẽ não atingiu o número mínimo de caracteres.";
 
     private static final int MAX_LENGTH_NAME = 200;
     private static final int MAX_LENGTH_EMAIL = 150;
     private static final int MAX_LENGTH_USERNAME = 100;
+    private static final int MIN_LENGTH_PASSWORD = 6;
 
     private int idUser;
     private String name;
@@ -104,6 +107,21 @@ public class User {
 
     }
 
+    private  void  setPassword (String password) throws UserException{
+
+        if (!isPasswordEmpty(password)) {
+            if(password.length() >= MIN_LENGTH_PASSWORD){
+                this.password = password;
+            }
+            else{
+                throw  new UserException(PASSWORD_CANT_BE_LESS_THAN_6);
+            }
+        }else{
+            throw  new UserException(PASSWORD_CANT_BE_EMPTY_PASSWORD);
+        }
+
+    }
+
     private boolean isNameEmpty(String name){
         boolean isEmpty = false;
         if (TextUtils.isEmpty(name)) {
@@ -128,22 +146,14 @@ public class User {
         return isEmpty;
     }
 
-
-
-
-
-    private void setPassword(String password){
-        try{
-            if(password.length()>=8) {
-                this.password = password;
-            }else{
-                Log.d(password, "A senha deve conter no minimo 8 caracteres");
-            }
-        }catch (NullPointerException e){
-            Log.d(password, "O campo senha e obrigatório");
+    private boolean isPasswordEmpty(String password){
+        boolean isEmpty = false;
+        if (TextUtils.isEmpty(password)) {
+            isEmpty = true;
         }
-
+        return isEmpty;
     }
+
 
     private void setBirthDate(String birthDate){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
