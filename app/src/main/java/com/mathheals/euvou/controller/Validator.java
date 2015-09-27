@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
  * Created by julliana on 21/09/15.
  */
 public class Validator {
+
     public static boolean hasPasswordSizeValid(String password) {
         boolean isValid = true;
 
