@@ -23,7 +23,7 @@ if($_POST){
 
         $queryResult = $database->query($query);
         $result["result"] = $queryResult;
-        $response = json_encode($result);
+        $response = json_encode($result,JSON_FORCE_OBJECT);
         $database->disconnect();
     }else{
         $response = json_encode(array("Erro" => 0));
