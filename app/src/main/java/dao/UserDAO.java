@@ -19,6 +19,10 @@ public class UserDAO extends DAO{
                 " STR_TO_DATE(\"" + user.getBirthDate() + "\",'%d/%m/%Y'),\"" + user.getEmail() + "\")");
     }
 
+    public String searchUserById(int idUser){
+        return this.executeConsult("SELECT * from vw_user WHERE idUser=1").toString();
+    }
+
     public void update(User user){
         this.executeQuery("UPDATE tb_user SET nameUser=\""+user.getName()+"\", birthDate=\""+user.getBirthDate()+"\", " +
         "email=\""+user.getEmail()+"\" WHERE idUser=\""+user.getIdUser()+"\"");

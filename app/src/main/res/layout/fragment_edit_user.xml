@@ -51,8 +51,7 @@
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/dateLabel"
         android:layout_alignRight="@+id/nameField"
-        android:layout_alignEnd="@+id/nameField"
-        android:text="@string/birthday" />
+        android:layout_alignEnd="@+id/nameField" />
 
     <TextView
         android:layout_width="wrap_content"
