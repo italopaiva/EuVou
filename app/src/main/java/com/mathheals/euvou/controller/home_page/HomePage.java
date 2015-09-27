@@ -1,5 +1,7 @@
 package com.mathheals.euvou.controller.home_page;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -11,12 +13,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.mathheals.euvou.R;
@@ -46,7 +50,6 @@ public class HomePage extends ActionBarActivity {
         if (currentFragment == null) {
             replaceFirstFrag();
         }
-
     }
 
     private void initViews(){
@@ -80,7 +83,7 @@ public class HomePage extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#008B8B")));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00C0C3")));
 
     }
 
@@ -88,7 +91,12 @@ public class HomePage extends ActionBarActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home_page, menu);
 
-        return super.onCreateOptionsMenu(menu);
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
+        search.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        return true;
     }
 
     public void onConfigurationChanged(Configuration newConfig) {

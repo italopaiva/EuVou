@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.mathheals.euvou.controller.home_page.HomePage">
 
-    <item android:id="@+id/action_search"
+    <item android:id="@+id/search"
         android:icon="@drawable/ic_action_search"
         android:title="Pesquisa"
         app:showAsAction="always"
-        android:actionViewClass="android.widget.SearchView"/>
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
 
     <item android:id="@+id/visualize_profile"
         android:title="Perfil"
