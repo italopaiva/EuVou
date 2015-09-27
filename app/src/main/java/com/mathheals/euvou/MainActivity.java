@@ -7,8 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.text.ParseException;
+import android.widget.Toast;
 
 import dao.UserDAO;
 import exception.UserException;
@@ -54,74 +53,109 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
-    public void onClick(View v) {
+public void onClick(View v) {
 
-        EditText usernameField = (EditText) findViewById(R.id.loginField);
-        String username = usernameField.getText().toString();
 
-        EditText nameField = (EditText) findViewById(R.id.nameField);
-        String name = nameField.getText().toString();
 
-        EditText passwordField = (EditText) findViewById(R.id.passwordField);
-        String password = passwordField.getText().toString();
+    EditText usernameField = (EditText) findViewById(R.id.loginField);
+    String username = usernameField.getText().toString();
 
-        EditText passwordcConfirmField = (EditText) findViewById(R.id.passwordConfirmField);
-        String passwordcConfirm = passwordField.getText().toString();
+    EditText nameField = (EditText) findViewById(R.id.nameField);
+    String name = nameField.getText().toString();
 
-        EditText mailField = (EditText) findViewById(R.id.mailField);
-        String mail = mailField.getText().toString();
+    EditText passwordField = (EditText) findViewById(R.id.passwordField);
+    String password = passwordField.getText().toString();
 
-        EditText mailConfirmField = (EditText) findViewById(R.id.mailConfirmField);
-        String mailConfirm = mailField.getText().toString();
+    EditText passwordcConfirmField = (EditText) findViewById(R.id. passwordConfirmField);
+    String passwordcConfirm = passwordField.getText().toString();
 
-        EditText birthDateField = (EditText) findViewById(R.id.dateField);
-        String birthDate = birthDateField.getText().toString();
+    EditText mailField = (EditText) findViewById(R.id.mailField);
+    String mail = mailField.getText().toString();
 
-        try {
-            User user = new User(name, username, mail, password, birthDate) ;
-            //registerUser(user);
-        } catch (UserException e) {
-            String message = e.getMessage();
+    EditText mailConfirmField = (EditText) findViewById(R.id.mailConfirmField);
+    String mailConfirm = mailField.getText().toString();
 
-            switch (message) {
-                case User.NAME_CANT_BE_EMPTY_NAME:
-                case User.NAME_CANT_BE_HIGHER_THAN_200:
-                    nameField.requestFocus();
-                    nameField.setError(message);
-                    break;
+    EditText birthDateField = (EditText) findViewById(R.id.dateField);
+    String birthDate = birthDateField.getText().toString();
 
-                case User.EMAIL_CANT_BE_EMPTY_EMAIL:
-                case User.EMAIL_CANT_BE_HIGHER_THAN_150:
-                case User.INVALID_EMAIL:
-                    mailField.requestFocus();
-                    mailField.setError(message);
-                    break;
+    try {
+        User user = new User(name, username, mail, password, birthDate);
 
-                case User.USERNAME_CANT_BE_EMPTY_USERNAME:
-                case User.USERNAME_CANT_BE_HIGHER_THAN_100:
-                    usernameField.requestFocus();
-                    usernameField.setError(message);
-                    break;
+        //registerUser(user)
+    } catch (Exception e) {
+        String message = e.getMessage();
 
-                case User.PASSWORD_CANT_BE_EMPTY_PASSWORD:
-                case User.PASSWORD_CANT_BE_LESS_THAN_6:
-                    passwordField.requestFocus();
-                    passwordField.setError(message);
-                    break;
 
-                case User.BIRTH_DATE_CANT_BE_EMPTY_BIRTH_DATE:
-                    birthDateField.requestFocus();
-                    birthDateField.setError(message);
-                    break;
-            }
-        }
 
-        //String userName = username.getText().toString();
-
-        //UserDAO userDao = new UserDAO(MainActivity2.this);
-
-        //String result = userDao.save(userName);
-
-        //Toast.makeText(MainActivity2.this, result, Toast.LENGTH_LONG).show();
+    //throw new IllegalStateException("Object not initialised");
+    if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
+        nameField.requestFocus();
+        nameField.setError(message);
     }
- }
+
+    if(message.compareTo(User.NAME_CANT_BE_HIGHER_THAN_200)==0 ){
+        nameField.requestFocus();
+        nameField.setError(message);
+    }
+
+
+    if(message.compareTo(User.EMAIL_CANT_BE_EMPTY_EMAIL)==0 ) {
+
+        mailField.requestFocus();
+        mailField.setError(message);
+    }
+
+    if(message.compareTo(User.EMAIL_CANT_BE_HIGHER_THAN_150)==0 ) {
+
+        mailField.requestFocus();
+        mailField.setError(message);
+    }
+
+    if(message.compareTo(User.INVALID_EMAIL)==0 ) {
+
+        mailField.requestFocus();
+        mailField.setError(message);
+    }
+
+    if ( message.compareTo(User.USERNAME_CANT_BE_EMPTY_USERNAME)==0 ){
+
+        usernameField.requestFocus();
+        usernameField.setError(message);
+    }
+
+    if ( message.compareTo(User.USERNAME_CANT_BE_HIGHER_THAN_100)==0 ){
+
+        usernameField.requestFocus();
+        usernameField.setError(message);
+    }
+
+    if(message.compareTo(User.PASSWORD_CANT_BE_EMPTY_PASSWORD)==0 ) {
+
+        passwordField.requestFocus();
+        passwordField.setError(message);
+    }
+
+    if(message.compareTo(User.PASSWORD_CANT_BE_LESS_THAN_6)==0 ) {
+
+        passwordField.requestFocus();
+        passwordField.setError(message);
+    }
+
+    if(message.compareTo(User.BIRTH_DATE_CANT_BE_EMPTY_BIRTH_DATE) == 0 ){
+        birthDateField.requestFocus();
+        birthDateField.setError(message);
+    }
+
+
+    }
+    }
+
+            //String userName = username.getText().toString();
+
+            //UserDAO userDao = new UserDAO(MainActivity2.this);
+
+            //String result = userDao.save(userName);
+
+            //Toast.makeText(MainActivity2.this, result, Toast.LENGTH_LONG).show();
+}
+

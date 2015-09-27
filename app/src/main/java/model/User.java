@@ -37,19 +37,21 @@ public class User {
     private String password;
     private String birthDate;
 
-    public User(int idUser, String name, String birthDate, String email) throws UserException, ParseException {
+    public User(int idUser, String name, String birthDate, String email) throws UserException {
         setName(name);
         setIdUser(idUser);
         setEmail(email);
         setBirthDate(birthDate);
     }
 
-    public User(String name, String username, String email, String password, String birthDate) throws UserException, ParseException {
+
+    public User(String name, String username, String email, String password, String birthDate) throws UserException{
         setName(name);
-        setUsername(username);
+        setIdUser(idUser);
         setEmail(email);
-        setPassword(password);
         setBirthDate(birthDate);
+        setUsername(username);
+        setPassword(password);
     }
 
     private void setIdUser(int idUser){
@@ -124,11 +126,11 @@ public class User {
 
     }
 
-    private void setBirthDate(String birthDate) throws UserException, ParseException {
+    private void setBirthDate(String birthDate) throws UserException {
         if(!isBirthDateEmpty(birthDate)){
             SimpleDateFormat FORMAT = new SimpleDateFormat("dd/MM/yyyy");
             FORMAT.setLenient(false);
-            FORMAT.parse(birthDate);
+            //FORMAT.parse(birthDate);
         }else{
             throw new UserException(BIRTH_DATE_CANT_BE_EMPTY_BIRTH_DATE);
         }
@@ -173,9 +175,6 @@ public class User {
         }
         return isEmpty;
     }
-
-
-
 
     public int getIdUser(){
         return idUser;

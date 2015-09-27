@@ -72,7 +72,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
             user = new User(idUser, name, birthDate, mail);
         } catch (UserException e) {
             e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         updateUser(user);
