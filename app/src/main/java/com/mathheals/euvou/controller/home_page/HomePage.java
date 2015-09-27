@@ -22,9 +22,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mathheals.euvou.R;
-import com.mathheals.euvou.controller.edit_user.UpdateActivity;
+import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 
 public class HomePage extends ActionBarActivity {
@@ -95,7 +96,7 @@ public class HomePage extends ActionBarActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
         search.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
+        search.setQueryHint("Buscar locais e usuário");
         return true;
     }
 
@@ -126,10 +127,9 @@ public class HomePage extends ActionBarActivity {
         switch(item.getItemId()) {
             case R.id.edit_register:
                 // Put here code for "Alterar Cadastro"
-
-                Intent i = new Intent(this, UpdateActivity.class);
-                //startActivityForResult(i, 1);
-                startActivity(i);
+                fragmentTransaction.replace(R.id.content_frame, new EditUserFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
                 return true;
             case R.id.settings:
                 fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment());
@@ -172,5 +172,14 @@ public class HomePage extends ActionBarActivity {
         currentFragment.setArguments(args);
         replaceFragment(currentFragment);
 
+    }
+
+    // Alterar Usuário methods
+    public void editUserUpdateButtonOnClick(View view) {
+        final String SUCESS_EDIT_MESSAGE = "Dados alterados com sucesso :)";
+        Toast.makeText(getBaseContext(), SUCESS_EDIT_MESSAGE, Toast.LENGTH_LONG).show();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack();
+        return;
     }
 }
