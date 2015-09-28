@@ -13,6 +13,7 @@ import exception.UserException;
 
 public class User {
 
+    public static final String idIsInvalid = "Id inválido";
     public static final String NAME_CANT_BE_EMPTY_NAME = "Hey, acho que você está esquecendo de nos dizer seu nome.";
     public static final String NAME_CANT_BE_HIGHER_THAN_200 = "Hey, acho que você ultrapassou o número de caracteres permitido para o nome, tente novamente.";
     public static final String EMAIL_CANT_BE_EMPTY_EMAIL = "Hey, acho que você está esquecendo de nos dizer seu email.";
@@ -53,8 +54,20 @@ public class User {
         setPassword(password);
     }
 
-    private void setIdUser(int idUser){
+    private void setIdUser(int idUser) throws UserException {
         this.idUser = idUser;
+
+        if(idUser <= Integer.MAX_VALUE ){
+            this.idUser =idUser;
+        }else {
+            throw new UserException(idIsInvalid);
+        }
+
+        if(idUser >= 1 ){
+            this.idUser =idUser;
+        }else {
+            throw new UserException(idIsInvalid);
+        }
     }
 
     private void setName(String name) throws UserException {
@@ -174,6 +187,7 @@ public class User {
         }
         return isEmpty;
     }
+
 
     public int getIdUser(){
         return idUser;
