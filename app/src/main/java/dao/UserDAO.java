@@ -31,5 +31,8 @@ public class UserDAO extends DAO{
     public void delete(int idUser){
         this.executeQuery("UPDATE tb_user SET isActivity=\"N\" WHERE idUser=" +idUser+ "");
     }
-
+    public void searchUserByName(String searchNameUser)
+    {
+        this.executeConsult("Select * from vw_user where nameUser = searchNameUser");
+    }
 }
