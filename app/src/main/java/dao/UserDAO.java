@@ -2,6 +2,8 @@ package dao;
 
 import android.app.Activity;
 
+import org.json.JSONObject;
+
 import model.User;
 
 /**
@@ -20,8 +22,9 @@ public class UserDAO extends DAO{
     }
 
     public String searchUserById(int idUser){
-        return this.executeConsult("SELECT * from vw_user WHERE idUser=1").toString();
+        return this.executeConsult("SELECT * from vw_user WHERE idUser="+idUser+"").toString();
     }
+
 
     public void update(User user){
         this.executeQuery("UPDATE tb_user SET nameUser=\""+user.getName()+"\", birthDate=\""+user.getBirthDate()+"\", " +
@@ -31,8 +34,9 @@ public class UserDAO extends DAO{
     public void delete(int idUser){
         this.executeQuery("UPDATE tb_user SET isActivity=\"N\" WHERE idUser=" +idUser+ "");
     }
-    public void searchUserByName(String searchNameUser)
+
+    public JSONObject searchUserByName(String username)
     {
-        this.executeConsult("Select * from vw_user where nameUser = searchNameUser");
+        return this.executeConsult("Select * from vw_user where nameUser = "+username+"");
     }
 }
