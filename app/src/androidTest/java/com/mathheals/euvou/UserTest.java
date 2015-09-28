@@ -49,6 +49,29 @@ public class UserTest extends TestCase{
 
     }
 
+    public void testIfInstantiateWithValidIdMaxMenosUm(){
+
+        try {
+            user = new User(Integer.MAX_VALUE-1,"maria","11/11/2015","maria@euvou.com");
+
+            assertEquals(Integer.MAX_VALUE-1, user.getIdUser());
+        } catch (UserException e) {
+            fail();
+        }
+
+    }
+
+    public void testIfInstantiateWithValidIdMax(){
+
+        try {
+            user = new User(Integer.MAX_VALUE,"maria","11/11/2015","maria@euvou.com");
+
+            assertEquals(Integer.MAX_VALUE, user.getIdUser());
+        } catch (UserException e) {
+            fail();
+        }
+
+    }
     /*Tests invalid entries for id */
 
     public void testIfInstantiateWithInvalidId0() {
