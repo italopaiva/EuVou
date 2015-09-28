@@ -47,7 +47,6 @@ public class User {
 
     public User(String name, String username, String email, String password, String birthDate) throws UserException{
         setName(name);
-        setIdUser(idUser);
         setEmail(email);
         setBirthDate(birthDate);
         setUsername(username);
