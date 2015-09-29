@@ -1,5 +1,8 @@
 package model;
 import android.util.Patterns;
+
+import com.mathheals.euvou.controller.login_user.LoginValidation;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import exception.UserException;
@@ -20,6 +23,7 @@ public class User {
     public static final String EMAIL_ARE_NOT_EQUALS = "Ops, E-mails não conferem.";
     public static final String PASSWORD_ARE_NOT_EQUALS = "Ops, as senhas não conferem.";
     public static final String INVALID_BIRTH_DATE = "Ops, essa data é inválida";
+    public static final String USERNAME_EXISTENT = "Ops, esse login já existe";
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_EMAIL = 150;
     private static final int MAX_LENGTH_USERNAME = 100;
@@ -128,15 +132,21 @@ public class User {
 
         if (!username.isEmpty()) {
             if(username.length() <= MAX_LENGTH_USERNAME){
-                this.username = username;
+                LoginValidation loginValidation = new LoginValidation();
+                if(!loginValidation.isUsernameRegistred(username)){
+                    this.username = username;
+                }
+                else{
+                    throw new UserException(USERNAME_EXISTENT);
+                }
             }
             else{
                 throw  new UserException(USERNAME_CANT_BE_HIGHER_THAN_100);
             }
-        }else{
+        }
+        else{
             throw  new UserException(USERNAME_CANT_BE_EMPTY_USERNAME);
         }
-
     }
 
     private  void  setPassword (String password) throws UserException{
