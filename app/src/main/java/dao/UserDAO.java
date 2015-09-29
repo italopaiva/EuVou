@@ -11,9 +11,7 @@ import model.User;
  */
 public class UserDAO extends DAO{
 
-    public UserDAO(Activity activity){
-        super(activity);
-    }
+    public UserDAO(){}
 
     public void save(User user) {
         this.executeQuery("INSERT INTO tb_user(nameUser, login,passwordUser,birthDate, email)VALUES" +
@@ -35,7 +33,7 @@ public class UserDAO extends DAO{
         this.executeQuery("UPDATE tb_user SET isActivity=\"N\" WHERE idUser=" +idUser+ "");
     }
 
-    public JSONObject searchUserByName(String username)
+    public JSONObject searchUserByUsername(String username)
     {
         return this.executeConsult("SELECT * from vw_user WHERE login=\""+username+"\"");
     }

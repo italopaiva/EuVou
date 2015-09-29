@@ -39,7 +39,7 @@ public class EditUserFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_user, container, false);
 
-        UserDAO userDAO = new UserDAO(this.getActivity());
+        UserDAO userDAO = new UserDAO();
 
         EditText nameField = (EditText) view.findViewById(R.id.nameField);
         EditText dateField = (EditText) view.findViewById(R.id.dateField);

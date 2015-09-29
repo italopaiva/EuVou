@@ -53,7 +53,7 @@ public class SearchUser extends ActionBarActivity implements View.OnClickListene
     public String searchUser (String nameUser)
     {
         UserDAO userDAO = new UserDAO(SearchUser.this);
-        String userData = userDAO.searchUserByName(nameUser);
+        String userData = userDAO.searchUserByUsername(nameUser);
         JSONObject json = null;
 
         try {
@@ -80,7 +80,7 @@ public class SearchUser extends ActionBarActivity implements View.OnClickListene
 
 
 
-        return userDAO.searchUserByName(nameUser);
+        return userDAO.searchUserByUsername(nameUser);
     }*/
     @Override
     public void onClick(View v) {

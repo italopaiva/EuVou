@@ -17,11 +17,6 @@ public abstract class DAO {
     private final String urlConsult = "http://euvou.esy.es/consult.php";
     protected Activity activity;
 
-    public DAO(Activity activity){
-
-        setCurrentActivity(activity);
-    }
-
     protected String executeQuery(String query){
         Consult consult = new Consult(query,urlQuery);
         consult.exec();
@@ -47,13 +42,4 @@ public abstract class DAO {
         return jObject;
     }
 
-    private void setCurrentActivity(Activity activity){
-
-        this.activity = activity;
-    }
-
-    private Activity currentActivity(){
-
-        return this.activity;
-    }
 }

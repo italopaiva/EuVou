@@ -1,7 +1,5 @@
 package com.mathheals.euvou.controller;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mathheals.euvou.R;
-import com.mathheals.euvou.SearchUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,8 +27,8 @@ public class ShowUser extends Fragment {
                              Bundle savedInstanceState ,String nameUser) {
 
         View view = inflater.inflate(R.layout.show_user, container, false);
-        UserDAO userDAO = new UserDAO(this.getActivity());
-        JSONObject userData = userDAO.searchUserByName(nameUser);
+        UserDAO userDAO = new UserDAO();
+        JSONObject userData = userDAO.searchUserByUsername(nameUser);
         JSONObject json = null;
 
         json = new JSONObject((Map) userData);

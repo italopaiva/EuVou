@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.home_page.HomePage;
@@ -20,6 +19,10 @@ import org.json.JSONObject;
 import dao.UserDAO;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    private boolean isUsernameValid;
+    private boolean isPasswordValid;
+    private final String JSON_FORMAT = "0";
+    private final String ID_USER = "idUser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,46 +55,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return super.onOptionsItemSelected(item);
     }
 
-    public void verifyLogin(String typedUsername, String typedPassword) {
-        UserDAO userDAO = new UserDAO(LoginActivity.this);
-
-        JSONObject json = userDAO.searchUserByName(typedUsername);
-
-        SharedPreferences prefId;
-        prefId = getSharedPreferences("idUser", MODE_PRIVATE);
-
-        SharedPreferences prefUsername;
-        prefUsername = getSharedPreferences("isUsernameValid", MODE_PRIVATE);
-
-        SharedPreferences.Editor editorId = prefId.edit();
-        SharedPreferences.Editor editorUsername = prefUsername.edit();
-
-        if(json!=null){
-            editorUsername.putInt("isUsernameValid", 1);
-            editorUsername.commit();
-
-            try {
-                String password = json.getJSONObject("0").getString("passwordUser");
-
-                if(password.equals(typedPassword)){
-                    int idUser=Integer.parseInt(json.getJSONObject("0").getString("idUser"));
-
-                    editorId.putInt("idUser", idUser);
-                    editorId.commit();
-                }else{
-                    editorId.putInt("idUser", -1);
-                    editorId.commit();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }else{
-            editorUsername.putInt("isUsernameValid", -1);
-            editorUsername.commit();
-        }
-
-    }
-
     @Override
     public void onClick(View v) {
         EditText usernameField = (EditText) findViewById(R.id.usernameField);
@@ -100,28 +63,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         EditText passwordField = (EditText) findViewById(R.id.passwordField);
         String typedPassword = passwordField.getText().toString();
 
-        verifyLogin(typedUsername, typedPassword);
+        LoginValidation loginValidation = new LoginValidation(LoginActivity.this);
 
-        SharedPreferences sharedUsername;
-        SharedPreferences sharedId;
+        isUsernameValid=loginValidation.isUsernameValid(typedUsername);
 
-        sharedUsername = getSharedPreferences("isUsernameValid", MODE_PRIVATE);
-        int isUsernameValid = sharedUsername.getInt("isUsernameValid", -1);
-
-        sharedId = getSharedPreferences("idUser", MODE_PRIVATE);
-        int idUser = sharedId.getInt("idUser", -1);
-
-        if(isUsernameValid==-1){
+        if(isUsernameValid==false){
             usernameField.requestFocus();
-            usernameField.setError("Ops, acho que você digitou o login errado");
+            usernameField.setError(loginValidation.getInvalidUsernameMessage());
         }else{
-            if(idUser==-1){
+            isPasswordValid=loginValidation.checkPassword(typedUsername, typedPassword);
+
+            if(isPasswordValid==false){
                 passwordField.requestFocus();
-                passwordField.setError("Ops, acho que você digitou a senha errada");
-            }else{
-                Intent i = new Intent(this, HomePage.class);
-                startActivityForResult(i, 1);
+                passwordField.setError(loginValidation.getInvalidPasswordMessage());
             }
         }
+
+        SharedPreferences pref;
+        pref = getSharedPreferences("idUser", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = pref.edit();
+
+        if(isUsernameValid && isPasswordValid){
+            UserDAO userDAO = new UserDAO();
+            JSONObject json = userDAO.searchUserByUsername(typedUsername);
+
+            try {
+                int idUser = json.getJSONObject(JSON_FORMAT).getInt(ID_USER);
+
+                editor.putInt("idUser", idUser);
+                editor.commit();
+
+                Intent i = new Intent(this, HomePage.class);
+                startActivityForResult(i, 1);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
     }
 }
