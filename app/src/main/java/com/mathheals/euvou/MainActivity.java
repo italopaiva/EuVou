@@ -20,7 +20,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_user);
-        Button register = (Button)findViewById(R.id.saveButton);
+        Button register = (Button) findViewById(R.id.saveButton);
 
         //register listeners
         register.setOnClickListener(this);
@@ -48,116 +48,116 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    private void registerUser(User user){
+    private void registerUser(User user) {
 
         UserDAO userDAO = new UserDAO(MainActivity.this);
         userDAO.save(user);
 
     }
 
-public void onClick(View v) {
+    public void onClick(View v) {
+
+        EditText usernameField = (EditText) findViewById(R.id.loginField);
+        String username = usernameField.getText().toString();
+
+        EditText nameField = (EditText) findViewById(R.id.nameField);
+        String name = nameField.getText().toString();
+
+        EditText passwordField = (EditText) findViewById(R.id.passwordField);
+        String password = passwordField.getText().toString();
+
+        EditText passwordConfirmField = (EditText) findViewById(R.id.passwordConfirmField);
+        String passwordConfirm = passwordField.getText().toString();
+
+        EditText mailField = (EditText) findViewById(R.id.mailField);
+        String mail = mailField.getText().toString();
+
+        EditText mailConfirmField = (EditText) findViewById(R.id.mailConfirmField);
+        String mailConfirm = mailField.getText().toString();
+
+        EditText birthDateField = (EditText) findViewById(R.id.dateField);
+        String birthDate = birthDateField.getText().toString();
+
+        try {
+            User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);
 
 
+            //registerUser(user)
+        } catch (Exception e) {
+            String message = e.getMessage();
 
-    EditText usernameField = (EditText) findViewById(R.id.loginField);
-    String username = usernameField.getText().toString();
+            //throw new IllegalStateException("Object not initialised");
+            if (message.equals(User.NAME_CANT_BE_EMPTY_NAME)) {
+                nameField.requestFocus();
+                nameField.setError(message);
+            }
 
-    EditText nameField = (EditText) findViewById(R.id.nameField);
-    String name = nameField.getText().toString();
-
-    EditText passwordField = (EditText) findViewById(R.id.passwordField);
-    String password = passwordField.getText().toString();
-
-    EditText passwordcConfirmField = (EditText) findViewById(R.id. passwordConfirmField);
-    String passwordcConfirm = passwordField.getText().toString();
-
-    EditText mailField = (EditText) findViewById(R.id.mailField);
-    String mail = mailField.getText().toString();
-
-    EditText mailConfirmField = (EditText) findViewById(R.id.mailConfirmField);
-    String mailConfirm = mailField.getText().toString();
-
-    EditText birthDateField = (EditText) findViewById(R.id.dateField);
-    String birthDate = birthDateField.getText().toString();
-
-    try {
-        User user = new User(name, username, mail, password, birthDate);
-
-        //registerUser(user)
-    } catch (Exception e) {
-        String message = e.getMessage();
+            if (message.equals(User.NAME_CANT_BE_HIGHER_THAN_50)) {
+                nameField.requestFocus();
+                nameField.setError(message);
+            }
 
 
+            if (message.equals(User.EMAIL_CANT_BE_EMPTY_EMAIL)) {
 
-    //throw new IllegalStateException("Object not initialised");
-    if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
-        nameField.requestFocus();
-        nameField.setError(message);
+                mailField.requestFocus();
+                mailField.setError(message);
+            }
+
+            if (message.equals(User.EMAIL_CANT_BE_HIGHER_THAN_150)) {
+
+                mailField.requestFocus();
+                mailField.setError(message);
+            }
+
+            if (message.equals(User.INVALID_EMAIL)) {
+
+                mailField.requestFocus();
+                mailField.setError(message);
+            }
+
+            if (message.equals(User.USERNAME_CANT_BE_EMPTY_USERNAME)) {
+
+                usernameField.requestFocus();
+                usernameField.setError(message);
+            }
+
+            if (message.equals(User.USERNAME_CANT_BE_HIGHER_THAN_100)) {
+
+                usernameField.requestFocus();
+                usernameField.setError(message);
+            }
+
+            if (message.equals(User.PASSWORD_CANT_BE_EMPTY_PASSWORD)) {
+
+                passwordField.requestFocus();
+                passwordField.setError(message);
+            }
+
+            if (message.equals(User.PASSWORD_CANT_BE_LESS_THAN_6)) {
+
+                passwordField.requestFocus();
+                passwordField.setError(message);
+            }
+
+            if (message.equals(User.BIRTH_DATE_CANT_BE_EMPTY)) {
+                birthDateField.requestFocus();
+                birthDateField.setError(message);
+            }
+
+            if (message.equals(User.INVALID_BIRTH_DATE)) {
+                birthDateField.requestFocus();
+                birthDateField.setError(message);
+            }
+        }
+
+        //String userName = username.getText().toString();
+
+        //UserDAO userDao = new UserDAO(MainActivity2.this);
+
+        //String result = userDao.save(userName);
+
+        //Toast.makeText(MainActivity2.this, result, Toast.LENGTH_LONG).show();
     }
-
-    if(message.compareTo(User.NAME_CANT_BE_HIGHER_THAN_200)==0 ){
-        nameField.requestFocus();
-        nameField.setError(message);
-    }
-
-
-    if(message.compareTo(User.EMAIL_CANT_BE_EMPTY_EMAIL)==0 ) {
-
-        mailField.requestFocus();
-        mailField.setError(message);
-    }
-
-    if(message.compareTo(User.EMAIL_CANT_BE_HIGHER_THAN_150)==0 ) {
-
-        mailField.requestFocus();
-        mailField.setError(message);
-    }
-
-    if(message.compareTo(User.INVALID_EMAIL)==0 ) {
-
-        mailField.requestFocus();
-        mailField.setError(message);
-    }
-
-    if ( message.compareTo(User.USERNAME_CANT_BE_EMPTY_USERNAME)==0 ){
-
-        usernameField.requestFocus();
-        usernameField.setError(message);
-    }
-
-    if ( message.compareTo(User.USERNAME_CANT_BE_HIGHER_THAN_100)==0 ){
-
-        usernameField.requestFocus();
-        usernameField.setError(message);
-    }
-
-    if(message.compareTo(User.PASSWORD_CANT_BE_EMPTY_PASSWORD)==0 ) {
-
-        passwordField.requestFocus();
-        passwordField.setError(message);
-    }
-
-    if(message.compareTo(User.PASSWORD_CANT_BE_LESS_THAN_6)==0 ) {
-
-        passwordField.requestFocus();
-        passwordField.setError(message);
-    }
-
-    if(message.compareTo(User.BIRTH_DATE_CANT_BE_EMPTY_BIRTH_DATE) == 0 ){
-        birthDateField.requestFocus();
-        birthDateField.setError(message);
-    }
-
-
-    }
-    }
-
-            //String userName = username.getText().toString();
-
-            //UserDAO userDao = new UserDAO(MainActivity2.this);
-
-            //String result = userDao.save(userName);
-
-            //Toast.makeText(MainActivity2.this, result, Toast.LENGTH_LONG).show();
 }
 
