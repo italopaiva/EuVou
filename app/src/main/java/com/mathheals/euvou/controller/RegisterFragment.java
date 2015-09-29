@@ -14,8 +14,7 @@ import com.mathheals.euvou.R;
  */
 public class RegisterFragment extends Fragment {
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.register_user, container, false);
     }
 

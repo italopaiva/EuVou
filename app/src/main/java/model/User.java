@@ -33,6 +33,8 @@ public class User {
     private String password;
     private String birthDate;
     private String confirmationPassword;
+    private String mailConfirmation;
+    private String passwordConfirmation;
 
     public User(int idUser, String name, String birthDate, String email) throws UserException, ParseException {
         setName(name);
@@ -43,9 +45,7 @@ public class User {
         setEmail(email);
     }
 
-
     public User(String name, String username, String email, String password,String birthDate) throws UserException, ParseException {
-
 
         setName(name);
         setEmail(email);
@@ -53,8 +53,19 @@ public class User {
         setEmail(email);
         setUsername(username);
         setPassword(password);
-        setConfirmationPassword(confirmationPassword);
+        setPasswordConfirmation(confirmationPassword);
     }
+
+    public User(String name, String username, String email, String mailConfirmation, String password, String passwordConfirmation, String birthDate) throws UserException, ParseException {
+        setName(name);
+        setBirthDate(birthDate);
+        setEmail(email);
+        setMailConfirmation(mailConfirmation);
+        setUsername(username);
+        setPassword(password);
+        setPasswordConfirmation(passwordConfirmation);
+    }
+
 
     private void setIdUser(int idUser) throws UserException {
         this.idUser = idUser;
@@ -108,6 +119,15 @@ public class User {
         }
     }
 
+    private void setMailConfirmation(String confirmationMail) throws UserException{
+        if (email.equals(confirmationMail)) {
+            this.mailConfirmation = confirmationMail;
+        }
+        else{
+            throw new UserException(EMAIL_ARE_NOT_EQUALS);
+        }
+    }
+
     private  void  setUsername (String username) throws UserException{
 
         if (!username.isEmpty()) {
@@ -139,16 +159,17 @@ public class User {
 
     }
 
-    private void setConfirmationPassword(String confirmationPassword) throws UserException {
+    private void setPasswordConfirmation (String confirmationPassword) throws UserException {
         if(password.equals(confirmationPassword)){
-            this.confirmationPassword = confirmationPassword;
+            this.passwordConfirmation = confirmationPassword;
+
         }
         else{
             throw new UserException(PASSWORD_ARE_NOT_EQUALS);
         }
     }
 
-    private void setBirthDate(String birthDate) throws UserException, ParseException {
+    private void setBirthDate (String birthDate) throws UserException, ParseException {
         if(!birthDate.isEmpty()){
             try {
                 SimpleDateFormat FORMAT = new SimpleDateFormat("dd/MM/yyyy");
@@ -164,9 +185,6 @@ public class User {
             throw new UserException(BIRTH_DATE_CANT_BE_EMPTY);
         }
     }
-
-
-
 
     public int getIdUser(){
         return idUser;

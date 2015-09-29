@@ -22,25 +22,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.register_user);
         Button register = (Button) findViewById(R.id.saveButton);
 
-        //register listeners
         register.setOnClickListener(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -79,15 +74,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         String birthDate = birthDateField.getText().toString();
 
         try {
+            User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);
 
-            User user = new User(name, username, mail, password, birthDate);
-
-
-            //registerUser(user)
         } catch (Exception e) {
             String message = e.getMessage();
 
-            //throw new IllegalStateException("Object not initialised");
             if (message.equals(User.NAME_CANT_BE_EMPTY_NAME)) {
                 nameField.requestFocus();
                 nameField.setError(message);
@@ -98,24 +89,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 nameField.setError(message);
             }
 
-
             if (message.equals(User.EMAIL_CANT_BE_EMPTY_EMAIL)) {
-
                 mailField.requestFocus();
                 mailField.setError(message);
             }
-
 
     //throw new IllegalStateException("Object not initialised");
     if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
         nameField.requestFocus();
         nameField.setError(message);
     }
+            if(message.equals(User.NAME_CANT_BE_EMPTY_NAME)){
+                nameField.requestFocus();
+                nameField.setError(message);
+            }
 
-    if(message.compareTo(User.NAME_CANT_BE_HIGHER_THAN_50)==0 ){
-        nameField.requestFocus();
-        nameField.setError(message);
-    }
+            if(message.equals(User.NAME_CANT_BE_HIGHER_THAN_50)){
+                nameField.requestFocus();
+                nameField.setError(message);
+            }
 
             //throw new IllegalStateException("Object not initialised");
             if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
@@ -129,37 +121,41 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
 
             if (message.equals(User.EMAIL_CANT_BE_HIGHER_THAN_150)) {
-
                 mailField.requestFocus();
                 mailField.setError(message);
             }
 
             if (message.equals(User.INVALID_EMAIL)) {
+                mailField.requestFocus();
+                mailField.setError(message);
+            }
 
+            if(message.equals(User.EMAIL_ARE_NOT_EQUALS)){
                 mailField.requestFocus();
                 mailField.setError(message);
             }
 
             if (message.equals(User.USERNAME_CANT_BE_EMPTY_USERNAME)) {
-
                 usernameField.requestFocus();
                 usernameField.setError(message);
             }
 
             if (message.equals(User.USERNAME_CANT_BE_HIGHER_THAN_100)) {
-
                 usernameField.requestFocus();
                 usernameField.setError(message);
             }
 
             if (message.equals(User.PASSWORD_CANT_BE_EMPTY_PASSWORD)) {
-
                 passwordField.requestFocus();
                 passwordField.setError(message);
             }
 
             if (message.equals(User.PASSWORD_CANT_BE_LESS_THAN_6)) {
+                passwordField.requestFocus();
+                passwordField.setError(message);
+            }
 
+            if(message.equals(User.PASSWORD_ARE_NOT_EQUALS)){
                 passwordField.requestFocus();
                 passwordField.setError(message);
             }
