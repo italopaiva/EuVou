@@ -1,6 +1,7 @@
 package com.mathheals.euvou.controller.edit_user;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
@@ -23,7 +24,8 @@ import dao.UserDAO;
  * A simple {@link Fragment} subclass.
  */
 public class EditUserFragment extends Fragment {
-
+    private int USER_STATUS;
+    private final int LOGGED_OUT = -1;
 
     public EditUserFragment() {
         // Required empty public constructor
@@ -43,7 +45,10 @@ public class EditUserFragment extends Fragment {
         EditText dateField = (EditText) view.findViewById(R.id.dateField);
         EditText mailField = (EditText) view.findViewById(R.id.mailField);
 
-        String str = userDAO.searchUserById(1);
+        SharedPreferences sharedId = this.getActivity().getSharedPreferences("idUser", Context.MODE_PRIVATE);
+        USER_STATUS = sharedId.getInt("idUser", LOGGED_OUT);
+
+        String str = userDAO.searchUserById(USER_STATUS);
         JSONObject json = null;
         try {
             json = new JSONObject(str);
