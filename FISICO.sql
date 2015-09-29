@@ -1,17 +1,20 @@
+CREATE DATABASE db_MDS;
+use db_MDS;
+
 CREATE TABLE tb_locate (
-longitude INTEGER NOT NULL,
-latitude INTEGER NOT NULL,	
+longitude DECIMAL(8,6) NOT NULL,
+latitude DECIMAL(8,6) NOT NULL,	
 address VARCHAR(150) NOT NULL
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE tb_event (
 idEvent INTEGER NOT NULL,
 nameEvent VARCHAR(30) NOT NULL,
 dateTimeEvent DATETIME NOT NULL,
 description VARCHAR(500) NOT NULL,
-longitude INTEGER NOT NULL,
-latitude INTEGER NOT NULL
-);
+longitude DECIMAL(8,6) NOT NULL,
+latitude DECIMAL(8,6) NOT NULL
+)ENGINE = InnoDB;
 
 CREATE TABLE tb_user (
 idUser INTEGER NOT NULL,
@@ -29,33 +32,33 @@ namePlace VARCHAR(30) NOT NULL,
 phonePlace VARCHAR(20) NOT NULL,
 operation VARCHAR(200),
 description varchar(500) NOT NULL,
-longitude INTEGER NOT NULL,
-latitude INTEGER NOT NULL
-);
+longitude DECIMAL(8,6) NOT NULL,
+latitude DECIMAL(8,6) NOT NULL
+)ENGINE = InnoDB;
 
 CREATE TABLE evaluate_user (
 idUser INTEGER NOT NULL,
 idUserEvaluated INTEGER NOT NULL,
 grade FLOAT NOT NULL
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE participate (
 grade FLOAT NOT NULL,
 idEvent INTEGER NOT NULL,
 idUser INTEGER NOT NULL
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE evaluate_place (
 grade FLOAT NOT NULL,
 idUser INTEGER NOT NULL,
 idPlace INTEGER NOT NULL
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE tb_comment (
 idEvent INTEGER NOT NULL,
 idUser INTEGER NOT NULL,
 dsComment VARCHAR(500) NOT NULL
-);
+)ENGINE = InnoDB;
 
 /* PRIMARY KEY */
 
@@ -70,6 +73,12 @@ ALTER TABLE tb_user ADD CONSTRAINT pk_user_id_user
 
 ALTER TABLE tb_place ADD CONSTRAINT pk_place_id_place 
 	PRIMARY KEY(idPlace);
+
+/* INDEXES*/
+
+CREATE INDEX index_nameEvent ON tb_event(nameEvent(10));
+CREATE INDEX index_nameUser ON tb_user(nameUser(10));
+CREATE INDEX index_namePlace ON tb_place(namePlace(10));
 
 /* UNIQUE*/
 
