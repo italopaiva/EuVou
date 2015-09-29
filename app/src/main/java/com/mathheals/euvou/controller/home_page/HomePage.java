@@ -2,7 +2,6 @@ package com.mathheals.euvou.controller.home_page;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,6 +36,8 @@ public class HomePage extends ActionBarActivity {
     private DrawerItemClickListener listener;
     private Fragment currentFragment;
     public static final String OPTION = "option";
+    private int USER_STATUS;
+    private final int LOGGED_OUT = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,19 @@ public class HomePage extends ActionBarActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.home_page, menu);
+        USER_STATUS = LOGGED_OUT;
+
+        // Inflating menu for logged users
+        if(USER_STATUS != LOGGED_OUT) {
+            inflater.inflate(R.menu.home_page_logged_in, menu);
+        }
+        // Inflating menu for not logged users
+        else if(USER_STATUS == LOGGED_OUT) {
+            inflater.inflate(R.menu.home_page_logged_out, menu);
+        }
+        else {
+            return false;
+        }
 
         // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -120,10 +132,24 @@ public class HomePage extends ActionBarActivity {
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+        // Handle your other action bar items...
 
+        if(USER_STATUS != LOGGED_OUT) {
+            userLoggedInOptions(item);
+        }
+        else if(USER_STATUS == LOGGED_OUT) {
+            userLoggedOutOptions(item);
+        }
+        else {
+            return false;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public boolean userLoggedInOptions(MenuItem item) {
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        // Handle your other action bar items...
         switch(item.getItemId()) {
             case R.id.edit_register:
                 // Put here code for "Alterar Cadastro"
@@ -135,12 +161,17 @@ public class HomePage extends ActionBarActivity {
                 fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment());
                 fragmentTransaction.commit();
                 return true;
-            case R.id.visualize_profile:break;
-                //Put here code for "Visualizar Usuario"
-
+            case R.id.visualize_profile:
+                return true;
+            default:
+                return false;
+            //Put here code for "Visualizar Usuario"
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    public void userLoggedOutOptions(MenuItem item) {
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
     }
 
     private void onConfigListener(){
