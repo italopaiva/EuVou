@@ -349,6 +349,19 @@ public class UserTest extends TestCase {
         assertEquals("1234", user.getPassword());
     }
 
+    public void testIfInstantiateWithValidRandomPassword() {
+        int randomId = random.nextInt(6);
+        try {
+            user = new User(randomId, "maria", "11/11/2015", "maria@euvou.com");
+
+            assertEquals(randomId, user.getIdUser());
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
 
