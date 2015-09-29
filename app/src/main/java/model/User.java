@@ -11,6 +11,7 @@ import exception.UserException;
 
 public class User {
 
+    public static final String idIsInvalid = "Id inválido";
     public static final String NAME_CANT_BE_EMPTY_NAME = "Hey, acho que você está esquecendo de nos dizer seu nome.";
     public static final String NAME_CANT_BE_HIGHER_THAN_50 = "Hey, acho que você ultrapassou o número de caracteres permitido para o nome, tente novamente.";
     public static final String EMAIL_CANT_BE_EMPTY_EMAIL = "Hey, acho que você está esquecendo de nos dizer seu email.";
@@ -24,7 +25,6 @@ public class User {
     public static final String EMAIL_ARE_NOT_EQUALS = "Ops, E-mails não conferem.";
     public static final String PASSWORD_ARE_NOT_EQUALS = "Ops, as senhas não conferem.";
     public static final String INVALID_BIRTH_DATE = "Ops, essa data é inválida";
-
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_EMAIL = 150;
     private static final int MAX_LENGTH_USERNAME = 100;
@@ -49,14 +49,27 @@ public class User {
 
     public User(String name, String username, String email, String confirmationMail, String password, String confirmationPassword,String birthDate) throws UserException, ParseException {
         setName(name);
+        setEmail(email);
         setBirthDate(birthDate);
         setEmail(email);
         setUsername(username);
         setPassword(password);
     }
 
-    private void setIdUser(int idUser){
+    private void setIdUser(int idUser) throws UserException {
         this.idUser = idUser;
+
+        if(idUser <= Integer.MAX_VALUE ){
+            this.idUser =idUser;
+        }else {
+            throw new UserException(idIsInvalid);
+        }
+
+        if(idUser >= 1 ){
+            this.idUser =idUser;
+        }else {
+            throw new UserException(idIsInvalid);
+        }
     }
 
     private void setName(String name) throws UserException {
@@ -141,6 +154,7 @@ public class User {
             throw new UserException(BIRTH_DATE_CANT_BE_EMPTY);
         }
     }
+
 
 
     public int getIdUser(){
