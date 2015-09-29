@@ -18,7 +18,10 @@ if($_POST){
     if($connection){
 
         $queryResult = $database->query($query);
-        $result["result"] = $queryResult;
+        
+	while ($row = $queryResult->fetch_assoc())
+		$result[] = $row;
+	
         $response = json_encode($result,JSON_FORCE_OBJECT);
         $database->disconnect();
     }else{
