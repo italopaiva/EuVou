@@ -79,6 +79,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         String birthDate = birthDateField.getText().toString();
 
         try {
+
             User user = new User(name, username, mail, password, birthDate);
 
 
@@ -104,6 +105,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 mailField.setError(message);
             }
 
+
     //throw new IllegalStateException("Object not initialised");
     if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
         nameField.requestFocus();
@@ -114,6 +116,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
         nameField.requestFocus();
         nameField.setError(message);
     }
+
+            //throw new IllegalStateException("Object not initialised");
+            if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
+                nameField.requestFocus();
+                nameField.setError(message);
+            }
+
+            if(message.compareTo(User.NAME_CANT_BE_HIGHER_THAN_50)==0 ){
+                nameField.requestFocus();
+                nameField.setError(message);
+            }
 
             if (message.equals(User.EMAIL_CANT_BE_HIGHER_THAN_150)) {
 
@@ -149,6 +162,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 passwordField.requestFocus();
                 passwordField.setError(message);
+            }
+
+            if(message.equals(User.PASSWORD_ARE_NOT_EQUALS)){
+                passwordField.requestFocus();
+                passwordField.requestFocus();
             }
 
             if (message.equals(User.BIRTH_DATE_CANT_BE_EMPTY)) {

@@ -1,13 +1,8 @@
 package model;
-
 import android.util.Patterns;
-import android.widget.Toast;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import exception.UserException;
-
 
 public class User {
 
@@ -37,6 +32,7 @@ public class User {
     private String email;
     private String password;
     private String birthDate;
+    private String confirmationPassword;
 
     public User(int idUser, String name, String birthDate, String email) throws UserException, ParseException {
         setName(name);
@@ -49,12 +45,15 @@ public class User {
 
 
     public User(String name, String username, String email, String password,String birthDate) throws UserException, ParseException {
+
+
         setName(name);
         setEmail(email);
         setBirthDate(birthDate);
         setEmail(email);
         setUsername(username);
         setPassword(password);
+        setConfirmationPassword(confirmationPassword);
     }
 
     private void setIdUser(int idUser) throws UserException {
@@ -138,6 +137,15 @@ public class User {
             throw  new UserException(PASSWORD_CANT_BE_EMPTY_PASSWORD);
         }
 
+    }
+
+    private void setConfirmationPassword(String confirmationPassword) throws UserException {
+        if(password.equals(confirmationPassword)){
+            this.confirmationPassword = confirmationPassword;
+        }
+        else{
+            throw new UserException(PASSWORD_ARE_NOT_EQUALS);
+        }
     }
 
     private void setBirthDate(String birthDate) throws UserException, ParseException {

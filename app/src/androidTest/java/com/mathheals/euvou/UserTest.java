@@ -228,5 +228,37 @@ public class UserTest extends TestCase{
         }
     }
 
+    public void testIfEmailIsValid(){
+        try {
+            user = new User(3,"maria","22/02/2015","maria@euvou.com");
+            assertEquals("maria@euvou.com", user.getEmail() );
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testIfEmailIsValidCapps(){
+        try {
+            user = new User(3,"maria","22/02/2015","MARIA@euvou.com");
+            assertEquals("MARIA@euvou.com", user.getEmail() );
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testIfEmailIsValidWithNumbers(){
+        try {
+            user = new User(3,"maria","22/02/2015","1102@euvou.com");
+            assertEquals("1102@euvou.com", user.getEmail() );
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
