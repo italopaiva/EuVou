@@ -168,6 +168,11 @@ public class HomePage extends ActionBarActivity {
                 return true;
             case R.id.visualize_profile:
                 return true;
+            case R.id.logout:
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+                return true;
             default:
                 return false;
             //Put here code for "Visualizar Usuario"
