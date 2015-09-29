@@ -169,6 +169,14 @@ public class HomePage extends ActionBarActivity {
             case R.id.visualize_profile:
                 return true;
             case R.id.logout:
+                SharedPreferences prefId;
+                prefId = getSharedPreferences("idUser", MODE_PRIVATE);
+
+                SharedPreferences.Editor editorId = prefId.edit();
+
+                editorId.putInt("idUser", LOGGED_OUT);
+                editorId.commit();
+
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
