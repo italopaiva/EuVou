@@ -2,6 +2,7 @@ package com.mathheals.euvou;
 
 import junit.framework.TestCase;
 
+import java.text.ParseException;
 import java.util.Random;
 
 import exception.UserException;
@@ -21,6 +22,8 @@ public class UserTest extends TestCase{
             assertEquals(1, user.getIdUser());
         } catch (UserException e) {
             fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
     }
@@ -33,6 +36,8 @@ public class UserTest extends TestCase{
             assertEquals(randomId, user.getIdUser());
         } catch (UserException e) {
             fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
     }
@@ -45,6 +50,8 @@ public class UserTest extends TestCase{
             assertEquals(2, user.getIdUser());
         } catch (UserException e) {
             fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
     }
@@ -57,6 +64,8 @@ public class UserTest extends TestCase{
             assertEquals(Integer.MAX_VALUE-1, user.getIdUser());
         } catch (UserException e) {
             fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
     }
@@ -69,6 +78,8 @@ public class UserTest extends TestCase{
             assertEquals(Integer.MAX_VALUE, user.getIdUser());
         } catch (UserException e) {
             fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
     }
@@ -82,6 +93,8 @@ public class UserTest extends TestCase{
             ok = false;
         } catch (UserException e) {
             ok = true;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         assertTrue(ok);
@@ -95,6 +108,8 @@ public class UserTest extends TestCase{
             ok = false;
         } catch (UserException e) {
             ok = true;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         assertTrue(ok);
@@ -108,6 +123,8 @@ public class UserTest extends TestCase{
             ok = false;
         } catch (UserException e) {
             ok = true;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         assertTrue(ok);
@@ -121,6 +138,8 @@ public class UserTest extends TestCase{
             ok = false;
         } catch (UserException e) {
             ok = true;
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         assertTrue(ok);
@@ -148,6 +167,8 @@ public class UserTest extends TestCase{
            assertEquals("maria", user.getName() );
         } catch (UserException e) {
             fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 
@@ -158,7 +179,34 @@ public class UserTest extends TestCase{
             assertEquals("dsedfghjklljhgfdswasdfghjkjhgfdsdfghjkjhgfdsasdfghjkjhgfdsasdfghjmkjhgfdsasdfgbhnmhgfdsdfgdsd", user.getName());
         } catch (UserException e) {
             fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
+
+    public void testIfDateIsValid(){
+        try {
+            user = new User(3,"maria","11/11/2015","maria@euvou.com");
+            assertEquals("11/11/2015", user.getBirthDate() );
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testIfMonthIsValid(){
+        try {
+            user = new User(3,"maria","11/13/2015","maria@euvou.com");
+            assertEquals("11/13/2015", user.getBirthDate() );
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
 
