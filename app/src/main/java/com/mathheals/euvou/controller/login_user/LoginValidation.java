@@ -15,7 +15,10 @@ public class LoginValidation {
     private final String INVALID_PASSWORD_MESSAGE = "Ops, acho que você digitou a senha errada";
 
     private boolean checkUsernameCharacters(String username){
-
+        if(username.isEmpty())
+            return false;
+        if(username.contains(" "))
+            return false;
         return true;
     }
 
