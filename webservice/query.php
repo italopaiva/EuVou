@@ -1,21 +1,17 @@
 <?php
 require_once("db.php");
-
-/**
- * Set these constants to your specific database values
- */
-define("HOST", "mysql.hostinger.com.br");
-define("USERNAME", "u956965464_euvou");
-define("PASSWORD", "loveteam");
-define("DATABASE_NAME", "u956965464_euvou");
-/** 
- */
+require_once("database_config.php");
 
 if($_POST){
 
     $query = $_POST['query'];
 
-    $database = new Database(USERNAME, PASSWORD, HOST, DATABASE_NAME);
+    $database = new Database(
+        DatabaseConfig::USERNAME,
+        DatabaseConfig::PASSWORD,
+        DatabaseConfig::HOST,
+        DatabaseConfig::DATABASE_NAME
+    );
 
     $connection = $database->connect();
 
