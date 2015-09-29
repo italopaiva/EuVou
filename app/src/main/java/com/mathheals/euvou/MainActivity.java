@@ -79,7 +79,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         String birthDate = birthDateField.getText().toString();
 
         try {
-            User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);
+            User user = new User(name, username, mail, password, passwordConfirm, birthDate);
 
 
             //registerUser(user)
@@ -92,7 +92,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 nameField.setError(message);
             }
 
-<<<<<<< HEAD
             if (message.equals(User.NAME_CANT_BE_HIGHER_THAN_50)) {
                 nameField.requestFocus();
                 nameField.setError(message);
@@ -104,18 +103,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 mailField.requestFocus();
                 mailField.setError(message);
             }
-=======
-    //throw new IllegalStateException("Object not initialised");
-    if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
-        nameField.requestFocus();
-        nameField.setError(message);
-    }
 
-    if(message.compareTo(User.NAME_CANT_BE_HIGHER_THAN_50)==0 ){
-        nameField.requestFocus();
-        nameField.setError(message);
-    }
->>>>>>> 1158f1e26b4422db66bd3e85d792aa1a415cf03d
+            //throw new IllegalStateException("Object not initialised");
+            if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
+                nameField.requestFocus();
+                nameField.setError(message);
+            }
+
+            if(message.compareTo(User.NAME_CANT_BE_HIGHER_THAN_50)==0 ){
+                nameField.requestFocus();
+                nameField.setError(message);
+            }
 
             if (message.equals(User.EMAIL_CANT_BE_HIGHER_THAN_150)) {
 
@@ -151,6 +149,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 passwordField.requestFocus();
                 passwordField.setError(message);
+            }
+
+            if(message.equals(User.PASSWORD_ARE_NOT_EQUALS)){
+                passwordField.requestFocus();
+                passwordField.requestFocus();
             }
 
             if (message.equals(User.BIRTH_DATE_CANT_BE_EMPTY)) {
