@@ -40,7 +40,6 @@ public class User {
         setBirthDate(birthDate);
         setEmail(email);
         setIdUser(idUser);
-        setIdUser(idUser);
         setEmail(email);
     }
 

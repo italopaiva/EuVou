@@ -18,6 +18,7 @@
     <color name="holo_purple">#ffaa66cc</color>
     <color name="holo_red_dark">#ffcc0000</color>
     <color name="holo_red_light">#ffff4444</color>
+    <color name="turquesa_app">#00C0C3</color>
 
     <!-- Windows 8 style -->
     <color name="win8_magenta">#FF0097</color>

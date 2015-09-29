@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.mathheals.euvou.controller.home_page.HomePage">
+
+    <item android:id="@+id/search"
+        android:icon="@drawable/ic_action_search"
+        android:title="Pesquisa"
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
+
+    <item android:id="@+id/registration"
+        android:title="Cadastrar"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/log_in"
+        android:title="Entrar"
+        app:showAsAction="never"/>
+
+</menu>

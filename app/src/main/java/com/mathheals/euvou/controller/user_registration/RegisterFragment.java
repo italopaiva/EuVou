@@ -1,86 +1,72 @@
-package com.mathheals.euvou;
-
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+package com.mathheals.euvou.controller.user_registration;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.mathheals.euvou.controller.RegisterFragment;
-import com.mathheals.euvou.controller.utility.Mask;
+import com.mathheals.euvou.R;
 
 import dao.UserDAO;
-import exception.UserException;
 import model.User;
-public class MainActivity extends FragmentActivity implements View.OnClickListener {
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class RegisterFragment extends Fragment implements View.OnClickListener {
+
+
+    public RegisterFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.test);
-        Button register = (Button) findViewById(R.id.button);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.register_user, container, false);
+        Button register = (Button) view.findViewById(R.id.saveButton);
         register.setOnClickListener(this);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-   /* @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return view;
     }
 
     private void registerUser(User user) {
 
-        UserDAO userDAO = new UserDAO(MainActivity.this);
+        UserDAO userDAO = new UserDAO();
         userDAO.save(user);
 
-    }*/
+    }
 
+    @Override
     public void onClick(View v) {
-        RegisterFragment fragment = new RegisterFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
 
-        /*EditText usernameField = (EditText) findViewById(R.id.loginField);
-        String username = usernameField.getText().toString();
-
-        EditText nameField = (EditText) findViewById(R.id.nameField);
+        EditText nameField = (EditText) this.getActivity().findViewById(R.id.nameField);
         String name = nameField.getText().toString();
 
-        EditText passwordField = (EditText) findViewById(R.id.passwordField);
-        String password = passwordField.getText().toString();
+        EditText birthDateField = (EditText) this.getActivity().findViewById(R.id.dateField);
+        String birthDate = birthDateField.getText().toString();
 
-        EditText passwordConfirmField = (EditText) findViewById(R.id.passwordConfirmField);
-        String passwordConfirm = passwordField.getText().toString();
-
-        EditText mailField = (EditText) findViewById(R.id.mailField);
+        EditText mailField = (EditText) this.getActivity().findViewById(R.id.mailField);
         String mail = mailField.getText().toString();
 
-        EditText mailConfirmField = (EditText) findViewById(R.id.mailConfirmField);
-        String mailConfirm = mailField.getText().toString();
+        EditText mailConfirmField = (EditText) this.getActivity().findViewById(R.id.confirmMailField);
+        String mailConfirm = mailConfirmField.getText().toString();
 
-        EditText birthDateField = (EditText) findViewById(R.id.dateField);
-        String birthDate = birthDateField.getText().toString();
+        EditText usernameField = (EditText) this.getActivity().findViewById(R.id.loginField);
+        String username = usernameField.getText().toString();
+
+        EditText passwordField = (EditText) this.getActivity().findViewById(R.id.passwordField);
+        String password = passwordField.getText().toString();
+
+        EditText passwordConfirmField = (EditText) this.getActivity().findViewById(R.id.confirmPasswordField);
+        String passwordConfirm = passwordConfirmField.getText().toString();
 
         try {
             User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);
+
+            registerUser(new User(name, username, mail, password, birthDate));
 
         } catch (Exception e) {
             String message = e.getMessage();
@@ -100,10 +86,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 mailField.setError(message);
             }
 
-                //throw new IllegalStateException("Object not initialised");
-                if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
-                    nameField.requestFocus();
-                    nameField.setError(message);
+            if(message.equals(User.NAME_CANT_BE_EMPTY_NAME)){
+                nameField.requestFocus();
+                nameField.setError(message);
             }
             if(message.equals(User.NAME_CANT_BE_EMPTY_NAME)){
                 nameField.requestFocus();
@@ -115,13 +100,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 nameField.setError(message);
             }
 
-            //throw new IllegalStateException("Object not initialised");
-            if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
+            if(message.equals(User.NAME_CANT_BE_EMPTY_NAME)){
                 nameField.requestFocus();
                 nameField.setError(message);
             }
 
-            if(message.compareTo(User.NAME_CANT_BE_HIGHER_THAN_50)==0 ){
+            if(message.equals(User.NAME_CANT_BE_HIGHER_THAN_50)){
                 nameField.requestFocus();
                 nameField.setError(message);
             }
@@ -182,13 +166,5 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }
         }
 
-        //String userName = username.getText().toString();
-
-        //UserDAO userDao = new UserDAO(MainActivity2.this);
-
-        //String result = userDao.save(userName);
-
-        //Toast.makeText(MainActivity2.this, result, Toast.LENGTH_LONG).show();*/
     }
 }
-
