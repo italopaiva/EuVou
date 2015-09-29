@@ -3,6 +3,7 @@ package com.mathheals.euvou.controller.home_page;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -92,7 +93,9 @@ public class HomePage extends ActionBarActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        USER_STATUS = LOGGED_OUT;
+
+        SharedPreferences sharedId = getSharedPreferences("idUser", MODE_PRIVATE);
+        USER_STATUS = sharedId.getInt("idUser", LOGGED_OUT);
 
         // Inflating menu for logged users
         if(USER_STATUS != LOGGED_OUT) {
