@@ -260,5 +260,49 @@ public class UserTest extends TestCase{
             e.printStackTrace();
         }
     }
+
+    public void testIfEmailIsValidUnderline(){
+        try {
+            user = new User(3,"maria","22/02/2015","a_maria@euvou.com");
+            assertEquals("a_maria@euvou.com", user.getEmail() );
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testIfEmailIsValidWithDash(){
+        try {
+            user = new User(3,"maria","22/02/2015","a-maria@euvou.com");
+            assertEquals("a-maria@euvou.com", user.getEmail() );
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testIfEmailIsValidWithPoint(){
+        try {
+            user = new User(3,"maria","22/02/2015","a.maria@euvou.com");
+            assertEquals("a.maria@euvou.com", user.getEmail() );
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testIfEmailIsValidWithPlus(){
+        try {
+            user = new User(3,"maria","22/02/2015","a+maria@euvou.com");
+            assertEquals("a+maria@euvou.com", user.getEmail() );
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
