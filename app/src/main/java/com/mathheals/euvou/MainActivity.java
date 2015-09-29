@@ -87,15 +87,13 @@ public void onClick(View v) {
     } catch (Exception e) {
         String message = e.getMessage();
 
-
-
     //throw new IllegalStateException("Object not initialised");
     if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
         nameField.requestFocus();
         nameField.setError(message);
     }
 
-    if(message.compareTo(User.NAME_CANT_BE_HIGHER_THAN_200)==0 ){
+    if(message.compareTo(User.NAME_CANT_BE_HIGHER_THAN_50)==0 ){
         nameField.requestFocus();
         nameField.setError(message);
     }

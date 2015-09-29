@@ -86,4 +86,79 @@ public class UserTest extends TestCase{
 
         assertTrue(ok);
     }
+
+    public void testIfInstantiateWithInvalidIdLessOne() {
+        boolean ok =  false;
+
+        try {
+            user = new User(-1, "maria", "11/11/2015", "maria@euvou.com");
+            ok = false;
+        } catch (UserException e) {
+            ok = true;
+        }
+
+        assertTrue(ok);
+    }
+
+    public void testIfInstantiateWithInvalidIdMin() {
+        boolean ok =  false;
+
+        try {
+            user = new User(Integer.MIN_VALUE, "maria", "11/11/2015", "maria@euvou.com");
+            ok = false;
+        } catch (UserException e) {
+            ok = true;
+        }
+
+        assertTrue(ok);
+    }
+
+    public void testIfInstantiateWithInvalidIdMinMoreOne() {
+        boolean ok =  false;
+
+        try {
+            user = new User(Integer.MIN_VALUE+1, "maria", "11/11/2015", "maria@euvou.com");
+            ok = false;
+        } catch (UserException e) {
+            ok = true;
+        }
+
+        assertTrue(ok);
+    }
+
+    /*public void testIfInstantiateWithInvalidRandomId(){
+        boolean ok = false;
+        int randomId = random.nextInt(Integer.MIN_VALUE + 1) - 1 ;
+        try {
+            user = new User(randomId, "maria", "11/11/2015", "maria@euvou.com");
+            ok = false;
+        } catch (UserException e) {
+            ok = true;
+
+        }
+        assertTrue(ok);
+    }
+    */
+
+     /* Valid entries for user id */
+    public void testIfNameIsValid(){
+        try {
+            user = new User(3,"maria","11/11/2015","maria@euvou.com");
+
+           assertEquals("maria", user.getName() );
+        } catch (UserException e) {
+            fail();
+        }
+    }
+
+    public void testIfNameHasUntil50Caracteres(){
+        try {
+            user = new User(3,"dsedfghjklljhgfdswasdfghjkjhgfdsdfghjkjhgfdsasdfghjkjhgfdsasdfghjmkjhgfdsasdfgbhnmhgfdsdfgdsd","11/11/2015","maria@euvou.com");
+
+            assertEquals("dsedfghjklljhgfdswasdfghjkjhgfdsdfghjkjhgfdsasdfghjkjhgfdsasdfghjmkjhgfdsasdfgbhnmhgfdsdfgdsd", user.getName());
+        } catch (UserException e) {
+            fail();
+        }
+    }
 }
+

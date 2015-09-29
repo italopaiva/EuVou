@@ -15,7 +15,7 @@ public class User {
 
     public static final String idIsInvalid = "Id inválido";
     public static final String NAME_CANT_BE_EMPTY_NAME = "Hey, acho que você está esquecendo de nos dizer seu nome.";
-    public static final String NAME_CANT_BE_HIGHER_THAN_200 = "Hey, acho que você ultrapassou o número de caracteres permitido para o nome, tente novamente.";
+    public static final String NAME_CANT_BE_HIGHER_THAN_50 = "Hey, acho que você ultrapassou o número de caracteres permitido para o nome, tente novamente.";
     public static final String EMAIL_CANT_BE_EMPTY_EMAIL = "Hey, acho que você está esquecendo de nos dizer seu email.";
     public static final String EMAIL_CANT_BE_HIGHER_THAN_150 = "Hey, acho que você ultrapassou o número de caracteres permitido para email, tente novamente.";
     public static final String INVALID_EMAIL = "Ops, acho que você não nos informou um email.";
@@ -26,7 +26,7 @@ public class User {
     public static final String BIRTH_DATE_CANT_BE_EMPTY_BIRTH_DATE = "Hey, acho que você está esquecendo de nos dizer um dia muito especial, a data do seu nascimento.";
 
 
-    private static final int MAX_LENGTH_NAME = 200;
+    private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_EMAIL = 150;
     private static final int MAX_LENGTH_USERNAME = 100;
     private static final int MIN_LENGTH_PASSWORD = 6;
@@ -77,7 +77,7 @@ public class User {
             if(name.length() <= MAX_LENGTH_NAME){
                 this.name = name;
             }else{
-                throw new UserException(NAME_CANT_BE_HIGHER_THAN_200);
+                throw new UserException(NAME_CANT_BE_HIGHER_THAN_50);
             }
 
         }else{
