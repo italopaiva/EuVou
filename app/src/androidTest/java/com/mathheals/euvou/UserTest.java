@@ -206,7 +206,27 @@ public class UserTest extends TestCase{
         }
     }
 
+    public void testIfDayIsValid(){
+        try {
+            user = new User(3,"maria","30/02/2015","maria@euvou.com");
+            assertEquals("30/02/2015", user.getBirthDate() );
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void testIfYearIsValid(){
+        try {
+            user = new User(3,"maria","30/02/0","maria@euvou.com");
+            assertEquals("30/02/0", user.getBirthDate() );
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 
