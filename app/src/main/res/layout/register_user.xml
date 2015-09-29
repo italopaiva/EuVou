@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/confirmMailField"
         android:layout_alignTop="@+id/confirmMailLabel"
         android:layout_toRightOf="@+id/confirmMailLabel"
         android:layout_alignRight="@+id/mailField"
@@ -99,7 +99,7 @@
         android:text="Login:"
         android:id="@+id/loginLabel"
         android:layout_marginTop="18dp"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/confirmMailField"
         android:layout_alignLeft="@+id/confirmMailLabel"
         android:layout_alignStart="@+id/confirmMailLabel" />
 
@@ -142,8 +142,8 @@
         android:text="Confirme a senha:"
         android:id="@+id/confirmPasswordLabel"
         android:layout_below="@+id/passwordField"
-        android:layout_toLeftOf="@+id/editText"
-        android:layout_toStartOf="@+id/editText"
+        android:layout_toLeftOf="@+id/confirmMailField"
+        android:layout_toStartOf="@+id/confirmMailField"
         android:layout_marginTop="19dp" />
 
     <EditText

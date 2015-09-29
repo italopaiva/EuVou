@@ -1,7 +1,10 @@
 package com.mathheals.euvou;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,18 +12,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mathheals.euvou.controller.RegisterFragment;
 import com.mathheals.euvou.controller.utility.Mask;
 
 import dao.UserDAO;
 import exception.UserException;
 import model.User;
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_user);
-        Button register = (Button) findViewById(R.id.saveButton);
+        setContentView(R.layout.test);
+        Button register = (Button) findViewById(R.id.button);
 
         register.setOnClickListener(this);
     }
@@ -32,7 +36,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return true;
     }
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
@@ -48,11 +52,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         UserDAO userDAO = new UserDAO(MainActivity.this);
         userDAO.save(user);
 
-    }
+    }*/
 
     public void onClick(View v) {
+        RegisterFragment fragment = new RegisterFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
 
-        EditText usernameField = (EditText) findViewById(R.id.loginField);
+        /*EditText usernameField = (EditText) findViewById(R.id.loginField);
         String username = usernameField.getText().toString();
 
         EditText nameField = (EditText) findViewById(R.id.nameField);
@@ -94,11 +100,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 mailField.setError(message);
             }
 
-    //throw new IllegalStateException("Object not initialised");
-    if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
-        nameField.requestFocus();
-        nameField.setError(message);
-    }
+                //throw new IllegalStateException("Object not initialised");
+                if(message.compareTo(User.NAME_CANT_BE_EMPTY_NAME)==0 ){
+                    nameField.requestFocus();
+                    nameField.setError(message);
+            }
             if(message.equals(User.NAME_CANT_BE_EMPTY_NAME)){
                 nameField.requestFocus();
                 nameField.setError(message);
@@ -182,7 +188,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         //String result = userDao.save(userName);
 
-        //Toast.makeText(MainActivity2.this, result, Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity2.this, result, Toast.LENGTH_LONG).show();*/
     }
 }
 

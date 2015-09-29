@@ -16,7 +16,6 @@ public class User {
     public static final String USERNAME_CANT_BE_HIGHER_THAN_100 = "Hey, acho que você ultrapassou o número de caracteres permitido para o login, tente novamente.";
     public static final String PASSWORD_CANT_BE_EMPTY_PASSWORD = "Hey, acho que você está esquecendo de nos dizer sua senha.";
     public static final String PASSWORD_CANT_BE_LESS_THAN_6 = "Hey, acho que vocẽ não atingiu o número mínimo de caracteres.";
-    public static final String BIRTH_DATE_CANT_BE_EMPTY_BIRTH_DATE = "Hey, acho que você está esquecendo de nos dizer um dia muito especial, a data do seu nascimento.";
     public static final String BIRTH_DATE_CANT_BE_EMPTY = "Hey, acho que você está esquecendo de nos dizer um dia muito especial, a data do seu nascimento.";
     public static final String EMAIL_ARE_NOT_EQUALS = "Ops, E-mails não conferem.";
     public static final String PASSWORD_ARE_NOT_EQUALS = "Ops, as senhas não conferem.";
@@ -52,7 +51,6 @@ public class User {
         setEmail(email);
         setPassword(password);
         setBirthDate(birthDate);
-
     }
 
     public User(String name, String username, String email, String mailConfirmation, String password, String passwordConfirmation, String birthDate) throws UserException, ParseException {
