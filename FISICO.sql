@@ -4,7 +4,7 @@ use db_MDS;
 CREATE TABLE tb_locate (
 longitude DECIMAL(8,6) NOT NULL,
 latitude DECIMAL(8,6) NOT NULL,	
-address VARCHAR(150) NOT NULL
+address VARCHAR(150)
 )ENGINE = InnoDB;
 
 CREATE TABLE tb_event (
@@ -29,9 +29,9 @@ email VARCHAR(50) NOT NULL
 CREATE TABLE tb_place (
 idPlace INTEGER NOT NULL,
 namePlace VARCHAR(30) NOT NULL,
-phonePlace VARCHAR(20) NOT NULL,
+phonePlace VARCHAR(20),
 operation VARCHAR(200),
-description varchar(500) NOT NULL,
+description varchar(500),
 longitude DECIMAL(8,6) NOT NULL,
 latitude DECIMAL(8,6) NOT NULL
 )ENGINE = InnoDB;
