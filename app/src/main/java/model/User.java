@@ -48,12 +48,11 @@ public class User {
     public User(String name, String username, String email, String password,String birthDate) throws UserException, ParseException {
 
         setName(name);
-        setEmail(email);
-        setBirthDate(birthDate);
-        setEmail(email);
         setUsername(username);
+        setEmail(email);
         setPassword(password);
-        setPasswordConfirmation(confirmationPassword);
+        setBirthDate(birthDate);
+
     }
 
     public User(String name, String username, String email, String mailConfirmation, String password, String passwordConfirmation, String birthDate) throws UserException, ParseException {
