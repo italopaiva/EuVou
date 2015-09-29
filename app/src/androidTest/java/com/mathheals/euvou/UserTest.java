@@ -349,12 +349,13 @@ public class UserTest extends TestCase {
         assertEquals("1234", user.getPassword());
     }
 
-    public void testIfInstantiateWithValidRandomPassword() {
-        int randomId = random.nextInt(6);
-        try {
-            user = new User(randomId, "maria", "11/11/2015", "maria@euvou.com");
 
-            assertEquals(randomId, user.getIdUser());
+    public void testIfInstantiateWithValidRandomPassword() {
+        int randomPassword = random.nextInt(Integer.MAX_VALUE);
+        try {
+            user = new User(randomPassword, "maria", "11/11/2015", "maria@euvou.com");
+
+            assertEquals(randomPassword, user.getIdUser());
         } catch (UserException e) {
             fail();
         } catch (ParseException e) {
@@ -362,6 +363,7 @@ public class UserTest extends TestCase {
         }
 
     }
+
 
 }
 
