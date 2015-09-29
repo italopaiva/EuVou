@@ -135,8 +135,9 @@ public class HomePage extends ActionBarActivity {
                 fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment());
                 fragmentTransaction.commit();
                 return true;
-            case R.id.visualize_profile:
+            case R.id.visualize_profile:break;
                 //Put here code for "Visualizar Usuario"
+
         }
 
         return super.onOptionsItemSelected(item);

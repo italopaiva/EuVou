@@ -31,5 +31,7 @@
         android:text="Pesquisar"
         android:id="@+id/btnSearch"
         android:layout_below="@+id/searchNameField"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="onClick"
+        />
 </RelativeLayout>
