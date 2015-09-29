@@ -2,6 +2,7 @@ package com.mathheals.euvou.controller.home_page;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.edit_user.EditUserFragment;
+import com.mathheals.euvou.controller.login_user.LoginActivity;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 
 public class HomePage extends ActionBarActivity {
@@ -169,11 +171,21 @@ public class HomePage extends ActionBarActivity {
         }
     }
 
-    public void userLoggedOutOptions(MenuItem item) {
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-    }
+    public boolean userLoggedOutOptions(MenuItem item) {
 
+
+        switch (item.getItemId()) {
+            case R.id.registration:
+                Toast.makeText(getBaseContext(), "Cadastrar", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.log_in:
+                Intent myIntent = new Intent(HomePage.this, LoginActivity.class);
+                HomePage.this.startActivity(myIntent);
+                return true;
+            default:
+                return false;
+        }
+    }
     private void onConfigListener(){
 
         drawerList.setOnItemClickListener(listener);

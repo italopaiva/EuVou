@@ -31,6 +31,8 @@
             android:name=".SearchUser"
             android:label="@string/title_activity_search_user" >
         </activity>
+
+        <activity android:label="@string/login_activity" android:name=".controller.login_user.LoginActivity"/>
     </application>
 
 </manifest>
