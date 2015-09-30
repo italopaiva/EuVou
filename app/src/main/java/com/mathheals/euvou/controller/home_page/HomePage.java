@@ -3,7 +3,6 @@ package com.mathheals.euvou.controller.home_page;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -29,6 +28,7 @@ import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.login_user.LoginActivity;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 import com.mathheals.euvou.controller.user_registration.RegisterFragment;
+import com.mathheals.euvou.controller.utility.LoginUtility;
 
 public class HomePage extends ActionBarActivity {
     private CharSequence mTitle;
@@ -94,11 +94,11 @@ public class HomePage extends ActionBarActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-
-        SharedPreferences sharedId = getSharedPreferences("idUser", MODE_PRIVATE);
-        USER_STATUS = sharedId.getInt("idUser", LOGGED_OUT);
-
+        LoginUtility loginUtility = new LoginUtility(HomePage.this);
         // Inflating menu for logged users
+
+        USER_STATUS = loginUtility.getUserId();
+
         if(USER_STATUS != LOGGED_OUT) {
             inflater.inflate(R.menu.home_page_logged_in, menu);
         }
@@ -170,13 +170,7 @@ public class HomePage extends ActionBarActivity {
             case R.id.visualize_profile:
                 return true;
             case R.id.logout:
-                SharedPreferences prefId;
-                prefId = getSharedPreferences("idUser", MODE_PRIVATE);
-
-                SharedPreferences.Editor editorId = prefId.edit();
-
-                editorId.putInt("idUser", LOGGED_OUT);
-                editorId.commit();
+                new LoginUtility(HomePage.this).setUserLogOff();
 
                 Intent intent = getIntent();
                 finish();
