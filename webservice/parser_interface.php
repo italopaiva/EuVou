@@ -40,22 +40,43 @@
 
 					if(sizeof($spreadsheet) != 0){
 
+						$latitudes = array();
+						$longitudes = array();
+						$names = array();
+
 						foreach($spreadsheet as $tuple){
 
-							// Insert the coordinates firs
-							$insert_coordinates = "INSERT INTO tb_locate(longitude, latitude, address)
-							VALUES ('".$tuple[self::LONGITUDE_COLUMN]."', '".$tuple[self::LATITUDE_COLUMN]."', '"
-							.$tuple[self::ADDRESS_COLUMN]."')";
+							$current_latitude = $tuple[self::LATITUDE_COLUMN];
+							$current_longitude =  $tuple[self::LONGITUDE_COLUMN];
+							$current_name = $tuple[self::NAME_COLUMN];
 
-							$db->query($insert_coordinates);
+							$latitude_is_not_repeated = !array_key_exists($current_latitude, $latitudes);
+							$longitude_is_not_repeated = !array_key_exists($current_longitude, $longitudes);
+							$name_is_not_repeated = !array_key_exists($current_name, $names);
 
-							// Insert the place data with the coordinates referenced
-							$insert_place = "INSERT INTO tb_place(namePlace, phonePlace, description, latitude, longitude)
-							VALUES('".$tuple[self::NAME_COLUMN]."', '".$tuple[self::PHONE_COLUMN]."', '"
-							.$tuple[self::DESCRIPTION_COLUMN]."', '".$tuple[self::LATITUDE_COLUMN]."','"
-							.$tuple[self::LONGITUDE_COLUMN]."')";
+							$data_is_not_repeated = $latitude_is_not_repeated && $longitude_is_not_repeated && $name_is_not_repeated;
 
-							$db->query($insert_place);
+							if($data_is_not_repeated){
+
+								// Insert the coordinates first
+								$insert_coordinates = "INSERT INTO tb_locate(longitude, latitude, address)
+								VALUES ('".$tuple[self::LONGITUDE_COLUMN]."', '".$tuple[self::LATITUDE_COLUMN]."', '"
+								.$tuple[self::ADDRESS_COLUMN]."')";
+
+								$db->query($insert_coordinates);
+
+								// Insert the place data with the coordinates referenced
+								$insert_place = "INSERT INTO tb_place(namePlace, phonePlace, description, latitude, longitude, operation)
+								VALUES('".$tuple[self::NAME_COLUMN]."', '".$tuple[self::PHONE_COLUMN]."', '"
+								.$tuple[self::DESCRIPTION_COLUMN]."', '".$tuple[self::LATITUDE_COLUMN]."','"
+								.$tuple[self::LONGITUDE_COLUMN]."', '".$tuple[self::HOURS_COLUMN]."')";
+
+								$db->query($insert_place);
+
+								$latitudes[$current_latitude] = $current_latitude;
+								$longitudes[$current_longitude] = $current_longitude;
+								$names[$current_name] = $current_name;
+							}
 						}
 
 						$db->disconnect();
