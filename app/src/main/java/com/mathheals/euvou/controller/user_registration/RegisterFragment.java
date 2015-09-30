@@ -67,6 +67,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);
 
             registerUser(new User(name, username, mail, password, birthDate));
+            Toast.makeText(this.getActivity().getBaseContext(), "Bem-Vindo ao EuVou", Toast.LENGTH_LONG).show();
 
         } catch (Exception e) {
             String message = e.getMessage();
@@ -131,6 +132,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             }
 
             if (message.equals(User.USERNAME_CANT_BE_HIGHER_THAN_100)) {
+                usernameField.requestFocus();
+                usernameField.setError(message);
+            }
+
+            if(message.equals(User.USERNAME_EXISTENT)){
                 usernameField.requestFocus();
                 usernameField.setError(message);
             }

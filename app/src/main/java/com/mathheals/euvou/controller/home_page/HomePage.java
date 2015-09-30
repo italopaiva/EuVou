@@ -195,7 +195,6 @@ public class HomePage extends ActionBarActivity {
             case R.id.registration:
                 fragmentTransaction.replace(R.id.content_frame, new RegisterFragment());
                 fragmentTransaction.commit();
-                Toast.makeText(getBaseContext(), "Cadastrar", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.log_in:
                 Intent myIntent = new Intent(HomePage.this, LoginActivity.class);
