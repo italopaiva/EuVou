@@ -17,8 +17,10 @@ public class UserDAO extends DAO{
 
 
     public void update(User user){
-        this.executeQuery("UPDATE tb_user SET nameUser=\""+user.getName()+"\", birthDate=\""+user.getBirthDate()+"\", " +
-                "email=\""+user.getEmail()+"\" WHERE idUser=\""+user.getIdUser()+"\"");
+        this.executeQuery("UPDATE tb_user SET nameUser=\""+user.getName()+"\", " +
+                "birthDate=STR_TO_DATE(\"" + user.getBirthDate() + "\",'%d/%m/%Y'), " +
+                "email=\""+user.getEmail()+"\", passwordUser=\"" + user.getPassword() + "\"" +
+                " WHERE idUser=\""+user.getIdUser()+"\"");
     }
 
     public void delete(int idUser){

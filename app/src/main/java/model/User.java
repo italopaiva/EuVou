@@ -43,6 +43,16 @@ public class User {
         setEmail(email);
     }
 
+    public User(int idUser, String name, String birthDate, String email, String mailConfirmation, String password, String passwordConfirmation) throws UserException, ParseException{
+        setIdUser(idUser);
+        setName(name);
+        setBirthDate(birthDate);
+        setEmail(email);
+        setMailConfirmation(mailConfirmation);
+        setPassword(password);
+        setPasswordConfirmation(passwordConfirmation);
+    }
+
     public User(String name, String username, String email, String password,String birthDate) throws UserException, ParseException {
 
         setName(name);

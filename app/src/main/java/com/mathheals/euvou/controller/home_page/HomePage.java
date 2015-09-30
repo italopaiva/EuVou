@@ -160,7 +160,7 @@ public class HomePage extends ActionBarActivity {
             case R.id.edit_register:
                 // Put here code for "Alterar Cadastro"
                 fragmentTransaction.replace(R.id.content_frame, new EditUserFragment());
-                //fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 return true;
             case R.id.settings:
