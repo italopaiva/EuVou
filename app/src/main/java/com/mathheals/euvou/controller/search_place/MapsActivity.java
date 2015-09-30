@@ -3,11 +3,14 @@ package com.mathheals.euvou.controller.search_place;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mathheals.euvou.R;
+
+import model.Place;
 
 public class MapsActivity extends FragmentActivity {
 
@@ -61,7 +64,35 @@ public class MapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(-15.7941454, -47.8825479), 9));
+        mMap.addMarker(
+                new MarkerOptions()
+                        .title("Unidade de Brazlândia")
+                        .snippet("Bairro Vila São José, Quadra 35, AE 22")
+                        .position(new LatLng(-15.664718, -48.191045))
+        );
+        mMap.addMarker(
+                new MarkerOptions()
+                        .title("Parque Areal")
+                        .snippet("Quadras QS6/QS8 - Taguatinga")
+                        .position(new LatLng(-15.857222, -48.023889))
+        );
+        mMap.addMarker(
+                new MarkerOptions()
+                        .title("Templo da Boa Vontade")
+                        .snippet("SGAS 915 – Lotes 75 e 76 - Brasília")
+                        .position(new LatLng(-15.823830, -47.929720))
+        );
     }
-    
+
+    public void addMarkerPlace(Place place)
+    {
+        mMap.addMarker(
+                new MarkerOptions()
+                    .title(place.getName())
+                    .snippet(place.getAddress())
+                    .position(new LatLng(place.getLatitude(), place.getLongitude()))
+            );
+    }
 }
