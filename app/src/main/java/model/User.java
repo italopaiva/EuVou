@@ -85,7 +85,7 @@ public class User {
 
     private void setName(String name) throws UserException {
 
-        if(!name.isEmpty()){
+        if(!name.trim().isEmpty() && name!=null){
 
             if(name.length() <= MAX_LENGTH_NAME){
                 this.name = name;
@@ -100,7 +100,7 @@ public class User {
 
     private  void  setEmail(String email) throws UserException{
 
-        if (!email.isEmpty()) {
+        if (!email.trim().isEmpty() && email!=null) {
             if(email.length() <= MAX_LENGTH_EMAIL){
                 CharSequence emailCharSequence = email;
                 if(Patterns.EMAIL_ADDRESS.matcher(emailCharSequence).matches()) {
@@ -130,7 +130,7 @@ public class User {
 
     private  void  setUsername (String username) throws UserException{
 
-        if (!username.isEmpty()) {
+        if (!username.isEmpty() && username!=null) {
             if(username.length() <= MAX_LENGTH_USERNAME){
                 LoginValidation loginValidation = new LoginValidation();
                 if(!loginValidation.isUsernameRegistred(username)){
@@ -151,7 +151,7 @@ public class User {
 
     private  void  setPassword (String password) throws UserException{
 
-        if (!password.isEmpty()) {
+        if (!password.isEmpty() && username!=null) {
             if(password.length() >= MIN_LENGTH_PASSWORD) {
                     this.password = password;
             }
@@ -176,7 +176,7 @@ public class User {
     }
 
     private void setBirthDate (String birthDate) throws UserException, ParseException {
-        if(!birthDate.isEmpty()){
+        if(!birthDate.isEmpty() && birthDate!=null){
             try {
                 SimpleDateFormat FORMAT = new SimpleDateFormat("dd/MM/yyyy");
                 FORMAT.setLenient(false);
