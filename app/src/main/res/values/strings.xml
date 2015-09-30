@@ -10,4 +10,37 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_home_page">HomePage</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="drawer_open">Abrir navigation drawer</string>
+    <string name="drawer_close">Fechar navigation drawer</string>
+    <string-array name="itens_menu_string">
+        <item>Pontos Turísticos</item>
+        <item>Parques</item>
+        <item>Shoppings</item>
+        <item>Esportes</item>
+    </string-array>
+    <string name="option_frag_txt01">Frag01</string>
+    <string name="option_frag_txt02">Frag02</string>
+    <string name="option_frag_txt03">Frag03</string>
+    <string name="option_frag_txt04">Frag04</string>
+
+    <!-- Remove user strings -->
+
+    <string name="allow_gps_message">Permitir localização por meio de GPS</string>
+    <string name="disable_account">Desativar conta</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_search_user">SearchUser</string>
+    <string name="login_activity">LoginActivity</string>
+
 </resources>
