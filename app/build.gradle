@@ -17,7 +17,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     useLibrary 'org.apache.http.legacy'
 }
 
@@ -26,6 +25,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.google.android.gms:play-services:8.1.0'
 }
+
 
 
 
