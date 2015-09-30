@@ -50,10 +50,10 @@
 							$db->query($insert_coordinates);
 
 							// Insert the place data with the coordinates referenced
-							$insert_place = "INSERT INTO tb_place(namePlace, phonePlace, description, latitude, longitude)
+							$insert_place = "INSERT INTO tb_place(namePlace, phonePlace, description, latitude, longitude, operation)
 							VALUES('".$tuple[self::NAME_COLUMN]."', '".$tuple[self::PHONE_COLUMN]."', '"
 							.$tuple[self::DESCRIPTION_COLUMN]."', '".$tuple[self::LATITUDE_COLUMN]."','"
-							.$tuple[self::LONGITUDE_COLUMN]."')";
+							.$tuple[self::LONGITUDE_COLUMN]."', '" .$tuple[self::HOURS_COLUMN]."')";
 
 							$db->query($insert_place);
 						}
