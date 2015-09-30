@@ -1,6 +1,4 @@
 package com.mathheals.euvou.controller.user_registration;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,20 +9,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
-import com.mathheals.euvou.controller.home_page.HomePage;
-import com.mathheals.euvou.controller.login_user.LoginActivity;
+import com.mathheals.euvou.controller.utility.Mask;
 
 import dao.UserDAO;
 import model.User;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RegisterFragment extends Fragment implements View.OnClickListener {
 
 
     public RegisterFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -32,6 +25,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.register_user, container, false);
         Button register = (Button) view.findViewById(R.id.saveButton);
         register.setOnClickListener(this);
+        EditText dateField = (EditText) view.findViewById(R.id.dateField);
+        dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
 
         return view;
     }
@@ -71,10 +66,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);
 
             registerUser(new User(name, username, mail, password, birthDate));
-            Toast.makeText(this.getActivity().getBaseContext(), "Bem-Vindo ao EuVou", Toast.LENGTH_LONG).show();
-            Activity activity = getActivity();
-            Intent myIntent = new Intent(activity, LoginActivity.class);
-            activity.startActivity(myIntent);
+
         } catch (Exception e) {
             String message = e.getMessage();
 
@@ -138,11 +130,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             }
 
             if (message.equals(User.USERNAME_CANT_BE_HIGHER_THAN_100)) {
-                usernameField.requestFocus();
-                usernameField.setError(message);
-            }
-
-            if(message.equals(User.USERNAME_EXISTENT)){
                 usernameField.requestFocus();
                 usernameField.setError(message);
             }
