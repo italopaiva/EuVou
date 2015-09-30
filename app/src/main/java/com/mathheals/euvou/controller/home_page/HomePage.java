@@ -1,5 +1,6 @@
 package com.mathheals.euvou.controller.home_page;
 
+import dao.UserDAO;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,8 @@ import android.widget.Toast;
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class HomePage extends ActionBarActivity {
     private CharSequence mTitle;
@@ -51,6 +54,7 @@ public class HomePage extends ActionBarActivity {
         if (currentFragment == null) {
             replaceFirstFrag();
         }
+
     }
 
     private void initViews(){
@@ -89,15 +93,57 @@ public class HomePage extends ActionBarActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home_page, menu);
 
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
-        search.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        search.setQueryHint("Buscar locais e usuário");
-        return true;
+        MenuItem search = menu.findItem(R.id.search);
+        SearchView userSearch = (SearchView) search.getActionView();
+        userSearch.setQueryHint("Busque usuários");
+        userSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+
+                Toast.makeText(getBaseContext(), query, Toast.LENGTH_SHORT).show();
+
+                UserDAO userDao = new UserDAO(HomePage.this);
+               // Toast.makeText(getBaseContext(), query, Toast.LENGTH_SHORT);
+
+                JSONObject json = userDao.searchUserByName(query);
+
+                //userDao.searchUserByName(query);
+
+                try {
+
+
+                    String name = json.getJSONObject("0").getString("nameUser");
+                    String email = json.getJSONObject("0").getString("email");
+                    String birthDate = json.getJSONObject("0").getString("birthDate");
+
+
+                    Toast.makeText(getApplicationContext(),name,
+                            Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(getApplicationContext(),email,
+                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),birthDate,
+                            Toast.LENGTH_SHORT).show();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
