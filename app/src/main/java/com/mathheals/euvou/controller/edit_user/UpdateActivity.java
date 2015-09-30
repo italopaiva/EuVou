@@ -48,7 +48,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener {
 
     private void updateUser(User user){
 
-        UserDAO userDAO = new UserDAO(UpdateActivity.this);
+        UserDAO userDAO = new UserDAO();
         userDAO.update(user);
 
     }

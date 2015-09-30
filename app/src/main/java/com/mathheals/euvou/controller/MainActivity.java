@@ -48,7 +48,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private void registerUser(User user){
 
-        UserDAO userDAO = new UserDAO(MainActivity.this);
+        UserDAO userDAO = new UserDAO();
         userDAO.save(user);
 
     }

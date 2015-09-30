@@ -4,40 +4,42 @@ import android.app.Activity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DAO {
 
-    private static final String QUERY_KEY = "query";
-
+    private final String urlQuery = "http://euvou.esy.es/query.php";
+    private final String urlConsult = "http://euvou.esy.es/consult.php";
     protected Activity activity;
 
-    public DAO(Activity activity){
-
-        setCurrentActivity(activity);
-    }
-
     protected String executeQuery(String query){
-
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair(QUERY_KEY, query));
-
-        Consult consult = new Consult(params, this.currentActivity());
-
-        String result = consult.execute();
-
-        return result;
+        Consult consult = new Consult(query,urlQuery);
+        consult.exec();
+        while(!consult.getIsDoing());
+        return consult.getResult();
     }
 
-    private void setCurrentActivity(Activity activity){
+    protected JSONObject executeConsult(String query)
+    {
+        String json;
+        Consult consult = new Consult(query,urlConsult);
+        consult.exec();
+        while(!consult.getIsDoing());
 
-        this.activity = activity;
+        json = consult.getResult();
+        JSONObject jObject = null;
+        try {
+            jObject  = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jObject;
     }
 
-    private Activity currentActivity(){
-
-        return this.activity;
-    }
 }

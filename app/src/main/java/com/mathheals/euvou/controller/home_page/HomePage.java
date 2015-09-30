@@ -17,15 +17,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.login_user.LoginValidation;
 import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
 import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
 import com.mathheals.euvou.controller.remove_user.OhGoshFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserVIewMessages;
+
+import dao.UserDAO;
 
 public class HomePage extends ActionBarActivity {
     private static final String DISABLE_ACCOUNT_FRAGMENT_TAG = "disable_account_fragment_tag";
@@ -200,8 +204,12 @@ public class HomePage extends ActionBarActivity {
                 RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
                 return;
             case R.id.button_disable_account_confirmation_id:
-                clearBackStack();
-                RemoveUserVIewMessages.showAccountDeactivateMessage(homePageContext);
+                if(isLoginConfirmationValid()) {
+                    clearBackStack();
+                    RemoveUserVIewMessages.showAccountDeactivateMessage(homePageContext);
+                    int userId = 16;
+                    new UserDAO().delete(userId);
+                }
                 return;
         }
     }
@@ -211,5 +219,32 @@ public class HomePage extends ActionBarActivity {
             FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
             manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
+    }
+
+    public boolean isLoginConfirmationValid() {
+        EditText usernameField = (EditText) findViewById(R.id.edit_text_login_id);
+        String typedUsername = usernameField.getText().toString();
+
+        EditText passwordField = (EditText) findViewById(R.id.edit_text_password_id);
+        String typedPassword = passwordField.getText().toString();
+
+        LoginValidation loginValidation = new LoginValidation(HomePage.this);
+
+        boolean isUsernameValid = loginValidation.isUsernameValid(typedUsername);
+
+        if(isUsernameValid==false){
+            usernameField.requestFocus();
+            usernameField.setError(loginValidation.getInvalidUsernameMessage());
+        }else{
+            boolean isPasswordValid=loginValidation.checkPassword(typedUsername, typedPassword);
+
+            if(isPasswordValid==false){
+                passwordField.requestFocus();
+                passwordField.setError(loginValidation.getInvalidPasswordMessage());
+            }
+            else
+                return true;
+        }
+        return false;
     }
 }
