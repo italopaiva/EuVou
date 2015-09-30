@@ -8,16 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import dao.UserDAO;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private boolean isUsernameValid;
@@ -85,6 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 int idUser = loginUtility.getUserId(typedUsername);
                 loginUtility.setUserLogIn(idUser);
                 Intent i = new Intent(this, HomePage.class);
+                finish();
                 startActivityForResult(i, 1);
             } catch (JSONException e) {
                 e.printStackTrace();

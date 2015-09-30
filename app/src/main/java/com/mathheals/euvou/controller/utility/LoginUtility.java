@@ -3,8 +3,6 @@ package com.mathheals.euvou.controller.utility;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
-import com.mathheals.euvou.controller.login_user.LoginActivity;
-
 import org.json.JSONObject;
 
 import dao.UserDAO;

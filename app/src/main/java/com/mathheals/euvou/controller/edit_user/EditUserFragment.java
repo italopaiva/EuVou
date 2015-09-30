@@ -3,10 +3,7 @@ package com.mathheals.euvou.controller.edit_user;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,22 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
-import com.mathheals.euvou.controller.home_page.HomePage;
+import com.mathheals.euvou.controller.utility.LoginUtility;
 import com.mathheals.euvou.controller.utility.Mask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import dao.UserDAO;
-import exception.UserException;
 import model.User;
 
 /**
@@ -59,8 +50,8 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
 
         EditText mailField = (EditText) view.findViewById(R.id.mailField);
 
-        SharedPreferences sharedId = this.getActivity().getSharedPreferences("idUser", Context.MODE_PRIVATE);
-        USER_STATUS = sharedId.getInt("idUser", LOGGED_OUT);
+        LoginUtility loginUtility = new LoginUtility(this.getActivity());
+        USER_STATUS = loginUtility.getUserId();
 
         String str = userDAO.searchUserById(USER_STATUS);
         JSONObject json = null;
@@ -117,8 +108,8 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
         EditText passwordConfirmField = (EditText) this.getActivity().findViewById(R.id.confirmPasswordField);
         String passwordConfirm = passwordConfirmField.getText().toString();
 
-        SharedPreferences sharedId = this.getActivity().getSharedPreferences("idUser", Context.MODE_PRIVATE);
-        USER_STATUS = sharedId.getInt("idUser", LOGGED_OUT);
+        LoginUtility loginUtility = new LoginUtility(this.getActivity());
+        USER_STATUS = loginUtility.getUserId();
 
         try {
             User user = new User(USER_STATUS, name, birthDate, mail, mailConfirm, password, passwordConfirm);

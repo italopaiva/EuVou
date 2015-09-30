@@ -188,6 +188,7 @@ public class HomePage extends ActionBarActivity {
         switch (item.getItemId()) {
             case R.id.registration:
                 fragmentTransaction.replace(R.id.content_frame, new RegisterFragment());
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 Toast.makeText(getBaseContext(), "Cadastrar", Toast.LENGTH_LONG).show();
                 return true;
