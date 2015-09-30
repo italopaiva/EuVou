@@ -37,6 +37,6 @@ public class UserDAO extends DAO{
 
     public JSONObject searchUserByName(String username)
     {
-        return this.executeConsult("Select * from vw_user where nameUser = "+username+"");
+        return this.executeConsult("SELECT * from vw_user WHERE login=\""+username+"\"");
     }
 }
