@@ -23,7 +23,7 @@ public class LoginUtility {
     public LoginUtility(Activity activity) {
         this.activity = activity;
         sharedPreferences = activity.getSharedPreferences(ID_FIELD, activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor = sharedPreferences.edit();
     }
 
     public boolean hasUserLoggedIn() {
@@ -47,7 +47,7 @@ public class LoginUtility {
         editor.commit();
     }
 
-    public void setUserLogOff(int userId) {
+    public void setUserLogOff() {
         editor.putInt(ID_FIELD, LOGGED_OUT);
         editor.commit();
     }

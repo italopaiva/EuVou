@@ -1,7 +1,6 @@
 package com.mathheals.euvou.controller.login_user;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,9 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.home_page.HomePage;
+import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,8 +22,6 @@ import dao.UserDAO;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private boolean isUsernameValid;
     private boolean isPasswordValid;
-    private final String JSON_FORMAT = "0";
-    private final String ID_USER = "idUser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,21 +78,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        SharedPreferences pref;
-        pref = getSharedPreferences("idUser", MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = pref.edit();
-
         if(isUsernameValid && isPasswordValid){
             UserDAO userDAO = new UserDAO();
             JSONObject json = userDAO.searchUserByUsername(typedUsername);
+            LoginUtility loginUtility = new LoginUtility(LoginActivity.this);
 
             try {
-                int idUser = json.getJSONObject(JSON_FORMAT).getInt(ID_USER);
-
-                editor.putInt("idUser", idUser);
-                editor.commit();
-
+                int idUser = loginUtility.getUserId(typedUsername);
+                loginUtility.setUserLogIn(idUser);
                 Intent i = new Intent(this, HomePage.class);
                 startActivityForResult(i, 1);
             } catch (JSONException e) {
@@ -101,6 +93,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
         }
-
     }
 }
