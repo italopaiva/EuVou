@@ -1,4 +1,6 @@
 package com.mathheals.euvou.controller.user_registration;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.home_page.HomePage;
+import com.mathheals.euvou.controller.login_user.LoginActivity;
 
 import dao.UserDAO;
 import model.User;
@@ -68,7 +72,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
             registerUser(new User(name, username, mail, password, birthDate));
             Toast.makeText(this.getActivity().getBaseContext(), "Bem-Vindo ao EuVou", Toast.LENGTH_LONG).show();
-
+            Activity activity = getActivity();
+            Intent myIntent = new Intent(activity, LoginActivity.class);
+            activity.startActivity(myIntent);
         } catch (Exception e) {
             String message = e.getMessage();
 
