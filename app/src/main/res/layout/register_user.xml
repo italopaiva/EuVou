@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/bla">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Nome:"
+        android:id="@+id/nameLabel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="15dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/nameField"
+        android:layout_alignTop="@+id/nameLabel"
+        android:layout_toRightOf="@+id/nameLabel"
+        android:layout_toEndOf="@+id/nameLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Data:"
+        android:id="@+id/dateLabel"
+        android:layout_alignTop="@+id/dateField"
+        android:layout_alignLeft="@+id/nameLabel"
+        android:layout_alignStart="@+id/nameLabel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/dateField"
+        android:layout_below="@+id/nameField"
+        android:layout_alignLeft="@+id/nameField"
+        android:layout_alignStart="@+id/nameField"
+        android:layout_marginTop="20dp"
+        android:hint="Data de nascimento"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="E-mail:"
+        android:id="@+id/mailLabel"
+        android:layout_below="@+id/dateField"
+        android:layout_alignLeft="@+id/dateLabel"
+        android:layout_alignStart="@+id/dateLabel"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/mailField"
+        android:layout_alignTop="@+id/mailLabel"
+        android:layout_toRightOf="@+id/mailLabel"
+        android:layout_toEndOf="@+id/mailLabel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Confirme o e-mail:"
+        android:id="@+id/confirmMailLabel"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/mailField"
+        android:layout_alignLeft="@+id/mailLabel"
+        android:layout_alignStart="@+id/mailLabel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/confirmMailField"
+        android:layout_alignTop="@+id/confirmMailLabel"
+        android:layout_toRightOf="@+id/confirmMailLabel"
+        android:layout_alignRight="@+id/mailField"
+        android:layout_alignEnd="@+id/mailField" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Login:"
+        android:id="@+id/loginLabel"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/confirmMailField"
+        android:layout_alignLeft="@+id/confirmMailLabel"
+        android:layout_alignStart="@+id/confirmMailLabel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/loginField"
+        android:layout_alignTop="@+id/loginLabel"
+        android:layout_toRightOf="@+id/nameLabel"
+        android:layout_toEndOf="@+id/nameLabel"
+        android:layout_marginTop="-5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Senha:"
+        android:id="@+id/passwordLabel"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/loginField"
+        android:layout_alignLeft="@+id/loginLabel"
+        android:layout_alignStart="@+id/loginLabel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/passwordField"
+        android:layout_alignTop="@+id/passwordLabel"
+        android:layout_alignLeft="@+id/loginField"
+        android:layout_alignStart="@+id/loginField" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Confirme a senha:"
+        android:id="@+id/confirmPasswordLabel"
+        android:layout_below="@+id/passwordField"
+        android:layout_toLeftOf="@+id/confirmMailField"
+        android:layout_toStartOf="@+id/confirmMailField"
+        android:layout_marginTop="19dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/confirmPasswordField"
+        android:layout_alignTop="@+id/confirmPasswordLabel"
+        android:layout_toRightOf="@+id/confirmPasswordLabel"
+        android:layout_alignRight="@+id/passwordField"
+        android:layout_alignEnd="@+id/passwordField" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar"
+        android:id="@+id/saveButton"
+        android:textColor="#FFFFFF"
+        android:background="#00C0C3"
+        android:layout_below="@+id/confirmPasswordField"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"/>
+
+</RelativeLayout>
