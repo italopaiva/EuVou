@@ -74,21 +74,27 @@ public class SearchPlaceMaps extends FragmentActivity{
                 new LatLng(-15.7941454, -47.8825479), 9));
         Place aux;
         JSONObject result = new PlaceDAO().searchPlaceByPartName(getIntent().getStringExtra("query"));
-        Toast.makeText(getBaseContext(),result.toString(), Toast.LENGTH_LONG).show();
+
         try {
             for (int i = 0; i < result.length(); i++) {
+                String evaluate = result.getJSONObject("" + i).getString("evaluate");
+                
                 aux = new Place(
                         result.getJSONObject("" + i).getString("namePlace"),
-                        Float.parseFloat(result.getJSONObject("" + i).getString("evaluate")),
+                        Float.parseFloat(((evaluate.equals("null")) ? "0" : evaluate)),
                         Double.parseDouble(result.getJSONObject("" + i).getString("longitude")),
                         Double.parseDouble(result.getJSONObject("" + i).getString("latitude")),
                         result.getJSONObject("" + i).getString("operation"),
                         result.getJSONObject("" + i).getString("description"),
                         result.getJSONObject("" + i).getString("address")
                 );
+
+
+
                 addMarkerPlace(aux);
             }
         }catch (Exception e) {
+            Toast.makeText(getBaseContext(),e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
