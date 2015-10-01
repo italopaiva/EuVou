@@ -43,6 +43,17 @@ public class User {
                 this.birthDate.equals(user.getBirthDate());
     }
 
+    public User(int idUser, String name, String username, String birthDate, String email, String mailConfirmation, String password, String passwordConfirmation) throws UserException, ParseException{
+        setIdUser(idUser);
+        setName(name);
+        setUsername(username);
+        setBirthDate(birthDate);
+        setEmail(email);
+        setMailConfirmation(mailConfirmation);
+        setPassword(password);
+        setPasswordConfirmation(passwordConfirmation);
+    }
+
     public User(int idUser, String name, String birthDate, String email) throws UserException, ParseException {
         setName(name);
         setBirthDate(birthDate);
