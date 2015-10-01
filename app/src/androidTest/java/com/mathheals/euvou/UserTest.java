@@ -186,7 +186,7 @@ public class UserTest extends TestCase {
             e.printStackTrace();
         }
 
-        assertTrue(ok);
+        assertFalse(ok);
 
     }
 
@@ -203,7 +203,7 @@ public class UserTest extends TestCase {
             e.printStackTrace();
         }
 
-        assertFalse(ok);
+        assertTrue(ok);
 
     }
 
@@ -267,22 +267,17 @@ public class UserTest extends TestCase {
 
     }
 
-    public void testIfYearIsValid() {
 
-        boolean ok = false;
-
+    public void testIfDateYear() {
         try {
-            user = new User(3, "maria", "30/02/2015", "maria@euvou.com");
-            ok = false;
+            user = new User(3, "maria", "08/11/2025", "maria@euvou.com");
+            assertEquals("11/11/2025", user.getBirthDate());
         } catch (UserException e) {
-           ok = true;
+            fail();
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertTrue(ok);
     }
-
-
 
     /* Valid entries for user email*/
 
@@ -492,6 +487,12 @@ public class UserTest extends TestCase {
             e.printStackTrace();
         }
   }
+
+
+
+
+   
+
 
 
 }

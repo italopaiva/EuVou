@@ -12,6 +12,7 @@ public class User {
     public static final String idIsInvalid = "Id inválido";
     public static final String NAME_CANT_BE_EMPTY_NAME = "Hey, acho que você está esquecendo de nos dizer seu nome.";
     public static final String NAME_CANT_BE_HIGHER_THAN_50 = "Hey, acho que você ultrapassou o número de caracteres permitido para o nome, tente novamente.";
+    public static final String CARACTERE_INVALID_WITH_QUOTES = "Hey, acho que você digitou aspas ou astrofe, por favor insira novamente o nome de maneira correta.";
     public static final String EMAIL_CANT_BE_EMPTY_EMAIL = "Hey, acho que você está esquecendo de nos dizer seu email.";
     public static final String EMAIL_CANT_BE_HIGHER_THAN_150 = "Hey, acho que você ultrapassou o número de caracteres permitido para email, tente novamente.";
     public static final String INVALID_EMAIL = "Ops, esse e-mail é inválido.";
@@ -88,7 +89,11 @@ public class User {
         if(!name.trim().isEmpty() && name!=null){
 
             if(name.length() <= MAX_LENGTH_NAME){
-                this.name = name;
+                if(!name.contains("\'") && !name.contains("\"")) {
+                    this.name = name;
+                }else {
+                    throw new UserException(CARACTERE_INVALID_WITH_QUOTES);
+                }
             }else{
                 throw new UserException(NAME_CANT_BE_HIGHER_THAN_50);
             }
@@ -104,7 +109,12 @@ public class User {
             if(email.length() <= MAX_LENGTH_EMAIL){
                 CharSequence emailCharSequence = email;
                 if(Patterns.EMAIL_ADDRESS.matcher(emailCharSequence).matches()) {
+                    if(!email.contains("\'") && !email.contains("\"")) {
                         this.email = email;
+                    }else {
+                        throw new UserException(CARACTERE_INVALID_WITH_QUOTES);
+                    }
+
                 }
                 else{
                     throw new UserException(INVALID_EMAIL);
@@ -121,7 +131,11 @@ public class User {
 
     private void setMailConfirmation(String confirmationMail) throws UserException{
         if (email.equals(confirmationMail)) {
-            this.mailConfirmation = confirmationMail;
+            if(!mailConfirmation.contains("\'") && !mailConfirmation.contains("\"")) {
+                this.mailConfirmation = confirmationMail;
+            }else {
+                throw new UserException(CARACTERE_INVALID_WITH_QUOTES);
+            }
         }
         else{
             throw new UserException(EMAIL_ARE_NOT_EQUALS);
@@ -134,7 +148,11 @@ public class User {
             if(username.length() <= MAX_LENGTH_USERNAME){
                 LoginValidation loginValidation = new LoginValidation();
                 if(!loginValidation.isUsernameRegistred(username)){
-                    this.username = username;
+                    if(!username.contains("\'") && !username.contains("\"")) {
+                        this.username = username;
+                    }else {
+                        throw new UserException(CARACTERE_INVALID_WITH_QUOTES);
+                    }
                 }
                 else{
                     throw new UserException(USERNAME_EXISTENT);
@@ -153,7 +171,11 @@ public class User {
 
         if (!password.isEmpty() && username!=null) {
             if(password.length() >= MIN_LENGTH_PASSWORD) {
+                if(!password.contains("\'") && !password.contains("\"")) {
                     this.password = password;
+                }else {
+                    throw new UserException(CARACTERE_INVALID_WITH_QUOTES);
+                }
             }
             else{
                 throw  new UserException(PASSWORD_CANT_BE_LESS_THAN_6);
@@ -167,8 +189,11 @@ public class User {
 
     private void setPasswordConfirmation (String confirmationPassword) throws UserException {
         if(password.equals(confirmationPassword)){
-            this.passwordConfirmation = confirmationPassword;
-
+            if(!passwordConfirmation.contains("\'") && !passwordConfirmation.contains("\"")) {
+                this.passwordConfirmation = confirmationPassword;
+            }else {
+                throw new UserException(CARACTERE_INVALID_WITH_QUOTES);
+            }
         }
         else{
             throw new UserException(PASSWORD_ARE_NOT_EQUALS);
@@ -181,7 +206,12 @@ public class User {
                 SimpleDateFormat FORMAT = new SimpleDateFormat("dd/MM/yyyy");
                 FORMAT.setLenient(false);
                 FORMAT.parse(birthDate);
-                this.birthDate = birthDate;
+                if(!birthDate.contains("\'") && !birthDate.contains("\"")) {
+                    this.birthDate = birthDate;
+                }else {
+                    throw new UserException(CARACTERE_INVALID_WITH_QUOTES);
+                }
+
             }
             catch (ParseException excecao){
                 throw new UserException(INVALID_BIRTH_DATE);
