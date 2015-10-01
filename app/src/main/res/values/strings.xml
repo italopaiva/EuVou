@@ -24,8 +24,9 @@
     <string name="drawer_open">Abrir navigation drawer</string>
     <string name="drawer_close">Fechar navigation drawer</string>
     <string-array name="itens_menu_string">
-        <item>Pontos Turísticos</item>
+        <item>Museus</item>
         <item>Parques</item>
+        <item>Teatros</item>
         <item>Shoppings</item>
         <item>Esportes</item>
     </string-array>

@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -37,7 +38,6 @@ public class HomePage extends ActionBarActivity {
     private ActionBarDrawerToggle drawerToggle;
     private String[] textOptions;
     private ActionBar actionBar;
-    private DrawerItemClickListener listener;
     private Fragment currentFragment;
     public static final String OPTION = "option";
     private int USER_STATUS;
@@ -48,13 +48,18 @@ public class HomePage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_navigation_drawer);
         initViews();
-        onConfigListener();
-        onConfigListItem();
-        onConfigActionBar();
+        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
+        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        if (currentFragment == null) {
-            replaceFirstFrag();
-        }
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                Toast.makeText(getBaseContext(), "oi"+position, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        onConfigActionBar();
     }
 
     private void initViews(){
@@ -79,8 +84,6 @@ public class HomePage extends ActionBarActivity {
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         actionBar = getSupportActionBar();
-
-        listener = new DrawerItemClickListener(drawerLayout, drawerList,this);
     }
 
     private void onConfigActionBar(){
@@ -204,37 +207,6 @@ public class HomePage extends ActionBarActivity {
             default:
                 return false;
         }
-    }
-    private void onConfigListener(){
-
-        drawerList.setOnItemClickListener(listener);
-
-    }
-
-    private void onConfigListItem(){
-
-        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
-
-    }
-
-    public final void replaceFragment(final Fragment frag){
-
-        currentFragment = frag;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, frag).commit();
-
-    }
-    /**
-     * Substistui o conteúdo para o primeiro fragment
-     */
-    private void replaceFirstFrag() {
-
-        currentFragment = new OptionFragment();
-        Bundle args = new Bundle();
-        args.putInt(OPTION, 0);
-        currentFragment.setArguments(args);
-        replaceFragment(currentFragment);
-
     }
 
     // Alterar Usuário methods

@@ -32,10 +32,10 @@ public class OptionFragment extends android.support.v4.app.Fragment {
     }
 
     private void onConfigFrag(){
-        int i = getArguments().getInt(OPTION); //Recupera o parâmetro passado como argumento para essa classe
+        int option = getArguments().getInt(OPTION); //Recupera o parâmetro passado como argumento para essa classe
 
         //Muda o texto de exibição de acordo com o parâmetro passado.
-        switch (i) {
+        switch (option) {
             case 0:
                 txtFrag.setText(getResources().getString(R.string.option_frag_txt01));
                 break;
