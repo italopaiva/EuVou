@@ -55,29 +55,17 @@ public class HomePage extends ActionBarActivity {
         setContentView(R.layout.fragment_navigation_drawer);
         initViews();
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
-        /*EditText placeSearch = (EditText) findViewById(R.id.place_search);
-        placeSearch.addTextChangedListener(new TextWatcher() {
+        EditText placeSearch = (EditText) findViewById(R.id.place_search);
 
-            @Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                Toast.makeText(getBaseContext(), cs, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-                                          int arg3) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-
-            }
-        });*/
         callGoogleMaps();
         onConfigActionBar();
     }
-
+    public void searchPlace(View view){
+        Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
+        map.putExtra("query", ((EditText)findViewById(R.id.place_search)).getText().toString());
+        HomePage.this.startActivity(map);
+        drawerLayout.closeDrawer(linearLayout);
+    }
     private void callGoogleMaps()
     {
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

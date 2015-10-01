@@ -94,7 +94,6 @@ public class SearchPlaceMaps extends FragmentActivity{
                 addMarkerPlace(aux);
             }
         }catch (Exception e) {
-            Toast.makeText(getBaseContext(),e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
