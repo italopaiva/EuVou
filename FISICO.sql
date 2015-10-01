@@ -1,6 +1,3 @@
-CREATE DATABASE db_MDS;
-use db_MDS;
-
 CREATE TABLE tb_locate (
 longitude DECIMAL(8,6) NOT NULL,
 latitude DECIMAL(8,6) NOT NULL,	
@@ -28,7 +25,7 @@ email VARCHAR(50) NOT NULL
 
 CREATE TABLE tb_place (
 idPlace INTEGER NOT NULL,
-namePlace VARCHAR(30) NOT NULL,
+namePlace VARCHAR(100) NOT NULL,
 phonePlace VARCHAR(20),
 operation VARCHAR(200),
 description varchar(500),
@@ -143,10 +140,15 @@ CREATE VIEW vw_place AS
 		(tb_place.latitude = tb_locate.latitude AND 
         tb_place.longitude = tb_locate.longitude)
 	LEFT JOIN evaluate_place ON evaluate_place.idPlace = tb_place.idPlace
-    GROUP BY evaluate_place.idPlace;
+    GROUP BY tb_place.idPlace;
 
 CREATE VIEW vw_user AS
 	SELECT tb_user.*, AVG(evaluate_user.grade) evaluated from tb_user
     LEFT JOIN evaluate_user ON tb_user.idUser = evaluate_user.idUserEvaluated
     GROUP BY tb_user.idUser;
+INSERT INTO tb_user(nameUser, login,passwordUser,birthDate, email)
+VALUES
+("Vinicius Pinheiro", "VinyPinheiro", "123", "1995-02-14","viny-pinheiro@hotmail.com"),
+("Julliana Couto", "juh", "123", "1994-02-11","julliana.coutoalmeida@gmail.com"),
+("Igor Duarte", "igodudu", "1234", "1995-11-14","igor-ribeiro@hotmail.com");
 

@@ -71,7 +71,7 @@ public class Place {
     }
 
     public void setLongitude(String longitude) throws ParseException, PlaceException {
-        if(longitude.isEmpty()) throw new PlaceException(INVALID_LATITUDE);
+        if(longitude.isEmpty()) throw new PlaceException(INVALID_LONGITUDE);
         this.longitude = Double.parseDouble(longitude);
     }
 

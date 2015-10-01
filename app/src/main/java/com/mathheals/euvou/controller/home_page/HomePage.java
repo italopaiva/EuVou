@@ -61,10 +61,16 @@ public class HomePage extends ActionBarActivity {
         onConfigActionBar();
     }
     public void searchPlace(View view){
+        String filter = ((EditText)findViewById(R.id.place_search)).getText().toString();
         Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
-        map.putExtra("query", ((EditText)findViewById(R.id.place_search)).getText().toString());
-        HomePage.this.startActivity(map);
-        drawerLayout.closeDrawer(linearLayout);
+        if(filter.isEmpty()) {
+            Toast.makeText(this, "Pesquisa Invalida", Toast.LENGTH_LONG).show();
+        }
+        else{
+            map.putExtra("query", filter);
+            HomePage.this.startActivity(map);
+            drawerLayout.closeDrawer(linearLayout);
+        }
     }
     private void callGoogleMaps()
     {
