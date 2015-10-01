@@ -49,7 +49,10 @@ public class ShowUser extends Fragment {
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        } catch(NullPointerException except)
+       {
+           Toast.makeText(getActivity(),"O nome não foi encontrado",Toast.LENGTH_LONG);
+       }
 
         return view;
     }
