@@ -441,6 +441,23 @@ public class UserTest extends TestCase {
         assertFalse(ok);
     }
 
+
+    // Test valid in order to Username
+
+    public void testIfUsernameIsValid() {
+        try {
+            user = new User("Julliana","Ju","ju@eu.com","123456","11/02/2000");
+            assertEquals("Ju", user.getUsername());
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 }
 
 
