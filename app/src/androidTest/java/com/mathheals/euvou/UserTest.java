@@ -1,5 +1,7 @@
 package com.mathheals.euvou;
 
+import android.widget.Toast;
+
 import junit.framework.TestCase;
 
 import java.text.ParseException;
@@ -366,74 +368,77 @@ public class UserTest extends TestCase {
     }
 
 
-    public void testIfNameIsEmpty(){
-        boolean ok = false;
-
+    public void testIfNameIsEmpty() {
+        boolean ok = true;
         try {
-            user = new User("", "Mariazinha", "maria@euvou.com", "1234567", "11/11/2015");
-            ok= false;
-        } catch (UserException e) {
-            ok = true;
+            user = new User(2,"","11/02/2015","maria@euvou.com");
         } catch (ParseException e) {
             e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
         }
-       assertTrue(ok);
+        assertFalse(ok);
+
     }
+
+
 
     public void testIfUsernameIsEmpty(){
         boolean ok = false;
-
         try {
-            user = new User("Maria", "", "maria@euvou.com", "1234567", "11/11/2015");
-            ok= false;
-        } catch (UserException e) {
-            ok = true;
+            user = new User("Maria","","maria@euvou.com","123456","11/02/1234");
         } catch (ParseException e) {
             e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
         }
-        assertTrue(ok);
+        assertFalse(ok);
     }
 
     public void testIfEmailIsEmpty(){
-        boolean ok = false;
-
+        boolean ok = true;
         try {
-            user = new User("Maria", "mariazinha", "", "1234567", "11/11/2015");
-            ok= false;
-        } catch (UserException e) {
-            ok = true;
+            user = new User("Julliana","Ju","","123456","11/02/1234");
         } catch (ParseException e) {
             e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
         }
-        assertTrue(ok);
+        assertFalse(ok);
     }
 
     public void testIfPasswordIsEmpty(){
-        boolean ok = false;
-
+        boolean ok = true;
         try {
-            user = new User("Maria", "mariazinha", "maria@euvou.com", "", "11/11/2015");
-            ok= false;
-        } catch (UserException e) {
-            ok = true;
+            user = new User("Julliana","Ju","ju@eu.com","","11/02/1234");
         } catch (ParseException e) {
             e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
         }
-        assertTrue(ok);
+        assertFalse(ok);
     }
 
-    public void testIfIsDateBirthEmpty(){
-        boolean ok = false;
-
+    public void testIfDateBirthIsEmpty(){
+        boolean ok = true;
         try {
-            user = new User("Maria", "mariazinha", "maria@euvou.com", "1234567", "");
-            ok= false;
-        } catch (UserException e) {
-            ok = true;
+            user = new User("Julliana","Ju","ju@eu.com","123456","");
         } catch (ParseException e) {
             e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
         }
-        assertTrue(ok);
+        assertFalse(ok);
     }
 
 }
