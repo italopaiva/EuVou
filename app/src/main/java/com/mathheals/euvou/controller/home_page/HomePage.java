@@ -23,9 +23,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.ShowUser;
 import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 import org.json.JSONException;
@@ -104,36 +106,13 @@ public class HomePage extends ActionBarActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-
-                Toast.makeText(getBaseContext(), query, Toast.LENGTH_SHORT).show();
-
-                UserDAO userDao = new UserDAO(HomePage.this);
-               // Toast.makeText(getBaseContext(), query, Toast.LENGTH_SHORT);
-
-                JSONObject json = userDao.searchUserByName(query);
-
-                //userDao.searchUserByName(query);
-
-                try {
-
-
-                    String name = json.getJSONObject("0").getString("nameUser");
-                    String email = json.getJSONObject("0").getString("email");
-                    String birthDate = json.getJSONObject("0").getString("birthDate");
-
-
-                    Toast.makeText(getApplicationContext(),name,
-                            Toast.LENGTH_SHORT).show();
-
-                    Toast.makeText(getApplicationContext(),email,
-                            Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplicationContext(),birthDate,
-                            Toast.LENGTH_SHORT).show();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                Bundle bundle = new Bundle();
+                bundle.putString("username", query);
+                ShowUser user = new ShowUser();
+                user.setArguments(bundle);
+                fragmentTransaction.replace(R.id.content_frame, user);
+                fragmentTransaction.commit();
 
                 return true;
             }
@@ -181,8 +160,9 @@ public class HomePage extends ActionBarActivity {
                 fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment());
                 fragmentTransaction.commit();
                 return true;
-            case R.id.visualize_profile:break;
-                //Put here code for "Visualizar Usuario"
+            case R.id.visualize_profile:
+                break;
+            //Put here code for "Visualizar Usuario"
 
         }
 
