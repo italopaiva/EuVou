@@ -9,17 +9,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray_CDC9C9" />
-
-    <ListView
+    <LinearLayout
         android:id="@+id/left_drawer"
+        android:layout_height="wrap_content"
         android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#363636"
-        android:choiceMode="singleChoice"
-        android:divider="#FFFFFF"
-        android:dividerHeight="2dp"
-        android:clickable="false" />
+        android:orientation="vertical"
+        android:layout_gravity="start" >
+        <EditText
+            android:id="@+id/place_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Busque locais"
+            android:textColor="#FFFFFF">
+        </EditText>
+        <ListView
+            android:id="@+id/left_drawer_list"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#363636"
+            android:choiceMode="singleChoice"
+            android:divider="#FFFFFF"
+            android:dividerHeight="2dp"
+            android:clickable="false" />
+    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
 

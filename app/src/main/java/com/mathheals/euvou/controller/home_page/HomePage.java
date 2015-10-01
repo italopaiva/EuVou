@@ -15,6 +15,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +24,8 @@ import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,6 +39,7 @@ import com.mathheals.euvou.controller.user_registration.RegisterFragment;
 public class HomePage extends ActionBarActivity {
     private CharSequence mTitle;
     private DrawerLayout drawerLayout;
+    private LinearLayout linearLayout;
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     private String[] textOptions;
@@ -50,6 +55,25 @@ public class HomePage extends ActionBarActivity {
         setContentView(R.layout.fragment_navigation_drawer);
         initViews();
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
+        /*EditText placeSearch = (EditText) findViewById(R.id.place_search);
+        placeSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                Toast.makeText(getBaseContext(), cs, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+
+            }
+        });*/
         callGoogleMaps();
         onConfigActionBar();
     }
@@ -63,35 +87,36 @@ public class HomePage extends ActionBarActivity {
                                     int position, long id) {
 
                 String aux = "";
-                switch (position)
-                {
+                switch (position) {
                     case 1:
-                        aux= "Museu";
+                        aux = "Museu";
                         break;
                     case 2:
-                        aux= "Parque";
+                        aux = "Parque";
                         break;
                     case 3:
-                        aux= "Teatro";
+                        aux = "Teatro";
                         break;
                     case 4:
-                        aux= "shop";
+                        aux = "shop";
                         break;
                     case 5:
-                        aux= "Unidade";
-                    break;
+                        aux = "Unidade";
+                        break;
 
                 }
-                Intent map = new Intent(HomePage.this ,SearchPlaceMaps.class);
-                map.putExtra("query",aux);
+                Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
+                map.putExtra("query", aux);
                 HomePage.this.startActivity(map);
+                drawerLayout.closeDrawer(linearLayout);
             }
         });
     }
 
     private void initViews(){
+        linearLayout = (LinearLayout) findViewById(R.id.left_drawer);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ListView) findViewById(R.id.left_drawer);
+        drawerList = (ListView) findViewById(R.id.left_drawer_list);
         drawerToggle =
                 new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer,
                         R.string.drawer_open, R.string.drawer_close) {
