@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.SearchUser;
@@ -23,29 +24,28 @@ public class ShowUser extends Fragment {
 
     public ShowUser()
     {
-
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState ,String nameUser) {
+                             Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.show_user, container, false);
         UserDAO userDAO = new UserDAO(this.getActivity());
+
+        String nameUser=this.getArguments().getString("username");
         JSONObject userData = userDAO.searchUserByName(nameUser);
-        JSONObject json = null;
 
-        json = new JSONObject((Map) userData);
+       try {
+            String nameUserDB = userData.getJSONObject("0").getString("nameUser");
+            String birthDateDB = userData.getJSONObject("0").getString("birthDate");
+            String mailDB = userData.getJSONObject("0").getString("email");
 
-        try {
-            String nameUserDB = json.getJSONObject("0").getString("nameUser");
-            String birthDateDB = json.getJSONObject("0").getString("birthDate");
-            String mailDB = json.getJSONObject("0").getString("email");
-
-            TextView labelname = null, labelBrithDate = null,labelMail = null;
-
-            labelname.setText(nameUserDB);
-            labelBrithDate.setText(birthDateDB);
-            labelMail.setText(mailDB);
+            TextView name= (TextView) view.findViewById(R.id.labelName);
+            TextView date = (TextView) view.findViewById(R.id.labelBirthDate);
+            TextView mail = (TextView) view.findViewById(R.id.labelMail);
+            name.setText(nameUserDB);
+            date.setText(birthDateDB);
+            mail.setText(mailDB);
 
         } catch (JSONException e) {
             e.printStackTrace();
