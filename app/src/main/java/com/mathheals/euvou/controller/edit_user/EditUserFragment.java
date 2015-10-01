@@ -33,7 +33,6 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
     private final int LOGGED_OUT = -1;
 
     public EditUserFragment() {
-        // Required empty public constructor
     }
 
     @Override
