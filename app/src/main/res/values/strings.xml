@@ -24,6 +24,7 @@
     <string name="drawer_open">Abrir navigation drawer</string>
     <string name="drawer_close">Fechar navigation drawer</string>
     <string-array name="itens_menu_string">
+        <item>Todos</item>
         <item>Museus</item>
         <item>Parques</item>
         <item>Teatros</item>

@@ -29,6 +29,7 @@ import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.login_user.LoginActivity;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
+import com.mathheals.euvou.controller.search_place.SearchPlaceMaps;
 import com.mathheals.euvou.controller.user_registration.RegisterFragment;
 
 public class HomePage extends ActionBarActivity {
@@ -49,17 +50,43 @@ public class HomePage extends ActionBarActivity {
         setContentView(R.layout.fragment_navigation_drawer);
         initViews();
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
+        callGoogleMaps();
+        onConfigActionBar();
+    }
+
+    private void callGoogleMaps()
+    {
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Toast.makeText(getBaseContext(), "oi"+position, Toast.LENGTH_LONG).show();
+                String aux = "";
+                switch (position)
+                {
+                    case 1:
+                        aux= "Museu";
+                        break;
+                    case 2:
+                        aux= "Parque";
+                        break;
+                    case 3:
+                        aux= "Teatro";
+                        break;
+                    case 4:
+                        aux= "shop";
+                        break;
+                    case 5:
+                        aux= "Unidade";
+                    break;
+
+                }
+                Intent map = new Intent(HomePage.this ,SearchPlaceMaps.class);
+                map.putExtra("query",aux);
+                HomePage.this.startActivity(map);
             }
         });
-
-        onConfigActionBar();
     }
 
     private void initViews(){

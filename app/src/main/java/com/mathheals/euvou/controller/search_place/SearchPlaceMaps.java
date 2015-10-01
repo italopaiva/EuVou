@@ -2,6 +2,7 @@ package com.mathheals.euvou.controller.search_place;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,7 +17,7 @@ import org.json.JSONObject;
 import dao.PlaceDAO;
 import model.Place;
 
-public class SearchPlaceMaps extends FragmentActivity implements OnMapReadyCallback {
+public class SearchPlaceMaps extends FragmentActivity{
 
     protected GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -71,23 +72,9 @@ public class SearchPlaceMaps extends FragmentActivity implements OnMapReadyCallb
     private void setUpMap() {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(-15.7941454, -47.8825479), 9));
-    }
-
-    public void addMarkerPlace(Place place)
-    {
-        mMap.addMarker(
-                new MarkerOptions()
-                    .title(place.getName())
-                    .snippet(place.getAddress())
-                    .position(new LatLng(place.getLatitude(), place.getLongitude()))
-            );
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
         Place aux;
         JSONObject result = new PlaceDAO().searchPlaceByPartName(getIntent().getStringExtra("query"));
-
+        Toast.makeText(getBaseContext(),result.toString(), Toast.LENGTH_LONG).show();
         try {
             for (int i = 0; i < result.length(); i++) {
                 aux = new Place(
@@ -104,5 +91,17 @@ public class SearchPlaceMaps extends FragmentActivity implements OnMapReadyCallb
         }catch (Exception e) {
             e.printStackTrace();
         }
+
     }
+
+    public void addMarkerPlace(Place place)
+    {
+        mMap.addMarker(
+                new MarkerOptions()
+                    .title(place.getName())
+                    .snippet(place.getAddress())
+                    .position(new LatLng(place.getLatitude(), place.getLongitude()))
+            );
+    }
+
 }
