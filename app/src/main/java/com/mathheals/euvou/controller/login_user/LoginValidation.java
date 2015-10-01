@@ -21,6 +21,8 @@ public class LoginValidation {
         this.activity=activity;
     }
 
+    public LoginValidation(){}
+
     private boolean checkUsernameCharacters(String username){
         if(username.isEmpty())
             return false;
@@ -29,7 +31,7 @@ public class LoginValidation {
         return true;
     }
 
-    private boolean isUsernameRegistred(String username){
+    public boolean isUsernameRegistred(String username){
         UserDAO userDAO = new UserDAO();
 
         JSONObject json = userDAO.searchUserByUsername(username);

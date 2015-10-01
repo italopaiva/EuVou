@@ -1,8 +1,5 @@
 package com.mathheals.euvou.controller.utility;
 
-/**
- * Created by julliana on 15/09/15.
- */
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;

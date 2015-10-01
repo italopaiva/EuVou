@@ -1,10 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.mathheals.euvou.controller.edit_user.UpdateActivity">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/bla">
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,7 +46,8 @@
         android:layout_below="@+id/nameField"
         android:layout_alignLeft="@+id/nameField"
         android:layout_alignStart="@+id/nameField"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:hint="Data de nascimento"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -77,7 +76,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Confirme o e-mail:"
         android:id="@+id/confirmMailLabel"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="19dp"
         android:layout_below="@+id/mailField"
         android:layout_alignLeft="@+id/mailLabel"
         android:layout_alignStart="@+id/mailLabel" />
@@ -93,6 +92,27 @@
         android:layout_alignRight="@+id/mailField"
         android:layout_alignEnd="@+id/mailField" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Login:"
+        android:id="@+id/loginLabel"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/confirmMailField"
+        android:layout_alignLeft="@+id/confirmMailLabel"
+        android:layout_alignStart="@+id/confirmMailLabel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/loginField"
+        android:layout_alignTop="@+id/loginLabel"
+        android:layout_toRightOf="@+id/nameLabel"
+        android:layout_toEndOf="@+id/nameLabel"
+        android:layout_marginTop="-5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,9 +120,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Senha:"
         android:id="@+id/passwordLabel"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/dateField"
-        android:layout_toStartOf="@+id/dateField" />
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/loginField"
+        android:layout_alignLeft="@+id/loginLabel"
+        android:layout_alignStart="@+id/loginLabel" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -110,9 +131,9 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/passwordField"
-        android:layout_below="@+id/confirmMailField"
-        android:layout_alignRight="@+id/confirmMailField"
-        android:layout_alignEnd="@+id/confirmMailField" />
+        android:layout_alignTop="@+id/passwordLabel"
+        android:layout_alignLeft="@+id/loginField"
+        android:layout_alignStart="@+id/loginField" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -120,10 +141,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Confirme a senha:"
         android:id="@+id/confirmPasswordLabel"
-        android:layout_marginTop="27dp"
         android:layout_below="@+id/passwordField"
-        android:layout_alignLeft="@+id/confirmMailLabel"
-        android:layout_alignStart="@+id/confirmMailLabel" />
+        android:layout_toLeftOf="@+id/confirmMailField"
+        android:layout_toStartOf="@+id/confirmMailField"
+        android:layout_marginTop="19dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -133,19 +154,18 @@
         android:id="@+id/confirmPasswordField"
         android:layout_alignTop="@+id/confirmPasswordLabel"
         android:layout_toRightOf="@+id/confirmPasswordLabel"
-        android:layout_alignRight="@+id/dateField"
-        android:layout_alignEnd="@+id/dateField" />
+        android:layout_alignRight="@+id/passwordField"
+        android:layout_alignEnd="@+id/passwordField" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alterar"
-        android:id="@+id/updateButton"
-        android:layout_marginTop="71dp"
+        android:text="Cadastrar"
+        android:id="@+id/saveButton"
         android:textColor="#FFFFFF"
         android:background="#00C0C3"
         android:layout_below="@+id/confirmPasswordField"
-        android:layout_centerHorizontal="true" />
-
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"/>
 
 </RelativeLayout>
