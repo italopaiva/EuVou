@@ -3,6 +3,7 @@ package com.mathheals.euvou.controller.utility;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import dao.UserDAO;
@@ -14,6 +15,7 @@ public class LoginUtility {
     private static final int LOGGED_OUT = -1;
     private static final String ID_FIELD =  "idField";
     private static final String COLUMN_USER_ID = "idUser";
+    private static final String COLUMN_USER_STATE = "isActivity";
     private Activity activity;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -22,6 +24,8 @@ public class LoginUtility {
         this.activity = activity;
         sharedPreferences = activity.getSharedPreferences(ID_FIELD, activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+    }
+    public LoginUtility() {
     }
 
     public boolean hasUserLoggedIn() {
@@ -48,5 +52,18 @@ public class LoginUtility {
     public void setUserLogOff() {
         editor.putInt(ID_FIELD, LOGGED_OUT);
         editor.commit();
+    }
+
+    public boolean isUserActive(String username) {
+        UserDAO userDAO = new UserDAO();
+        JSONObject jsonObject = userDAO.searchUserByUsername(username);
+        String userState = null;
+        try {
+            userState = jsonObject.getJSONObject("0").getString(COLUMN_USER_STATE);
+            return userState == "Y";
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
