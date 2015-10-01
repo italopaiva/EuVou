@@ -279,8 +279,7 @@ public class HomePage extends ActionBarActivity {
                 if(isLoginConfirmationValid()) {
                     clearBackStack();
                     RemoveUserVIewMessages.showAccountDeactivateMessage(homePageContext);
-                    int userId = 16;
-                    new UserDAO().delete(userId);
+                    new UserDAO().delete(new LoginUtility(this).getUserId());
                 }
                 return;
         }
