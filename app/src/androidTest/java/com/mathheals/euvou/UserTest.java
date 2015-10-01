@@ -174,8 +174,24 @@ public class UserTest extends TestCase {
         }
     }
 
+    public void testIfNameHasWithLessThan50Caracteres() {
+        boolean ok= false;
 
-    public void testIfNameHasUntil50Caracteres() {
+        try {
+            user = new User(3, "oioioi", "11/11/2015", "maria@euvou.com");
+            ok = false;
+        } catch (UserException e) {
+            ok = true;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(ok);
+
+    }
+
+    /* Ivanlid test of name */
+    public void testIfNameHasWithMore50Caracteres() {
         boolean ok= false;
 
         try {
@@ -187,7 +203,7 @@ public class UserTest extends TestCase {
             e.printStackTrace();
         }
 
-        assertTrue(ok);
+        assertFalse(ok);
 
     }
 
@@ -206,7 +222,7 @@ public class UserTest extends TestCase {
 
     }
 
-     /* Invalid entries for user Name */
+     /* Valid entries for user Date */
 
     public void testIfDateIsValid() {
         try {
