@@ -1,6 +1,12 @@
 package com.mathheals.euvou.controller.login_user;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,8 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.home_page.DrawerItemClickListener;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
@@ -18,6 +26,7 @@ import org.json.JSONException;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private boolean isUsernameValid;
     private boolean isPasswordValid;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +35,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Button doLogin = (Button) findViewById(R.id.doLogin);
         doLogin.setOnClickListener(this);
+        initViews();
+        onConfigActionBar();
     }
+
+    private void initViews(){
+        actionBar = getSupportActionBar();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -48,6 +64,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void onConfigActionBar(){
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#008B8B")));
+
     }
 
     @Override
