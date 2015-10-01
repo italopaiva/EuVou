@@ -5,14 +5,18 @@ import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mathheals.euvou.R;
 
+import org.json.JSONObject;
+
+import dao.PlaceDAO;
 import model.Place;
 
-public class MapsActivity extends FragmentActivity {
+public class SearchPlaceMaps extends FragmentActivity implements OnMapReadyCallback {
 
     protected GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -21,6 +25,7 @@ public class MapsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+
     }
 
     @Override
@@ -66,24 +71,6 @@ public class MapsActivity extends FragmentActivity {
     private void setUpMap() {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(-15.7941454, -47.8825479), 9));
-        mMap.addMarker(
-                new MarkerOptions()
-                        .title("Unidade de Brazlândia")
-                        .snippet("Bairro Vila São José, Quadra 35, AE 22")
-                        .position(new LatLng(-15.664718, -48.191045))
-        );
-        mMap.addMarker(
-                new MarkerOptions()
-                        .title("Parque Areal")
-                        .snippet("Quadras QS6/QS8 - Taguatinga")
-                        .position(new LatLng(-15.857222, -48.023889))
-        );
-        mMap.addMarker(
-                new MarkerOptions()
-                        .title("Templo da Boa Vontade")
-                        .snippet("SGAS 915 – Lotes 75 e 76 - Brasília")
-                        .position(new LatLng(-15.823830, -47.929720))
-        );
     }
 
     public void addMarkerPlace(Place place)
@@ -94,5 +81,28 @@ public class MapsActivity extends FragmentActivity {
                     .snippet(place.getAddress())
                     .position(new LatLng(place.getLatitude(), place.getLongitude()))
             );
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        Place aux;
+        JSONObject result = new PlaceDAO().searchPlaceByPartName(getIntent().getStringExtra("query"));
+
+        try {
+            for (int i = 0; i < result.length(); i++) {
+                aux = new Place(
+                        result.getJSONObject("" + i).getString("namePlace"),
+                        Float.parseFloat(result.getJSONObject("" + i).getString("evaluate")),
+                        Double.parseDouble(result.getJSONObject("" + i).getString("longitude")),
+                        Double.parseDouble(result.getJSONObject("" + i).getString("latitude")),
+                        result.getJSONObject("" + i).getString("operation"),
+                        result.getJSONObject("" + i).getString("description"),
+                        result.getJSONObject("" + i).getString("address")
+                );
+                addMarkerPlace(aux);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
