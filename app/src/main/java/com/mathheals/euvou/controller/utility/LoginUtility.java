@@ -3,9 +3,14 @@ package com.mathheals.euvou.controller.utility;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+
 import dao.UserDAO;
+import exception.UserException;
+import model.User;
 
 /**
  * Created by marlonmendes on 30/09/15.
@@ -14,6 +19,11 @@ public class LoginUtility {
     private static final int LOGGED_OUT = -1;
     private static final String ID_FIELD =  "idField";
     private static final String COLUMN_USER_ID = "idUser";
+    private static final String COLUMN_USER_NAME = "nameUser";
+    private static final String COLUMN_USER_LOGIN = "login";
+    private static final String COLUMN_USER_EMAIL = "email";
+    private static final String COLUMN_USER_PASSWORD = "passwordUser";
+    private static final String COLUMN_USER_BIRTHDATE = "birthDate";
     private Activity activity;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -24,6 +34,8 @@ public class LoginUtility {
         editor = sharedPreferences.edit();
     }
 
+    public LoginUtility(){}
+
     public boolean hasUserLoggedIn() {
         return getUserId() != LOGGED_OUT;
     }
@@ -32,6 +44,30 @@ public class LoginUtility {
         UserDAO userDAO = new UserDAO();
         JSONObject jsonObject = userDAO.searchUserByUsername(username);
         return Integer.parseInt(jsonObject.getJSONObject("0").getString(COLUMN_USER_ID));
+    }
+
+    public User getUser(String username){
+        User user=null;
+        try {
+            UserDAO userDAO = new UserDAO();
+            JSONObject jsonObject = userDAO.searchUserByUsername(username);
+
+            user = new User(jsonObject.getJSONObject("0").getString(COLUMN_USER_NAME),
+                    jsonObject.getJSONObject("0").getString(COLUMN_USER_LOGIN),
+                    jsonObject.getJSONObject("0").getString(COLUMN_USER_EMAIL),
+                    jsonObject.getJSONObject("0").getString(COLUMN_USER_PASSWORD),
+                    formatDateToBr(jsonObject.getJSONObject("0").getString(COLUMN_USER_BIRTHDATE)));
+            return user;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (UserException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return user;
     }
 
     // gets current user's ID
@@ -48,5 +84,10 @@ public class LoginUtility {
     public void setUserLogOff() {
         editor.putInt(ID_FIELD, LOGGED_OUT);
         editor.commit();
+    }
+
+    public String formatDateToBr(String birthDate){
+        String[] birthDateSplit = birthDate.split("-");
+        return birthDateSplit[2]+"/"+birthDateSplit[1]+"/"+birthDateSplit[0];
     }
 }

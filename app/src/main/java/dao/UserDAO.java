@@ -16,6 +16,11 @@ public class UserDAO extends DAO{
     }
 
 
+    //This method is just used on the tests
+    public void delete(String username){
+        this.executeQuery("delete from tb_user where login=\"" +username+ "\"");
+    }
+
     public void update(User user){
         this.executeQuery("UPDATE tb_user SET nameUser=\""+user.getName()+"\", " +
                 "birthDate=STR_TO_DATE(\"" + user.getBirthDate() + "\",'%d/%m/%Y'), " +
@@ -23,7 +28,7 @@ public class UserDAO extends DAO{
                 " WHERE idUser=\""+user.getIdUser()+"\"");
     }
 
-    public void delete(int idUser){
+    public void disableUser(int idUser){
         this.executeQuery("UPDATE tb_user SET isActivity=\"N\" WHERE idUser=" +idUser+ "");
     }
 

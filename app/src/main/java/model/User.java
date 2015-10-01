@@ -35,10 +35,17 @@ public class User {
     private String mailConfirmation;
     private String passwordConfirmation;
 
+    public boolean equals(User user){
+        return this.name.equals(user.getName()) &&
+                this.username.equals(user.getUsername()) &&
+                this.email.equals(user.getEmail()) &&
+                this.password.equals(user.getPassword()) &&
+                this.birthDate.equals(user.getBirthDate());
+    }
+
     public User(int idUser, String name, String birthDate, String email) throws UserException, ParseException {
         setName(name);
         setBirthDate(birthDate);
-        setEmail(email);
         setIdUser(idUser);
         setEmail(email);
     }
