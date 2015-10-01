@@ -6,17 +6,16 @@ package model;
 public class Place {
     private String name;
     private String[] comment;
-    private Integer evaluate;
+    private Float evaluate;
     private Double longitude;
     private Double latitude;
     private String operation;
     private String description;
     private String address;
 
-    public Place(String name, String[] comment, Integer evaluate, Double longitude, Double latitude,
+    public Place(String name, Float evaluate, Double longitude, Double latitude,
                  String operation, String description, String address) {
         this.name = name;
-        this.comment = comment;
         this.evaluate = evaluate;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -24,7 +23,6 @@ public class Place {
         this.description = description;
         this.address = address;
     }
-
 
     public String getName() {
         return name;
@@ -42,11 +40,11 @@ public class Place {
         this.comment = comment;
     }
 
-    public Integer getEvaluate() {
+    public Float getEvaluate() {
         return evaluate;
     }
 
-    public void setEvaluate(Integer evaluate) {
+    public void setEvaluate(Float evaluate) {
         this.evaluate = evaluate;
     }
 
