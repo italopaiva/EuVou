@@ -216,7 +216,11 @@ public class User {
         return birthDate;
     }
 
-    public String name(){
-        return name;
+    public String getMailConfirmation(){
+        return mailConfirmation;
+    }
+
+    public String getPasswordConfirmation(){
+        return passwordConfirmation;
     }
 }

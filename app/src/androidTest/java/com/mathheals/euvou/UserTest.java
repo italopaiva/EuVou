@@ -161,7 +161,7 @@ public class UserTest extends TestCase {
     }
     */
 
-    /* Valid entries for user id */
+    /* Valid entries for user Name */
     public void testIfNameIsValid() {
         try {
             user = new User(3, "maria", "11/11/2015", "maria@euvou.com");
@@ -173,6 +173,7 @@ public class UserTest extends TestCase {
             e.printStackTrace();
         }
     }
+
 
     public void testIfNameHasUntil50Caracteres() {
         boolean ok= false;
@@ -189,6 +190,23 @@ public class UserTest extends TestCase {
         assertTrue(ok);
 
     }
+
+    public void testIfNameIsEmpty() {
+        boolean ok = true;
+        try {
+            user = new User(2,"","11/02/2015","maria@euvou.com");
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
+        }
+        assertFalse(ok);
+
+    }
+
+     /* Invalid entries for user Name */
 
     public void testIfDateIsValid() {
         try {
@@ -367,24 +385,6 @@ public class UserTest extends TestCase {
         }
     }
 
-
-    public void testIfNameIsEmpty() {
-        boolean ok = true;
-        try {
-            user = new User(2,"","11/02/2015","maria@euvou.com");
-        } catch (ParseException e) {
-            e.printStackTrace();
-
-        } catch (UserException e) {
-            e.printStackTrace();
-            ok = false;
-        }
-        assertFalse(ok);
-
-    }
-
-
-
     public void testIfUsernameIsEmpty(){
         boolean ok = false;
         try {
@@ -455,7 +455,27 @@ public class UserTest extends TestCase {
         }
     }
 
+    public void testMailConfirmation(){
+        try {
+            user = new User("Julliana","Ju","ju@euvou.com","ju@euvou.com","123456","123456","11/02/2000");
+            assertEquals("ju@euvou.com", user.getMailConfirmation());
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
+  public void testPasswordConfirmation(){
+        try {
+            user = new User("Julliana","Ju","ju@euvou.com","ju@euvou.com","123456","123456","11/02/2000");
+            assertEquals("123456", user.getPasswordConfirmation());
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+  }
 
 
 }
