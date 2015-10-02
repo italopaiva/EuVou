@@ -34,4 +34,24 @@ public class ShowUserTest extends TestCase {
         }
 
     }
+    public void testShowUserBirthDate()
+    {
+        UserDAO userDAO = new UserDAO();
+
+        JSONObject userData = userDAO.searchUserByName("igodudu");
+
+        try {
+            //String nameUserDB = userData.getJSONObject("0").getString("nameUser");
+             String birthDateDB = userData.getJSONObject("0").getString("birthDate");
+            //String mailDB = userData.getJSONObject("0").getString("email");
+
+            assertEquals("1995-11-14",birthDateDB);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch(NullPointerException except)
+        {
+
+        }
+
+    }
 }
