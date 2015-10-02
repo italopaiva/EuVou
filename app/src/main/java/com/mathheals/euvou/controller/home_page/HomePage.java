@@ -189,8 +189,15 @@ public class HomePage extends ActionBarActivity {
                 bundle.putString("username", query);
                 ShowUser user = new ShowUser();
                 user.setArguments(bundle);
-                fragmentTransaction.replace(R.id.content_frame, user);
-                fragmentTransaction.commit();
+                UserDAO userDAO = new UserDAO();
+                if(userDAO.searchUserByUsername(query)!=null) {
+                    fragmentTransaction.replace(R.id.content_frame, user);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+                else{
+                    Toast.makeText(getBaseContext(), "O nome não foi encontrado", Toast.LENGTH_LONG).show();
+                }
 
                 return true;
             }
