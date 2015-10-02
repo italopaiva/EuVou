@@ -1,7 +1,5 @@
-package com.mathheals.euvou.controller;
+package com.mathheals.euvou.controller.user_profile;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,12 +9,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
-import com.mathheals.euvou.SearchUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Map;
 
 import dao.UserDAO;
 

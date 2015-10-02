@@ -1,24 +1,13 @@
-package com.mathheals.euvou;
+package com.mathheals.euvou.controller.user_profile;
 
-import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.mathheals.euvou.controller.ShowUser;
-import com.mathheals.euvou.controller.edit_user.EditUserFragment;
-
-import dao.*;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import dao.UserDAO;
-import model.User;
+import com.mathheals.euvou.R;
 
 public class SearchUser extends ActionBarActivity implements View.OnClickListener {
 

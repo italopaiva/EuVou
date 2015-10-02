@@ -1,9 +1,5 @@
 package com.mathheals.euvou.controller.home_page;
 
-import dao.UserDAO;
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -21,17 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
-import com.mathheals.euvou.controller.ShowUser;
+import com.mathheals.euvou.controller.user_profile.ShowUser;
 import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class HomePage extends ActionBarActivity {
     private CharSequence mTitle;
