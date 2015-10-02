@@ -1,0 +1,42 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.mathheals.euvou.controller.remove_user.DisableAccountFragment">
+
+    <TextView
+        android:id="@+id/some_more_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/some_more_message"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/button_yes_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/yes"
+        android:layout_below="@id/some_more_txt"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="90dp"
+        android:background="@color/LimeGreen"
+        android:textColor="@color/white"
+        android:onClick="configurationButtonsOnClick"
+        />
+    <Button
+        android:id="@+id/button_no_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no"
+        android:layout_toRightOf="@id/button_yes_id"
+        android:layout_below="@id/some_more_txt"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:background="@color/OrangeRed"
+        android:textColor="@color/white"
+        android:onClick="configurationButtonsOnClick"
+        />
+</RelativeLayout>

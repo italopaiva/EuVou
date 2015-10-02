@@ -24,6 +24,7 @@ public class LoginUtility {
     private static final String COLUMN_USER_EMAIL = "email";
     private static final String COLUMN_USER_PASSWORD = "passwordUser";
     private static final String COLUMN_USER_BIRTHDATE = "birthDate";
+    private static final String COLUMN_USER_STATE = "isActivity";
     private Activity activity;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -84,6 +85,19 @@ public class LoginUtility {
     public void setUserLogOff() {
         editor.putInt(ID_FIELD, LOGGED_OUT);
         editor.commit();
+    }
+
+    public boolean isUserActive(String username) {
+        UserDAO userDAO = new UserDAO();
+        JSONObject jsonObject = userDAO.searchUserByUsername(username);
+        String userState = null;
+        try {
+            userState = jsonObject.getJSONObject("0").getString(COLUMN_USER_STATE);
+            return userState == "Y";
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public String formatDateToBr(String birthDate){

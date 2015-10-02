@@ -1,5 +1,6 @@
 package com.mathheals.euvou.controller.home_page;
 
+import android.content.Context;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -20,17 +21,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.login_user.LoginValidation;
+import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
+import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
+import com.mathheals.euvou.controller.remove_user.OhGoshFragment;
 import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.login_user.LoginActivity;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
+import com.mathheals.euvou.controller.remove_user.RemoveUserVIewMessages;
 import com.mathheals.euvou.controller.user_registration.RegisterFragment;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
+import dao.UserDAO;
+
 public class HomePage extends ActionBarActivity {
+    private static final String DISABLE_ACCOUNT_FRAGMENT_TAG = "disable_account_fragment_tag";
+    private static final String SETTINGS_FRAGMENT = "settings_fragment_tag";
     private CharSequence mTitle;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
@@ -88,7 +99,7 @@ public class HomePage extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00C0C3")));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#008B8B")));
 
     }
 
@@ -164,7 +175,9 @@ public class HomePage extends ActionBarActivity {
                 fragmentTransaction.commit();
                 return true;
             case R.id.settings:
-                fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment());
+                clearBackStack();
+                fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment(), SETTINGS_FRAGMENT);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 return true;
             case R.id.visualize_profile:
@@ -230,6 +243,80 @@ public class HomePage extends ActionBarActivity {
         currentFragment.setArguments(args);
         replaceFragment(currentFragment);
 
+    }
+
+    public void configurationButtonsOnClick(View view) {
+        // Handling all configuration's buttons onClick
+
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        Context homePageContext = getBaseContext();
+
+        switch(view.getId()) {
+            case R.id.button_disable_account_id:
+                fragmentTransaction.replace(R.id.content_frame, new OhGoshFragment());
+                fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment(), DISABLE_ACCOUNT_FRAGMENT_TAG);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(DISABLE_ACCOUNT_FRAGMENT_TAG);
+                fragmentTransaction.commit();
+                return;
+            case R.id.button_yes_id:
+                fragmentManager.popBackStack();
+                RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
+                return;
+            case R.id.button_no_id:
+                android.support.v4.app.Fragment disableAccountFragment = getSupportFragmentManager().findFragmentByTag(DISABLE_ACCOUNT_FRAGMENT_TAG);
+                fragmentTransaction.remove(disableAccountFragment);
+                fragmentTransaction.add(R.id.content_frame, new DisableAccountLoginConfirmation());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                return;
+            case R.id.button_back_id:
+                fragmentManager.popBackStack(DISABLE_ACCOUNT_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
+                return;
+            case R.id.button_disable_account_confirmation_id:
+                if(isLoginConfirmationValid()) {
+                    clearBackStack();
+                    RemoveUserVIewMessages.showAccountDeactivateMessage(homePageContext);
+                    new UserDAO().disableUser(new LoginUtility(this).getUserId());
+                }
+                return;
+        }
+    }
+    private void clearBackStack() {
+        FragmentManager manager = getSupportFragmentManager();
+        if (manager.getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
+            manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+    }
+
+    public boolean isLoginConfirmationValid() {
+        EditText usernameField = (EditText) findViewById(R.id.edit_text_login_id);
+        String typedUsername = usernameField.getText().toString();
+
+        EditText passwordField = (EditText) findViewById(R.id.edit_text_password_id);
+        String typedPassword = passwordField.getText().toString();
+
+        LoginValidation loginValidation = new LoginValidation(HomePage.this);
+
+        boolean isUsernameValid = loginValidation.isUsernameValid(typedUsername);
+
+        if(isUsernameValid==false){
+            usernameField.requestFocus();
+            usernameField.setError(loginValidation.getInvalidUsernameMessage());
+        }else{
+            boolean isPasswordValid=loginValidation.checkPassword(typedUsername, typedPassword);
+
+            if(isPasswordValid==false){
+                passwordField.requestFocus();
+                passwordField.setError(loginValidation.getInvalidPasswordMessage());
+            }
+            else
+                return true;
+        }
+        return false;
     }
 
     // Alterar Usuário methods

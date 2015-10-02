@@ -1,6 +1,10 @@
 package dao;
 import org.json.JSONObject;
 import model.User;
+
+/**
+ * Created by emilie on 10/09/15.
+ */
 public class UserDAO extends DAO{
 
     public UserDAO(){}
@@ -18,7 +22,11 @@ public class UserDAO extends DAO{
 
     //This method is just used on the tests
     public void delete(String username){
-        this.executeQuery("delete from tb_user where login=\"" +username+ "\"");
+        this.executeQuery("DELETE FROM tb_user WHERE login=\"" +username+ "\"");
+    }
+
+    public void delete(int idUser){
+        this.executeQuery("DELETE FROM tb_user WHERE idUser=\"" +idUser+ "\"");
     }
 
     public void update(User user){

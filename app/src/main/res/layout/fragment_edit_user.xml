@@ -122,7 +122,6 @@
         android:layout_alignRight="@+id/confirmMailField"
         android:layout_alignEnd="@+id/confirmMailField"
         android:layout_marginTop="12dp"
-        android:layout_toEndOf="@+id/passwordLabel"
         android:layout_alignLeft="@+id/mailField"
         android:layout_alignStart="@+id/mailField" />
 
