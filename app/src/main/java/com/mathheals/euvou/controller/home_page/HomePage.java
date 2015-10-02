@@ -195,6 +195,12 @@ public class HomePage extends ActionBarActivity {
         }
     }
 
+    public void restartActivity() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
     public boolean userLoggedOutOptions(MenuItem item) {
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -277,11 +283,15 @@ public class HomePage extends ActionBarActivity {
                 return;
             case R.id.button_disable_account_confirmation_id:
                 if(isLoginConfirmationValid()) {
-                    clearBackStack();
+                    LoginUtility loginUtility = new LoginUtility(this);
+                    UserDAO userDAO = new UserDAO();
+
+                    userDAO.disableUser(new LoginUtility(this).getUserId());
+                    loginUtility.setUserLogOff();
+
+                    restartActivity();
                     RemoveUserVIewMessages.showAccountDeactivateMessage(homePageContext);
-                    new UserDAO().disableUser(new LoginUtility(this).getUserId());
                 }
-                return;
         }
     }
     private void clearBackStack() {

@@ -15,6 +15,7 @@ public class LoginValidation {
     private final String INVALID_PASSWORD_MESSAGE = "Ops, acho que você digitou a senha errada";
     private final String JSON_FORMAT = "0";
     private final String PASSWORD_USER = "passwordUser";
+    private static final String COLUMN_USER_STATE = "isActivity";
     Activity activity;
 
     public LoginValidation(Activity activity){
@@ -34,9 +35,16 @@ public class LoginValidation {
     public boolean isUsernameRegistred(String username){
         UserDAO userDAO = new UserDAO();
 
-        JSONObject json = userDAO.searchUserByUsername(username);
+        JSONObject json = null;
+        String isActivity = null;
+        try {
+            json = userDAO.searchUserByUsername(username);
+            isActivity = json.getJSONObject(JSON_FORMAT).getString(COLUMN_USER_STATE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        if(json!=null){
+        if(json!=null && isActivity.equals("Y")){
             return true;
         }else{
             return false;
