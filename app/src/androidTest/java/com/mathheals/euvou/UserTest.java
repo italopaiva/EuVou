@@ -1,12 +1,8 @@
 package com.mathheals.euvou;
-
 import android.widget.Toast;
-
 import junit.framework.TestCase;
-
 import java.text.ParseException;
 import java.util.Random;
-
 import exception.UserException;
 import model.User;
 
@@ -19,7 +15,7 @@ public class UserTest extends TestCase {
     public void testIfInstantiateWithValidId1() {
 
         try {
-            user = new User(1, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(1, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals(1, user.getIdUser());
         } catch (UserException e) {
@@ -33,7 +29,7 @@ public class UserTest extends TestCase {
     public void testIfInstantiateWithValidRandomId() {
         int randomId = random.nextInt(Integer.MAX_VALUE - 1) + 1;
         try {
-            user = new User(randomId, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(randomId, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals(randomId, user.getIdUser());
         } catch (UserException e) {
@@ -47,7 +43,7 @@ public class UserTest extends TestCase {
     public void testIfInstantiateWithValidId2() {
 
         try {
-            user = new User(2, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(2, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals(2, user.getIdUser());
         } catch (UserException e) {
@@ -61,7 +57,7 @@ public class UserTest extends TestCase {
     public void testIfInstantiateWithValidIdMaxMenosUm() {
 
         try {
-            user = new User(Integer.MAX_VALUE - 1, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(Integer.MAX_VALUE - 1, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals(Integer.MAX_VALUE - 1, user.getIdUser());
         } catch (UserException e) {
@@ -75,7 +71,7 @@ public class UserTest extends TestCase {
     public void testIfInstantiateWithValidIdMax() {
 
         try {
-            user = new User(Integer.MAX_VALUE, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(Integer.MAX_VALUE, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals(Integer.MAX_VALUE, user.getIdUser());
         } catch (UserException e) {
@@ -91,7 +87,7 @@ public class UserTest extends TestCase {
         boolean ok = false;
 
         try {
-            user = new User(0, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(0, "maria", "11/09/2015", "maria@euvou.com");
             ok = false;
         } catch (UserException e) {
             ok = true;
@@ -106,7 +102,7 @@ public class UserTest extends TestCase {
         boolean ok = false;
 
         try {
-            user = new User(-1, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(-1, "maria", "11/09/2015", "maria@euvou.com");
             ok = false;
         } catch (UserException e) {
             ok = true;
@@ -121,7 +117,7 @@ public class UserTest extends TestCase {
         boolean ok = false;
 
         try {
-            user = new User(Integer.MIN_VALUE, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(Integer.MIN_VALUE, "maria", "11/09/2015", "maria@euvou.com");
             ok = false;
         } catch (UserException e) {
             ok = true;
@@ -136,7 +132,7 @@ public class UserTest extends TestCase {
         boolean ok = false;
 
         try {
-            user = new User(Integer.MIN_VALUE + 1, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(Integer.MIN_VALUE + 1, "maria", "11/09/2015", "maria@euvou.com");
             ok = false;
         } catch (UserException e) {
             ok = true;
@@ -153,7 +149,7 @@ public class UserTest extends TestCase {
     /* Valid entries for user Name */
     public void testIfNameIsValid() {
         try {
-            user = new User(3, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(3, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals("maria", user.getName());
         } catch (UserException e) {
@@ -167,7 +163,7 @@ public class UserTest extends TestCase {
         boolean ok= false;
 
         try {
-            user = new User(3, "oioioi", "11/11/2015", "maria@euvou.com");
+            user = new User(3, "oioioi", "11/09/2015", "maria@euvou.com");
             ok = false;
         } catch (UserException e) {
             ok = true;
@@ -356,7 +352,7 @@ public class UserTest extends TestCase {
     public void testIfPasswordIsValidTo7Caracteres() {
 
         try {
-            user = new User("maria", "Mariazinha", "maria@euvou.com", "1234567", "11/11/2015");
+            user = new User("maria", "Mariazinha", "maria@euvou.com", "1234567", "11/09/2015");
             assertEquals ("1234567",user.getPassword());
         } catch (UserException e) {
             fail();
@@ -368,7 +364,7 @@ public class UserTest extends TestCase {
     public void testIfPasswordIsValidTo6caracteres() {
 
         try {
-            user = new User("maria", "Mariazinha", "maria@euvou.com", "123456", "11/11/2015");
+            user = new User("maria", "Mariazinha", "maria@euvou.com", "123456", "11/09/2015");
             assertEquals ("123456",user.getPassword());
         } catch (UserException e) {
             fail();
@@ -379,7 +375,7 @@ public class UserTest extends TestCase {
 
     public void testIfPasswordIsBiggerThanSix() {
         try {
-            user = new User("maria", "Mariazinha", "maria@euvou.com", "1234567", "11/11/2015");
+            user = new User("maria", "Mariazinha", "maria@euvou.com", "1234567", "11/09/2015");
             assertEquals ("1234567",user.getPassword());
         } catch (UserException e) {
             fail();
@@ -469,7 +465,7 @@ public class UserTest extends TestCase {
         }
     }
 
-  public void testPasswordConfirmation(){
+    public void testPasswordConfirmation(){
         try {
             user = new User("Julliana","Ju","ju@euvou.com","ju@euvou.com","123456","123456","11/02/2000");
             assertEquals("123456", user.getPasswordConfirmation());
@@ -478,12 +474,12 @@ public class UserTest extends TestCase {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-  }
+    }
 
     public void testNameHasQuote() {
         boolean ok= true;
         try {
-            user = new User(3, "\"", "11/11/2015", "maria@euvou.com");
+            user = new User(3, "\"", "11/09/2015", "maria@euvou.com");
 
             ok=true;
         } catch (UserException e) {
@@ -577,7 +573,7 @@ public class UserTest extends TestCase {
     public void testNameHasSimpleQuote() {
         boolean ok= true;
         try {
-            user = new User(3, "\'", "11/11/2015", "maria@euvou.com");
+            user = new User(3, "\'", "11/09/2015", "maria@euvou.com");
 
             ok=true;
         } catch (UserException e) {
@@ -666,9 +662,3 @@ public class UserTest extends TestCase {
         assertFalse(ok);
     }
 }
-
-
-
-
-
-

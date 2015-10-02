@@ -37,7 +37,6 @@ public class HomePage extends ActionBarActivity {
     private ActionBarDrawerToggle drawerToggle;
     private String[] textOptions;
     private ActionBar actionBar;
-    private DrawerItemClickListener listener;
     private Fragment currentFragment;
     public static final String OPTION = "option";
     private int USER_STATUS;
@@ -51,10 +50,6 @@ public class HomePage extends ActionBarActivity {
         onConfigListener();
         onConfigListItem();
         onConfigActionBar();
-
-        if (currentFragment == null) {
-            replaceFirstFrag();
-        }
     }
 
     private void initViews(){
@@ -80,7 +75,6 @@ public class HomePage extends ActionBarActivity {
 
         actionBar = getSupportActionBar();
 
-        listener = new DrawerItemClickListener(drawerLayout, drawerList,this);
     }
 
     private void onConfigActionBar(){
@@ -206,33 +200,11 @@ public class HomePage extends ActionBarActivity {
     }
     private void onConfigListener(){
 
-        drawerList.setOnItemClickListener(listener);
-
     }
 
     private void onConfigListItem(){
 
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
-
-    }
-
-    public final void replaceFragment(final Fragment frag){
-
-        currentFragment = frag;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, frag).commit();
-
-    }
-    /**
-     * Substistui o conteúdo para o primeiro fragment
-     */
-    private void replaceFirstFrag() {
-
-        currentFragment = new OptionFragment();
-        Bundle args = new Bundle();
-        args.putInt(OPTION, 0);
-        currentFragment.setArguments(args);
-        replaceFragment(currentFragment);
 
     }
 
