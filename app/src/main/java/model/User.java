@@ -136,7 +136,7 @@ public class User {
 
     private void setMailConfirmation(String confirmationMail) throws UserException{
         if (email.equals(confirmationMail)) {
-            if(!mailConfirmation.contains("\'") && !mailConfirmation.contains("\"")) {
+            if(!confirmationMail.contains("\'") && !confirmationMail.contains("\"")) {
                 this.mailConfirmation = confirmationMail;
             }else {
                 throw new UserException(CARACTERE_INVALID_WITH_QUOTES);
@@ -194,7 +194,7 @@ public class User {
 
     private void setPasswordConfirmation (String confirmationPassword) throws UserException {
         if(password.equals(confirmationPassword)){
-            if(!passwordConfirmation.contains("\'") && !passwordConfirmation.contains("\"")) {
+            if(!confirmationPassword.contains("\'") && !confirmationPassword.contains("\"")) {
                 this.passwordConfirmation = confirmationPassword;
             }else {
                 throw new UserException(CARACTERE_INVALID_WITH_QUOTES);
