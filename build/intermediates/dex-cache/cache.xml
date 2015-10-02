@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="/home/igor/EuVou/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/home/igor/EuVou/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-817546a9a1e6d7df67a00d570abb73ee5f9dc031.jar" />
+    </item>
+    <item
         jar="/home/igor/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
         jumboMode="false"
         revision="22.0.1"
@@ -14,13 +21,6 @@
         revision="22.0.1"
         sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
         <dex dex="/home/igor/EuVou/app/build/intermediates/pre-dexed/debug/classes-0c4785a747a03b939f063d602cc82f90c45385fb.jar" />
-    </item>
-    <item
-        jar="/home/igor/EuVou/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="/home/igor/EuVou/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-817546a9a1e6d7df67a00d570abb73ee5f9dc031.jar" />
     </item>
     <item
         jar="/home/igor/EuVou/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"

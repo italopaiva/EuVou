@@ -32,7 +32,7 @@ public class LoginValidation {
         return true;
     }
 
-    public boolean isUsernameRegistred(String username){
+    public boolean isActivity(String username){
         UserDAO userDAO = new UserDAO();
 
         JSONObject json = null;
@@ -45,6 +45,18 @@ public class LoginValidation {
         }
 
         if(json!=null && isActivity.equals("Y")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isUsernameRegistred(String username){
+        UserDAO userDAO = new UserDAO();
+
+        JSONObject json = userDAO.searchUserByUsername(username);
+
+        if(json!=null){
             return true;
         }else{
             return false;

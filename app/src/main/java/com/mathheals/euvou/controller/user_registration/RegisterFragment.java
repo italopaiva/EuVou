@@ -20,7 +20,7 @@ import model.User;
 public class RegisterFragment extends Fragment implements View.OnClickListener {
 
 
-    private static final String SUCCESSFULL_CADASTRATION_MESSAGE = "Bem vindo ao eu vou :)";
+    private static final String SUCCESSFULL_CADASTRATION_MESSAGE = "Bem vindo ao #EuVou :)";
 
     public RegisterFragment() {
     }
@@ -75,6 +75,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             Activity activity = getActivity();
             Intent myIntent = new Intent(activity, LoginActivity.class);
             activity.startActivity(myIntent);
+
         } catch (Exception e) {
             String message = e.getMessage();
 
@@ -170,6 +171,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             if (message.equals(User.INVALID_BIRTH_DATE)) {
                 birthDateField.requestFocus();
                 birthDateField.setError(message);
+            }
+
+            if(message.equals(User.USERNAME_EXISTENT)){
+                usernameField.requestFocus();
+                usernameField.setError(message);
             }
         }
 

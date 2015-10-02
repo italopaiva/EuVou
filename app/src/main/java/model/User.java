@@ -45,40 +45,12 @@ public class User {
     private String mailConfirmation;
     private String passwordConfirmation;
 
-    public boolean equals(User user){
-        return this.name.equals(user.getName()) &&
-                this.username.equals(user.getUsername()) &&
-                this.email.equals(user.getEmail()) &&
-                this.password.equals(user.getPassword()) &&
-                this.birthDate.equals(user.getBirthDate());
-    }
-
-    public User(int idUser, String name, String username, String birthDate, String email, String mailConfirmation, String password, String passwordConfirmation) throws UserException, ParseException{
-        setIdUser(idUser);
-        setName(name);
-        setUsername(username);
-        setBirthDate(birthDate);
-        setEmail(email);
-        setMailConfirmation(mailConfirmation);
-        setPassword(password);
-        setPasswordConfirmation(passwordConfirmation);
-    }
-
     public User(int idUser, String name, String birthDate, String email) throws UserException, ParseException {
         setName(name);
         setBirthDate(birthDate);
+        setEmail(email);
         setIdUser(idUser);
         setEmail(email);
-    }
-
-    public User(int idUser, String name, String birthDate, String email, String mailConfirmation, String password, String passwordConfirmation) throws UserException, ParseException{
-        setIdUser(idUser);
-        setName(name);
-        setBirthDate(birthDate);
-        setEmail(email);
-        setMailConfirmation(mailConfirmation);
-        setPassword(password);
-        setPasswordConfirmation(passwordConfirmation);
     }
 
     public User(String name, String username, String email, String password,String birthDate) throws UserException, ParseException {
@@ -96,6 +68,16 @@ public class User {
         setEmail(email);
         setMailConfirmation(mailConfirmation);
         setUsername(username);
+        setPassword(password);
+        setPasswordConfirmation(passwordConfirmation);
+    }
+
+    public User(int idUser, String name, String birthDate, String email, String mailConfirmation, String password, String passwordConfirmation) throws UserException, ParseException{
+        setIdUser(idUser);
+        setName(name);
+        setBirthDate(birthDate);
+        setEmail(email);
+        setMailConfirmation(mailConfirmation);
         setPassword(password);
         setPasswordConfirmation(passwordConfirmation);
     }
@@ -202,7 +184,7 @@ public class User {
 
     private  void  setPassword (String password) throws UserException{
 
-        if (!password.isEmpty() && username!=null) {
+        if (!password.isEmpty() && password!=null) {
             if(password.length() >= MIN_LENGTH_PASSWORD) {
                 if(!password.contains("\'") && !password.contains("\"")) {
                     this.password = password;

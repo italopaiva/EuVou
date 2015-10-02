@@ -49,7 +49,6 @@ public class HomePage extends ActionBarActivity {
     private ActionBarDrawerToggle drawerToggle;
     private String[] textOptions;
     private ActionBar actionBar;
-    private DrawerItemClickListener listener;
     private Fragment currentFragment;
     public static final String OPTION = "option";
     private int USER_STATUS;
@@ -63,11 +62,6 @@ public class HomePage extends ActionBarActivity {
         onConfigListener();
         onConfigListItem();
         onConfigActionBar();
-
-        if (currentFragment == null) {
-            replaceFirstFrag();
-        }
-
     }
 
     private void initViews(){

@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.mathheals.euvou.R;
-import com.mathheals.euvou.controller.home_page.DrawerItemClickListener;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
@@ -87,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         isUsernameValid=loginValidation.isUsernameValid(typedUsername);
 
-        if(isUsernameValid==false){
+        if(isUsernameValid==false || !loginValidation.isActivity(typedUsername)){
             usernameField.requestFocus();
             usernameField.setError(loginValidation.getInvalidUsernameMessage());
         }else{
