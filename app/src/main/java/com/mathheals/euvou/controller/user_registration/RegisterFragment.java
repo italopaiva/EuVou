@@ -1,4 +1,6 @@
 package com.mathheals.euvou.controller.user_registration;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.login_user.LoginActivity;
 import com.mathheals.euvou.controller.utility.Mask;
 
 import dao.UserDAO;
@@ -16,6 +19,8 @@ import model.User;
 
 public class RegisterFragment extends Fragment implements View.OnClickListener {
 
+
+    private static final String SUCCESSFULL_CADASTRATION_MESSAGE = "Bem vindo ao eu vou :)";
 
     public RegisterFragment() {
     }
@@ -64,9 +69,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         try {
             User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);
-
             registerUser(new User(name, username, mail, password, birthDate));
 
+            Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE, Toast.LENGTH_LONG).show();
+            Activity activity = getActivity();
+            Intent myIntent = new Intent(activity, LoginActivity.class);
+            activity.startActivity(myIntent);
         } catch (Exception e) {
             String message = e.getMessage();
 
