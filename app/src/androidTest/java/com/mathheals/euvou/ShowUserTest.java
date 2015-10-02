@@ -54,4 +54,24 @@ public class ShowUserTest extends TestCase {
         }
 
     }
+    public void testShowUserEmail()
+    {
+        UserDAO userDAO = new UserDAO();
+
+        JSONObject userData = userDAO.searchUserByName("igodudu");
+
+        try {
+            //String nameUserDB = userData.getJSONObject("0").getString("nameUser");
+            //String birthDateDB = userData.getJSONObject("0").getString("birthDate");
+            String mailDB = userData.getJSONObject("0").getString("email");
+
+            assertEquals("igor-ribeiro@hotmail.com",mailDB);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch(NullPointerException except)
+        {
+
+        }
+
+    }
 }
