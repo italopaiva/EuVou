@@ -13,6 +13,7 @@ import com.mathheals.euvou.controller.utility.LoginUtility;
 import junit.framework.TestCase;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.Random;
@@ -22,6 +23,14 @@ import exception.UserException;
 import model.User;
 
 public class UserDAOTest extends TestCase {
+    private static final String ID_FIELD =  "idField";
+    private static final String COLUMN_USER_ID = "idUser";
+    private static final String COLUMN_USER_NAME = "nameUser";
+    private static final String COLUMN_USER_LOGIN = "login";
+    private static final String COLUMN_USER_EMAIL = "email";
+    private static final String COLUMN_USER_PASSWORD = "passwordUser";
+    private static final String COLUMN_USER_BIRTHDATE = "birthDate";
+    private static final String COLUMN_USER_STATE = "isActivity";
 
     public void testRegisterUser(){
         try {
@@ -30,7 +39,14 @@ public class UserDAOTest extends TestCase {
             userDAO.save(user);
 
             LoginUtility loginUtility = new LoginUtility();
-            User user2 = loginUtility.getUser("marceloChavosao");
+
+            JSONObject jsonObject = userDAO.searchUserByUsername("marceloChavosao");
+
+            User user2 = new User(jsonObject.getJSONObject("0").getString(COLUMN_USER_NAME),
+                    jsonObject.getJSONObject("0").getString(COLUMN_USER_LOGIN),
+                    jsonObject.getJSONObject("0").getString(COLUMN_USER_EMAIL),
+                    jsonObject.getJSONObject("0").getString(COLUMN_USER_PASSWORD),
+                    loginUtility.formatDateToBr(jsonObject.getJSONObject("0").getString(COLUMN_USER_BIRTHDATE)));;
 
             assertTrue(user.equals(user2));
 
@@ -38,6 +54,8 @@ public class UserDAOTest extends TestCase {
         } catch (UserException e) {
             e.printStackTrace();
         } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
