@@ -1,10 +1,15 @@
 package model;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import com.mathheals.euvou.controller.login_user.LoginValidation;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import exception.UserException;
 
 public class User {
@@ -203,15 +208,20 @@ public class User {
     private void setBirthDate (String birthDate) throws UserException, ParseException {
         if(!birthDate.isEmpty() && birthDate!=null){
             try {
-                SimpleDateFormat FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-                FORMAT.setLenient(false);
-                FORMAT.parse(birthDate);
-                if(!birthDate.contains("\'") && !birthDate.contains("\"")) {
-                    this.birthDate = birthDate;
-                }else {
-                    throw new UserException(CARACTERE_INVALID_WITH_QUOTES);
-                }
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                Date userDate = format.parse(birthDate);
 
+                if(userDate.before(new Date())) {
+                    if (!birthDate.contains("\'") && !birthDate.contains("\"")) {
+                        this.birthDate = birthDate;
+                    }
+                    else {
+                        throw new UserException(CARACTERE_INVALID_WITH_QUOTES);
+                    }
+                }
+                else {
+                    throw new UserException(INVALID_BIRTH_DATE);
+                }
             }
             catch (ParseException excecao){
                 throw new UserException(INVALID_BIRTH_DATE);
