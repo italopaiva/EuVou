@@ -93,7 +93,6 @@ public class HomePage extends ActionBarActivity {
 
         actionBar = getSupportActionBar();
 
-        listener = new DrawerItemClickListener(drawerLayout, drawerList,this);
     }
 
     private void onConfigActionBar(){
@@ -101,7 +100,7 @@ public class HomePage extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#008B8B")));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00C0C3")));
 
     }
 
@@ -236,7 +235,6 @@ public class HomePage extends ActionBarActivity {
                 fragmentTransaction.replace(R.id.content_frame, new RegisterFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                Toast.makeText(getBaseContext(), "Cadastrar", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.log_in:
                 Intent myIntent = new Intent(HomePage.this, LoginActivity.class);
@@ -248,33 +246,11 @@ public class HomePage extends ActionBarActivity {
     }
     private void onConfigListener(){
 
-        drawerList.setOnItemClickListener(listener);
-
     }
 
     private void onConfigListItem(){
 
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
-
-    }
-
-    public final void replaceFragment(final Fragment frag){
-
-        currentFragment = frag;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, frag).commit();
-
-    }
-    /**
-     * Substistui o conteúdo para o primeiro fragment
-     */
-    private void replaceFirstFrag() {
-
-        currentFragment = new OptionFragment();
-        Bundle args = new Bundle();
-        args.putInt(OPTION, 0);
-        currentFragment.setArguments(args);
-        replaceFragment(currentFragment);
 
     }
 

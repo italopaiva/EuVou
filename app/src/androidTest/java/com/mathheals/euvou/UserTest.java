@@ -1,10 +1,8 @@
 package com.mathheals.euvou;
-
+import android.widget.Toast;
 import junit.framework.TestCase;
-
 import java.text.ParseException;
 import java.util.Random;
-
 import exception.UserException;
 import model.User;
 
@@ -17,7 +15,7 @@ public class UserTest extends TestCase {
     public void testIfInstantiateWithValidId1() {
 
         try {
-            user = new User(1, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(1, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals(1, user.getIdUser());
         } catch (UserException e) {
@@ -31,7 +29,7 @@ public class UserTest extends TestCase {
     public void testIfInstantiateWithValidRandomId() {
         int randomId = random.nextInt(Integer.MAX_VALUE - 1) + 1;
         try {
-            user = new User(randomId, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(randomId, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals(randomId, user.getIdUser());
         } catch (UserException e) {
@@ -45,7 +43,7 @@ public class UserTest extends TestCase {
     public void testIfInstantiateWithValidId2() {
 
         try {
-            user = new User(2, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(2, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals(2, user.getIdUser());
         } catch (UserException e) {
@@ -59,7 +57,7 @@ public class UserTest extends TestCase {
     public void testIfInstantiateWithValidIdMaxMenosUm() {
 
         try {
-            user = new User(Integer.MAX_VALUE - 1, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(Integer.MAX_VALUE - 1, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals(Integer.MAX_VALUE - 1, user.getIdUser());
         } catch (UserException e) {
@@ -73,7 +71,7 @@ public class UserTest extends TestCase {
     public void testIfInstantiateWithValidIdMax() {
 
         try {
-            user = new User(Integer.MAX_VALUE, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(Integer.MAX_VALUE, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals(Integer.MAX_VALUE, user.getIdUser());
         } catch (UserException e) {
@@ -89,7 +87,7 @@ public class UserTest extends TestCase {
         boolean ok = false;
 
         try {
-            user = new User(0, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(0, "maria", "11/09/2015", "maria@euvou.com");
             ok = false;
         } catch (UserException e) {
             ok = true;
@@ -104,7 +102,7 @@ public class UserTest extends TestCase {
         boolean ok = false;
 
         try {
-            user = new User(-1, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(-1, "maria", "11/09/2015", "maria@euvou.com");
             ok = false;
         } catch (UserException e) {
             ok = true;
@@ -119,7 +117,7 @@ public class UserTest extends TestCase {
         boolean ok = false;
 
         try {
-            user = new User(Integer.MIN_VALUE, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(Integer.MIN_VALUE, "maria", "11/09/2015", "maria@euvou.com");
             ok = false;
         } catch (UserException e) {
             ok = true;
@@ -134,7 +132,7 @@ public class UserTest extends TestCase {
         boolean ok = false;
 
         try {
-            user = new User(Integer.MIN_VALUE + 1, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(Integer.MIN_VALUE + 1, "maria", "11/09/2015", "maria@euvou.com");
             ok = false;
         } catch (UserException e) {
             ok = true;
@@ -145,24 +143,13 @@ public class UserTest extends TestCase {
         assertTrue(ok);
     }
 
-    /*public void testIfInstantiateWithInvalidRandomId(){
-        boolean ok = false;
-        int randomId = random.nextInt(Integer.MIN_VALUE + 1) - 1 ;
-        try {
-            user = new User(randomId, "maria", "11/11/2015", "maria@euvou.com");
-            ok = false;
-        } catch (UserException e) {
-            ok = true;
 
-        }
-        assertTrue(ok);
-    }
-    */
 
-    /* Valid entries for user id */
+
+    /* Valid entries for user Name */
     public void testIfNameIsValid() {
         try {
-            user = new User(3, "maria", "11/11/2015", "maria@euvou.com");
+            user = new User(3, "maria", "11/09/2015", "maria@euvou.com");
 
             assertEquals("maria", user.getName());
         } catch (UserException e) {
@@ -172,67 +159,119 @@ public class UserTest extends TestCase {
         }
     }
 
-    public void testIfNameHasUntil50Caracteres() {
-        try {
-            user = new User(3, "dsedfghjklljhgfdswasdfghjkjhgfdsdfghjkjhgfdsasdfghjkjhgfdsasdfghjmkjhgfdsasdfgbhnmhgfdsdfgdsd", "11/11/2015", "maria@euvou.com");
+    public void testIfNameHasWithLessThan50Caracteres() {
+        boolean ok= false;
 
-            assertEquals("dsedfghjklljhgfdswasdfghjkjhgfdsdfghjkjhgfdsasdfghjkjhgfdsasdfghjmkjhgfdsasdfgbhnmhgfdsdfgdsd", user.getName());
+        try {
+            user = new User(3, "oioioi", "11/09/2015", "maria@euvou.com");
+            ok = false;
         } catch (UserException e) {
-            fail();
+            ok = true;
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        assertFalse(ok);
+
+    }
+
+    /* Ivanlid test of name */
+    public void testIfNameHasWithMore50Caracteres() {
+        boolean ok= false;
+
+        try {
+            user = new User(3, "dsedfghjklljhgfdswasdfghjkjhgfdsdfghjkjhgfdsasdfghjkjhgfdsasdfghjmkjhgfdsasdfgbhnmhgfdsdfgdsd", "11/11/2015", "maria@euvou.com");
+            ok = false;
+        } catch (UserException e) {
+            ok = true;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(ok);
+
+    }
+
+    public void testIfNameIsEmpty() {
+        boolean ok = true;
+        try {
+            user = new User(2,"","11/02/2015","maria@euvou.com");
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
+        }
+        assertFalse(ok);
+
+    }
+
+     /* Valid entries for user Date */
+
+
+    public void testIfMonthIsValid() {
+
+        boolean ok = false;
+
+        try {
+            user = new User(3, "maria", "11/13/2015", "maria@euvou.com");
+            ok = false;
+        } catch (UserException e) {
+            ok = true;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(ok);
+    }
+
+
+    public void testIfDateIsBissextile() {
+        boolean ok= true;
+        try {
+            user = new User(3, "maria", "29/02/2000", "maria@euvou.com");
+            ok=true;
+        } catch (UserException e) {
+            ok = false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertTrue(ok);
+    }
+
+    public void testIfDateIsNotBissextile() {
+        boolean ok= true;
+        try {
+            user = new User(3, "maria", "29/02/2001", "maria@euvou.com");
+            ok=true;
+        } catch (UserException e) {
+            ok = false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
     }
 
     public void testIfDateIsValid() {
+        boolean ok= true;
         try {
             user = new User(3, "maria", "11/11/2015", "maria@euvou.com");
-            assertEquals("11/11/2015", user.getBirthDate());
+            ok=true;
         } catch (UserException e) {
-            fail();
+            ok = false;
         } catch (ParseException e) {
             e.printStackTrace();
         }
-    }
-
-    public void testIfMonthIsValid() {
-        try {
-            user = new User(3, "maria", "11/13/2015", "maria@euvou.com");
-            assertEquals("11/13/2015", user.getBirthDate());
-        } catch (UserException e) {
-            fail();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void testIfDayIsValid() {
-        try {
-            user = new User(3, "maria", "30/02/2015", "maria@euvou.com");
-            assertEquals("30/02/2015", user.getBirthDate());
-        } catch (UserException e) {
-            fail();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void testIfYearIsValid() {
-        try {
-            user = new User(3, "maria", "30/02/0", "maria@euvou.com");
-            assertEquals("30/02/0", user.getBirthDate());
-        } catch (UserException e) {
-            fail();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        assertFalse(ok);
     }
 
     /* Valid entries for user email*/
 
     public void testIfEmailIsValid() {
         try {
-            user = new User(3, "maria", "22/02/2015", "maria@euvou.com");
+            user = new User(3, "maria", "22/02/2015", "maria@euvou.com" +
+                    "");
             assertEquals("maria@euvou.com", user.getEmail());
         } catch (UserException e) {
             fail();
@@ -313,7 +352,7 @@ public class UserTest extends TestCase {
     public void testIfPasswordIsValidTo7Caracteres() {
 
         try {
-            user = new User("maria", "Mariazinha", "maria@euvou.com", "1234567", "11/11/2015");
+            user = new User("maria", "Mariazinha", "maria@euvou.com", "1234567", "11/09/2015");
             assertEquals ("1234567",user.getPassword());
         } catch (UserException e) {
             fail();
@@ -325,7 +364,7 @@ public class UserTest extends TestCase {
     public void testIfPasswordIsValidTo6caracteres() {
 
         try {
-            user = new User("maria", "Mariazinha", "maria@euvou.com", "123456", "11/11/2015");
+            user = new User("maria", "Mariazinha", "maria@euvou.com", "123456", "11/09/2015");
             assertEquals ("123456",user.getPassword());
         } catch (UserException e) {
             fail();
@@ -334,39 +373,292 @@ public class UserTest extends TestCase {
         }
     }
 
-    public void testIfPasswordIsLessThanSix() {
-        boolean ok = false;
-
+    public void testIfPasswordIsBiggerThanSix() {
         try {
-            user = new User("maria", "Mariazinha", "maria@euvou.com", "1234567", "11/11/2015");
-            ok = false;
-        } catch (UserException e) {
-            ok = true;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        assertEquals("1234", user.getPassword());
-    }
-
-
-    public void testIfInstantiateWithValidRandomPassword() {
-        int randomPassword = random.nextInt(Integer.MAX_VALUE);
-        try {
-            user = new User(randomPassword, "maria", "11/11/2015", "maria@euvou.com");
-
-            assertEquals(randomPassword, user.getIdUser());
+            user = new User("maria", "Mariazinha", "maria@euvou.com", "1234567", "11/09/2015");
+            assertEquals ("1234567",user.getPassword());
         } catch (UserException e) {
             fail();
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
 
+    public void testIfUsernameIsEmpty(){
+        boolean ok = false;
+        try {
+            user = new User("Maria","","maria@euvou.com","123456","11/02/1234");
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
+        }
+        assertFalse(ok);
+    }
+
+    public void testIfEmailIsEmpty(){
+        boolean ok = true;
+        try {
+            user = new User("Julliana","Ju","","123456","11/02/1234");
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
+        }
+        assertFalse(ok);
+    }
+
+    public void testIfPasswordIsEmpty(){
+        boolean ok = true;
+        try {
+            user = new User("Julliana","Ju","ju@eu.com","","11/02/1234");
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
+        }
+        assertFalse(ok);
+    }
+
+    public void testIfDateBirthIsEmpty(){
+        boolean ok = true;
+        try {
+            user = new User("Julliana","Ju","ju@eu.com","123456","");
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
+        }
+        assertFalse(ok);
     }
 
 
+    // Test valid in order to Username
+
+    public void testIfUsernameIsValid() {
+        try {
+            user = new User("Julliana","Ju","ju@eu.com","123456","11/02/2000");
+            assertEquals("Ju", user.getUsername());
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testMailConfirmation(){
+        try {
+            user = new User("Julliana","Ju","ju@euvou.com","ju@euvou.com","123456","123456","11/02/2000");
+            assertEquals("ju@euvou.com", user.getMailConfirmation());
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testPasswordConfirmation(){
+        try {
+            user = new User("Julliana","Ju","ju@euvou.com","ju@euvou.com","123456","123456","11/02/2000");
+            assertEquals("123456", user.getPasswordConfirmation());
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testNameHasQuote() {
+        boolean ok= true;
+        try {
+            user = new User(3, "\"", "11/09/2015", "maria@euvou.com");
+
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testUsernameHasQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "\"", "ana@euvou.com","ana@euvou.com","123456","123456","11/02/1994");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testMailHasQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "juu", "\"","ju@euvou.com","123456","123456","11/02/1994");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testConfirmationMailHasQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "juu", "ju@euvou.com","\"","123456","123456","11/02/1994");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testPasswordHasQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "juu", "ju@euvou.com","ju@euvou.com","\"","123456","11/02/1994");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testConfirmPasswordHasQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "juu", "ju@euvou.com","ju@euvou.com","123456","\"","11/02/1994");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testDateBirthHasQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "juu", "ju@euvou.com","ju@euvou.com","123456","123456","\"");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+
+
+    public void testNameHasSimpleQuote() {
+        boolean ok= true;
+        try {
+            user = new User(3, "\'", "11/09/2015", "maria@euvou.com");
+
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testUsernameHasSimpleQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "\'", "ana@euvou.com","ana@euvou.com","123456","123456","11/02/1994");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testMailHasSimpleQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "juu", "\'","ju@euvou.com","123456","123456","11/02/1994");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testConfirmationMailHasSimpleQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "juu", "ju@euvou.com","\'","123456","123456","11/02/1994");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testPasswordHasSimpleQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "juu", "ju@euvou.com","ju@euvou.com","\'","123456","11/02/1994");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testConfirmPasswordHasSimpleQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "juu", "ju@euvou.com","ju@euvou.com","123456","\'","11/02/1994");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
+
+    public void testDateBirthHasSimpleQuote() {
+        boolean ok= true;
+        try {
+            user = new User("julliana", "juu", "ju@euvou.com","ju@euvou.com","123456","123456","\'");
+            ok=true;
+        } catch (UserException e) {
+            ok=false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
+    }
 }
-
-
-
-
