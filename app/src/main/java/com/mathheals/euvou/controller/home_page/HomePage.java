@@ -30,6 +30,7 @@ import com.mathheals.euvou.controller.login_user.LoginValidation;
 import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
 import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
 import com.mathheals.euvou.controller.remove_user.OhGoshFragment;
+import com.mathheals.euvou.controller.user_profile.ShowUser;
 import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.login_user.LoginActivity;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
@@ -66,6 +67,7 @@ public class HomePage extends ActionBarActivity {
         if (currentFragment == null) {
             replaceFirstFrag();
         }
+
     }
 
     private void initViews(){
@@ -104,6 +106,7 @@ public class HomePage extends ActionBarActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
+
         MenuInflater inflater = getMenuInflater();
         LoginUtility loginUtility = new LoginUtility(HomePage.this);
         // Inflating menu for logged users
@@ -126,7 +129,31 @@ public class HomePage extends ActionBarActivity {
         SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
         search.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         search.setQueryHint("Buscar locais e usuário");
-        return true;
+        
+        MenuItem searchBar = menu.findItem(R.id.search);
+        SearchView userSearch = (SearchView) searchBar.getActionView();
+        userSearch.setQueryHint("Busque usuários");
+        userSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                Bundle bundle = new Bundle();
+                bundle.putString("username", query);
+                ShowUser user = new ShowUser();
+                user.setArguments(bundle);
+                fragmentTransaction.replace(R.id.content_frame, user);
+                fragmentTransaction.commit();
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
@@ -180,14 +207,14 @@ public class HomePage extends ActionBarActivity {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 return true;
-            case R.id.visualize_profile:
-                return true;
             case R.id.logout:
                 new LoginUtility(HomePage.this).setUserLogOff();
 
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
+                return true;
+            case R.id.visualize_profile:
                 return true;
             default:
                 return false;
