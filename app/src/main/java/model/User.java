@@ -209,6 +209,7 @@ public class User {
         if(!birthDate.isEmpty() && birthDate!=null){
             try {
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                format.setLenient(false);
                 Date userDate = format.parse(birthDate);
 
                 if(userDate.before(new Date())) {

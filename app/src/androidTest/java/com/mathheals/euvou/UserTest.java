@@ -147,19 +147,8 @@ public class UserTest extends TestCase {
         assertTrue(ok);
     }
 
-    /*public void testIfInstantiateWithInvalidRandomId(){
-        boolean ok = false;
-        int randomId = random.nextInt(Integer.MIN_VALUE + 1) - 1 ;
-        try {
-            user = new User(randomId, "maria", "11/11/2015", "maria@euvou.com");
-            ok = false;
-        } catch (UserException e) {
-            ok = true;
 
-        }
-        assertTrue(ok);
-    }
-    */
+
 
     /* Valid entries for user Name */
     public void testIfNameIsValid() {
@@ -224,16 +213,6 @@ public class UserTest extends TestCase {
 
      /* Valid entries for user Date */
 
-    public void testIfDateIsValid() {
-        try {
-            user = new User(3, "maria", "11/11/2015", "maria@euvou.com");
-            assertEquals("11/11/2015", user.getBirthDate());
-        } catch (UserException e) {
-            fail();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void testIfMonthIsValid() {
 
@@ -252,38 +231,51 @@ public class UserTest extends TestCase {
     }
 
 
-    public void testIfDayIsValid() {
-
-        boolean ok = false;
-
+    public void testIfDateIsBissextile() {
+        boolean ok= true;
         try {
-            user = new User(3, "maria", "30/02/2015", "maria@euvou.com");
-            ok = false;
+            user = new User(3, "maria", "29/02/2000", "maria@euvou.com");
+            ok=true;
         } catch (UserException e) {
-            ok = true;
+            ok = false;
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        assertTrue(ok);
     }
 
-
-    public void testIfDateYear() {
+    public void testIfDateIsNotBissextile() {
+        boolean ok= true;
         try {
-            user = new User(3, "maria", "08/11/2025", "maria@euvou.com");
-            assertEquals("11/11/2025", user.getBirthDate());
+            user = new User(3, "maria", "29/02/2001", "maria@euvou.com");
+            ok=true;
         } catch (UserException e) {
-            fail();
+            ok = false;
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        assertFalse(ok);
+    }
+
+    public void testIfDateIsValid() {
+        boolean ok= true;
+        try {
+            user = new User(3, "maria", "11/11/2015", "maria@euvou.com");
+            ok=true;
+        } catch (UserException e) {
+            ok = false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertFalse(ok);
     }
 
     /* Valid entries for user email*/
 
     public void testIfEmailIsValid() {
         try {
-            user = new User(3, "maria", "22/02/2015", "maria@euvou.com");
+            user = new User(3, "maria", "22/02/2015", "maria@euvou.com" +
+                    "");
             assertEquals("maria@euvou.com", user.getEmail());
         } catch (UserException e) {
             fail();
