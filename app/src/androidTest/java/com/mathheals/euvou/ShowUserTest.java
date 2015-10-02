@@ -21,11 +21,11 @@ public class ShowUserTest extends TestCase {
         JSONObject userData = userDAO.searchUserByName("igodudu");
 
         try {
-            String nameUserDB = userData.getJSONObject("0").getString("login");
+            String nameUserDB = userData.getJSONObject("0").getString("nameUser");
            // String birthDateDB = userData.getJSONObject("0").getString("birthDate");
             //String mailDB = userData.getJSONObject("0").getString("email");
 
-            assertEquals("igodudu",nameUserDB);
+            assertEquals("Igor Duarte",nameUserDB);
         } catch (JSONException e) {
             e.printStackTrace();
         } catch(NullPointerException except)
