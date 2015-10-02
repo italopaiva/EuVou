@@ -1,166 +1,89 @@
 package model;
 
-import android.util.Log;
+import java.text.ParseException;
 
+import exception.PlaceException;
 /**
  * Created by geovanni on 09/09/15.
  */
 public class Place {
+
+    private final String INVALID_NAME = "Hey, nome invalido";
+    private final String INVALID_LATITUDE = "Hey, sem a latitude não é possível encontrar o lugar";
+    private final String INVALID_LONGITUDE= "Hey, sem a longitude não é possível encontrar o lugar";
+
     private String name;
-    private String comment;
-    private Integer evaluate;
-    private String longitude;
-    private Integer Number;
-    private Integer complement;
-    private String type;
-    private String patio; /* achei estranho, porém deixarei assim para averiguar com o grupo
-                            posteriormente*/
-    private String zipCode;
+    private String[] comment;
+    private Float evaluate;
+    private Double longitude;
+    private Double latitude;
+    private String operation;
+    private String description;
+    private String address;
 
-
-    public String getZipCode() {
-        return zipCode;
+    public Place(String name, String evaluate, String longitude, String latitude,
+                 String operation, String description, String address) throws PlaceException, ParseException {
+        setName(name);
+        setEvaluate(evaluate);
+        setLongitude(longitude);
+        setLatitude(latitude);
+        setOperation(operation);
+        setDescription(description);
+        aetAddress(address);
     }
 
-    public void setZipCode(String zipCode) {
-        try
-        {
-            if(zipCode.length()>0)
-                this.zipCode = zipCode;
-        }catch(NullPointerException exception)
-        {
-
-        }
+    private void aetAddress(String address) {
+        this.address = address;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        try
-        {
-            if(name.length()>0)
-                this.name = name;
-        }catch(NullPointerException exception)
-        {
-
-        }
-
+    public void setName(String name) throws PlaceException {
+        if(name.isEmpty()) throw new PlaceException(INVALID_NAME);
+        this.name = name;
     }
 
-    public String getComment() {
+    public String[] getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
-        try
-        {
-            this.comment = comment;
-        }catch(NullPointerException exception)
-        {
-
-        }
-
+    public void setComment(String[] comment) {
+        this.comment = comment;
     }
 
-    public Integer getEvaluate() {
-        return evaluate;
-    }
-
-    public void setEvaluate(Integer evaluate) {
-        try
-        {
-            if(evaluate < 0 || evaluate >5)
-                System.out.println( "Opa! a avaliação deve ser de 0 a 5");
-            else
-                this.evaluate = evaluate;
-        }catch(NumberFormatException exception)
-        {
-
-        }
-
-    }
-
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
-        try
-        {
-            this.longitude = longitude;
-        }catch(NullPointerException exception)
-        {
-
-        }
-
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public Integer getNumber() {
-        return Number;
+    public String getAddress() {
+        return address;
     }
 
-    public void setNumber(Integer number) {
-        try
-        {
-            Number = number;
-
-        }catch(NullPointerException exception)
-        {
-
-        }catch(NumberFormatException except)
-        {
-
-        }
-
-
+    public void setLatitude(String latitude) throws ParseException, PlaceException{
+        if(latitude.isEmpty()) throw new PlaceException(INVALID_LATITUDE);
+        this.latitude = Double.parseDouble(latitude);
     }
 
-    public Integer getComplement() {
-        return complement;
+    public void setLongitude(String longitude) throws ParseException, PlaceException {
+        if(longitude.isEmpty()) throw new PlaceException(INVALID_LONGITUDE);
+        this.longitude = Double.parseDouble(longitude);
     }
 
-    public void setComplement(Integer complement) {
-        try
-        {
-            this.complement = complement;
-
-        }catch(NullPointerException exception)
-        {
-
-        }catch(NumberFormatException except)
-        {
-
-        }
+    public void setEvaluate(String evaluate) throws ParseException{
+        this.evaluate = (evaluate.equals("null")? 0 : Float.parseFloat(evaluate));
     }
 
-    public String getType() {
-        return type;
+    public void setOperation(String operation) {
+        this.operation = operation;
     }
 
-    public void setType(String type) {
-        try {
-            this.type = type;
-
-        }catch(NullPointerException exception)
-        {
-
-        }
+    public void setDescription(String description) {
+        this.description = description;
     }
-
-    public String getPatio() {
-        return patio;
-    }
-
-    public void setPatio(String patio) {
-       try {
-
-           this.patio = patio;
-       }catch(NullPointerException exception)
-       {
-
-       }
-    }
-
 }

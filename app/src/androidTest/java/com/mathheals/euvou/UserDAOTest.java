@@ -22,7 +22,7 @@ import exception.UserException;
 import model.User;
 
 public class UserDAOTest extends TestCase {
-    
+
     public void testRegisterUser(){
         try {
             UserDAO userDAO = new UserDAO();
@@ -36,7 +36,7 @@ public class UserDAOTest extends TestCase {
 
             userDAO.delete("marceloChavosao");
         } catch (UserException e) {
-            fail();
+            e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }

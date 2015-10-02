@@ -12,7 +12,7 @@
     <string name="login">Usuário:</string>
     <string name="password">Senha:</string>
     <string name="login_hint">Confirme seu usuário</string>
-    <string name="password_hint">e senha</string>
+    <string name="password_hint">Senha</string>
     <string name="back">Voltar</string>
 
 </resources>

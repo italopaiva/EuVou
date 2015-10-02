@@ -4,6 +4,7 @@ import android.content.Context;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,13 +16,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,6 +40,7 @@ import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.login_user.LoginActivity;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserVIewMessages;
+import com.mathheals.euvou.controller.search_place.SearchPlaceMaps;
 import com.mathheals.euvou.controller.user_registration.RegisterFragment;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
@@ -45,6 +51,7 @@ public class HomePage extends ActionBarActivity {
     private static final String SETTINGS_FRAGMENT = "settings_fragment_tag";
     private CharSequence mTitle;
     private DrawerLayout drawerLayout;
+    private LinearLayout linearLayout;
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     private String[] textOptions;
@@ -59,14 +66,63 @@ public class HomePage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_navigation_drawer);
         initViews();
-        onConfigListener();
-        onConfigListItem();
+        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
+        EditText placeSearch = (EditText) findViewById(R.id.place_search);
+
+        callGoogleMaps();
         onConfigActionBar();
+    }
+    public void searchPlace(View view){
+        String filter = ((EditText)findViewById(R.id.place_search)).getText().toString();
+        Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
+        if(filter.isEmpty()) {
+            Toast.makeText(this, "Pesquisa Invalida", Toast.LENGTH_LONG).show();
+        }
+        else{
+            map.putExtra("query", filter);
+            HomePage.this.startActivity(map);
+            drawerLayout.closeDrawer(linearLayout);
+        }
+    }
+    private void callGoogleMaps()
+    {
+        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                String aux = "";
+                switch (position) {
+                    case 1:
+                        aux = "Museu";
+                        break;
+                    case 2:
+                        aux = "Parque";
+                        break;
+                    case 3:
+                        aux = "Teatro";
+                        break;
+                    case 4:
+                        aux = "shop";
+                        break;
+                    case 5:
+                        aux = "Unidade";
+                        break;
+
+                }
+                Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
+                map.putExtra("query", aux);
+                HomePage.this.startActivity(map);
+                drawerLayout.closeDrawer(linearLayout);
+            }
+        });
     }
 
     private void initViews(){
+        linearLayout = (LinearLayout) findViewById(R.id.left_drawer);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ListView) findViewById(R.id.left_drawer);
+        drawerList = (ListView) findViewById(R.id.left_drawer_list);
         drawerToggle =
                 new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer,
                         R.string.drawer_open, R.string.drawer_close) {
@@ -86,7 +142,6 @@ public class HomePage extends ActionBarActivity {
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         actionBar = getSupportActionBar();
-
     }
 
     private void onConfigActionBar(){
@@ -99,7 +154,6 @@ public class HomePage extends ActionBarActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         LoginUtility loginUtility = new LoginUtility(HomePage.this);
         // Inflating menu for logged users
@@ -207,11 +261,8 @@ public class HomePage extends ActionBarActivity {
                 finish();
                 startActivity(intent);
                 return true;
-            case R.id.visualize_profile:
-                return true;
             default:
                 return false;
-            //Put here code for "Visualizar Usuario"
         }
     }
 
