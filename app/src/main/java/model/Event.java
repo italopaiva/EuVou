@@ -13,15 +13,42 @@ public class Event {
     public static final String LONGITUDE_IS_INVALID = "Hey, você inseriu um número inválido, a longitude deve ser maior que -180 e menor que 180";
     public static final String LONGITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... preenche ela aí vai!";
     public static final String LANTITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... preenche ela aí vai!";
+    public static final String INVALID_EVALUATION = "Hey, você deve avaliar um evento com notas de 1 a 5!";
 
     private int idEvent;
     private String nameEvent;
     private String description;
     private Double latitude;
     private Double longitude;
+    private String adress;
+    private Integer evaluation;
 
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
+
+    public Integer getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(Integer evaluation) throws  EventException{
+        if(evaluation >1 && evaluation<5)
+        {
+            this.evaluation = evaluation;
+        }
+        else
+        {
+            throw new EventException(INVALID_EVALUATION);
+        }
+
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
 
     public Event(int idEvent,String nameEvent,String description,Double latitude, Double longitude) throws EventException {
         setIdEvent(idEvent);
