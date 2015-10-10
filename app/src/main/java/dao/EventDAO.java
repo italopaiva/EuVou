@@ -12,4 +12,8 @@ public class EventDAO extends DAO {
         event.getDescription()+" \", \""+event.getLatitude()+" \", \""+event.getLongitude()+" \")");
 
     }
+    public  void deleteEvent(String eventName)
+    {
+        this.executeQuery("DELETE FROM tb_event WHERE nameEvent =\""+eventName+"\"");
+    }
 }
