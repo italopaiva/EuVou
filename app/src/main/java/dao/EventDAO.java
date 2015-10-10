@@ -1,5 +1,7 @@
 package dao;
 
+import org.json.JSONObject;
+
 import model.Event;
 
 /**
@@ -15,5 +17,8 @@ public class EventDAO extends DAO {
     public  void deleteEvent(String eventName)
     {
         this.executeQuery("DELETE FROM tb_event WHERE nameEvent =\""+eventName+"\"");
+    }
+    public JSONObject searchEventByName(String eventName){
+       return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent =\""+eventName+"\"");
     }
 }
