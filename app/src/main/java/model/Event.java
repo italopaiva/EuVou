@@ -14,6 +14,8 @@ public class Event {
     public static final String LONGITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... preenche ela aí vai!";
     public static final String LANTITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... preenche ela aí vai!";
     public static final String INVALID_EVALUATION = "Hey, você deve avaliar um evento com notas de 1 a 5!";
+    public static final String ADDRESS_IS_EMPTY = "Hey, você esqueceu de nos informar o endereço do evento!";
+
 
     private int idEvent;
     private String nameEvent;
@@ -46,8 +48,14 @@ public class Event {
         return adress;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAdress(String adress) throws EventException{
+        if(!(adress.isEmpty()))
+        {
+            this.adress = adress;
+        }else{
+            throw new EventException(ADDRESS_IS_EMPTY);
+        }
+
     }
 
     public Event(int idEvent,String nameEvent,String description,Double latitude, Double longitude) throws EventException {
