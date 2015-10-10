@@ -114,13 +114,18 @@ public class Event {
     }
 
     public void setLatitude(Double latitude) throws EventException{
-
-        if(latitude >= -90 && latitude <= 90)
+        if(!(latitude.toString().isEmpty()))
         {
-            this.latitude = latitude;
+            if(latitude >= -90 && latitude <= 90)
+            {
+                this.latitude = latitude;
+            }else
+            {
+                throw  new EventException(LATITUDE_IS_INVALID);
+            }
         }else
         {
-            throw  new EventException(LATITUDE_IS_INVALID);
+            throw  new EventException(LANTITUDE_IS_EMPTY);
         }
     }
 }
