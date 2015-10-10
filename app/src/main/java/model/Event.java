@@ -19,11 +19,29 @@ public class Event {
 
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
+
+    public Event(int idEvent,String nameEvent,String description,Float latitude, Float longitude) throws EventException {
+        setIdEvent(idEvent);
+        setNameEvent(nameEvent);
+        setDescription(description);
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
+
     public Event(String nameEvent,String description,Float latitude, Float longitude) throws EventException {
         setNameEvent(nameEvent);
         setDescription(description);
         setLatitude(latitude);
         setLongitude(longitude);
+    }
+
+
+    public int getIdEvent() {
+        return idEvent;
+    }
+
+    public void setIdEvent(int idEvent) {
+        this.idEvent = idEvent;
     }
 
     public Float getLongitude() {
