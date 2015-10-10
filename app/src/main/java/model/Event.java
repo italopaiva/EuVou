@@ -9,18 +9,18 @@ public class Event {
     public static final String NAME_CANT_BE_GREATER_THAN_50 = "Hey, você ultrapassou o número de caracteres permitido para o nome do evento, tente novamente.";
     public static  final String DESCRIPTION_CANT_BE_EMPTY = "Hey, acho que você esqueu de informar a descrição do evento.";
     public static final String DESCRIPTION_CANT_BE_GREATER_THAN = "Hey, o máximo de caractéres para descrever um evento é de 500 caracteres";
-
+    public static final String LATITUDE_IS_INVALID = "Hey, você inseriu um intervalo inválido, a latitude deve ser maior que -90 e menor que 90!";
 
     private int idEvent;
     private String nameEvent;
     private String description;
-    private Float latitude;
-    private Float longitude;
+    private Double latitude;
+    private Double longitude;
 
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
 
-    public Event(int idEvent,String nameEvent,String description,Float latitude, Float longitude) throws EventException {
+    public Event(int idEvent,String nameEvent,String description,Double latitude, Double longitude) throws EventException {
         setIdEvent(idEvent);
         setNameEvent(nameEvent);
         setDescription(description);
@@ -28,7 +28,7 @@ public class Event {
         setLongitude(longitude);
     }
 
-    public Event(String nameEvent,String description,Float latitude, Float longitude) throws EventException {
+    public Event(String nameEvent,String description,Double latitude, Double longitude) throws EventException {
         setNameEvent(nameEvent);
         setDescription(description);
         setLatitude(latitude);
@@ -44,11 +44,11 @@ public class Event {
         this.idEvent = idEvent;
     }
 
-    public Float getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Float longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -93,11 +93,18 @@ public class Event {
 
     }
 
-    public Float getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
+    public void setLatitude(Double latitude) throws EventException{
+
+        if(latitude >= -90 && latitude <= 90)
+        {
+            this.latitude = latitude;
+        }else
+        {
+            throw  new EventException(LATITUDE_IS_INVALID);
+        }
     }
 }
