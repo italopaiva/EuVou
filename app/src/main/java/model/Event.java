@@ -9,7 +9,10 @@ public class Event {
     public static final String NAME_CANT_BE_GREATER_THAN_50 = "Hey, você ultrapassou o número de caracteres permitido para o nome do evento, tente novamente.";
     public static  final String DESCRIPTION_CANT_BE_EMPTY = "Hey, acho que você esqueu de informar a descrição do evento.";
     public static final String DESCRIPTION_CANT_BE_GREATER_THAN = "Hey, o máximo de caractéres para descrever um evento é de 500 caracteres";
-    public static final String LATITUDE_IS_INVALID = "Hey, você inseriu um intervalo inválido, a latitude deve ser maior que -90 e menor que 90!";
+    public static final String LATITUDE_IS_INVALID = "Hey, você inseriu um número inválido, a latitude deve ser maior que -90 e menor que 90!";
+    public static final String LONGITUDE_IS_INVALID = "Hey, você inseriu um número inválido, a longitude deve ser maior que -180 e menor que 180";
+    public static final String LONGITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... preenche ela aí vai!";
+    public static final String LANTITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... preenche ela aí vai!";
 
     private int idEvent;
     private String nameEvent;
@@ -48,8 +51,21 @@ public class Event {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setLongitude(Double longitude) throws EventException{
+        if(!(longitude.toString().isEmpty()))
+        {
+            if(longitude > -180 && longitude < 180) {
+                this.longitude = longitude;
+
+            }else
+            {
+                throw  new EventException(LONGITUDE_IS_INVALID);
+            }
+        }else
+        {
+            throw new EventException(LONGITUDE_IS_EMPTY);
+        }
+
     }
 
     public String getNameEvent(){
