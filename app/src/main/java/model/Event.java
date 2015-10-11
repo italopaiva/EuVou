@@ -1,6 +1,9 @@
 package model;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 //confirmar restrições de tamanho
 import exception.EventException;
 
@@ -15,18 +18,71 @@ public class Event {
     public static final String LANTITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... preenche ela aí vai!";
     public static final String INVALID_EVALUATION = "Hey, você deve avaliar um evento com notas de 1 a 5!";
     public static final String ADDRESS_IS_EMPTY = "Hey, você esqueceu de nos informar o endereço do evento!";
+    public static final String INVALID_EVENT_DATE = "Hey, você informou uma data errada, pay attention guy!";
+    public static final String EVENT_DATE_IS_EMPTY = "Hey, você esqueceu de informar a data do evento, cuidado!";
 
 
     private int idEvent;
     private String nameEvent;
+    private String dateTimeEvent;
     private String description;
     private Double latitude;
     private Double longitude;
     private String adress;
     private Integer evaluation;
 
+
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
+
+    
+
+
+    public Event(int idEvent,String nameEvent,String dateTimeEvent,String description,Double latitude, Double longitude) throws EventException {
+        setIdEvent(idEvent);
+        setNameEvent(nameEvent);
+        setDescription(description);
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
+
+    public Event(String nameEvent,String dateTimeEvent,String description,Double latitude, Double longitude) throws EventException {
+        setNameEvent(nameEvent);
+        setDescription(description);
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
+
+    public String getDateTimeEvent() {
+        return dateTimeEvent;
+    }
+
+    public void setDateTimeEvent(String dateTimeEvent) throws ParseException, EventException {
+        if(!dateTimeEvent.isEmpty() && dateTimeEvent !=null)
+        {
+            try{
+                SimpleDateFormat formate = new SimpleDateFormat("dd/mm/aaaa");
+                formate.setLenient(false);
+                Date eventDate = formate.parse(dateTimeEvent);
+                if(eventDate.before(new Date()))
+                {
+                    this.dateTimeEvent = dateTimeEvent;
+                }else
+                {
+                    throw new EventException(INVALID_EVENT_DATE);
+                }
+            }catch(ParseException exception)
+            {
+                throw new EventException(INVALID_EVENT_DATE);
+            }
+
+
+        }else
+        {
+            throw  new EventException(EVENT_DATE_IS_EMPTY);
+        }
+
+    }
 
     public Integer getEvaluation() {
         return evaluation;
@@ -57,22 +113,6 @@ public class Event {
         }
 
     }
-
-    public Event(int idEvent,String nameEvent,String description,Double latitude, Double longitude) throws EventException {
-        setIdEvent(idEvent);
-        setNameEvent(nameEvent);
-        setDescription(description);
-        setLatitude(latitude);
-        setLongitude(longitude);
-    }
-
-    public Event(String nameEvent,String description,Double latitude, Double longitude) throws EventException {
-        setNameEvent(nameEvent);
-        setDescription(description);
-        setLatitude(latitude);
-        setLongitude(longitude);
-    }
-
 
     public int getIdEvent() {
         return idEvent;
