@@ -8,6 +8,7 @@ import java.util.Date;
 import exception.EventException;
 
 public class Event {
+
     public static final String EVENT_NAME_CANT_BE_EMPTY_NAME = "Hey, acho que você está esquecendo de nos informar o nome do evento.";
     public static final String NAME_CANT_BE_GREATER_THAN_50 = "Hey, você ultrapassou o número de caracteres permitido para o nome do evento, tente novamente.";
     public static  final String DESCRIPTION_CANT_BE_EMPTY = "Hey, acho que você esqueu de informar a descrição do evento.";
@@ -35,7 +36,7 @@ public class Event {
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
 
-    
+
 
 
     public Event(int idEvent,String nameEvent,String dateTimeEvent,String description,Double latitude, Double longitude) throws EventException {

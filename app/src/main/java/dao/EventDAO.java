@@ -24,7 +24,8 @@ public class EventDAO extends DAO {
         this.executeQuery("UPDATE tb_event SET nameEvent=\""+event.getNameEvent()+"\", "+"dateTimeEvent=\""+event.getDateTimeEvent()+
         "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", "+"latitude=\""+event.getLatitude()+"\"");
     }
-    public JSONObject searchEventByName(String eventName){
+    public JSONObject searchEventByName(String eventName)
+    {
        return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent =\""+eventName+"\"");
     }
 }
