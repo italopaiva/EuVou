@@ -1,18 +1,22 @@
 package com.mathheals.euvou.controller.remove_user;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.mathheals.euvou.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DisableAccountFragment extends android.support.v4.app.Fragment {
+public class DisableAccountFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
 
     public DisableAccountFragment() {
@@ -24,8 +28,27 @@ public class DisableAccountFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_disable_account, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_disable_account, container, false);
+
+        Button yesButton = (Button)view.findViewById(R.id.button_yes_id);
+        yesButton.setOnClickListener(this);
+
+        return view;
     }
 
 
+    @Override
+    public void onClick(View view) {
+        FragmentActivity activity = this.getActivity();
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        Context homePageContext = activity.getBaseContext();
+
+        switch(view.getId()) {
+            case R.id.button_yes_id:
+                fragmentManager.popBackStack();
+                RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
+                return;
+        }
+    }
 }

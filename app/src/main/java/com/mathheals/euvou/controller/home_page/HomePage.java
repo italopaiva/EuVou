@@ -313,10 +313,6 @@ public class HomePage extends ActionBarActivity {
         Context homePageContext = getBaseContext();
 
         switch(view.getId()) {
-            case R.id.button_yes_id:
-                fragmentManager.popBackStack();
-                RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
-                return;
             case R.id.button_no_id:
                 Fragment disableAccountFragment = getSupportFragmentManager().findFragmentByTag(null);
                 fragmentTransaction.remove(disableAccountFragment);
