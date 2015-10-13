@@ -43,7 +43,19 @@ public class EventTest extends TestCase{
         }
         assertFalse(ok);
     }
-
+    public void testNameIsBiggerThanMax()
+    {
+        boolean ok = true;
+        try
+        {
+            event = new Event("Joãozinho da Silva Gosta da Dilma, venham conhecer esse jovem muito jovem","02/02/2015","Venham conhecer o Joãozinho!",50.8,60.2);
+            ok = true;
+        } catch (EventException e) {
+            e.printStackTrace();
+            ok = false;
+        }
+        assertFalse(ok);
+    }
 
     //testes Juh manjadora dos testes!
 }
