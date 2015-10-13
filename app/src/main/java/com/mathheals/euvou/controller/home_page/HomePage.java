@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -47,7 +48,6 @@ import com.mathheals.euvou.controller.utility.LoginUtility;
 import dao.UserDAO;
 
 public class HomePage extends ActionBarActivity {
-    private static final String DISABLE_ACCOUNT_FRAGMENT_TAG = "disable_account_fragment_tag";
     private static final String SETTINGS_FRAGMENT = "settings_fragment_tag";
     private CharSequence mTitle;
     private DrawerLayout drawerLayout;
@@ -303,37 +303,29 @@ public class HomePage extends ActionBarActivity {
     private void onConfigListItem(){
 
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
-
     }
 
     public void configurationButtonsOnClick(View view) {
         // Handling all configuration's buttons onClick
 
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         Context homePageContext = getBaseContext();
 
         switch(view.getId()) {
-            case R.id.button_disable_account_id:
-                fragmentTransaction.replace(R.id.content_frame, new OhGoshFragment());
-                fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment(), DISABLE_ACCOUNT_FRAGMENT_TAG);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.addToBackStack(DISABLE_ACCOUNT_FRAGMENT_TAG);
-                fragmentTransaction.commit();
-                return;
             case R.id.button_yes_id:
                 fragmentManager.popBackStack();
                 RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
                 return;
             case R.id.button_no_id:
-                android.support.v4.app.Fragment disableAccountFragment = getSupportFragmentManager().findFragmentByTag(DISABLE_ACCOUNT_FRAGMENT_TAG);
+                Fragment disableAccountFragment = getSupportFragmentManager().findFragmentByTag(null);
                 fragmentTransaction.remove(disableAccountFragment);
                 fragmentTransaction.add(R.id.content_frame, new DisableAccountLoginConfirmation());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 return;
             case R.id.button_back_id:
-                fragmentManager.popBackStack(DISABLE_ACCOUNT_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
                 return;
             case R.id.button_disable_account_confirmation_id:
