@@ -56,6 +56,29 @@ public class EventTest extends TestCase{
         }
         assertFalse(ok);
     }
+    public void testNameIsvalid()
+    {
+        boolean ok = true;
+        try
+        {
+            event = new Event("Joãozinho da Silva Gosta de sorvete","02/02/2015","Venham conhecer o Joãozinho!",50.8,60.2);
+            ok = true;
+        } catch (EventException e) {
+            e.printStackTrace();
+            ok = false;
+        }
+        assertTrue(ok);
+    }
 
-    //testes Juh manjadora dos testes!
+
+    public void testIfDateIsEmpty() {
+        boolean ok = true;
+        try {
+            event = new Event("festa2", "", "festa top",34.0,34.0);
+        } catch (EventException e) {
+            e.printStackTrace();
+            ok=false;
+        }
+        assertTrue(ok);
+    }
 }
