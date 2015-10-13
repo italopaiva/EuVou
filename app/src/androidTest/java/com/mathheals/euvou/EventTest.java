@@ -31,6 +31,19 @@ public class EventTest extends TestCase{
         }
         assertTrue(ok);
     }
+    public void testNameIsNotEmpty()
+    {
+        boolean ok = true;
+        try{
+            event = new Event("Joãozinho","01/01/2015","descrição do evento aí",40.5,60.9);
+            ok = true;
+        }catch(EventException e)
+        {
+            ok = false;
+        }
+        assertFalse(ok);
+    }
+
 
     //testes Juh manjadora dos testes!
 }
