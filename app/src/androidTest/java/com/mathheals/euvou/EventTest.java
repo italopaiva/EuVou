@@ -223,6 +223,22 @@ public class EventTest extends TestCase{
 
         }
     }
+    public void testIfAdressIsEmpty()
+    {
+        boolean ok = false;
+        try
+        {
+            event = new Event("Evento teste","12/12/2015","","Descrição teste de evento",40.9,140.2);
+        }catch(EventException e)
+        {
+            ok = true;
+        }catch(ParseException ex)
+        {
+
+        }
+        assertTrue(ok);
+    }
+
 
 
 
