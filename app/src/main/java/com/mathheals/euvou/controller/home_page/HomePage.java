@@ -273,12 +273,6 @@ public class HomePage extends ActionBarActivity {
         }
     }
 
-    public void restartActivity() {
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
-    }
-
     public boolean userLoggedOutOptions(MenuItem item) {
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -305,60 +299,12 @@ public class HomePage extends ActionBarActivity {
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
     }
 
-    public void configurationButtonsOnClick(View view) {
-        // Handling all configuration's buttons onClick
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Context homePageContext = getBaseContext();
-
-        switch(view.getId()) {
-            case R.id.button_disable_account_confirmation_id:
-                if(isLoginConfirmationValid()) {
-                    LoginUtility loginUtility = new LoginUtility(this);
-                    UserDAO userDAO = new UserDAO();
-
-                    userDAO.disableUser(new LoginUtility(this).getUserId());
-                    loginUtility.setUserLogOff();
-
-                    restartActivity();
-                    RemoveUserVIewMessages.showAccountDeactivateMessage(homePageContext);
-                }
-        }
-    }
     private void clearBackStack() {
         FragmentManager manager = getSupportFragmentManager();
         if (manager.getBackStackEntryCount() > 0) {
             FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
             manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
-    }
-
-    public boolean isLoginConfirmationValid() {
-        EditText usernameField = (EditText) findViewById(R.id.edit_text_login_id);
-        String typedUsername = usernameField.getText().toString();
-
-        EditText passwordField = (EditText) findViewById(R.id.edit_text_password_id);
-        String typedPassword = passwordField.getText().toString();
-
-        LoginValidation loginValidation = new LoginValidation(HomePage.this);
-
-        boolean isUsernameValid = loginValidation.isUsernameValid(typedUsername);
-
-        if(isUsernameValid==false){
-            usernameField.requestFocus();
-            usernameField.setError(loginValidation.getInvalidUsernameMessage());
-        }else{
-            boolean isPasswordValid=loginValidation.checkPassword(typedUsername, typedPassword);
-
-            if(isPasswordValid==false){
-                passwordField.requestFocus();
-                passwordField.setError(loginValidation.getInvalidPasswordMessage());
-            }
-            else
-                return true;
-        }
-        return false;
     }
 
     // Alterar Usuário methods

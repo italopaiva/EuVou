@@ -58,8 +58,8 @@
         android:layout_marginLeft="90dp"
         android:background="@color/LimeGreen"
         android:textColor="@color/white"
-
         />
+
     <Button
         android:id="@+id/button_disable_account_confirmation_id"
         android:layout_width="wrap_content"
@@ -71,6 +71,5 @@
         android:layout_marginLeft="30dp"
         android:background="@color/OrangeRed"
         android:textColor="@color/white"
-        android:onClick="configurationButtonsOnClick"
         />
 </RelativeLayout>
