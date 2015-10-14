@@ -313,10 +313,6 @@ public class HomePage extends ActionBarActivity {
         Context homePageContext = getBaseContext();
 
         switch(view.getId()) {
-            case R.id.button_back_id:
-                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
-                return;
             case R.id.button_disable_account_confirmation_id:
                 if(isLoginConfirmationValid()) {
                     LoginUtility loginUtility = new LoginUtility(this);
