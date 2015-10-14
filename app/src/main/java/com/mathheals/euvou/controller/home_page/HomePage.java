@@ -72,18 +72,23 @@ public class HomePage extends ActionBarActivity {
         callGoogleMaps();
         onConfigActionBar();
     }
+
     public void searchPlace(View view){
+        final String INVALID_SEARCH = "Pesquisa Invalida";
+        final String QUERY = "query";
+
         String filter = ((EditText)findViewById(R.id.place_search)).getText().toString();
         Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
         if(filter.isEmpty()) {
-            Toast.makeText(this, "Pesquisa Invalida", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, INVALID_SEARCH, Toast.LENGTH_LONG).show();
         }
         else{
-            map.putExtra("query", filter);
+            map.putExtra(QUERY, filter);
             HomePage.this.startActivity(map);
             drawerLayout.closeDrawer(linearLayout);
         }
     }
+
     private void callGoogleMaps()
     {
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
