@@ -19,7 +19,6 @@ import com.mathheals.euvou.R;
  */
 public class RemoveUserFragment extends android.support.v4.app.Fragment implements View.OnClickListener{
 
-
     public RemoveUserFragment() {
         // Required empty public constructor
     }
@@ -31,8 +30,8 @@ public class RemoveUserFragment extends android.support.v4.app.Fragment implemen
 
         View view = inflater.inflate(R.layout.fragment_remove_user, container, false);
 
-        Button deactivate_button = (Button)view.findViewById(R.id.button_disable_account_id);
-        deactivate_button.setOnClickListener(this);
+        Button deactivateButton = (Button)view.findViewById(R.id.button_disable_account_id);
+        deactivateButton.setOnClickListener(this);
 
         return view;
     }
@@ -47,9 +46,9 @@ public class RemoveUserFragment extends android.support.v4.app.Fragment implemen
         switch(view.getId()) {
             case R.id.button_disable_account_id:
                 fragmentTransaction.replace(R.id.content_frame, new OhGoshFragment());
-                fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment(), null);
+                fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment(), String.valueOf(R.string.DISABLE_ACCOUNT_FRAGMENT_TAG));
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.addToBackStack(String.valueOf(R.string.DISABLE_ACCOUNT_FRAGMENT_TAG));
                 fragmentTransaction.commit();
                 return;
         }

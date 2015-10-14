@@ -36,6 +36,5 @@
         android:layout_marginLeft="30dp"
         android:background="@color/OrangeRed"
         android:textColor="@color/white"
-        android:onClick="configurationButtonsOnClick"
         />
 </RelativeLayout>

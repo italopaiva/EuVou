@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,6 @@ import com.mathheals.euvou.R;
  * A simple {@link Fragment} subclass.
  */
 public class DisableAccountFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
-
 
     public DisableAccountFragment() {
         // Required empty public constructor
@@ -34,6 +34,9 @@ public class DisableAccountFragment extends android.support.v4.app.Fragment impl
         Button yesButton = (Button)view.findViewById(R.id.button_yes_id);
         yesButton.setOnClickListener(this);
 
+        Button noButton = (Button)view.findViewById(R.id.button_no_id);
+        noButton.setOnClickListener(this);
+
         return view;
     }
 
@@ -41,6 +44,7 @@ public class DisableAccountFragment extends android.support.v4.app.Fragment impl
     @Override
     public void onClick(View view) {
         FragmentActivity activity = this.getActivity();
+        FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         Context homePageContext = activity.getBaseContext();
 
@@ -48,6 +52,13 @@ public class DisableAccountFragment extends android.support.v4.app.Fragment impl
             case R.id.button_yes_id:
                 fragmentManager.popBackStack();
                 RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
+                return;
+            case R.id.button_no_id:
+                android.support.v4.app.Fragment disableAccountFragment = activity.getSupportFragmentManager().findFragmentByTag(String.valueOf(R.string.DISABLE_ACCOUNT_FRAGMENT_TAG));
+                fragmentTransaction.remove(disableAccountFragment);
+                fragmentTransaction.add(R.id.content_frame, new DisableAccountLoginConfirmation());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
                 return;
         }
     }
