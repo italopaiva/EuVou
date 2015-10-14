@@ -177,6 +177,53 @@ public class EventTest extends TestCase{
         }
         assertFalse(ok);
     }
+    public void testIfLongitudeIsUnderMinus180()
+    {
+        boolean ok = false;
+        try
+        {
+            event = new Event("Evento teste","12/12/2015","The new Darkest side of you!","Descrição teste de evento",90.0,-181.1);
+        }catch(EventException e)
+        {
+            ok = true;
+        }catch(ParseException ex)
+        {
+
+        }
+        assertTrue(ok);
+    }
+
+    public void testIfLongitudeIsAbove180()
+    {
+        boolean ok = false;
+        try
+        {
+            event = new Event("Evento teste","12/12/2015","Again? are you kiddin me?","Descrição teste de evento",19.2,190.2);
+        }catch(EventException e)
+        {
+            ok = true;
+        }catch(ParseException ex)
+        {
+
+        }
+        assertTrue(ok);
+    }
+
+    public void testIfLonitudeIsOk()
+    {
+        boolean ok = true;
+        try
+        {
+            event = new Event("Evento teste","12/12/2016","Rua capirambada","Descrição", -220.2, 100.0);
+            assertEquals(-220.2,event.getLatitude());
+        }catch(EventException e)
+        {
+            ok = false;
+        }catch(ParseException parse) {
+
+        }
+    }
+
 
 
 
