@@ -67,7 +67,7 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
     public void onMapClick(LatLng latLng) {
         Bundle bundle = new Bundle();
         bundle.putString("longitude", ""+latLng.longitude);
-        bundle.putString("latitude", ""+latLng.latitude);
+        bundle.putString("latitude", "" + latLng.latitude);
 
 
 
