@@ -11,7 +11,7 @@ public class Event {
 
     public static final String EVENT_NAME_CANT_BE_EMPTY_NAME = "Hey, acho que você está esquecendo de nos informar o nome do evento.";
     public static final String NAME_CANT_BE_GREATER_THAN_50 = "Hey, você ultrapassou o número de caracteres permitido para o nome do evento, tente novamente.";
-    public static  final String DESCRIPTION_CANT_BE_EMPTY = "Hey, acho que você esqueu de informar a descrição do evento.";
+    public static final String DESCRIPTION_CANT_BE_EMPTY = "Hey, acho que você esqueu de informar a descrição do evento.";
     public static final String DESCRIPTION_CANT_BE_GREATER_THAN = "Hey, o máximo de caractéres para descrever um evento é de 500 caracteres";
     public static final String LATITUDE_IS_INVALID = "Hey, você inseriu um número inválido, a latitude deve ser maior que -90 e menor que 90!";
     public static final String LONGITUDE_IS_INVALID = "Hey, você inseriu um número inválido, a longitude deve ser maior que -180 e menor que 180";
@@ -39,16 +39,20 @@ public class Event {
 
 
 
-    public Event(int idEvent,String nameEvent,String dateTimeEvent,String description,Double latitude, Double longitude) throws EventException {
+    public Event(int idEvent,String nameEvent,String dateTimeEvent,String adress,String description,Double latitude, Double longitude) throws EventException, ParseException {
         setIdEvent(idEvent);
         setNameEvent(nameEvent);
+        setDateTimeEvent(dateTimeEvent);
+        setAdress(adress);
         setDescription(description);
         setLatitude(latitude);
         setLongitude(longitude);
     }
 
-    public Event(String nameEvent,String dateTimeEvent,String description,Double latitude, Double longitude) throws EventException {
+    public Event(String nameEvent,String dateTimeEvent,String adress,String description,Double latitude, Double longitude) throws EventException, ParseException {
         setNameEvent(nameEvent);
+        setDateTimeEvent(dateTimeEvent);
+        setAdress(adress);
         setDescription(description);
         setLatitude(latitude);
         setLongitude(longitude);
@@ -62,10 +66,11 @@ public class Event {
         if(!dateTimeEvent.isEmpty() && dateTimeEvent !=null)
         {
             try{
-                SimpleDateFormat formate = new SimpleDateFormat("dd/mm/aaaa");
-                formate.setLenient(false);
-                Date eventDate = formate.parse(dateTimeEvent);
-                if(eventDate.before(new Date()))
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                format.setLenient(false);
+                Date eventDate = format.parse(dateTimeEvent);
+
+                if(eventDate.after(new Date()))
                 {
                     this.dateTimeEvent = dateTimeEvent;
                 }else
@@ -106,7 +111,7 @@ public class Event {
     }
 
     public void setAdress(String adress) throws EventException{
-        if(!(adress.isEmpty()))
+        if(!(adress.isEmpty()) && adress!=null)
         {
             this.adress = adress;
         }else{
@@ -151,7 +156,7 @@ public class Event {
     public void setNameEvent(String nameEvent) throws EventException {
         if(!nameEvent.isEmpty() && nameEvent!= null) {
 
-            if(nameEvent.length() < MAX_LENGTH_NAME)
+            if(nameEvent.length() <= MAX_LENGTH_NAME)
             {
                 this.nameEvent = nameEvent;
             }else
