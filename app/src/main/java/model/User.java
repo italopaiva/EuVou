@@ -37,9 +37,6 @@ public class User {
     private String email;
     private String password;
     private String birthDate;
-    private String confirmationPassword;
-    private String mailConfirmation;
-    private String passwordConfirmation;
 
     public boolean equals(User user){
         return this.name.equals(user.getName()) &&
@@ -55,9 +52,9 @@ public class User {
         setUsername(username);
         setBirthDate(birthDate);
         setEmail(email);
-        setMailConfirmation(mailConfirmation);
+        verifyEmailConfirmation(mailConfirmation);
         setPassword(password);
-        setPasswordConfirmation(passwordConfirmation);
+        verifyPasswordConfirmation(passwordConfirmation);
     }
 
     public User(int idUser, String name, String birthDate, String email) throws UserException, ParseException {
@@ -72,9 +69,9 @@ public class User {
         setName(name);
         setBirthDate(birthDate);
         setEmail(email);
-        setMailConfirmation(mailConfirmation);
+        verifyEmailConfirmation(mailConfirmation);
         setPassword(password);
-        setPasswordConfirmation(passwordConfirmation);
+        verifyPasswordConfirmation(passwordConfirmation);
     }
 
     public User(String name, String username, String email, String password,String birthDate) throws UserException, ParseException {
@@ -90,10 +87,10 @@ public class User {
         setName(name);
         setBirthDate(birthDate);
         setEmail(email);
-        setMailConfirmation(mailConfirmation);
+        verifyEmailConfirmation(mailConfirmation);
         setUsername(username);
         setPassword(password);
-        setPasswordConfirmation(passwordConfirmation);
+        verifyPasswordConfirmation(passwordConfirmation);
     }
 
 
@@ -144,34 +141,11 @@ public class User {
         }
     }
 
-    private void setMailConfirmation(String confirmationMail) throws UserException{
-        if (email.equals(confirmationMail)) {
-            this.mailConfirmation = confirmationMail;
-        }
-        else{
+    private void verifyEmailConfirmation(String confirmationMail) throws UserException{
+        if (!email.equals(confirmationMail)) {
             throw new UserException(EMAIL_ARE_NOT_EQUALS);
         }
     }
-
-    /*private  void  setUsername (String username) throws UserException{
-
-        if (!username.isEmpty() && username!=null) {
-            if(username.length() <= MAX_LENGTH_USERNAME) {
-                LoginValidation loginValidation = new LoginValidation();
-                if (!loginValidation.isUsernameRegistred(username)) {
-                    this.username = username;
-                } else {
-                    throw new UserException(USERNAME_EXISTENT);
-                }
-            }
-            else{
-                throw  new UserException(USERNAME_CANT_BE_HIGHER_THAN_100);
-            }
-        }else{
-            throw  new UserException(USERNAME_CANT_BE_EMPTY_USERNAME);
-        }
-
-    }*/
 
     private  void  setUsername (String username) throws UserException{
 
@@ -208,12 +182,8 @@ public class User {
 
     }
 
-    private void setPasswordConfirmation (String confirmationPassword) throws UserException {
-        if(password.equals(confirmationPassword)){
-            this.passwordConfirmation = confirmationPassword;
-
-        }
-        else{
+    private void verifyPasswordConfirmation(String confirmationPassword) throws UserException {
+        if(!password.equals(confirmationPassword)) {
             throw new UserException(PASSWORD_ARE_NOT_EQUALS);
         }
     }
@@ -264,14 +234,6 @@ public class User {
 
     public String getBirthDate(){
         return birthDate;
-    }
-
-    public String getMailConfirmation(){
-        return mailConfirmation;
-    }
-
-    public String getPasswordConfirmation(){
-        return passwordConfirmation;
     }
 
     public String name(){
