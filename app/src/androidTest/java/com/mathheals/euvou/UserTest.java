@@ -453,26 +453,4 @@ public class UserTest extends TestCase {
             e.printStackTrace();
         }
     }
-
-    public void testMailConfirmation(){
-        try {
-            user = new User("Julliana","Ju","ju@euvou.com","ju@euvou.com","123456","123456","11/02/2000");
-            assertEquals("ju@euvou.com", user.getMailConfirmation());
-        } catch (UserException e) {
-            fail();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void testPasswordConfirmation(){
-        try {
-            user = new User("Julliana","Ju","ju@euvou.com","ju@euvou.com","123456","123456","11/02/2000");
-            assertEquals("123456", user.getPasswordConfirmation());
-        } catch (UserException e) {
-            fail();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
 }
