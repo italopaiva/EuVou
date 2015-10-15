@@ -1,4 +1,5 @@
 package com.mathheals.euvou.controller.event_registration;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.utility.Mask;
 
 /**
@@ -35,5 +37,10 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
     @Override
     public void onClick(View v) {
         //Put here methods actuated by click on saveEvent Button
+        if(v.getId() == R.id.eventLocal)
+        {
+            Intent map = new Intent(getActivity(), LocalEventActivity.class);
+            RegisterEventFragment.this.startActivity(map);
+        }
     }
 }
