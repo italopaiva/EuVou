@@ -43,11 +43,13 @@ import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserVIewMessages;
 import com.mathheals.euvou.controller.search_place.SearchPlaceMaps;
 import com.mathheals.euvou.controller.user_registration.RegisterFragment;
+import com.mathheals.euvou.controller.utility.ActivityUtility;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import dao.UserDAO;
 
 public class HomePage extends ActionBarActivity {
+    private static final String QUERY = "query";
     private static final String SETTINGS_FRAGMENT = "settings_fragment_tag";
     private CharSequence mTitle;
     private DrawerLayout drawerLayout;
@@ -75,7 +77,6 @@ public class HomePage extends ActionBarActivity {
 
     public void searchPlace(View view){
         final String INVALID_SEARCH = "Pesquisa Invalida";
-        final String QUERY = "query";
 
         String filter = ((EditText)findViewById(R.id.place_search)).getText().toString();
         Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
@@ -117,7 +118,7 @@ public class HomePage extends ActionBarActivity {
 
                 }
                 Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
-                map.putExtra("query", aux);
+                map.putExtra(QUERY, aux);
                 HomePage.this.startActivity(map);
                 drawerLayout.closeDrawer(linearLayout);
             }
@@ -261,7 +262,7 @@ public class HomePage extends ActionBarActivity {
                 fragmentTransaction.commit();
                 return true;
             case R.id.settings:
-                clearBackStack();
+                ActivityUtility.clearBackStack(this);
                 fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment(), SETTINGS_FRAGMENT);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
@@ -279,7 +280,6 @@ public class HomePage extends ActionBarActivity {
     }
 
     public boolean userLoggedOutOptions(MenuItem item) {
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (item.getItemId()) {
             case R.id.registration:
@@ -293,22 +293,6 @@ public class HomePage extends ActionBarActivity {
                 return true;
             default:
                 return false;
-        }
-    }
-    private void onConfigListener(){
-
-    }
-
-    private void onConfigListItem(){
-
-        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
-    }
-
-    private void clearBackStack() {
-        FragmentManager manager = getSupportFragmentManager();
-        if (manager.getBackStackEntryCount() > 0) {
-            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
-            manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 
