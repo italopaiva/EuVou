@@ -13,6 +13,10 @@
         android:title="Alterar cadastro"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/register_event"
+        android:title="Cadastrar Evento"
+        app:showAsAction="never" />
+
     <item android:id="@+id/settings"
         android:title="Configurações"
         app:showAsAction="never" />
