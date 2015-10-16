@@ -273,6 +273,11 @@ public class HomePage extends ActionBarActivity {
                 finish();
                 startActivity(intent);
                 return true;
+            case R.id.event_registration:
+                fragmentTransaction.replace(R.id.content_frame, new RegisterEventFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                //Toast.makeText(getBaseContext(), "Cadastrar evento", Toast.LENGTH_LONG).show();
             default:
                 return false;
         }
