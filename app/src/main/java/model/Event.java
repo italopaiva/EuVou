@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 //confirmar restrições de tamanho
 import exception.EventException;
 
@@ -31,6 +32,7 @@ public class Event {
     private Double longitude;
     private String adress;
     private Integer evaluation;
+    private Vector<String> category;
 
 
     private static final int MAX_LENGTH_NAME = 50;
@@ -209,4 +211,19 @@ public class Event {
             throw  new EventException(LANTITUDE_IS_EMPTY);
         }
     }
+
+    public void addCategory(String category)
+    {
+        this.category.add(category);
+    }
+
+    public void setCategory(Vector<String> category) {
+        this.category = category;
+    }
+
+    public Vector<String> getCategory()
+    {
+        return category;
+    }
+
 }
