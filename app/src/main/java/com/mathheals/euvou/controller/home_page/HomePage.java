@@ -48,7 +48,7 @@ import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import dao.UserDAO;
 
-public class HomePage extends ActionBarActivity {
+public class HomePage extends ActionBarActivity implements AdapterView.OnItemClickListener {
     private static final String QUERY = "query";
     private static final String SETTINGS_FRAGMENT = "settings_fragment_tag";
     private CharSequence mTitle;
@@ -92,37 +92,7 @@ public class HomePage extends ActionBarActivity {
 
     private void callGoogleMaps()
     {
-        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                String aux = "";
-                switch (position) {
-                    case 1:
-                        aux = "Museu";
-                        break;
-                    case 2:
-                        aux = "Parque";
-                        break;
-                    case 3:
-                        aux = "Teatro";
-                        break;
-                    case 4:
-                        aux = "shop";
-                        break;
-                    case 5:
-                        aux = "Unidade";
-                        break;
-
-                }
-                Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
-                map.putExtra(QUERY, aux);
-                HomePage.this.startActivity(map);
-                drawerLayout.closeDrawer(linearLayout);
-            }
-        });
+        drawerList.setOnItemClickListener(this);
     }
 
     private void initViews(){
@@ -303,5 +273,32 @@ public class HomePage extends ActionBarActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStack();
         return;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String aux = "";
+        switch (position) {
+            case 1:
+                aux = "Museu";
+                break;
+            case 2:
+                aux = "Parque";
+                break;
+            case 3:
+                aux = "Teatro";
+                break;
+            case 4:
+                aux = "shop";
+                break;
+            case 5:
+                aux = "Unidade";
+                break;
+
+        }
+        Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
+        map.putExtra(QUERY, aux);
+        HomePage.this.startActivity(map);
+        drawerLayout.closeDrawer(linearLayout);
     }
 }
