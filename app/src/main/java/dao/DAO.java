@@ -13,8 +13,8 @@ import java.util.List;
 
 public abstract class DAO {
 
-    private final String urlQuery = "http://euvou.atwebpages.com/query.php";
-    private final String urlConsult = "http://euvou.atwebpages.com/consult.php";
+    private final String urlQuery = "http://euvou.esy.es/query.php";
+    private final String urlConsult = "http://euvou.esy.es/consult.php";
     protected Activity activity;
 
     protected String executeQuery(String query){
