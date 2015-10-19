@@ -236,7 +236,5 @@ public class User {
         return birthDate;
     }
 
-    public String name(){
-        return name;
-    }
+
 }
