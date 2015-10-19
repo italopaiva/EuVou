@@ -32,6 +32,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.event_registration.RegisterEventFragment;
 import com.mathheals.euvou.controller.login_user.LoginValidation;
 import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
 import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
@@ -237,6 +238,10 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 return true;
+            case R.id.register_event:
+                fragmentTransaction.replace(R.id.content_frame, new RegisterEventFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             case R.id.logout:
                 new LoginUtility(HomePage.this).setUserLogOff();
 
@@ -244,6 +249,11 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
                 finish();
                 startActivity(intent);
                 return true;
+            case R.id.event_registration:
+                fragmentTransaction.replace(R.id.content_frame, new RegisterEventFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                //Toast.makeText(getBaseContext(), "Cadastrar evento", Toast.LENGTH_LONG).show();
             default:
                 return false;
         }
