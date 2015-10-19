@@ -2,6 +2,9 @@ package com.mathheals.euvou;
 
 import junit.framework.TestCase;
 
+import java.text.ParseException;
+
+import exception.PlaceException;
 import model.Place;
 
 /**
@@ -119,6 +122,115 @@ public class PlaceTest extends TestCase {
         }
         finally {
             assertFalse(ok);
+        }
+    }
+
+    public void testGetName()
+    {
+        try {
+            Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+
+            assertTrue(place.getName().equals("Nome"));
+        } catch (PlaceException e) {
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(false);
+        }
+    }
+
+    public void testGetLatitude()
+    {
+        try {
+            Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+
+            assertTrue(place.getLatitude() == 14.0025);
+        } catch (PlaceException e) {
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(false);
+        }
+    }
+
+
+    public void testGetLongitude()
+    {
+        try {
+            Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+
+            assertTrue(place.getLongitude() == 14.0025);
+        } catch (PlaceException e) {
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(false);
+        }
+    }
+
+    public void testGetAddress()
+    {
+        try {
+            Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+
+            assertTrue(place.getAddress().equals("rua das flores"));
+        } catch (PlaceException e) {
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(false);
+        }
+    }
+
+    public void testAddComment()
+    {
+        try {
+            Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+            place.addComment("numero1");
+            place.addComment("numero2");
+            assertTrue(place.getComment().size() == 2);
+        } catch (PlaceException e) {
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(false);
+        }
+    }
+
+    public void testAddNullComment()
+    {
+        try {
+            Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+            place.addComment(null);
+            assertFalse(place.getComment().size() == 1);
+        } catch (PlaceException e) {
+            assertFalse(false);
+        } catch (ParseException e) {
+            assertFalse(false);
+        }
+    }
+
+
+    public void testAddEmptyComment()
+    {
+        try {
+            Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+            place.addComment("");
+            assertFalse(place.getComment().size() == 1);
+        } catch (PlaceException e) {
+            assertFalse(false);
+        } catch (ParseException e) {
+            assertFalse(false);
+        }
+    }
+
+
+    public void testGetComment()
+    {
+        try {
+            Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+            place.addComment("numero1");
+            place.addComment("numero2");
+            assertTrue(place.getComment().get(0).equals("numero1") && place.getComment().get(1).equals("numero2"));
+        } catch (PlaceException e) {
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(false);
         }
     }
 }
