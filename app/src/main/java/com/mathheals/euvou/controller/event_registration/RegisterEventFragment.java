@@ -1,4 +1,5 @@
 package com.mathheals.euvou.controller.event_registration;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.utility.Mask;
@@ -15,6 +18,8 @@ import com.mathheals.euvou.controller.utility.Mask;
  * Created by izabela on 13/10/15.
  */
 public class RegisterEventFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
+    private String latitude;
+    private String longitude;
 
     public RegisterEventFragment(){
     }
@@ -50,9 +55,32 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
 
         else if(v.getId() == R.id.eventLocal){
             Intent map = new Intent(getActivity(), LocalEventActivity.class);
-            RegisterEventFragment.this.startActivity(map);
+            startActivityForResult(map, 2);
         }
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case (2) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Bundle bundle = data.getExtras();
+                    latitude = bundle.getString("latitude");
+                    longitude = bundle.getString("longitude");
+
+                    Toast.makeText(getContext(), latitude+longitude, Toast.LENGTH_LONG).show();
+
+
+                    Activity activity = getActivity();
+                    EditText eventLocal = (EditText) activity.findViewById(R.id.eventLocal);
+
+                    eventLocal.setText(latitude+longitude);
+                }
+                break;
+            }
+        }
     }
 
     private void addCheckBoxListeners(View v){
