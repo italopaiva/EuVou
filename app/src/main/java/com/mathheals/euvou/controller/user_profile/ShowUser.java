@@ -25,7 +25,7 @@ public class ShowUser extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.show_user, container, false);
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(getActivity());
 
         String nameUser=this.getArguments().getString("username");
         JSONObject userData = userDAO.searchUserByUsername(nameUser);

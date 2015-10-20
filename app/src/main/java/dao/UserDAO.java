@@ -1,4 +1,6 @@
 package dao;
+import android.app.Activity;
+
 import org.json.JSONObject;
 import model.User;
 
@@ -7,7 +9,9 @@ import model.User;
  */
 public class UserDAO extends DAO{
 
-    public UserDAO(){}
+    public UserDAO(Activity currentActivity) {
+        super(currentActivity);
+    }
 
     public void save(User user) {
         this.executeQuery("INSERT INTO tb_user(nameUser, login,passwordUser,birthDate, email)VALUES" +

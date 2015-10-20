@@ -42,7 +42,7 @@ public class LoginUtility {
     }
     // gets user's ID by username. OBS: IT'S ASSUMED THAT USERNAME DOES EXIST
     public int getUserId(String username) throws org.json.JSONException{
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(this.activity);
         JSONObject jsonObject = userDAO.searchUserByUsername(username);
         return Integer.parseInt(jsonObject.getJSONObject("0").getString(COLUMN_USER_ID));
     }
@@ -50,7 +50,7 @@ public class LoginUtility {
     public User getUser(String username){
         User user=null;
         try {
-            UserDAO userDAO = new UserDAO();
+            UserDAO userDAO = new UserDAO(this.activity);
             JSONObject jsonObject = userDAO.searchUserByUsername(username);
 
             user = new User(jsonObject.getJSONObject("0").getString(COLUMN_USER_NAME),
@@ -88,7 +88,7 @@ public class LoginUtility {
     }
 
     public boolean isUserActive(String username) {
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(this.activity);
         JSONObject jsonObject = userDAO.searchUserByUsername(username);
         String userState = null;
         try {
