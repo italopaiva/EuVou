@@ -64,7 +64,7 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
             case R.id.button_disable_account_confirmation_id:
                 if(isLoginConfirmationValid()) {
                     LoginUtility loginUtility = new LoginUtility(homePage);
-                    UserDAO userDAO = new UserDAO();
+                    UserDAO userDAO = new UserDAO(getActivity());
 
                     userDAO.disableUser(new LoginUtility(homePage).getUserId());
                     loginUtility.setUserLogOff();

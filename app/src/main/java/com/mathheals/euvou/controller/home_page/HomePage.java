@@ -166,7 +166,7 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
                 bundle.putString("username", query);
                 ShowUser user = new ShowUser();
                 user.setArguments(bundle);
-                UserDAO userDAO = new UserDAO();
+                UserDAO userDAO = new UserDAO(getParent());
                 if(userDAO.searchUserByUsername(query)!=null) {
                     fragmentTransaction.replace(R.id.content_frame, user);
                     fragmentTransaction.addToBackStack(null);
