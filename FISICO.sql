@@ -136,24 +136,30 @@ ALTER TABLE tb_comment ADD CONSTRAINT fk_comment_user FOREIGN KEY(idUser)
 	REFERENCES tb_user(idUser) ON DELETE RESTRICT ON UPDATE RESTRICT;
     
 ALTER TABLE tb_comment ADD CONSTRAINT fk_comment_event FOREIGN KEY(idEvent)
-	REFERENCES tb_event(idEvent) ON DELETE RESTRICT ON UPDATE RESTRICT;
+	REFERENCES tb_event(idEvent) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE event_category ADD CONSTRAINT fk_event_category_event FOREIGN KEY(idEvent)
-	REFERENCES tb_event(idEvent) ON DELETE RESTRICT ON UPDATE RESTRICT;
+	REFERENCES tb_event(idEvent) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE event_category ADD CONSTRAINT fk_event_category_category FOREIGN KEY(idCategory)
 	REFERENCES tb_category(idCategory) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /* views */
-CREATE VIEW vw_event AS
-	SELECT tb_event.*, tb_locate.address,AVG(grade) evaluate, nameCategory FROM
+CREATE VIEW vw_event_grade AS
+	SELECT tb_event.*, tb_locate.address,AVG(grade) evaluate FROM
+	tb_event INNER JOIN tb_locate ON 
+		(tb_event.latitude = tb_locate.latitude AND 
+        tb_event.longitude = tb_locate.longitude)
+	LEFT JOIN participate ON participate.idEvent = tb_event.idEvent
+    GROUP BY tb_event.idEvent;
+
+CREATE VIEW vw_event_comment AS
+	SELECT tb_event.*, tb_locate.address, nameCategory FROM
 	tb_event INNER JOIN tb_locate ON 
 		(tb_event.latitude = tb_locate.latitude AND 
         tb_event.longitude = tb_locate.longitude)
 	INNER JOIN event_category on tb_event.idEvent = event_category.idEvent
-	INNER JOIN tb_category on tb_category.idCategory = event_category.idCategory
-	LEFT JOIN participate ON participate.idEvent = tb_event.idEvent
-    GROUP BY participate.idEvent;
+	INNER JOIN tb_category on tb_category.idCategory = event_category.idCategory;
 	
 CREATE VIEW vw_comment AS
 	SELECT vw_event.*, dsComment FROM vw_event
