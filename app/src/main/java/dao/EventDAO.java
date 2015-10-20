@@ -1,5 +1,7 @@
 package dao;
 
+import android.app.Activity;
+
 import org.json.JSONObject;
 
 import model.Event;
@@ -8,6 +10,10 @@ import model.Event;
  * Created by geovanni on 10/10/15.
  */
 public class EventDAO extends DAO {
+
+    public EventDAO(Activity currentActivity) {
+        super(currentActivity);
+    }
 
     public void saveEvent(Event event){
         this.executeQuery("INSERT INTO tb_event(nameEvent,description,latitude,longitude)VALUES"+"(\""+event.getNameEvent()+" \", \""+
