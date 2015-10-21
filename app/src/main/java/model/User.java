@@ -95,7 +95,6 @@ public class User {
 
 
     private void setIdUser(int idUser) throws UserException {
-        this.idUser = idUser;
 
         if(idUser <= Integer.MAX_VALUE && idUser >= 1){
             this.idUser =idUser;
