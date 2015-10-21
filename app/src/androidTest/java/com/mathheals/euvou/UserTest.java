@@ -420,6 +420,24 @@ public class UserTest extends TestCase {
         }
     }
 
+
+    public void testIfUsernameIsExists(){
+        boolean ok = false;
+        try {
+            user = new User("Maria","igodudu","maria@euvou.com","123456","11/02/1234");
+            ok = true;
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
+        }
+        finally {
+            assertFalse(ok);
+        }
+    }
+
     public void testIfEmailIsEmpty(){
         boolean ok = true;
         try {

@@ -1,4 +1,5 @@
 package model;
+import android.app.Activity;
 import android.util.Patterns;
 
 import com.mathheals.euvou.controller.login_user.LoginValidation;
@@ -7,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import dao.UserDAO;
 import exception.UserException;
 
 public class User {
@@ -149,8 +151,7 @@ public class User {
     private  void  setUsername (String username) throws UserException{
 
         if (!username.isEmpty()) {
-            LoginValidation loginValidation = new LoginValidation();
-            if(loginValidation.isUsernameRegistred(username)){
+            if(new UserDAO(new Activity()).searchUserByUsername(username) != null){
                 throw new UserException(USERNAME_EXISTENT);
             }
             if(username.length() <= MAX_LENGTH_USERNAME){
