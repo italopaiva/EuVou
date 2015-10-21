@@ -37,7 +37,7 @@ public class Event {
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
 
-    public Event(String nameEvent,String dateTimeEvent,String adress,String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
+    public Event(String nameEvent,String dateTimeEvent,String adress, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
         setNameEvent(nameEvent);
         setDateTimeEvent(dateTimeEvent);
         setAdress(adress);

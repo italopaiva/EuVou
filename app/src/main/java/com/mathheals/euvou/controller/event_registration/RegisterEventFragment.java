@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
-import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.utility.Mask;
 
 import java.text.ParseException;
@@ -29,6 +28,7 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
     private static final String SUCCESSFULL_CADASTRATION_MESSAGE = "Evento cadastrado com sucesso :)";
     private String latitude;
     private String longitude;
+    Vector<String> categories= new Vector<>();
 
     public RegisterEventFragment(){
     }
@@ -56,6 +56,37 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         return view;
     }
 
+    public void addEventCategories(View v){
+        if(v.getId() == R.id.optionCinema){
+            CheckBox cinemaCheckBox = (CheckBox) v;
+            categories.add(cinemaCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionEducation) {
+            CheckBox educationCheckBox = (CheckBox) v;
+            categories.add(educationCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionExposition){
+            CheckBox expositionCheckBox = (CheckBox) v;
+            categories.add(expositionCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionMuseum){
+            CheckBox museumCheckBox = (CheckBox) v;
+            categories.add(museumCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionOthers){
+            CheckBox othersCheckBox = (CheckBox) v;
+            categories.add(othersCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionParty){
+            CheckBox partyCheckBox = (CheckBox) v;
+            categories.add(partyCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionShow){
+            CheckBox showCheckBox = (CheckBox) v;
+            categories.add(showCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionSports){
+            CheckBox sportsCheckBox = (CheckBox) v;
+            categories.add(sportsCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionTheater){
+            CheckBox theaterCheckBox = (CheckBox) v;
+            categories.add(theaterCheckBox.getText().toString());
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.saveEvent){
@@ -66,16 +97,13 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
             String dateEvent = dateEventField.getText().toString();
 
             EditText localEventField = (EditText) this.getActivity().findViewById(R.id.eventLocal);
-            
+
             EditText descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
             String descriptionEvent = descriptionEventField.getText().toString();
 
-            Vector<String> teste= new Vector<>();
-            teste.add("TESTE");
-            Toast.makeText(getActivity().getBaseContext(), "IGOR", Toast.LENGTH_LONG).show();
             try {
                 Event event = new Event(nameEvent, dateEvent, "TESTE", descriptionEvent,
-                                        latitude, longitude, teste);
+                                        latitude, longitude, categories);
                 registerEvent(event);
 
                 Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE, Toast.LENGTH_LONG).show();
@@ -144,6 +172,8 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         else if(v.getId() == R.id.eventLocal){
             Intent map = new Intent(getActivity(), LocalEventActivity.class);
             startActivityForResult(map, 2);
+        }else{
+            addEventCategories(v);
         }
 
     }
@@ -182,28 +212,28 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         showCategory.setOnClickListener(this);
 
         CheckBox expositionCategory = (CheckBox) v.findViewById(R.id.optionExposition);
-        showCategory.setOnClickListener(this);
+        expositionCategory.setOnClickListener(this);
 
         CheckBox museumCategory = (CheckBox) v.findViewById(R.id.optionMuseum);
-        showCategory.setOnClickListener(this);
+        museumCategory.setOnClickListener(this);
 
         CheckBox cinemaCategory = (CheckBox) v.findViewById(R.id.optionCinema);
-        showCategory.setOnClickListener(this);
+        cinemaCategory.setOnClickListener(this);
 
         CheckBox theaterCategory = (CheckBox) v.findViewById(R.id.optionTheater);
-        showCategory.setOnClickListener(this);
+        theaterCategory.setOnClickListener(this);
 
         CheckBox partyCategory = (CheckBox) v.findViewById(R.id.optionParty);
-        showCategory.setOnClickListener(this);
+        partyCategory.setOnClickListener(this);
 
         CheckBox educationCategory = (CheckBox) v.findViewById(R.id.optionEducation);
-        showCategory.setOnClickListener(this);
+        educationCategory.setOnClickListener(this);
 
         CheckBox sportsCategory = (CheckBox) v.findViewById(R.id.optionSports);
-        showCategory.setOnClickListener(this);
+        sportsCategory.setOnClickListener(this);
 
         CheckBox othersCategory = (CheckBox) v.findViewById(R.id.optionOthers);
-        showCategory.setOnClickListener(this);
+        othersCategory.setOnClickListener(this);
 
     }
 
