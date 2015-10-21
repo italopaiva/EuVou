@@ -1,5 +1,6 @@
 package com.mathheals.euvou.controller.home_page;
 
+import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.app.SearchManager;
 import android.content.Context;
@@ -31,6 +32,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.event_consultation.EventConsultation;
 import com.mathheals.euvou.controller.login_user.LoginValidation;
 import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
 import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
@@ -391,5 +393,13 @@ public class HomePage extends ActionBarActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStack();
         return;
+    }
+
+    public void searchOnclick(MenuItem item) {
+        Toast.makeText(this, "PESQUISAR", Toast.LENGTH_LONG).show();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.content_frame, new EventConsultation());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
