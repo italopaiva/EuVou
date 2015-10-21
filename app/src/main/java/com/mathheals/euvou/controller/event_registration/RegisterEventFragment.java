@@ -14,10 +14,19 @@ import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.utility.Mask;
 
+import java.text.ParseException;
+import java.util.Vector;
+
+import dao.EventDAO;
+import exception.EventException;
+import model.Event;
+
 /**
  * Created by izabela on 13/10/15.
  */
 public class RegisterEventFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
+
+    private static final String SUCCESSFULL_CADASTRATION_MESSAGE = "Evento cadastrado com sucesso :)";
     private String latitude;
     private String longitude;
 
@@ -50,9 +59,88 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.saveEvent){
-            //Put here methods actuated by click on saveEvent Button
-        }
+            EditText nameEventField = (EditText) this.getActivity().findViewById(R.id.eventName);
+            String nameEvent = nameEventField.getText().toString();
 
+            EditText dateEventField = (EditText) this.getActivity().findViewById(R.id.eventDate);
+            String dateEvent = dateEventField.getText().toString();
+
+            EditText localEventField = (EditText) this.getActivity().findViewById(R.id.eventLocal);
+            
+            EditText descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
+            String descriptionEvent = descriptionEventField.getText().toString();
+
+            Vector<String> teste= new Vector<>();
+            teste.add("TESTE");
+            Toast.makeText(getActivity().getBaseContext(), "IGOR", Toast.LENGTH_LONG).show();
+            try {
+                Event event = new Event(nameEvent, dateEvent, "TESTE", descriptionEvent,
+                                        latitude, longitude, teste);
+                registerEvent(event);
+
+                Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE, Toast.LENGTH_LONG).show();
+            } catch (EventException e) {
+                String message = e.getMessage();
+
+                //Verify address field
+                if(message.equals(Event.ADDRESS_IS_EMPTY)){
+
+                }
+
+                if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
+                    descriptionEventField.requestFocus();
+                    descriptionEventField.setError(message);
+                }
+
+                if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)){
+                    descriptionEventField.requestFocus();
+                    descriptionEventField.setError(message);
+                }
+
+                if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
+                    dateEventField.requestFocus();
+                    dateEventField.setError(message);
+                }
+
+                if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
+                    nameEventField.requestFocus();
+                    nameEventField.setError(message);
+                }
+
+                if(message.equals(Event.INVALID_EVENT_DATE)){
+                    dateEventField.requestFocus();
+                    dateEventField.setError(message);
+                }
+
+                if(message.equals(Event.LANTITUDE_IS_EMPTY)){
+                    localEventField.requestFocus();
+                    localEventField.setError(message);
+                }
+
+                if(message.equals(Event.LATITUDE_IS_INVALID)){
+                    localEventField.requestFocus();
+                    localEventField.setError(message);
+                }
+
+                if(message.equals(Event.LONGITUDE_IS_EMPTY)){
+                    localEventField.requestFocus();
+                    localEventField.setError(message);
+                }
+
+                if(message.equals(Event.LONGITUDE_IS_INVALID)){
+                    localEventField.requestFocus();
+                    localEventField.setError(message);
+                }
+
+                if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
+                    localEventField.requestFocus();
+                    localEventField.setError(message);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+
+            }
+        }
         else if(v.getId() == R.id.eventLocal){
             Intent map = new Intent(getActivity(), LocalEventActivity.class);
             startActivityForResult(map, 2);
@@ -81,6 +169,11 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
                 break;
             }
         }
+    }
+
+    private void registerEvent(Event event){
+        EventDAO eventDAO = new EventDAO(getActivity());
+        eventDAO.saveEvent(event);
     }
 
     private void addCheckBoxListeners(View v){
