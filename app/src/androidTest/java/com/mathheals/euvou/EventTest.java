@@ -5,6 +5,7 @@ import android.app.usage.UsageEvents;
 import junit.framework.TestCase;
 
 import java.text.ParseException;
+import java.util.Vector;
 
 import exception.EventException;
 import model.Event;
@@ -12,11 +13,57 @@ import model.Event;
 public class EventTest extends TestCase{
     private  Event event;
 
+    public void testIfCategoryIsNull () {
+        boolean ok = true;
+        try{
+            event = new Event("Swing na casa do Miranda", "24/10/2015", "oi", "e trenzinho e eu fico no meio", "1", "2", null);
+        }
+        catch (EventException e){
+            ok = false;
+        }
+        catch (ParseException e){
+            ok = false;
+        }
+
+        assertFalse(ok);
+    }
+
+    public void testIfCategoryIsEmpty() {
+        Vector<String> categories = new Vector<>();
+        boolean ok = true;
+        try {
+            event = new Event("Swing na casa do Miranda", "25/10/2015", "oi", "e trenzinho e eu fico no meio", "1", "2", categories);
+        } catch(EventException e) {
+            ok = false;
+        }
+        catch (ParseException e){
+            ok = false;
+        }
+        assertFalse(ok);
+    }
+
+    public void testIfCategoryIsNotNull () {
+        boolean ok = true;
+        Vector<String> categories = new Vector<String >();
+        categories.add("Museus");
+        try{
+            event = new Event("Swing na casa do Miranda", "22/10/2015", "oi", "e trenzinho e eu fico no meio", "1", "2", categories);
+        }
+        catch (EventException e){
+            ok = false;
+        }
+        catch (ParseException e){
+            ok = false;
+        }
+
+        assertTrue(ok);
+    }
+
     public void testNameEmpty() throws ParseException {
         boolean ok = false;
         try{
-            event = new Event("","14/10/2015","Endereço","Descrição do evento", 50.01,60.002);
-                ok = false;
+            event = new Event("","14/10/2015","Endereço","Descrição do evento", "50.01","60.002");
+            ok = false;
         }catch(EventException e)
         {
             ok = true;
@@ -30,7 +77,7 @@ public class EventTest extends TestCase{
     {
         boolean ok = false;
         try{
-             event =  new Event("Geovanni","22/02/2016","Endereço","descrição",21.4,30.2);
+            event =  new Event("Geovanni","22/02/2016","Endereço","descrição","21.4","30.2");
             ok = true;
         }catch(EventException e)
         {
@@ -39,14 +86,14 @@ public class EventTest extends TestCase{
         {
             ex.printStackTrace();
         }
-       assertTrue(ok);
+        assertTrue(ok);
     }
     public void testNameIsBiggerThanMax()
     {
         boolean ok = true;
         try
         {
-            event = new Event("Joãozinho da Silva Gosta da Dilma, venham conhecer esse jovem muito jovem","02/02/2016","Cidade Vizinha","Venham conhecer o Joãozinho!",50.8,60.2);
+            event = new Event("Joãozinho da Silva Gosta da Dilma, venham conhecer esse jovem muito jovem","02/02/2016","Cidade Vizinha","Venham conhecer o Joãozinho!","50.8","60.2");
 
         } catch (EventException e) {
             e.printStackTrace();
@@ -60,7 +107,7 @@ public class EventTest extends TestCase{
     public void testIfDateIsEmpty()  {
         boolean ok = true;
         try {
-            event = new Event("festa2", "","Rua dos marajós", "festa top",34.0,34.0);
+            event = new Event("festa2", "","Rua dos marajós", "festa top","34.0","34.0");
         } catch (EventException e) {
             e.printStackTrace();
             ok=false;
@@ -75,7 +122,7 @@ public class EventTest extends TestCase{
     {
         boolean ok = true;
         try{
-            event = new Event("FG Party","10/10/2016","Rua perdida","",44.2,46.2);
+            event = new Event("FG Party","10/10/2016","Rua perdida","","44.2","46.2");
             ok = true;
 
         }catch(EventException e)
@@ -93,7 +140,7 @@ public class EventTest extends TestCase{
         boolean ok = true;
         try{
 
-            event = new Event("FG a Party","10/10/2016","Um lugar perdido","Venha se perder com a gente!", 44.2,65.2);
+            event = new Event("FG a Party","10/10/2016","Um lugar perdido","Venha se perder com a gente!", "44.2","65.2");
         }catch(EventException e){
             ok = false;
         }catch(ParseException ex)
@@ -117,7 +164,7 @@ public class EventTest extends TestCase{
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
-                    "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk", 55.2,79.9);
+                    "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk", "55.2","79.9");
 
         }catch(EventException e)
         {
@@ -134,7 +181,7 @@ public class EventTest extends TestCase{
         boolean ok = false;
         try
         {
-            event = new Event("Evento teste","12/12/2015","Descrição endereço","Descrição teste de evento",-90.9,140.2);
+            event = new Event("Evento teste","12/12/2015","Descrição endereço","Descrição teste de evento","-90.9","140.2");
         }catch(EventException e)
         {
             ok = true;
@@ -150,7 +197,7 @@ public class EventTest extends TestCase{
         boolean ok = false;
         try
         {
-            event = new Event("Evento teste","12/12/2015","quadra 04","Descrição teste de evento",99.2,130.2);
+            event = new Event("Evento teste","12/12/2015","quadra 04","Descrição teste de evento","99.2","130.2");
         }catch(EventException e)
         {
             ok = true;
@@ -167,7 +214,7 @@ public class EventTest extends TestCase{
         boolean ok = false;
         try
         {
-            event = new Event("Evento teste","12/12/2015","The darkest Street ever","Descrição teste de evento",-40.9,140.2);
+            event = new Event("Evento teste","12/12/2015","The darkest Street ever","Descrição teste de evento","-40.9","140.2");
         }catch(EventException e)
         {
             ok = true;
@@ -182,7 +229,7 @@ public class EventTest extends TestCase{
         boolean ok = false;
         try
         {
-            event = new Event("Evento teste","12/12/2015","The new Darkest side of you!","Descrição teste de evento",90.0,-181.1);
+            event = new Event("Evento teste","12/12/2015","The new Darkest side of you!","Descrição teste de evento","90.0","-181.1");
         }catch(EventException e)
         {
             ok = true;
@@ -198,7 +245,7 @@ public class EventTest extends TestCase{
         boolean ok = false;
         try
         {
-            event = new Event("Evento teste","12/12/2015","Again? are you kiddin me?","Descrição teste de evento",19.2,190.2);
+            event = new Event("Evento teste","12/12/2015","Again? are you kiddin me?","Descrição teste de evento","19.2","190.2");
         }catch(EventException e)
         {
             ok = true;
@@ -214,8 +261,8 @@ public class EventTest extends TestCase{
         boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2016","Rua capirambada","Descrição", -220.2, 100.0);
-            assertEquals(-220.2,event.getLatitude());
+            event = new Event("Evento teste","12/12/2016","Rua capirambada","Descrição", "-220.2", "100.0");
+            assertEquals("-220.2",event.getLatitude());
         }catch(EventException e)
         {
             ok = false;
@@ -228,7 +275,7 @@ public class EventTest extends TestCase{
         boolean ok = false;
         try
         {
-            event = new Event("Evento teste","12/12/2015","","Descrição teste de evento",40.9,140.2);
+            event = new Event("Evento teste","12/12/2015","","Descrição teste de evento", "40.9","140.2");
         }catch(EventException e)
         {
             ok = true;
