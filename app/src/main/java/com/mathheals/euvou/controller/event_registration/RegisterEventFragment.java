@@ -43,7 +43,7 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         registerEvent.setOnClickListener(this);
 
         //Adding listener to eventLocal EditText
-        EditText eventLocal = (EditText) view.findViewById(R.id.eventLocal);
+        Button eventLocal = (Button) view.findViewById(R.id.eventLocal);
         eventLocal.setOnClickListener(this);
 
         //Adding mask to eventDate Field
@@ -96,8 +96,6 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
             EditText dateEventField = (EditText) this.getActivity().findViewById(R.id.eventDate);
             String dateEvent = dateEventField.getText().toString();
 
-            EditText localEventField = (EditText) this.getActivity().findViewById(R.id.eventLocal);
-
             EditText descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
             String descriptionEvent = descriptionEventField.getText().toString();
 
@@ -140,29 +138,9 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
                     dateEventField.setError(message);
                 }
 
-                if(message.equals(Event.LANTITUDE_IS_EMPTY)){
-                    localEventField.requestFocus();
-                    localEventField.setError(message);
-                }
-
-                if(message.equals(Event.LATITUDE_IS_INVALID)){
-                    localEventField.requestFocus();
-                    localEventField.setError(message);
-                }
-
-                if(message.equals(Event.LONGITUDE_IS_EMPTY)){
-                    localEventField.requestFocus();
-                    localEventField.setError(message);
-                }
-
-                if(message.equals(Event.LONGITUDE_IS_INVALID)){
-                    localEventField.requestFocus();
-                    localEventField.setError(message);
-                }
-
                 if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
-                    localEventField.requestFocus();
-                    localEventField.setError(message);
+                    nameEventField.requestFocus();
+                    nameEventField.setError(message);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -188,13 +166,7 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
                     latitude = bundle.getString("latitude");
                     longitude = bundle.getString("longitude");
 
-                    Toast.makeText(getContext(), latitude+longitude, Toast.LENGTH_LONG).show();
-
-
-                    Activity activity = getActivity();
-                    EditText eventLocal = (EditText) activity.findViewById(R.id.eventLocal);
-
-                    eventLocal.setText(latitude+longitude);
+                    Toast.makeText(getContext(), "Local selecionado com sucesso", Toast.LENGTH_LONG).show();
                 }
                 break;
             }
