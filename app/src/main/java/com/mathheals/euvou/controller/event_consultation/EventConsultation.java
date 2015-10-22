@@ -1,7 +1,12 @@
 package com.mathheals.euvou.controller.event_consultation;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -13,11 +18,13 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.home_page.HomePage;
 
 public class EventConsultation extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
         View.OnClickListener {
 
     private RadioGroup radioGroup;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +35,19 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        final String SEARCH_VIEW_HINT = "Pesquisar pessoas, eventos e locais";
         getMenuInflater().inflate(R.menu.menu_event_consultation, menu);
+        actionBar = getSupportActionBar();
 
+        setSearchBar(menu);
+        configActionBar();
+
+        radioGroup = (RadioGroup) findViewById(R.id.search_radio_group);
+        radioGroup.setOnCheckedChangeListener(this);
+        return true;
+    }
+
+    private void setSearchBar(Menu menu) {
+        final String SEARCH_VIEW_HINT = "Pesquisar";
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView =
@@ -39,26 +56,24 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                 searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setQueryHint(SEARCH_VIEW_HINT);
+    }
 
-
-        radioGroup = (RadioGroup) findViewById(R.id.search_radio_group);
-        radioGroup.setOnCheckedChangeListener(this);
-        return true;
+    private void configActionBar() {
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00C0C3")));
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(this, HomePage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch(checkedId) {
