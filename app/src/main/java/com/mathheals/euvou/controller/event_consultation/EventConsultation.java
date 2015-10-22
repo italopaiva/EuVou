@@ -25,6 +25,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
 
     private RadioGroup radioGroup;
     private ActionBar actionBar;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +49,37 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
 
     private void setSearchBar(Menu menu) {
         final String SEARCH_VIEW_HINT = "Pesquisar";
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setQueryHint(SEARCH_VIEW_HINT);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                int checkedButton = radioGroup.getCheckedRadioButtonId();
+                switch (checkedButton) {
+                    case R.id.radio_events:
+                        Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.radio_places:
+                        Toast.makeText(getBaseContext(), "LOCAIS: " + query, Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.radio_people:
+                        Toast.makeText(getBaseContext(), "PESSOAS: " + query, Toast.LENGTH_LONG).show();
+                        break;
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return true;
+            }
+        });
     }
 
     private void configActionBar() {
@@ -76,15 +100,16 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         }
     }
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        String query = searchView.getQuery().toString();
         switch(checkedId) {
             case R.id.radio_events:
-                Toast.makeText(getBaseContext(), "EVENTOS", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "AGORA EM EVENTOS: " + query, Toast.LENGTH_LONG).show();
                 break;
             case R.id.radio_places:
-                Toast.makeText(getBaseContext(), "LOCAIS", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "AGORA EM LOCAIS: " + query, Toast.LENGTH_LONG).show();
                 break;
             case R.id.radio_people:
-                Toast.makeText(getBaseContext(), "PESSOAS", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "AGORA EM PESSOAS: " + query, Toast.LENGTH_LONG).show();
                 break;
         }
     }
