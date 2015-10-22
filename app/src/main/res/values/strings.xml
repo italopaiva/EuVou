@@ -48,5 +48,8 @@
     <string name="events">Eventos</string>
     <string name="places">Locais</string>
     <string name="people">Pessoas</string>
+    <string name="title_activity_event_consultation">EventConsultation</string>
+
+    <!-- Event Consultation -->
 
 </resources>

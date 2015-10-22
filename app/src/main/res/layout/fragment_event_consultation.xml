@@ -1,28 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mathheals.euvou.controller.event_consultation.EventConsultation">
+    tools:context="com.mathheals.euvou.controller.event_consultation.EvenC">
 
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RadioButton android:id="@+id/radio_events"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/events"/>
-
-        <RadioButton android:id="@+id/radio_places"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/places"/>
-
-        <RadioButton android:id="@+id/radio_people"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/people"/>
-
-
-    </RadioGroup>
 </FrameLayout>

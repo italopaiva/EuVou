@@ -1,43 +1,81 @@
 package com.mathheals.euvou.controller.event_consultation;
 
-
+import android.app.SearchManager;
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 
-public class EventConsultation extends android.support.v4.app.Fragment implements RadioGroup.OnCheckedChangeListener{
+public class EventConsultation extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
+        View.OnClickListener {
 
-
-    public EventConsultation() {
-        // Required empty public constructor
-    }
-
+    private RadioGroup radioGroup;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_consultation, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_event_consultation);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        final String SEARCH_VIEW_HINT = "Pesquisar pessoas, eventos e locais";
+        getMenuInflater().inflate(R.menu.menu_event_consultation, menu);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint(SEARCH_VIEW_HINT);
+
+
+        radioGroup = (RadioGroup) findViewById(R.id.search_radio_group);
+        radioGroup.setOnCheckedChangeListener(this);
+        return true;
+    }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch(checkedId) {
             case R.id.radio_events:
-                Toast.makeText(getActivity().getBaseContext(), "EVENTOS", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "EVENTOS", Toast.LENGTH_LONG).show();
                 break;
             case R.id.radio_places:
-                Toast.makeText(getActivity().getBaseContext(), "LOCAIS", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "LOCAIS", Toast.LENGTH_LONG).show();
                 break;
             case R.id.radio_people:
-                Toast.makeText(getActivity().getBaseContext(), "PESSOAS", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "PESSOAS", Toast.LENGTH_LONG).show();
                 break;
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        radioGroup.clearCheck();
     }
 }

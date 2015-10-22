@@ -1,11 +1,7 @@
 package com.mathheals.euvou.controller.home_page;
 
-import android.app.usage.UsageEvents;
-import android.content.Context;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,9 +12,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,7 +30,6 @@ import com.mathheals.euvou.controller.login_user.LoginValidation;
 import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
 import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
 import com.mathheals.euvou.controller.remove_user.OhGoshFragment;
-import com.mathheals.euvou.controller.user_profile.ShowUser;
 import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.login_user.LoginActivity;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
@@ -172,7 +164,7 @@ public class HomePage extends ActionBarActivity {
         else {
             return false;
         }
-
+        /*
         // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
@@ -209,6 +201,7 @@ public class HomePage extends ActionBarActivity {
                 return true;
             }
         });
+        */
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -396,10 +389,7 @@ public class HomePage extends ActionBarActivity {
     }
 
     public void searchOnclick(MenuItem item) {
-        Toast.makeText(this, "PESQUISAR", Toast.LENGTH_LONG).show();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.content_frame, new EventConsultation());
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        Intent eventConsultation = new Intent(HomePage.this, EventConsultation.class);
+        HomePage.this.startActivity(eventConsultation);
     }
 }
