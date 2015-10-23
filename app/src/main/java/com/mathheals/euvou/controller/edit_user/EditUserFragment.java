@@ -40,7 +40,7 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_user, container, false);
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(this.getActivity());
 
         EditText nameField = (EditText) view.findViewById(R.id.nameField);
 
@@ -83,7 +83,7 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
     }
 
     private void updateUser(User user){
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(getActivity());
         userDAO.update(user);
     }
 

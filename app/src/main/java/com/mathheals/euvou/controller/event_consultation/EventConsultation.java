@@ -21,6 +21,8 @@ import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.show_event.ShowEvent;
 
+import dao.EventDAO;
+
 public class EventConsultation extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
         View.OnClickListener {
 
@@ -64,15 +66,16 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                 int checkedButton = radioGroup.getCheckedRadioButtonId();
                 switch (checkedButton) {
                     case R.id.radio_events:
-                        Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        //Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
                         Bundle bundle = new Bundle();
                         bundle.putString("eventName", query);
                         ShowEvent event = new ShowEvent();
                         event.setArguments(bundle);
-                        EventDao eventDao = new EventDao();
-                        if(eventDao.searchEventByName(query)!= null)
+                        EventDAO eventDAO = new EventDAO(getParent());
+                        if(eventDAO.searchEventByName(query)!= null)
                         {
+                            Toast.makeText(getBaseContext(), "entrou no if", Toast.LENGTH_LONG).show();
+                            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.content_frame, event);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
@@ -81,10 +84,10 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         }
                         break;
                     case R.id.radio_places:
-                        Toast.makeText(getBaseContext(), "LOCAIS: " + query, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getBaseContext(), "LOCAIS: " + query, Toast.LENGTH_LONG).show();
                         break;
                     case R.id.radio_people:
-                        Toast.makeText(getBaseContext(), "PESSOAS: " + query, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getBaseContext(), "PESSOAS: " + query, Toast.LENGTH_LONG).show();
                         break;
                 }
                 return true;

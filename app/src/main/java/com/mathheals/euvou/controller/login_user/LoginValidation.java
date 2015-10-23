@@ -33,7 +33,7 @@ public class LoginValidation {
     }
 
     public boolean isActivity(String username){
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(this.activity);
 
         JSONObject json = null;
         String isActivity = null;
@@ -52,7 +52,7 @@ public class LoginValidation {
     }
 
     public boolean isUsernameRegistred(String username){
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(this.activity);
 
         JSONObject json = userDAO.searchUserByUsername(username);
 
@@ -70,7 +70,7 @@ public class LoginValidation {
     }
 
     public boolean checkPassword(String validUsername, String passwordTyped){
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(this.activity);
 
         JSONObject json = userDAO.searchUserByUsername(validUsername);
 

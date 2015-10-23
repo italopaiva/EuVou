@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.event_consultation.EventConsultation;
+import com.mathheals.euvou.controller.event_registration.RegisterEventFragment;
 import com.mathheals.euvou.controller.login_user.LoginValidation;
 import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
 import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
@@ -36,12 +38,13 @@ import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserVIewMessages;
 import com.mathheals.euvou.controller.search_place.SearchPlaceMaps;
 import com.mathheals.euvou.controller.user_registration.RegisterFragment;
+import com.mathheals.euvou.controller.utility.ActivityUtility;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import dao.UserDAO;
 
-public class HomePage extends ActionBarActivity {
-    private static final String DISABLE_ACCOUNT_FRAGMENT_TAG = "disable_account_fragment_tag";
+public class HomePage extends ActionBarActivity implements AdapterView.OnItemClickListener {
+    private static final String QUERY = "query";
     private static final String SETTINGS_FRAGMENT = "settings_fragment_tag";
     private CharSequence mTitle;
     private DrawerLayout drawerLayout;
@@ -66,51 +69,25 @@ public class HomePage extends ActionBarActivity {
         callGoogleMaps();
         onConfigActionBar();
     }
+
     public void searchPlace(View view){
+        final String INVALID_SEARCH = "Pesquisa Invalida";
+
         String filter = ((EditText)findViewById(R.id.place_search)).getText().toString();
         Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
         if(filter.isEmpty()) {
-            Toast.makeText(this, "Pesquisa Invalida", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, INVALID_SEARCH, Toast.LENGTH_LONG).show();
         }
         else{
-            map.putExtra("query", filter);
+            map.putExtra(QUERY, filter);
             HomePage.this.startActivity(map);
             drawerLayout.closeDrawer(linearLayout);
         }
     }
+
     private void callGoogleMaps()
     {
-        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                String aux = "";
-                switch (position) {
-                    case 1:
-                        aux = "Museu";
-                        break;
-                    case 2:
-                        aux = "Parque";
-                        break;
-                    case 3:
-                        aux = "Teatro";
-                        break;
-                    case 4:
-                        aux = "shop";
-                        break;
-                    case 5:
-                        aux = "Unidade";
-                        break;
-
-                }
-                Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
-                map.putExtra("query", aux);
-                HomePage.this.startActivity(map);
-                drawerLayout.closeDrawer(linearLayout);
-            }
-        });
+        drawerList.setOnItemClickListener(this);
     }
 
     private void initViews(){
@@ -164,44 +141,7 @@ public class HomePage extends ActionBarActivity {
         else {
             return false;
         }
-        /*
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
-        search.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        search.setQueryHint("Buscar locais e usuário");
-        
-        MenuItem searchBar = menu.findItem(R.id.search);
-        SearchView userSearch = (SearchView) searchBar.getActionView();
-        userSearch.setQueryHint("Busque usuários");
-        userSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                Bundle bundle = new Bundle();
-                bundle.putString("username", query);
-                ShowUser user = new ShowUser();
-                user.setArguments(bundle);
-                UserDAO userDAO = new UserDAO();
-                if(userDAO.searchUserByUsername(query)!=null) {
-                    fragmentTransaction.replace(R.id.content_frame, user);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
-                else{
-                    Toast.makeText(getBaseContext(), "O nome não foi encontrado", Toast.LENGTH_LONG).show();
-                }
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-        });
-        */
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -251,11 +191,15 @@ public class HomePage extends ActionBarActivity {
                 fragmentTransaction.commit();
                 return true;
             case R.id.settings:
-                clearBackStack();
+                ActivityUtility.clearBackStack(this);
                 fragmentTransaction.replace(R.id.content_frame, new RemoveUserFragment(), SETTINGS_FRAGMENT);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 return true;
+            case R.id.register_event:
+                fragmentTransaction.replace(R.id.content_frame, new RegisterEventFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             case R.id.logout:
                 new LoginUtility(HomePage.this).setUserLogOff();
 
@@ -263,19 +207,17 @@ public class HomePage extends ActionBarActivity {
                 finish();
                 startActivity(intent);
                 return true;
+            case R.id.event_registration:
+                fragmentTransaction.replace(R.id.content_frame, new RegisterEventFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                //Toast.makeText(getBaseContext(), "Cadastrar evento", Toast.LENGTH_LONG).show();
             default:
                 return false;
         }
     }
 
-    public void restartActivity() {
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
-    }
-
     public boolean userLoggedOutOptions(MenuItem item) {
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (item.getItemId()) {
             case R.id.registration:
@@ -291,93 +233,6 @@ public class HomePage extends ActionBarActivity {
                 return false;
         }
     }
-    private void onConfigListener(){
-
-    }
-
-    private void onConfigListItem(){
-
-        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, textOptions));
-
-    }
-
-    public void configurationButtonsOnClick(View view) {
-        // Handling all configuration's buttons onClick
-
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        Context homePageContext = getBaseContext();
-
-        switch(view.getId()) {
-            case R.id.button_disable_account_id:
-                fragmentTransaction.replace(R.id.content_frame, new OhGoshFragment());
-                fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment(), DISABLE_ACCOUNT_FRAGMENT_TAG);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.addToBackStack(DISABLE_ACCOUNT_FRAGMENT_TAG);
-                fragmentTransaction.commit();
-                return;
-            case R.id.button_yes_id:
-                fragmentManager.popBackStack();
-                RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
-                return;
-            case R.id.button_no_id:
-                android.support.v4.app.Fragment disableAccountFragment = getSupportFragmentManager().findFragmentByTag(DISABLE_ACCOUNT_FRAGMENT_TAG);
-                fragmentTransaction.remove(disableAccountFragment);
-                fragmentTransaction.add(R.id.content_frame, new DisableAccountLoginConfirmation());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                return;
-            case R.id.button_back_id:
-                fragmentManager.popBackStack(DISABLE_ACCOUNT_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
-                return;
-            case R.id.button_disable_account_confirmation_id:
-                if(isLoginConfirmationValid()) {
-                    LoginUtility loginUtility = new LoginUtility(this);
-                    UserDAO userDAO = new UserDAO();
-
-                    userDAO.disableUser(new LoginUtility(this).getUserId());
-                    loginUtility.setUserLogOff();
-
-                    restartActivity();
-                    RemoveUserVIewMessages.showAccountDeactivateMessage(homePageContext);
-                }
-        }
-    }
-    private void clearBackStack() {
-        FragmentManager manager = getSupportFragmentManager();
-        if (manager.getBackStackEntryCount() > 0) {
-            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
-            manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-    }
-
-    public boolean isLoginConfirmationValid() {
-        EditText usernameField = (EditText) findViewById(R.id.edit_text_login_id);
-        String typedUsername = usernameField.getText().toString();
-
-        EditText passwordField = (EditText) findViewById(R.id.edit_text_password_id);
-        String typedPassword = passwordField.getText().toString();
-
-        LoginValidation loginValidation = new LoginValidation(HomePage.this);
-
-        boolean isUsernameValid = loginValidation.isUsernameValid(typedUsername);
-
-        if(isUsernameValid==false){
-            usernameField.requestFocus();
-            usernameField.setError(loginValidation.getInvalidUsernameMessage());
-        }else{
-            boolean isPasswordValid=loginValidation.checkPassword(typedUsername, typedPassword);
-
-            if(isPasswordValid==false){
-                passwordField.requestFocus();
-                passwordField.setError(loginValidation.getInvalidPasswordMessage());
-            }
-            else
-                return true;
-        }
-        return false;
-    }
 
     // Alterar Usuário methods
     public void editUserUpdateButtonOnClick(View view) {
@@ -392,4 +247,30 @@ public class HomePage extends ActionBarActivity {
         Intent eventConsultation = new Intent(HomePage.this, EventConsultation.class);
         HomePage.this.startActivity(eventConsultation);
     }
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String aux = "";
+            switch (position) {
+                case 1:
+                    aux = "Museu";
+                    break;
+                case 2:
+                    aux = "Parque";
+                    break;
+                case 3:
+                    aux = "Teatro";
+                    break;
+                case 4:
+                    aux = "shop";
+                    break;
+                case 5:
+                    aux = "Unidade";
+                    break;
+
+            }
+            Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
+            map.putExtra(QUERY, aux);
+            HomePage.this.startActivity(map);
+            drawerLayout.closeDrawer(linearLayout);
+        }
 }

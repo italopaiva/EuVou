@@ -26,7 +26,6 @@
         android:textSize="@dimen/font_size"
         android:layout_below="@+id/switcher_disable_account_id"
         android:textColor="@color/black"
-        android:onClick="configurationButtonsOnClick"
         />
 
     <Button
@@ -38,6 +37,5 @@
         android:layout_marginTop="215dp"
         android:layout_marginLeft="20dp"
         android:background="@color/Turquoise"
-        android:onClick="configurationButtonsOnClick"
         />
 </RelativeLayout>

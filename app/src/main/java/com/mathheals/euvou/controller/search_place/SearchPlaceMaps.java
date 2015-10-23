@@ -65,7 +65,7 @@ public class SearchPlaceMaps extends FragmentActivity{
 
     private JSONObject searchPlaces()
     {
-        return new PlaceDAO().searchPlaceByPartName(getFilter());
+        return new PlaceDAO(this).searchPlaceByPartName(getFilter());
     }
 
     private void setUpMap() {

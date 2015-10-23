@@ -51,5 +51,7 @@
     <string name="title_activity_event_consultation">EventConsultation</string>
 
     <!-- Event Consultation -->
+    <string name="DISABLE_ACCOUNT_FRAGMENT_TAG">disable_account_fragment_tag</string>
+    <string name="title_activity_local_event">Map</string>
 
 </resources>

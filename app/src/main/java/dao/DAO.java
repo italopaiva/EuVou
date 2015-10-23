@@ -1,41 +1,57 @@
 package dao;
 
 import android.app.Activity;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 public abstract class DAO {
 
-    private final String urlQuery = "http://euvou.esy.es/query.php";
-    private final String urlConsult = "http://euvou.esy.es/consult.php";
-    protected Activity activity;
+    private final String URLQUERY = "http://euvou.esy.es/query.php";
+    private final String URLCONSULT = "http://euvou.esy.es/consult.php";
+    private long timeLimit;
+    private final int LIMITCONECTIONTIME = 15000;
+    private Activity currentActivity;
+    public DAO(Activity currentActivity){
+        this.currentActivity = currentActivity;
+    }
 
-    protected String executeQuery(String query){
+    private String query(String query,String urlQuery)
+    {
         Consult consult = new Consult(query,urlQuery);
         consult.exec();
-        while(!consult.getIsDoing());
+
+        long currentTime = Calendar.getInstance().getTime().getTime();
+        timeLimit = currentTime + LIMITCONECTIONTIME;
+        while(!consult.getIsDoing() && currentTime < timeLimit) {
+            currentTime = Calendar.getInstance().getTime().getTime();
+        }
+
+        if(currentTime >= timeLimit) {
+            Toast.makeText(currentActivity,"Problema de conexão com o servidor (verifique se esta conectado a internet)", Toast.LENGTH_LONG).show();
+            return null;
+        }
+
+
         return consult.getResult();
+    }
+
+    protected String executeQuery(String query){
+        return query(query, URLQUERY);
     }
 
     protected JSONObject executeConsult(String query)
     {
         String json;
-        Consult consult = new Consult(query,urlConsult);
-        consult.exec();
-        while(!consult.getIsDoing());
-
-        json = consult.getResult();
         JSONObject jObject = null;
         try {
+            json = query(query,URLCONSULT);
             jObject  = new JSONObject(json);
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

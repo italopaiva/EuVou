@@ -38,7 +38,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private void registerUser(User user) {
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new UserDAO(getActivity());
         userDAO.save(user);
 
     }
