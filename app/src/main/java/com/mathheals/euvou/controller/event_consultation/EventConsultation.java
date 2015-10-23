@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
-
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.show_event.ShowEvent;
@@ -67,6 +66,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                 switch (checkedButton) {
                     case R.id.radio_events:
                         //Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         Bundle bundle = new Bundle();
                         bundle.putString("eventName", query);
                         ShowEvent event = new ShowEvent();
@@ -75,8 +75,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         if(eventDAO.searchEventByName(query)!= null)
                         {
                             Toast.makeText(getBaseContext(), "entrou no if", Toast.LENGTH_LONG).show();
-                            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.content_frame, event);
+                            fragmentTransaction.replace(R.id.content, event);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                         }else{
