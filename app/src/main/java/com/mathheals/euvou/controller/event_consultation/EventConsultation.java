@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.home_page.HomePage;
+import com.mathheals.euvou.controller.show_event.ShowEvent;
 
 public class EventConsultation extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
         View.OnClickListener {
@@ -64,6 +65,20 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                 switch (checkedButton) {
                     case R.id.radio_events:
                         Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("eventName", query);
+                        ShowEvent event = new ShowEvent();
+                        event.setArguments(bundle);
+                        EventDao eventDao = new EventDao();
+                        if(eventDao.searchEventByName(query)!= null)
+                        {
+                            fragmentTransaction.replace(R.id.content_frame, event);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }else{
+                            Toast.makeText(getBaseContext(), "O evento não foi encontrado", Toast.LENGTH_LONG).show();
+                        }
                         break;
                     case R.id.radio_places:
                         Toast.makeText(getBaseContext(), "LOCAIS: " + query, Toast.LENGTH_LONG).show();
