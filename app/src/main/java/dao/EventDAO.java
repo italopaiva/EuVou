@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import org.json.JSONObject;
 
+import java.util.Vector;
+
 import model.Event;
 
 /**
@@ -25,15 +27,16 @@ public class EventDAO extends DAO {
                 event.getNameEvent() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
                 "" + event.getLongitude() + "," + event.getLatitude() + ")");
 
-        String query = "";
-        for (String category : event.getCategory()) {
-            query += "INSERT INTO event_category VALUES(" +
-                    "(SELECT idEvent FROM tb_event WHERE nameEvent = '"+event.getNameEvent()+"' AND dateTimeEvent = '"+event.getDateTimeEvent()+"' AND " +
-                    "description = '"+event.getDescription()+"' AND longitude ="+event.getLongitude()+"  AND latitude ="+event.getLatitude()+" )," +
-                    "(SELECT idCategory FROM tb_category WHERE namecategory = '"+category+"'));";
-        }
+        //String query = "";
+        Vector<String> categories = event.getCategory();
+        //for (String category : event.getCategory()) {
+        for(int i=0; i<categories.size(); i++){
+            String query = "INSERT INTO event_category(idEvent, idCategory) VALUES((SELECT idEvent FROM tb_event " +
+                    "WHERE nameEvent=\""+event.getNameEvent()+"\"), " +
+                    "(SELECT idCategory FROM tb_category WHERE nameCategory = \""+categories.get(i)+"\"))";
 
-        executeQuery(query);
+            executeQuery(query);
+        }
 
     }
     public  void deleteEvent(Event event)
