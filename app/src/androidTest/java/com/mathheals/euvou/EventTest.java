@@ -295,4 +295,19 @@ public class EventTest extends TestCase{
 
         assertTrue(ok);
     }
+
+    public void testIfDateHasPassed()  {
+        boolean ok = true;
+        Vector<String> categories = new Vector<String>();
+        categories.add("Exposicao");
+        try {
+            event = new Event("festa2", "20/01/2000", "festa top","34.0","34.0", categories);
+        } catch (EventException e) {
+            ok=false;
+        }catch(ParseException ex)
+        {
+            ok=false;
+        }
+        assertFalse(ok);
+    }
 }
