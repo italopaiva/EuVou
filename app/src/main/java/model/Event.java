@@ -132,7 +132,7 @@ public class Event {
     public void setLongitude(String longitude) throws EventException{
         if(!(longitude.toString().isEmpty()) && longitude!=null)
         {
-           Double longitudeDouble = Double.parseDouble(longitude);
+            Double longitudeDouble = Double.parseDouble(longitude);
             if(longitudeDouble >= -180 && longitudeDouble <= 180) {
                 this.longitude = longitudeDouble;
 
@@ -193,7 +193,7 @@ public class Event {
     }
 
     public void setLatitude(String latitude) throws EventException{
-       if(!(latitude.toString().isEmpty()) && latitude!=null)
+        if(!(latitude.toString().isEmpty()) && latitude!=null)
         {
             Double latitudeDouble = Double.parseDouble(latitude);
             if(latitudeDouble >= -90 && latitudeDouble <= 90)
@@ -208,7 +208,7 @@ public class Event {
             throw  new EventException(LANTITUDE_IS_EMPTY);
         }
     }
-    
+
     public void setCategory(Vector<String> category) throws EventException{
         if(category!=null && !category.isEmpty()){
             this.category = category;
