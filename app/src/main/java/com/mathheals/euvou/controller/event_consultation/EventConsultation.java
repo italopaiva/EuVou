@@ -68,13 +68,13 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         //Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         Bundle bundle = new Bundle();
-                        bundle.putString("eventName", query);
+                        bundle.putString("nameOfTheEvent", query);
                         ShowEvent event = new ShowEvent();
                         event.setArguments(bundle);
                         EventDAO eventDAO = new EventDAO(getParent());
                         if(eventDAO.searchEventByName(query)!= null)
                         {
-                            Toast.makeText(getBaseContext(), "entrou no if", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getBaseContext(), "entrou no if", Toast.LENGTH_LONG).show();
                             fragmentTransaction.replace(R.id.content, event);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();

@@ -32,28 +32,35 @@ public class ShowEvent extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_show_event,container,false);
         EventDAO eventDAO = new EventDAO(this.getActivity());
-        String eventName =  this.getArguments().getString("eventName");
-        JSONObject eventDATA = eventDAO.searchEventByName(eventName);
+        String eventNamee =  this.getArguments().getString("nameOfTheEvent");
+        JSONObject eventDATA = eventDAO.searchEventByName(eventNamee);
+        //Toast.makeText(getContext(), eventNamee, Toast.LENGTH_LONG).show();
+
 
         try
         {
-            String eventNameDB = eventDATA.getJSONObject("0").getString("eventName");
-            String eventAdress = eventDATA.getJSONObject("0").getString("dateTimeEvent");
-            String eventDescription = eventDATA.getJSONObject("0").getString("eventDescription");
+            String eventNameDB = eventDATA.getJSONObject("0").getString("nameEvent");
+            //String eventAdress = eventDATA.getJSONObject("0").getString("dateTimeEvent");
+            //o banco ainda está sem a tabela endereço!!
+            String eventDescription = eventDATA.getJSONObject("0").getString("description");
             String eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
             String eventLongitude = eventDATA.getJSONObject("0").getString("longitude");
             String eventLatitude = eventDATA.getJSONObject("0").getString("latitude");
 
-            TextView nameShowLabel= (TextView) view.findViewById(R.id.nameLabel);
+            TextView name1Event= (TextView) view.findViewById(R.id.nameEventShow);
+            TextView dateEvent= (TextView) view.findViewById(R.id.dateEvent);
+            TextView description= (TextView) view.findViewById(R.id.descriptionEvent);
 
-            nameShowLabel.setText(eventNameDB);
+            name1Event.setText(eventNameDB);
+            description.setText(eventDescription);
+            dateEvent.setText(eventDateTime);
             /*adressShow.setText(eventAdress);
             descriptionShow.setText(eventDescription);
             dataShow.setText(eventDateTime);
 */
         }catch(JSONException ex)
         {
-
+            ex.printStackTrace();
         }catch(NullPointerException exception)
         {
             Toast.makeText(getActivity(),"O nome não foi encontrado",Toast.LENGTH_LONG);
