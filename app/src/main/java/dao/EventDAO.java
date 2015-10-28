@@ -63,8 +63,13 @@ public class EventDAO extends DAO {
         }
         executeQuery(query);
     }
-    public JSONObject searchEventByName(String eventName)
-    {
+
+    public JSONObject searchEventByName(String eventName){
        return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%'");
     }
+
+    public JSONObject searchEventById(int idEvent){
+        return this.executeConsult("SELECT * FROM vw_event WHERE idEvent = " + idEvent);
+    }
+
 }
