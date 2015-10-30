@@ -13,12 +13,19 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.show_event.ShowEvent;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import dao.EventDAO;
 
@@ -29,10 +36,15 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     private ActionBar actionBar;
     private SearchView searchView;
 
+    private ListView listView;
+    String[] mobileArray = {"Android","IPhone","WindowsMobile","Blackberry","WebOS","Ubuntu","Windows7","Max OS X"};
+    ArrayList<String> mList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_consultation);
+
     }
 
     @Override
@@ -72,14 +84,31 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         ShowEvent event = new ShowEvent();
                         event.setArguments(bundle);
                         EventDAO eventDAO = new EventDAO(getParent());
-                        if(eventDAO.searchEventByName(query)!= null)
-                        {
-                            //Toast.makeText(getBaseContext(), "entrou no if", Toast.LENGTH_LONG).show();
-                            fragmentTransaction.replace(R.id.content, event);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
-                        }else{
-                            Toast.makeText(getBaseContext(), "O evento não foi encontrado", Toast.LENGTH_LONG).show();
+
+                        ArrayList<String> eventsFound = new ArrayList<String>();
+                        JSONObject eventDATA = eventDAO.searchEventByName(query);
+                        final String EVENT_COLUMN = "nameEvent";
+
+                        try {
+                            for(int i = 0; i < eventDATA.length(); ++i) {
+                                eventsFound.add(eventDATA.getJSONObject(new Integer(i).toString()).getString(EVENT_COLUMN));
+                            }
+
+                            String[] eventsFoundArray = eventsFound.toArray(new String[eventsFound.size()]);
+
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
+                                                                                    R.layout.event_consultation_list_view,
+                                                                                    eventsFoundArray);
+                            listView = (ListView) findViewById(R.id.mobile_list);
+                            listView.setAdapter(adapter);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        if(eventDATA == null) {
+                            final String EVENT_NOT_FOUND_MESSAGE = "O evento não foi encontrado";
+                            Toast.makeText(getBaseContext(), EVENT_NOT_FOUND_MESSAGE, Toast.LENGTH_LONG).show();
                         }
                         break;
                     case R.id.radio_places:
