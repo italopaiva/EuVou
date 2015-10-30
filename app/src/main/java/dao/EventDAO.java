@@ -1,6 +1,7 @@
 package dao;
 
 import android.app.Activity;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,23 +21,26 @@ public class EventDAO extends DAO {
         super(currentActivity);
     }
 
-    public void saveEvent(Event event){
+    public void saveEvent(Event event) throws JSONException {
         if(executeConsult("Select count(longitude) from tb_locate where longitude = " +
                 event.getLongitude() +" and latitude = " + event.getLatitude()) == null)
             executeQuery("insert into tb_locate values("+event.getLongitude() +","+event.getLatitude() +
                     ",'"+event.getAdress()+"')");
 
-        executeQuery("insert into tb_event(nameEvent,dateTimeEvent,description,longitude,latitude) VALUES('" +
-                event.getNameEvent() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
+        executeQuery("insert into tb_event(nameEvent,idOwner,dateTimeEvent,description,longitude,latitude) VALUES('" +
+                event.getNameEvent() + "'," + event.getIdOwner() + ",'" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
                 "" + event.getLongitude() + "," + event.getLatitude() + ")");
 
         //String query = "";
+
         Vector<String> categories = event.getCategory();
+
         //for (String category : event.getCategory()) {
         for(int i=0; i<categories.size(); i++){
+            Toast.makeText(currentActivity, "" + i, Toast.LENGTH_SHORT).show();
             String query = "INSERT INTO event_category(idEvent, idCategory) VALUES((SELECT idEvent FROM tb_event " +
-                    "WHERE nameEvent=\""+event.getNameEvent()+"\"), " +
-                    "(SELECT idCategory FROM tb_category WHERE nameCategory = \""+categories.get(i)+"\"))";
+                    "WHERE nameEvent='"+event.getNameEvent()+"'), " +
+                    "(SELECT idCategory FROM tb_category WHERE nameCategory = '"+categories.get(i)+"'))";
 
             executeQuery(query);
         }

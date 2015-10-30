@@ -40,7 +40,8 @@ public class Event {
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
 
-    public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
+    public Event(int idOwner,String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
+        setIdOwner(idOwner);
         setNameEvent(nameEvent);
         setDateTimeEvent(dateTimeEvent);
         setDescription(description);
@@ -49,7 +50,8 @@ public class Event {
         setCategory(category);
     }
 
-    public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
+    public Event(int idOwner,String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
+        setIdOwner(idOwner);
         setNameEvent(nameEvent);
         setDateTimeEvent(dateTimeEvent);
         setDescription(description);
@@ -74,9 +76,9 @@ public class Event {
     }
 
     public void setDateTimeEvent(String dateTimeEvent) throws ParseException, EventException {
-        /*if(!dateTimeEvent.isEmpty() && dateTimeEvent !=null)
+        if(!dateTimeEvent.isEmpty() && dateTimeEvent !=null)
         {
-            try{
+            /*try{
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                 format.setLenient(false);
                 Date eventDate = format.parse(dateTimeEvent);
@@ -93,12 +95,12 @@ public class Event {
                 throw new EventException(INVALID_EVENT_DATE);
             }
 
-
+*/
         }else
         {
             throw  new EventException(EVENT_DATE_IS_EMPTY);
         }
-*/
+
     }
 
     public Integer getEvaluation() {

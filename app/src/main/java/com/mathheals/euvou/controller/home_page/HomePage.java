@@ -243,6 +243,7 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
                 fragmentTransaction.replace(R.id.content_frame, new RegisterEventFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+                return true;
             case R.id.logout:
                 new LoginUtility(HomePage.this).setUserLogOff();
 
