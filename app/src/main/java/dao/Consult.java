@@ -87,11 +87,7 @@ public class Consult {
                 result = inputStreamToString(response.getEntity().getContent()).toString();
                 setIsDoing(true);
 
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
@@ -102,17 +98,13 @@ public class Consult {
             Consult.this.setIsDoing(true);
         }
 
-        private StringBuilder inputStreamToString(InputStream is) {
+        private StringBuilder inputStreamToString(InputStream is) throws IOException {
             String rLine = "";
             StringBuilder answer = new StringBuilder();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is));
 
-            try {
-                while ((rLine = rd.readLine()) != null) {
-                    answer.append(rLine);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            while ((rLine = rd.readLine()) != null) {
+                answer.append(rLine);
             }
             return answer;
         }

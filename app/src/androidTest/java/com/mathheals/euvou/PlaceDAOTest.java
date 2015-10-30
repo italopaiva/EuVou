@@ -17,8 +17,8 @@ public class PlaceDAOTest extends TestCase {
     {
         activity = new Activity();
     }
-    public void testDatabaseReturn()
-    {
+
+    public void testSearchPlaceByPartName() throws Exception {
         PlaceDAO place = new PlaceDAO(activity);
         if(place.searchPlaceByPartName("") != null)
             assertTrue(true);

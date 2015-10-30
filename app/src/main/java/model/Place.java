@@ -82,8 +82,14 @@ public class Place {
         this.longitude = Double.parseDouble(longitude);
     }
 
-    public void setEvaluate(String evaluate) throws ParseException{
-        this.evaluate = (evaluate.equals("null")? 0 : Float.parseFloat(evaluate));
+    public void setEvaluate(String evaluate) throws NumberFormatException{
+        if(evaluate.equals("null")) {
+            this.evaluate = 0.0F;
+        }
+        else
+        {
+            this.evaluate = Float.parseFloat(evaluate);
+        }
     }
 
     public void setOperation(String operation) {
