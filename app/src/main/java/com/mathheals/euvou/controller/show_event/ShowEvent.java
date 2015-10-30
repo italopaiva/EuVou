@@ -10,16 +10,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mathheals.euvou.R;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import dao.EventDAO;
 import model.Event;
 
-public class ShowEvent extends Fragment {
+public class ShowEvent extends android.support.v4.app.Fragment {
 
     public ShowEvent() {
         // Required empty public constructor
@@ -32,8 +29,8 @@ public class ShowEvent extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_show_event,container,false);
         EventDAO eventDAO = new EventDAO(this.getActivity());
-        String eventNamee =  this.getArguments().getString("nameOfTheEvent");
-        JSONObject eventDATA = eventDAO.searchEventByName(eventNamee);
+        String eventId =  this.getArguments().getString("idEventSearch");
+        JSONObject eventDATA = eventDAO.searchEventById(eventId);
         //Toast.makeText(getContext(), eventNamee, Toast.LENGTH_LONG).show();
 
 

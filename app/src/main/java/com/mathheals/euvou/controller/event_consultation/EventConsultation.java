@@ -79,11 +79,10 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                 switch (checkedButton) {
                     case R.id.radio_events:
                         //Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("nameOfTheEvent", query);
-                        ShowEvent event = new ShowEvent();
-                        event.setArguments(bundle);
+                        final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        final Bundle bundle = new Bundle();
+                        final ShowEvent event = new ShowEvent();
+
                         EventDAO eventDAO = new EventDAO(getParent());
 
                         ArrayList<String> eventsFound = new ArrayList<String>();
@@ -111,12 +110,18 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                                     try {
                                         int userId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
                                         Toast.makeText(getBaseContext(), Integer.toString(userId), Toast.LENGTH_LONG).show();
-                                    }
-                                    catch (JSONException e) {
+                                        bundle.putString("idEventSearch", Integer.toString(userId));
+                                        event.setArguments(bundle);
+                                        fragmentTransaction.replace(R.id.content, event);
+                                        fragmentTransaction.addToBackStack(null);
+                                        fragmentTransaction.commit();
+                                    } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
                                 }
                             });
+
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
