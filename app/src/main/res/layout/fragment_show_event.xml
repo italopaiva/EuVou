@@ -16,29 +16,60 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/event_name"
+            android:layout_marginTop="20dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/event_name_text"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/nameEventShow"
-            android:text="@string/event_name"
-            android:layout_marginTop="20dp"/>
+            android:layout_toRightOf="@id/event_name_text"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/descriptionEvent"
+            android:id="@+id/event_description_text"
+            android:layout_marginTop="20dp"
             android:text="@string/event_description"
-            android:layout_below="@+id/nameEventShow"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_below="@id/event_name_text"
+            />
+
+        <TextView
+            android:id="@+id/descriptionEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_toRightOf="@id/event_description_text"
+            android:layout_below="@id/event_name_text"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"/>
 
         <TextView
+            android:id="@+id/date_event_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/dateEvent"
             android:text="@string/event_date"
-            android:singleLine="true"
-            android:layout_below="@+id/descriptionEvent"
-            android:layout_marginTop="20dp"/>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_alignTop="@+id/dateEvent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
+        <TextView
+            android:id="@+id/dateEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/date_event_text"
+            android:layout_below="@id/event_description_text"
+            android:layout_marginTop="20dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
 </FrameLayout>
