@@ -88,46 +88,45 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         ArrayList<String> eventsFound = new ArrayList<String>();
                         final JSONObject eventDATA = eventDAO.searchEventByName(query);
                         final String EVENT_COLUMN = "nameEvent";
+                        listView = (ListView) findViewById(R.id.mobile_list);
 
-                        try {
-                            for(int i = 0; i < eventDATA.length(); ++i) {
-                                eventsFound.add(eventDATA.getJSONObject(new Integer(i).toString()).getString(EVENT_COLUMN));
-                            }
-
-                            String[] eventsFoundArray = eventsFound.toArray(new String[eventsFound.size()]);
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
-                                                                                    R.layout.event_consultation_list_view,
-                                                                                    eventsFoundArray);
-                            listView = (ListView) findViewById(R.id.mobile_list);
-                            listView.setAdapter(adapter);
-
-                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                public void onItemClick(AdapterView<?> parent, View clickView,
-                                                        int position, long id) {
-                                    final String ID_COLUMN = "idEvent";
-
-                                    try {
-                                        int userId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
-
-                                        bundle.putString("idEventSearch", Integer.toString(userId));
-                                        event.setArguments(bundle);
-                                        fragmentTransaction.replace(R.id.content, event);
-                                        fragmentTransaction.addToBackStack(null);
-                                        fragmentTransaction.commit();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
+                        if(eventDATA != null) {
+                            try {
+                                for (int i = 0; i < eventDATA.length(); ++i) {
+                                    eventsFound.add(eventDATA.getJSONObject(new Integer(i).toString()).getString(EVENT_COLUMN));
                                 }
-                            });
 
+                                String[] eventsFoundArray = eventsFound.toArray(new String[eventsFound.size()]);
 
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
+                                        R.layout.event_consultation_list_view,
+                                        eventsFoundArray);
+                                listView.setAdapter(adapter);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    public void onItemClick(AdapterView<?> parent, View clickView,
+                                                            int position, long id) {
+                                        final String ID_COLUMN = "idEvent";
+
+                                        try {
+                                            int userId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
+
+                                            bundle.putString("idEventSearch", Integer.toString(userId));
+                                            event.setArguments(bundle);
+                                            fragmentTransaction.replace(R.id.content, event);
+                                            fragmentTransaction.addToBackStack(null);
+                                            fragmentTransaction.commit();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-
-                        if(eventDATA == null) {
+                        else {
+                            listView.setAdapter(null);
                             final String EVENT_NOT_FOUND_MESSAGE = "O evento não foi encontrado";
                             Toast.makeText(getBaseContext(), EVENT_NOT_FOUND_MESSAGE, Toast.LENGTH_LONG).show();
                         }
