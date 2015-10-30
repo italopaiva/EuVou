@@ -13,6 +13,7 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RadioGroup;
@@ -86,7 +87,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         EventDAO eventDAO = new EventDAO(getParent());
 
                         ArrayList<String> eventsFound = new ArrayList<String>();
-                        JSONObject eventDATA = eventDAO.searchEventByName(query);
+                        final JSONObject eventDATA = eventDAO.searchEventByName(query);
                         final String EVENT_COLUMN = "nameEvent";
 
                         try {
@@ -101,6 +102,21 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                                                                                     eventsFoundArray);
                             listView = (ListView) findViewById(R.id.mobile_list);
                             listView.setAdapter(adapter);
+
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                public void onItemClick(AdapterView<?> parent, View clickView,
+                                                        int position, long id) {
+                                    final String ID_COLUMN = "idEvent";
+
+                                    try {
+                                        int userId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
+                                        Toast.makeText(getBaseContext(), Integer.toString(userId), Toast.LENGTH_LONG).show();
+                                    }
+                                    catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
 
                         } catch (JSONException e) {
                             e.printStackTrace();
