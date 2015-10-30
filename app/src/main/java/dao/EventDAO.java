@@ -42,7 +42,7 @@ public class EventDAO extends DAO {
     }
     public  void deleteEvent(Event event)
     {
-        this.executeQuery("DELETE FROM tb_event WHERE idEvent ="+event.getIdEvent());
+        this.executeQuery("DELETE FROM tb_event WHERE idEvent =" + event.getIdEvent());
     }
 
     public void updateEvent(Event event)
@@ -69,5 +69,9 @@ public class EventDAO extends DAO {
        return this.executeConsult("SELECT * FROM tb_event WHERE nameEvent LIKE'%"+eventName+"%'");
        // return this.executeConsult("SELECT * FROM tb_event WHERE nameEvent = \""+eventName+"\"");
 
+    }
+    public JSONObject searchEventById(String idEvent)
+    {
+        return this.executeConsult("SELECT * FROM tb_event WHERE idEvent ='"+idEvent+"'");
     }
 }
