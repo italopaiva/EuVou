@@ -1,14 +1,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.mathheals.euvou.controller.show_event.ShowEvent">
+    android:layout_height="match_parent" tools:context="com.mathheals.euvou.controller.show_event.ShowEvent"
+    android:background="@color/white">
 
     <!-- TODO: Update blank fragment layout -->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
         android:id = "@+id/eventLayout"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
         >
 
         <TextView
@@ -16,28 +18,27 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/nameEventShow"
-            android:text="nome"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:text="@string/event_name"
+            android:layout_marginTop="20dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/descriptionEvent"
-            android:text="descrição"
+            android:text="@string/event_description"
             android:layout_below="@+id/nameEventShow"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginTop="20dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/dateEvent"
-            android:text="data"
+            android:text="@string/event_date"
             android:singleLine="true"
             android:layout_below="@+id/descriptionEvent"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginTop="20dp"/>
 
     </RelativeLayout>
 </FrameLayout>

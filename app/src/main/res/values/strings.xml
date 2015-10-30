@@ -53,5 +53,8 @@
     <!-- Event Consultation -->
     <string name="DISABLE_ACCOUNT_FRAGMENT_TAG">disable_account_fragment_tag</string>
     <string name="title_activity_local_event">Map</string>
+    <string name="event_date">Data:</string>
+    <string name="event_description">Descrição:</string>
+    <string name="event_name">Nome:</string>
 
 </resources>

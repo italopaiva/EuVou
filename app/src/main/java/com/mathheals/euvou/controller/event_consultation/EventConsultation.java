@@ -109,7 +109,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
 
                                     try {
                                         int userId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
-                                        Toast.makeText(getBaseContext(), Integer.toString(userId), Toast.LENGTH_LONG).show();
+
                                         bundle.putString("idEventSearch", Integer.toString(userId));
                                         event.setArguments(bundle);
                                         fragmentTransaction.replace(R.id.content, event);
