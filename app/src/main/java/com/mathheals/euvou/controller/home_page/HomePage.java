@@ -37,6 +37,7 @@ import com.mathheals.euvou.controller.login_user.LoginValidation;
 import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
 import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
 import com.mathheals.euvou.controller.remove_user.OhGoshFragment;
+import com.mathheals.euvou.controller.search_event.ListEvents;
 import com.mathheals.euvou.controller.user_profile.ShowUser;
 import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.login_user.LoginActivity;
@@ -249,8 +250,8 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
                 finish();
                 startActivity(intent);
                 return true;
-            case R.id.event_registration:
-                fragmentTransaction.replace(R.id.content_frame, new RegisterEventFragment());
+            case R.id.myEvents:
+                fragmentTransaction.replace(R.id.content_frame, new ListEvents());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 //Toast.makeText(getBaseContext(), "Cadastrar evento", Toast.LENGTH_LONG).show();

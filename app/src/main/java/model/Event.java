@@ -26,6 +26,7 @@ public class Event {
 
 
     private int idEvent;
+    private int idOwner;
     private String nameEvent;
     private String dateTimeEvent;
     private String description;
@@ -34,6 +35,7 @@ public class Event {
     private String adress;
     private Integer evaluation;
     private Vector<String> category;
+
 
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
@@ -55,12 +57,24 @@ public class Event {
         setLongitude(longitude);
     }
 
+
+    public Event(int id,int owner, String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, String evaluate) throws EventException, ParseException {
+        setEvaluation((evaluate.equals("null"))? 1 : Integer.parseInt(evaluate));
+        setIdEvent(id);
+        setIdOwner(owner);
+        setNameEvent(nameEvent);
+        setDateTimeEvent(dateTimeEvent);
+        setDescription(description);
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
+
     public String getDateTimeEvent() {
         return dateTimeEvent;
     }
 
     public void setDateTimeEvent(String dateTimeEvent) throws ParseException, EventException {
-        if(!dateTimeEvent.isEmpty() && dateTimeEvent !=null)
+        /*if(!dateTimeEvent.isEmpty() && dateTimeEvent !=null)
         {
             try{
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -68,8 +82,8 @@ public class Event {
                 Date eventDate = format.parse(dateTimeEvent);
 
                 if(eventDate.after(new Date()))
-                {
-                    this.dateTimeEvent = dateTimeEvent;
+                {*/
+                    this.dateTimeEvent = dateTimeEvent;/*
                 }else
                 {
                     throw new EventException(INVALID_EVENT_DATE);
@@ -84,7 +98,7 @@ public class Event {
         {
             throw  new EventException(EVENT_DATE_IS_EMPTY);
         }
-
+*/
     }
 
     public Integer getEvaluation() {
@@ -92,7 +106,7 @@ public class Event {
     }
 
     public void setEvaluation(Integer evaluation) throws  EventException{
-        if(evaluation >1 && evaluation<5)
+        if(evaluation >0 && evaluation<5)
         {
             this.evaluation = evaluation;
         }
@@ -222,4 +236,11 @@ public class Event {
         return category;
     }
 
+    public int getIdOwner() {
+        return idOwner;
+    }
+
+    public void setIdOwner(int idOwner) {
+        this.idOwner = idOwner;
+    }
 }

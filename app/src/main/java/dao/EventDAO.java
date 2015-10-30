@@ -2,10 +2,13 @@ package dao;
 
 import android.app.Activity;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.Vector;
 
+import exception.EventException;
 import model.Event;
 
 /**
@@ -65,6 +68,29 @@ public class EventDAO extends DAO {
     }
     public JSONObject searchEventByName(String eventName)
     {
-       return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%'");
+        return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%'");
     }
+
+    public Vector<Event> searchEventByOwner(int owner) throws JSONException, ParseException, EventException {
+        JSONObject json = this.executeConsult("SELECT * FROM vw_event WHERE idOwner=" + owner + " GROUP BY idEvent");
+
+        if(json == null)
+            return null;
+
+        Vector<Event> events = new Vector<>();
+
+        for (int i = 0; i < json.length(); i++)
+        {
+            Event event = new Event(json.getJSONObject(""  + i).getInt("idEvent"),json.getJSONObject(""  + i).getInt("idOwner"),
+                    json.getJSONObject("" + i).getString("nameEvent"),
+                    json.getJSONObject("" + i).getString("dateTimeEvent"),json.getJSONObject(""  + i).getString("description"),
+                    json.getJSONObject("" + i).getString("longitude"),json.getJSONObject(""  + i).getString("latitude"),
+                    json.getJSONObject("" + i).getString("evaluate"));
+            events.add(event);
+        }
+
+        return events;
+    }
+
+
 }
