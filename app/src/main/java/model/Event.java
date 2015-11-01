@@ -31,14 +31,14 @@ public class Event {
     private String description;
     private Double latitude;
     private Double longitude;
-    private String adress;
     private Integer evaluation;
     private Vector<String> category;
 
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
 
-    public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
+    public Event(int idEvent,String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
+        setIdEvent(idEvent);
         setNameEvent(nameEvent);
         setDateTimeEvent(dateTimeEvent);
         setDescription(description);
@@ -47,12 +47,13 @@ public class Event {
         setCategory(category);
     }
 
-    public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
+    public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude,Vector<String> category) throws EventException, ParseException {
         setNameEvent(nameEvent);
         setDateTimeEvent(dateTimeEvent);
         setDescription(description);
         setLatitude(latitude);
         setLongitude(longitude);
+        setCategory(category);
     }
 
     public String getDateTimeEvent() {
@@ -103,20 +104,6 @@ public class Event {
 
     }
 
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) throws EventException{
-        if(!(adress.isEmpty()) && adress!=null)
-        {
-            this.adress = adress;
-        }else{
-            throw new EventException(ADDRESS_IS_EMPTY);
-        }
-
-    }
-
     public int getIdEvent() {
         return idEvent;
     }
@@ -133,7 +120,7 @@ public class Event {
         if(!(longitude.toString().isEmpty()) && longitude!=null)
         {
             Double longitudeDouble = Double.parseDouble(longitude);
-            if(longitudeDouble >= -180 && longitudeDouble <= 180) {
+            if(longitudeDouble > -180 && longitudeDouble < 180) {
                 this.longitude = longitudeDouble;
 
             }else
@@ -208,6 +195,11 @@ public class Event {
             throw  new EventException(LANTITUDE_IS_EMPTY);
         }
     }
+
+    /*public void addCategory(String category)
+    {
+        this.category.add(category);
+    }*/
 
     public void setCategory(Vector<String> category) throws EventException{
         if(category!=null && !category.isEmpty()){

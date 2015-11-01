@@ -13,6 +13,8 @@ public class UserDAO extends DAO{
         super(currentActivity);
     }
 
+    public UserDAO(){}
+
     public void save(User user) {
         this.executeQuery("INSERT INTO tb_user(nameUser, login,passwordUser,birthDate, email)VALUES" +
                 "(\"" + user.getName() + "\", \"" + user.getUsername() + "\", \"" + user.getPassword() + "\"," +

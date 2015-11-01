@@ -101,7 +101,7 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
 
             try {
                 Event event = new Event(nameEvent, dateEvent, descriptionEvent,
-                                        latitude, longitude, categories);
+                        latitude, longitude, categories);
                 registerEvent(event);
 
                 Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE, Toast.LENGTH_LONG).show();
