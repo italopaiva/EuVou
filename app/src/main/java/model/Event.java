@@ -32,7 +32,6 @@ public class Event {
     private String description;
     private Double latitude;
     private Double longitude;
-    private String adress;
     private Integer evaluation;
     private Vector<String> category;
 
@@ -78,14 +77,14 @@ public class Event {
     public void setDateTimeEvent(String dateTimeEvent) throws ParseException, EventException {
         if(!dateTimeEvent.isEmpty() && dateTimeEvent !=null)
         {
-            /*try{
+            try{
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                 format.setLenient(false);
                 Date eventDate = format.parse(dateTimeEvent);
 
                 if(eventDate.after(new Date()))
-                {*/
-                    this.dateTimeEvent = dateTimeEvent;/*
+                {
+                    this.dateTimeEvent = dateTimeEvent;
                 }else
                 {
                     throw new EventException(INVALID_EVENT_DATE);
@@ -95,7 +94,7 @@ public class Event {
                 throw new EventException(INVALID_EVENT_DATE);
             }
 
-*/
+
         }else
         {
             throw  new EventException(EVENT_DATE_IS_EMPTY);
@@ -108,27 +107,13 @@ public class Event {
     }
 
     public void setEvaluation(Integer evaluation) throws  EventException{
-        if(evaluation >0 && evaluation<5)
+        if(evaluation >=0 && evaluation<=5)
         {
             this.evaluation = evaluation;
         }
         else
         {
             throw new EventException(INVALID_EVALUATION);
-        }
-
-    }
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) throws EventException{
-        if(!(adress.isEmpty()) && adress!=null)
-        {
-            this.adress = adress;
-        }else{
-            throw new EventException(ADDRESS_IS_EMPTY);
         }
 
     }
@@ -238,11 +223,4 @@ public class Event {
         return category;
     }
 
-    public int getIdOwner() {
-        return idOwner;
-    }
-
-    public void setIdOwner(int idOwner) {
-        this.idOwner = idOwner;
-    }
 }

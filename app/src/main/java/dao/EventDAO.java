@@ -25,7 +25,7 @@ public class EventDAO extends DAO {
         if(executeConsult("Select count(longitude) from tb_locate where longitude = " +
                 event.getLongitude() +" and latitude = " + event.getLatitude()) == null)
             executeQuery("insert into tb_locate values("+event.getLongitude() +","+event.getLatitude() +
-                    ",'"+event.getAdress()+"')");
+                    "')");
 
         executeQuery("insert into tb_event(nameEvent,idOwner,dateTimeEvent,description,longitude,latitude) VALUES('" +
                 event.getNameEvent() + "'," + event.getIdOwner() + ",'" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
@@ -56,7 +56,7 @@ public class EventDAO extends DAO {
         if(executeConsult("Select count(longitude) from tb_locate where longitude = " +
                 event.getLongitude() +" and latitude = " + event.getLatitude()) == null)
             executeQuery("insert into tb_locate values("+event.getLongitude() +","+event.getLatitude() +
-                    ",'"+event.getAdress()+"')");
+                    "')");
 
         executeQuery("UPDATE tb_event SET nameEvent=\""+event.getNameEvent()+"\", "+"dateTimeEvent=\""+event.getDateTimeEvent()+
                 "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", "+"latitude=\""+event.getLatitude()+" \", \""+event.getCategory()+" \")");

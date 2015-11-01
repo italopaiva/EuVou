@@ -17,6 +17,8 @@ public abstract class DAO {
         this.currentActivity = currentActivity;
     }
 
+    public DAO(){}
+
     private String query(String query,String urlQuery)
     {
         Consult consult = new Consult(query,urlQuery);
