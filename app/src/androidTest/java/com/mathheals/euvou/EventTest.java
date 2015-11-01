@@ -297,12 +297,12 @@ public class EventTest extends TestCase{
         assertTrue(ok);
     }
 
-    /*public void testIfDateHasPassed()  {
+    public void testIfDateHasPassed()  {
         boolean ok = true;
         Vector<String> categories = new Vector<String>();
         categories.add("Exposicao");
         try {
-            event = new Event("festa2", "20/01/2000", "festa top","34.0","34.0", categories);
+            event = new Event(1, "festa2", "20/01/2000", "festa top","34.0","34.0", categories);
         } catch (EventException e) {
             ok=false;
         }catch(ParseException ex)
@@ -310,12 +310,13 @@ public class EventTest extends TestCase{
             ok=false;
         }
         assertFalse(ok);
-    }*/
+    }
 
     public void testEventConstructorWithId() throws ParseException, EventException {
-        Event event = new Event(1,2,"nome","14/02/2000 20:15:10","DESCRICAO", "12.20","78.41520","null");
+        Event event = new Event(1,2,"nome","14/02/2020 20:15:10","DESCRICAO", "12.20","78.41520","null");
         assertEquals("nome",event.getNameEvent());
     }
+
     public void testEventConstructorWithIdAndIvanlidGrade() throws ParseException, EventException {
         try{
             Event event = new Event(1,2,"nome","14/02/2000 20:15:10","DESCRICAO", "12.20","78.41520","80");

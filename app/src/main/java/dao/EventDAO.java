@@ -37,7 +37,6 @@ public class EventDAO extends DAO {
 
         //for (String category : event.getCategory()) {
         for(int i=0; i<categories.size(); i++){
-            Toast.makeText(currentActivity, "" + i, Toast.LENGTH_SHORT).show();
             String query = "INSERT INTO event_category(idEvent, idCategory) VALUES((SELECT idEvent FROM tb_event " +
                     "WHERE nameEvent='"+event.getNameEvent()+"'), " +
                     "(SELECT idCategory FROM tb_category WHERE nameCategory = '"+categories.get(i)+"'))";
@@ -72,11 +71,11 @@ public class EventDAO extends DAO {
     }
     public JSONObject searchEventByName(String eventName)
     {
-        return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%'");
+        return this.executeConsult("SELECT * FROM tb_event WHERE nameEvent=\""+ eventName + "\"");
     }
 
     public Vector<Event> searchEventByOwner(int owner) throws JSONException, ParseException, EventException {
-        JSONObject json = this.executeConsult("SELECT * FROM vw_event WHERE idOwner=" + owner + " GROUP BY idEvent");
+        JSONObject json = this.executeConsult("SELECT * FROM tb_event WHERE idOwner=\"" + owner + "\" GROUP BY idEvent");
 
         if(json == null)
             return null;
@@ -88,8 +87,7 @@ public class EventDAO extends DAO {
             Event event = new Event(json.getJSONObject(""  + i).getInt("idEvent"),json.getJSONObject(""  + i).getInt("idOwner"),
                     json.getJSONObject("" + i).getString("nameEvent"),
                     json.getJSONObject("" + i).getString("dateTimeEvent"),json.getJSONObject(""  + i).getString("description"),
-                    json.getJSONObject("" + i).getString("longitude"),json.getJSONObject(""  + i).getString("latitude"),
-                    json.getJSONObject("" + i).getString("evaluate"));
+                    json.getJSONObject("" + i).getString("longitude"),json.getJSONObject(""  + i).getString("latitude"));
             events.add(event);
         }
 

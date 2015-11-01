@@ -58,6 +58,15 @@ public class Event {
         setLongitude(longitude);
     }
 
+    public Event(int idEvent, int idOwner,String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
+        setIdEvent(idEvent);
+        setIdOwner(idOwner);
+        setNameEvent(nameEvent);
+        setDateTimeEvent(dateTimeEvent);
+        setDescription(description);
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
 
     public Event(int id,int owner, String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, String evaluate) throws EventException, ParseException {
         setEvaluation((evaluate.equals("null"))? 1 : Integer.parseInt(evaluate));
@@ -221,6 +230,14 @@ public class Event {
     public Vector<String> getCategory()
     {
         return category;
+    }
+
+    public int getIdOwner() {
+        return idOwner;
+    }
+
+    public void setIdOwner(int idOwner) {
+        this.idOwner = idOwner;
     }
 
 }
