@@ -38,8 +38,6 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     private SearchView searchView;
 
     private ListView listView;
-    String[] mobileArray = {"Android","IPhone","WindowsMobile","Blackberry","WebOS","Ubuntu","Windows7","Max OS X"};
-    ArrayList<String> mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,9 +107,9 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                                         final String ID_COLUMN = "idEvent";
 
                                         try {
-                                            int userId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
+                                            int eventId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
 
-                                            bundle.putString("idEventSearch", Integer.toString(userId));
+                                            bundle.putString("idEventSearch", Integer.toString(eventId));
                                             event.setArguments(bundle);
                                             fragmentTransaction.replace(R.id.content, event);
                                             fragmentTransaction.addToBackStack(null);
