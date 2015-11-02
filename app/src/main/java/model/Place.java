@@ -19,23 +19,25 @@ public class Place {
     private Float evaluate;
     private Double longitude;
     private Double latitude;
+    private String phone;
     private String operation;
     private String description;
     private String address;
 
     public Place(String name, String evaluate, String longitude, String latitude,
-                 String operation, String description, String address) throws PlaceException, ParseException {
+                 String operation, String description, String address, String phone) throws PlaceException, ParseException {
         setName(name);
         setEvaluate(evaluate);
         setLongitude(longitude);
         setLatitude(latitude);
         setOperation(operation);
         setDescription(description);
-        getAddress(address);
+        setAddress(address);
+        setPhone(phone);
         comment = new ArrayList<>();
     }
 
-    private void getAddress(String address) {
+    private void setAddress(String address) {
         this.address = address;
     }
 
@@ -43,7 +45,7 @@ public class Place {
         return name;
     }
 
-    public void setName(String name) throws PlaceException {
+    private void setName(String name) throws PlaceException {
         if(name.isEmpty()) throw new PlaceException(INVALID_NAME);
         this.name = name;
     }
@@ -72,17 +74,17 @@ public class Place {
         return address;
     }
 
-    public void setLatitude(String latitude) throws ParseException, PlaceException{
+    private void setLatitude(String latitude) throws ParseException, PlaceException{
         if(latitude.isEmpty()) throw new PlaceException(INVALID_LATITUDE);
         this.latitude = Double.parseDouble(latitude);
     }
 
-    public void setLongitude(String longitude) throws ParseException, PlaceException {
+    private void setLongitude(String longitude) throws ParseException, PlaceException {
         if(longitude.isEmpty()) throw new PlaceException(INVALID_LONGITUDE);
         this.longitude = Double.parseDouble(longitude);
     }
 
-    public void setEvaluate(String evaluate) throws NumberFormatException{
+    private void setEvaluate(String evaluate) throws NumberFormatException{
         if(evaluate.equals("null")) {
             this.evaluate = 0.0F;
         }
@@ -92,11 +94,31 @@ public class Place {
         }
     }
 
-    public void setOperation(String operation) {
+    private void setOperation(String operation) {
         this.operation = operation;
     }
 
-    public void setDescription(String description) {
+    private void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public Float getEvaluate() {
+        return evaluate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    private void setPhone(String phone) {
+        this.phone = phone;
     }
 }
