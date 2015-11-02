@@ -1,6 +1,7 @@
 package model;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import exception.PlaceException;
 /**
@@ -11,9 +12,10 @@ public class Place {
     private final String INVALID_NAME = "Hey, nome invalido";
     private final String INVALID_LATITUDE = "Hey, sem a latitude não é possível encontrar o lugar";
     private final String INVALID_LONGITUDE= "Hey, sem a longitude não é possível encontrar o lugar";
+    private final String INVALID_COMMENT= "Hey, o comentario não pode ser vazio";
 
     private String name;
-    private String[] comment;
+    private ArrayList<String> comment;
     private Float evaluate;
     private Double longitude;
     private Double latitude;
@@ -29,10 +31,11 @@ public class Place {
         setLatitude(latitude);
         setOperation(operation);
         setDescription(description);
-        aetAddress(address);
+        getAddress(address);
+        comment = new ArrayList<>();
     }
 
-    private void aetAddress(String address) {
+    private void getAddress(String address) {
         this.address = address;
     }
 
@@ -45,12 +48,16 @@ public class Place {
         this.name = name;
     }
 
-    public String[] getComment() {
+    public ArrayList<String> getComment() {
         return comment;
     }
 
-    public void setComment(String[] comment) {
-        this.comment = comment;
+    public void addComment(String comment) throws PlaceException {
+        if(comment == null)
+            throw new PlaceException(INVALID_COMMENT);
+        if(comment.isEmpty())
+            throw new PlaceException(INVALID_COMMENT);
+        this.comment.add(comment);
     }
 
     public Double getLongitude() {

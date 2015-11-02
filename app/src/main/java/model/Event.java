@@ -22,6 +22,7 @@ public class Event {
     public static final String ADDRESS_IS_EMPTY = "Hey, você esqueceu de nos informar o endereço do evento!";
     public static final String INVALID_EVENT_DATE = "Hey, você informou uma data errada, pay attention guy!";
     public static final String EVENT_DATE_IS_EMPTY = "Hey, você esqueceu de informar a data do evento, cuidado!";
+    private static final String CATEGORY_IS_INVALID = "Hey, você esqueceu de informar a categoria do evento, preenche ela aí vai!";
 
 
     private int idEvent;
@@ -37,25 +38,21 @@ public class Event {
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
 
-    public Event(int idEvent,String nameEvent,String dateTimeEvent,String adress, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
-        setIdEvent(idEvent);
+    public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
         setNameEvent(nameEvent);
         setDateTimeEvent(dateTimeEvent);
-        setAdress(adress);
         setDescription(description);
         setLatitude(latitude);
         setLongitude(longitude);
         setCategory(category);
     }
 
-    public Event(String nameEvent,String dateTimeEvent,String adress,String description,String latitude, String longitude,Vector<String> category) throws EventException, ParseException {
+    public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
         setNameEvent(nameEvent);
         setDateTimeEvent(dateTimeEvent);
-        setAdress(adress);
         setDescription(description);
         setLatitude(latitude);
         setLongitude(longitude);
-        setCategory(category);
     }
 
     public String getDateTimeEvent() {
@@ -135,8 +132,8 @@ public class Event {
     public void setLongitude(String longitude) throws EventException{
         if(!(longitude.toString().isEmpty()) && longitude!=null)
         {
-           Double longitudeDouble = Double.parseDouble(longitude);
-            if(longitudeDouble > -180 && longitudeDouble < 180) {
+            Double longitudeDouble = Double.parseDouble(longitude);
+            if(longitudeDouble >= -180 && longitudeDouble <= 180) {
                 this.longitude = longitudeDouble;
 
             }else
@@ -196,7 +193,7 @@ public class Event {
     }
 
     public void setLatitude(String latitude) throws EventException{
-       if(!(latitude.toString().isEmpty()) && latitude!=null)
+        if(!(latitude.toString().isEmpty()) && latitude!=null)
         {
             Double latitudeDouble = Double.parseDouble(latitude);
             if(latitudeDouble >= -90 && latitudeDouble <= 90)
@@ -212,13 +209,12 @@ public class Event {
         }
     }
 
-    /*public void addCategory(String category)
-    {
-        this.category.add(category);
-    }*/
-
-    public void setCategory(Vector<String> category) {
-        this.category = category;
+    public void setCategory(Vector<String> category) throws EventException{
+        if(category!=null && !category.isEmpty()){
+            this.category = category;
+        }else{
+            throw  new EventException(CATEGORY_IS_INVALID);
+        }
     }
 
     public Vector<String> getCategory()

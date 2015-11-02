@@ -16,7 +16,7 @@ public class EventTest extends TestCase{
     public void testIfCategoryIsNull () {
         boolean ok = true;
         try{
-            event = new Event("Swing na casa do Miranda", "24/10/2015", "oi", "e trenzinho e eu fico no meio", "1", "2", null);
+            event = new Event("Swing na casa do Miranda", "24/10/2016", "e trenzinho e eu fico no meio", "1", "2", null);
         }
         catch (EventException e){
             ok = false;
@@ -32,7 +32,7 @@ public class EventTest extends TestCase{
         Vector<String> categories = new Vector<>();
         boolean ok = true;
         try {
-            event = new Event("Swing na casa do Miranda", "25/10/2015", "oi", "e trenzinho e eu fico no meio", "1", "2", categories);
+            event = new Event("Swing na casa do Miranda", "25/10/2016", "e trenzinho e eu fico no meio", "1", "2", categories);
         } catch(EventException e) {
             ok = false;
         }
@@ -47,7 +47,7 @@ public class EventTest extends TestCase{
         Vector<String> categories = new Vector<String >();
         categories.add("Museus");
         try{
-            event = new Event("Swing na casa do Miranda", "22/10/2015", "oi", "e trenzinho e eu fico no meio", "1", "2", categories);
+            event = new Event("Swing na casa do Miranda", "22/10/2016", "e trenzinho e eu fico no meio", "1", "2", categories);
         }
         catch (EventException e){
             ok = false;
@@ -60,69 +60,76 @@ public class EventTest extends TestCase{
     }
 
     public void testNameEmpty() throws ParseException {
-        boolean ok = false;
+        Vector<String> categories = new Vector<String >();
+        categories.add("Educacao");
+        boolean ok = true;
         try{
-            event = new Event("","14/10/2015","Endereço","Descrição do evento", "50.01","60.002");
-            ok = false;
+            event = new Event("","14/10/2016","Descrição do evento", "50.01","60.002", categories);
         }catch(EventException e)
         {
-            ok = true;
+            ok = false;
         }catch(ParseException ex)
         {
             ok = false;
         }
-        assertTrue(ok);
+        assertFalse(ok);
     }
     public void testNameIsNotEmpty()
     {
-        boolean ok = false;
+        Vector<String> categories = new Vector<String >();
+        categories.add("Balada");
+        boolean ok = true;
         try{
-            event =  new Event("Geovanni","22/02/2016","Endereço","descrição","21.4","30.2");
-            ok = true;
+            event =  new Event("Geovanni","22/02/2016","descrição","21.4","30.2", categories);
         }catch(EventException e)
         {
             ok = false;
         }catch(ParseException ex)
         {
-            ex.printStackTrace();
+            ok = false;
         }
         assertTrue(ok);
     }
     public void testNameIsBiggerThanMax()
     {
+        Vector<String> categories = new Vector<String >();
+        categories.add("Museus");
         boolean ok = true;
         try
         {
-            event = new Event("Joãozinho da Silva Gosta da Dilma, venham conhecer esse jovem muito jovem","02/02/2016","Cidade Vizinha","Venham conhecer o Joãozinho!","50.8","60.2");
+            event = new Event("Joãozinho da Silva Gosta da Dilma, venham conhecer esse jovem muito jovem","02/02/2016","Venham conhecer o Joãozinho!","50.8","60.2", categories);
 
         } catch (EventException e) {
             e.printStackTrace();
             ok = false;
         }catch(ParseException ex)
         {
-
+            ok = false;
         }
         assertFalse(ok);
     }
     public void testIfDateIsEmpty()  {
         boolean ok = true;
+        Vector<String> categories = new Vector<String>();
+        categories.add("Exposicao");
         try {
-            event = new Event("festa2", "","Rua dos marajós", "festa top","34.0","34.0");
+            event = new Event("festa2", "", "festa top","34.0","34.0", categories);
         } catch (EventException e) {
-            e.printStackTrace();
             ok=false;
         }catch(ParseException ex)
         {
-
+            ok=false;
         }
         assertFalse(ok);
     }
 
     public void testIfDescriptionIsEmpty()
     {
+        Vector<String> categories = new Vector<String >();
+        categories.add("Show");
         boolean ok = true;
         try{
-            event = new Event("FG Party","10/10/2016","Rua perdida","","44.2","46.2");
+            event = new Event("FG Party","10/10/2016","","44.2","46.2", categories);
             ok = true;
 
         }catch(EventException e)
@@ -130,31 +137,36 @@ public class EventTest extends TestCase{
             ok = false;
         }catch(ParseException ex)
         {
-
+            ok=false;
         }
         assertFalse(ok);
     }
 
-    public void testIfDescriptionIsOk()
+    public void testIfDescriptionIsNotEmpty()
     {
+        Vector<String> categories = new Vector<String>();
+        categories.add("Cinema");
         boolean ok = true;
         try{
 
-            event = new Event("FG a Party","10/10/2016","Um lugar perdido","Venha se perder com a gente!", "44.2","65.2");
+            event = new Event("FG a Party","10/10/2016","Venha se perder com a gente!", "44.2","65.2", categories);
         }catch(EventException e){
             ok = false;
         }catch(ParseException ex)
         {
+            ok = false;
         }
         assertTrue(ok);
     }
 
     public void testifDescriptionGoesOverTheMaximumValue()
     {
+        Vector<String> categories = new Vector<String >();
+        categories.add("Teatro");
         boolean ok = true;
         try
         {
-            event = new Event("FG a Party","10/10/2016","Canto da vida" ,"kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
+            event = new Event("FG a Party","10/10/2016","kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
@@ -164,130 +176,138 @@ public class EventTest extends TestCase{
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
-                    "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk", "55.2","79.9");
+                    "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk", "55.2","79.9", categories);
 
         }catch(EventException e)
         {
             ok = false;
         }catch(ParseException ex)
         {
-
+            ok = false;
         }
         assertFalse(ok);
     }
 
     public void testIfLatitudeIsUnderMinus90()
     {
-        boolean ok = false;
+        Vector<String> categories = new Vector<String >();
+        categories.add("Esportes");
+        boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2015","Descrição endereço","Descrição teste de evento","-90.9","140.2");
+            event = new Event("Evento teste","12/12/2015","Descrição teste de evento","-90.9","140.2", categories);
         }catch(EventException e)
         {
-            ok = true;
+            ok = false;
         }catch(ParseException ex)
         {
-
+            ok = false;
         }
-        assertTrue(ok);
+        assertFalse(ok);
     }
 
     public void testIfLatitudeIsAbove90()
     {
-        boolean ok = false;
+        Vector<String> categories = new Vector<String >();
+        categories.add("Museus");
+        boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2015","quadra 04","Descrição teste de evento","99.2","130.2");
+            event = new Event("Evento teste","12/12/2015","Descrição teste de evento","99.2","130.2", categories);
         }catch(EventException e)
         {
-            ok = true;
+            ok = false;
         }
         catch(ParseException ex)
         {
-
+            ok = false;
         }
-        assertTrue(ok);
+        assertFalse(ok);
     }
 
     public void testIfLatitudeIsOk()
     {
-        boolean ok = false;
+        Vector<String> categories = new Vector<String >();
+        categories.add("Museus");
+        boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2015","The darkest Street ever","Descrição teste de evento","-40.9","140.2");
+            event = new Event("Evento teste","12/12/2015","Descrição teste de evento","-40.9","140.2", categories);
         }catch(EventException e)
         {
-            ok = true;
+            ok = false;
         }catch(ParseException ex)
         {
-
+            ok = false;
         }
-        assertFalse(ok);
+        assertTrue(ok);
     }
     public void testIfLongitudeIsUnderMinus180()
     {
-        boolean ok = false;
+        Vector<String> categories = new Vector<String >();
+        categories.add("Outros");
+        boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2015","The new Darkest side of you!","Descrição teste de evento","90.0","-181.1");
+            event = new Event("Evento teste","12/12/2015","Descrição teste de evento","90.0","-181.1", categories);
         }catch(EventException e)
         {
-            ok = true;
+            ok = false;
         }catch(ParseException ex)
         {
-
+            ok = false;
         }
-        assertTrue(ok);
+        assertFalse(ok);
     }
 
     public void testIfLongitudeIsAbove180()
     {
-        boolean ok = false;
-        try
-        {
-            event = new Event("Evento teste","12/12/2015","Again? are you kiddin me?","Descrição teste de evento","19.2","190.2");
-        }catch(EventException e)
-        {
-            ok = true;
-        }catch(ParseException ex)
-        {
-
-        }
-        assertTrue(ok);
-    }
-
-    public void testIfLonitudeIsOk()
-    {
+        Vector<String> categories = new Vector<String >();
+        categories.add("Museus");
         boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2016","Rua capirambada","Descrição", "-220.2", "100.0");
-            assertEquals("-220.2",event.getLatitude());
+            event = new Event("Evento teste","12/12/2015","Descrição teste de evento","19.2","190.2", categories);
+        }catch(EventException e)
+        {
+            ok = false;
+        }catch(ParseException ex)
+        {
+            ok = false;
+        }
+        assertFalse(ok);
+    }
+
+    public void testIfLongitudeIsOk()
+    {
+        Vector<String> categories = new Vector<>();
+        categories.add("Museus");
+        boolean ok = true;
+        try
+        {
+            event = new Event("Evento teste","12/12/2016","Descrição", "1", "2", categories);
         }catch(EventException e)
         {
             ok = false;
         }catch(ParseException parse) {
-
+            ok = false;
         }
-    }
-    public void testIfAdressIsEmpty()
-    {
-        boolean ok = false;
-        try
-        {
-            event = new Event("Evento teste","12/12/2015","","Descrição teste de evento", "40.9","140.2");
-        }catch(EventException e)
-        {
-            ok = true;
-        }catch(ParseException ex)
-        {
 
-        }
         assertTrue(ok);
     }
 
-
-
-
-
+    public void testIfDateHasPassed()  {
+        boolean ok = true;
+        Vector<String> categories = new Vector<String>();
+        categories.add("Exposicao");
+        try {
+            event = new Event("festa2", "20/01/2000", "festa top","34.0","34.0", categories);
+        } catch (EventException e) {
+            ok=false;
+        }catch(ParseException ex)
+        {
+            ok=false;
+        }
+        assertFalse(ok);
+    }
 }

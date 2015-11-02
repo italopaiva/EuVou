@@ -1,5 +1,4 @@
 package com.mathheals.euvou;
-import android.widget.Toast;
 import junit.framework.TestCase;
 import java.text.ParseException;
 import java.util.Random;
@@ -388,6 +387,7 @@ public class UserTest extends TestCase {
         boolean ok = false;
         try {
             user = new User("Maria","","maria@euvou.com","123456","11/02/1234");
+            ok = true;
         } catch (ParseException e) {
             e.printStackTrace();
 
@@ -395,7 +395,9 @@ public class UserTest extends TestCase {
             e.printStackTrace();
             ok = false;
         }
-        assertFalse(ok);
+        finally {
+            assertFalse(ok);
+        }
     }
 
     public void testIfEmailIsEmpty(){
@@ -450,7 +452,92 @@ public class UserTest extends TestCase {
         } catch (UserException e) {
             fail();
         } catch (ParseException e) {
-            e.printStackTrace();
+            fail();
+        }
+    }
+
+    public void testGetBirthDate()
+    {
+        try {
+            user = new User("Julliana","Ju","ju@eu.com","123456","11/02/2000");
+            assertEquals(user.getBirthDate(),"11/02/2000");
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            fail();
+        }
+    }
+
+    public void testWithTwoUserIsSame()
+    {
+        try {
+            User user1 = new User("Julliana","Ju","ju@eu.com","123456","11/02/2000");
+            User user2 = new User("Julliana","Ju","ju@eu.com","123456","11/02/2000");
+            assertTrue(user1.equals(user2));
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            fail();
+        }
+    }
+
+    public void testWithTwoUserIsNotSame()
+    {
+        try {
+            User user1 = new User("Julliana","Ju","ju@eu.com","123456","11/02/2000");
+            User user2 = new User("Jullianaa","Ju","ju@eu.com","123456","11/02/2000");
+            assertFalse(user1.equals(user2));
+        } catch (UserException e) {
+            fail();
+        } catch (ParseException e) {
+            fail();
+        }
+    }
+
+    public void testIfInstantiatedConstructWith8ValidArguments()
+    {
+        try {
+            user = new User(1, "maria","mama", "11/09/2015", "maria@euvou.com","maria@euvou.com","123456","123456");
+            assertTrue(true);
+        } catch (UserException e) {
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(false);
+        }
+    }
+    public void testIfInstantiatedConstructWith8ArgumentsWithInvalidArgument()
+    {
+        try {
+            user = new User(1, "maria","mama", "11/09/2015", "maria@euvoua.com","maria@euvou.com","123456","123456");
+            assertFalse(true);
+        } catch (UserException e) {
+            assertFalse(false);
+        } catch (ParseException e) {
+            assertFalse(false);
+        }
+    }
+
+    public void testIfInstantiatedConstructWith7ValidArguments()
+    {
+        try {
+            user = new User(1, "maria","11/09/2015", "maria@euvou.com","maria@euvou.com","123456","123456");
+            assertTrue(true);
+        } catch (UserException e) {
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(false);
+        }
+    }
+
+    public void testIfInstantiatedConstructWith7ArgumentsWithInvalidArgument()
+    {
+        try {
+            user = new User(1, "maria", "11/09/2015", "maria@euvoua.com","maria@euvou.com","123456","123456");
+            assertFalse(true);
+        } catch (UserException e) {
+            assertFalse(false);
+        } catch (ParseException e) {
+            assertFalse(false);
         }
     }
 }
