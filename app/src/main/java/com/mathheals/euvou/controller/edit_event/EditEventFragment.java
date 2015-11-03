@@ -56,4 +56,35 @@ public class EditEventFragment extends Fragment {
         eventDAO.updateEvent(event);
     }
 
+    public void addEventCategories(View v){
+        if(v.getId() == R.id.optionCinema){
+            CheckBox cinemaCheckBox = (CheckBox) v;
+            categories.add(cinemaCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionEducation) {
+            CheckBox educationCheckBox = (CheckBox) v;
+            categories.add(educationCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionExposition){
+            CheckBox expositionCheckBox = (CheckBox) v;
+            categories.add(expositionCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionMuseum){
+            CheckBox museumCheckBox = (CheckBox) v;
+            categories.add(museumCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionOthers){
+            CheckBox othersCheckBox = (CheckBox) v;
+            categories.add(othersCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionParty){
+            CheckBox partyCheckBox = (CheckBox) v;
+            categories.add(partyCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionShow){
+            CheckBox showCheckBox = (CheckBox) v;
+            categories.add(showCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionSports){
+            CheckBox sportsCheckBox = (CheckBox) v;
+            categories.add(sportsCheckBox.getText().toString());
+        }else if(v.getId() == R.id.optionTheater){
+            CheckBox theaterCheckBox = (CheckBox) v;
+            categories.add(theaterCheckBox.getText().toString());
+        }
+    }
+
 }
