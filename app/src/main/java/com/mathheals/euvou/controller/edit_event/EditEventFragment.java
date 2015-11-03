@@ -171,4 +171,36 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    private void addCheckBoxListeners(View v){
+
+        CheckBox showCategory = (CheckBox) v.findViewById(R.id.optionShow);
+        showCategory.setOnClickListener(this);
+
+        CheckBox expositionCategory = (CheckBox) v.findViewById(R.id.optionExposition);
+        expositionCategory.setOnClickListener(this);
+
+        CheckBox museumCategory = (CheckBox) v.findViewById(R.id.optionMuseum);
+        museumCategory.setOnClickListener(this);
+
+        CheckBox cinemaCategory = (CheckBox) v.findViewById(R.id.optionCinema);
+        cinemaCategory.setOnClickListener(this);
+
+        CheckBox theaterCategory = (CheckBox) v.findViewById(R.id.optionTheater);
+        theaterCategory.setOnClickListener(this);
+
+        CheckBox partyCategory = (CheckBox) v.findViewById(R.id.optionParty);
+        partyCategory.setOnClickListener(this);
+
+        CheckBox educationCategory = (CheckBox) v.findViewById(R.id.optionEducation);
+        educationCategory.setOnClickListener(this);
+
+        CheckBox sportsCategory = (CheckBox) v.findViewById(R.id.optionSports);
+        sportsCategory.setOnClickListener(this);
+
+        CheckBox othersCategory = (CheckBox) v.findViewById(R.id.optionOthers);
+        othersCategory.setOnClickListener(this);
+
+    }
+    
+
 }
