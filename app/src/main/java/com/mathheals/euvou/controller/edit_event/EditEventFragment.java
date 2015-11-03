@@ -154,4 +154,21 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case (2) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Bundle bundle = data.getExtras();
+                    latitude = bundle.getString("latitude");
+                    longitude = bundle.getString("longitude");
+
+                    Toast.makeText(getContext(), "Local selecionado com sucesso", Toast.LENGTH_LONG).show();
+                }
+                break;
+            }
+        }
+    }
+
 }
