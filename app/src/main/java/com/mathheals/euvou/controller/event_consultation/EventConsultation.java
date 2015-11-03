@@ -38,12 +38,15 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     private SearchView searchView;
 
     private ListView listView;
+    private Integer eventId;
+    private JSONObject eventDATA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_consultation);
-
+        listView = (ListView) findViewById(R.id.events_list);
+        setListViewListener();
     }
 
     @Override
@@ -77,53 +80,24 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                 switch (checkedButton) {
                     case R.id.radio_events:
                         //Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
-                        final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        final Bundle bundle = new Bundle();
-                        final ShowEvent event = new ShowEvent();
-
                         EventDAO eventDAO = new EventDAO(getParent());
 
                         ArrayList<String> eventsFound = new ArrayList<String>();
-                        final JSONObject eventDATA = eventDAO.searchEventByName(query);
+                        eventDATA = eventDAO.searchEventByName(query);
                         final String EVENT_COLUMN = "nameEvent";
-                        listView = (ListView) findViewById(R.id.mobile_list);
 
-                        if(eventDATA != null) {
+                        if (eventDATA != null) {
                             try {
                                 for (int i = 0; i < eventDATA.length(); ++i) {
                                     eventsFound.add(eventDATA.getJSONObject(new Integer(i).toString()).getString(EVENT_COLUMN));
                                 }
 
                                 String[] eventsFoundArray = eventsFound.toArray(new String[eventsFound.size()]);
-
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
-                                        R.layout.event_consultation_list_view,
-                                        eventsFoundArray);
-                                listView.setAdapter(adapter);
-
-                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    public void onItemClick(AdapterView<?> parent, View clickView,
-                                                            int position, long id) {
-                                        final String ID_COLUMN = "idEvent";
-
-                                        try {
-                                            int eventId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
-
-                                            bundle.putString("idEventSearch", Integer.toString(eventId));
-                                            event.setArguments(bundle);
-                                            fragmentTransaction.replace(R.id.content, event);
-                                            fragmentTransaction.addToBackStack(null);
-                                            fragmentTransaction.commit();
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                });
+                                showEventsAsList(eventsFoundArray);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
-                        else {
+                        } else {
                             listView.setAdapter(null);
                             final String EVENT_NOT_FOUND_MESSAGE = "O evento não foi encontrado";
                             Toast.makeText(getBaseContext(), EVENT_NOT_FOUND_MESSAGE, Toast.LENGTH_LONG).show();
@@ -146,6 +120,37 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         });
     }
 
+    private void showEventsAsList(String[] eventNames) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
+                R.layout.event_consultation_list_view,
+                eventNames);
+        listView.setAdapter(adapter);
+
+    }
+
+    private void setListViewListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            final Bundle bundle = new Bundle();
+            final ShowEvent event = new ShowEvent();
+
+            public void onItemClick(AdapterView<?> parent, View clickView,
+                                    int position, long id) {
+                final String ID_COLUMN = "idEvent";
+
+                try {
+                    final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    eventId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
+                    bundle.putString("idEventSearch", Integer.toString(eventId));
+                    event.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.content, event);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
     private void configActionBar() {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00C0C3")));
         actionBar.setDisplayHomeAsUpEnabled(true);
