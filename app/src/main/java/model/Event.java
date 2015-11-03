@@ -47,6 +47,16 @@ public class Event {
         setCategory(category);
     }
 
+    public Event(int idEvent, String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
+        setIdEvent(idEvent);
+        setNameEvent(nameEvent);
+        setDateTimeEvent(dateTimeEvent);
+        setDescription(description);
+        setLatitude(latitude);
+        setLongitude(longitude);
+        setCategory(category);
+    }
+
     public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
         setNameEvent(nameEvent);
         setDateTimeEvent(dateTimeEvent);
