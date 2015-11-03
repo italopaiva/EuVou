@@ -23,6 +23,10 @@ import dao.EventDAO;
  */
 public class ShowEvent extends android.support.v4.app.Fragment {
     private TextView eventCategoriesText;
+    private EventDAO eventDAO;
+    private final String PRICE_COLUMN = "price";
+    private String eventPrice;
+    private TextView eventPriceText;
 
     public ShowEvent() {
         // Required empty public constructor
@@ -34,7 +38,7 @@ public class ShowEvent extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_show_event, container, false);
-        EventDAO eventDAO = new EventDAO(this.getActivity());
+        eventDAO = new EventDAO(this.getActivity());
         String eventId = this.getArguments().getString("idEventSearch");
         JSONObject eventDATA = eventDAO.searchEventById(eventId);
         //Toast.makeText(getContext(), eventNamee, Toast.LENGTH_LONG).show();
@@ -46,6 +50,7 @@ public class ShowEvent extends android.support.v4.app.Fragment {
             //o banco ainda está sem a tabela endereço!!
             String eventDescription = eventDATA.getJSONObject("0").getString("description");
             String eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
+            eventPrice = eventDATA.getJSONObject("0").getString(PRICE_COLUMN);
             String eventLongitude = eventDATA.getJSONObject("0").getString("longitude");
             String eventLatitude = eventDATA.getJSONObject("0").getString("latitude");
 
@@ -53,10 +58,12 @@ public class ShowEvent extends android.support.v4.app.Fragment {
             TextView dateEvent = (TextView) view.findViewById(R.id.dateEvent);
             TextView description = (TextView) view.findViewById(R.id.descriptionEvent);
             eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
+            eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
 
             name1Event.setText(eventNameDB);
             description.setText(eventDescription);
             dateEvent.setText(eventDateTime);
+            setPriceText();
             setCategoriesText(new Integer(eventId));
 
             /*adressShow.setText(eventAdress);
@@ -68,7 +75,6 @@ public class ShowEvent extends android.support.v4.app.Fragment {
         } catch (NullPointerException exception) {
             Toast.makeText(getActivity(), "O nome não foi encontrado", Toast.LENGTH_LONG);
         }
-
         return view;
     }
 
@@ -106,5 +112,15 @@ public class ShowEvent extends android.support.v4.app.Fragment {
         for(int i = 1; i < eventCategories.length; ++i)
             text += (", " + eventCategories[i]);
         eventCategoriesText.setText(text);
+    }
+
+    void setPriceText() {
+        final int PRICE = new Integer(eventPrice);
+        final String REAIS_PART = Integer.toString(PRICE / 100);
+        final String CENTS = Integer.toString(PRICE % 100);
+        final String CENTS_PART = CENTS.length() > 1 ? CENTS : "0" + CENTS;
+        eventPriceText.setText("R$ " + REAIS_PART + "," + CENTS_PART);
+
+        return;
     }
 }
