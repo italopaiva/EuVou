@@ -58,7 +58,7 @@
     <string name="event_name">Nome:</string>
     <string name="event_price">Preço:</string>
     <string name="event_categories">Categorias:</string>
-    <string name="event_places">Local:</string>
+    <string name="event_adress">Endereço:</string>
     <string name="button_show_map_txt">Ver no mapa</string>
 
 </resources>
