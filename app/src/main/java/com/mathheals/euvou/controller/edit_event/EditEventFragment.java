@@ -30,13 +30,13 @@ import dao.EventDAO;
 import exception.EventException;
 import model.Event;
 
-
 public class EditEventFragment extends Fragment implements View.OnClickListener {
     private static int idEvent=12;
     private static final String SUCCESSFULL_UPDATE_MESSAGE = "Evento alterado com sucesso :)";
     private String latitude;
     private String longitude;
     Vector<String> categories= new Vector<>();
+
 
     public EditEventFragment() {
         // Required empty public constructor
@@ -47,6 +47,108 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_event, container, false);
+
+        EditText nameField = (EditText) view.findViewById(R.id.eventName);
+
+        EditText dateField = (EditText) view.findViewById(R.id.eventDate);
+        dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
+
+        EditText descriptionField = (EditText) view.findViewById(R.id.eventDescription);
+
+        CheckBox showCheckbox = (CheckBox) view.findViewById(R.id.optionShow);
+        CheckBox expositionCheckbox = (CheckBox) view.findViewById(R.id.optionExposition);
+        CheckBox cinemaCheckbox = (CheckBox) view.findViewById(R.id.optionCinema);
+        CheckBox theaterCheckbox = (CheckBox) view.findViewById(R.id.optionTheater);
+        CheckBox partyCheckbox = (CheckBox) view.findViewById(R.id.optionParty);
+        CheckBox educationCheckbox = (CheckBox) view.findViewById(R.id.optionEducation);
+        CheckBox museumCheckbox = (CheckBox) view.findViewById(R.id.optionMuseum);
+        CheckBox sportsCheckbox = (CheckBox) view.findViewById(R.id.optionSports);
+        CheckBox othersCheckbox = (CheckBox) view.findViewById(R.id.optionOthers);
+
+        EventDAO eventDAO = new EventDAO(getActivity());
+        EventCategoryDAO eventCategoryDAO = new EventCategoryDAO(getActivity());
+        CategoryDAO categoryDAO = new CategoryDAO(getActivity());
+
+        //Change the value of idEvent when the consultEvent was finished
+        JSONObject jsonEvent = eventDAO.searchEventById(idEvent);
+        JSONObject jsonEventCategory = eventCategoryDAO.searchCategoriesByEventId(idEvent);
+
+        try {
+            String nameEvent = jsonEvent.getJSONObject("0").getString("nameEvent");
+            nameField.setText(nameEvent);
+
+            String dateEvent = jsonEvent.getJSONObject("0").getString("dateTimeEvent");
+            dateField.setText(dateEvent);
+
+            String descriptionEvent = jsonEvent.getJSONObject("0").getString("description");
+            descriptionField.setText(descriptionEvent);
+
+            latitude = jsonEvent.getJSONObject("0").getString("latitude");
+            longitude = jsonEvent.getJSONObject("0").getString("longitude");
+
+            Vector <Integer> idCategories = new Vector<>();
+            String idCategory;
+            for(int i=0; i<jsonEventCategory.length(); i++){
+                idCategory=jsonEventCategory.getJSONObject(Integer.toString(i)).getString("idCategory");
+                idCategories.add(Integer.parseInt(idCategory));
+            }
+
+            for(int i=0; i<idCategories.size(); i++){
+                JSONObject jsonCategory = categoryDAO.searchCategoryById(idCategories.get(i));
+                String nameCategory = jsonCategory.getJSONObject("0").getString("nameCategory");
+
+                switch (nameCategory){
+                    case "Show":
+                        showCheckbox.setChecked(true);
+                        categories.add("Show");
+                        break;
+                    case "Teatro":
+                        theaterCheckbox.setChecked(true);
+                        categories.add("Teatro");
+                        break;
+                    case "Cinema":
+                        cinemaCheckbox.setChecked(true);
+                        categories.add("Cinema");
+                        break;
+                    case "Balada":
+                        partyCheckbox.setChecked(true);
+                        categories.add("Balada");
+                        break;
+                    case "Museus":
+                        museumCheckbox.setChecked(true);
+                        categories.add("Museus");
+                        break;
+                    case "Educacao":
+                        educationCheckbox.setChecked(true);
+                        categories.add("Educacao");
+                        break;
+                    case "Exposicao":
+                        expositionCheckbox.setChecked(true);
+                        categories.add("Exposicao");
+                        break;
+                    case "Esportes":
+                        sportsCheckbox.setChecked(true);
+                        categories.add("Esportes");
+                        break;
+                    case "Outros":
+                        othersCheckbox.setChecked(true);
+                        break;
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //Adding listener to eventLocal EditText
+        Button eventLocal = (Button) view.findViewById(R.id.eventLocal);
+        eventLocal.setOnClickListener(this);
+
+        //Adding listener to CheckBoxs to verify if each CheckBox is checked or not
+        addCheckBoxListeners(view);
+
+        Button updateEvent = (Button)view.findViewById(R.id.updateEvent);
+        updateEvent.setOnClickListener(this);
 
         return view;
     }
@@ -201,6 +303,4 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         othersCategory.setOnClickListener(this);
 
     }
-    
-
 }
