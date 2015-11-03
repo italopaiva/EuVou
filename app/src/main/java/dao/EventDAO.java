@@ -52,7 +52,7 @@ public class EventDAO extends DAO {
                     ",'"+event.getAdress()+"')");
 
         executeQuery("UPDATE tb_event SET nameEvent=\""+event.getNameEvent()+"\", "+"dateTimeEvent=\""+event.getDateTimeEvent()+
-                "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", "+"latitude=\""+event.getLatitude()+" \", \""+event.getCategory()+" \")");
+                "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", "+"latitude=\""+event.getLatitude()+" WHERE idEvent = " + event.getIdEvent());
 
         executeQuery("delete from event_category where idEvent ="+event.getIdEvent());
 
@@ -69,7 +69,7 @@ public class EventDAO extends DAO {
     }
 
     public JSONObject searchEventById(int idEvent){
-        return this.executeConsult("SELECT * FROM vw_event WHERE idEvent = " + idEvent);
+        return this.executeConsult("SELECT * FROM tb_event WHERE idEvent = " + idEvent);
     }
 
 }
