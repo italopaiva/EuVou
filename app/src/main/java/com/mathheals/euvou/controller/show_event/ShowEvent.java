@@ -1,5 +1,6 @@
 package com.mathheals.euvou.controller.show_event;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -122,5 +123,11 @@ public class ShowEvent extends android.support.v4.app.Fragment {
         eventPriceText.setText("R$ " + REAIS_PART + "," + CENTS_PART);
 
         return;
+    }
+
+    public void showEventOnMap(View view)
+    {
+        Intent intent = new Intent(getActivity(), ShowOnMap.class);
+        startActivity(intent);
     }
 }
