@@ -31,7 +31,7 @@ import exception.EventException;
 import model.Event;
 
 public class EditEventFragment extends Fragment implements View.OnClickListener {
-    private static int idEvent=12;
+    private static int idEvent=13;
     private static final String SUCCESSFULL_UPDATE_MESSAGE = "Evento alterado com sucesso :)";
     private String latitude;
     private String longitude;
@@ -161,31 +161,76 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     public void addEventCategories(View v){
         if(v.getId() == R.id.optionCinema){
             CheckBox cinemaCheckBox = (CheckBox) v;
-            categories.add(cinemaCheckBox.getText().toString());
+
+            if(cinemaCheckBox.isChecked()) {
+                categories.add(cinemaCheckBox.getText().toString());
+            }else{
+                categories.remove(cinemaCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionEducation) {
             CheckBox educationCheckBox = (CheckBox) v;
-            categories.add(educationCheckBox.getText().toString());
+
+            if(educationCheckBox.isChecked()) {
+                categories.add(educationCheckBox.getText().toString());
+            }else{
+                categories.remove(educationCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionExposition){
             CheckBox expositionCheckBox = (CheckBox) v;
-            categories.add(expositionCheckBox.getText().toString());
+
+            if(expositionCheckBox.isChecked()) {
+                categories.add(expositionCheckBox.getText().toString());
+            }else{
+                categories.remove(expositionCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionMuseum){
             CheckBox museumCheckBox = (CheckBox) v;
-            categories.add(museumCheckBox.getText().toString());
+
+            if(museumCheckBox.isChecked()) {
+                categories.add(museumCheckBox.getText().toString());
+            }else{
+                categories.remove(museumCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionOthers){
             CheckBox othersCheckBox = (CheckBox) v;
-            categories.add(othersCheckBox.getText().toString());
+
+            if(othersCheckBox.isChecked()) {
+                categories.add(othersCheckBox.getText().toString());
+            }else{
+                categories.remove(othersCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionParty){
             CheckBox partyCheckBox = (CheckBox) v;
-            categories.add(partyCheckBox.getText().toString());
+
+            if(partyCheckBox.isChecked()) {
+                categories.add(partyCheckBox.getText().toString());
+            }else{
+                categories.remove(partyCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionShow){
             CheckBox showCheckBox = (CheckBox) v;
-            categories.add(showCheckBox.getText().toString());
+
+            if(showCheckBox.isChecked()) {
+                categories.add(showCheckBox.getText().toString());
+            }else{
+                categories.remove(showCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionSports){
             CheckBox sportsCheckBox = (CheckBox) v;
-            categories.add(sportsCheckBox.getText().toString());
+
+            if(sportsCheckBox.isChecked()) {
+                categories.add(sportsCheckBox.getText().toString());
+            }else{
+                categories.remove(sportsCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionTheater){
             CheckBox theaterCheckBox = (CheckBox) v;
-            categories.add(theaterCheckBox.getText().toString());
+
+            if(theaterCheckBox.isChecked()) {
+                categories.add(theaterCheckBox.getText().toString());
+            }else{
+                categories.remove(theaterCheckBox.getText().toString());
+            }
         }
     }
 
