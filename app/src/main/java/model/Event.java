@@ -22,15 +22,16 @@ public class Event {
     public static final String ADDRESS_IS_EMPTY = "Hey, você esqueceu de nos informar o endereço do evento!";
     public static final String INVALID_EVENT_DATE = "Hey, você informou uma data errada, pay attention guy!";
     public static final String EVENT_DATE_IS_EMPTY = "Hey, você esqueceu de informar a data do evento, cuidado!";
+    private static final String CATEGORY_IS_INVALID = "Hey, você esqueceu de informar a categoria do evento, preenche ela aí vai!";
 
 
     private int idEvent;
+    private int idOwner;
     private String nameEvent;
     private String dateTimeEvent;
     private String description;
     private Double latitude;
     private Double longitude;
-    private String adress;
     private Integer evaluation;
     private Vector<String> category;
 
@@ -38,23 +39,41 @@ public class Event {
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
 
-
-
-
-    public Event(int idEvent,String nameEvent,String dateTimeEvent,String adress,String description,Double latitude, Double longitude) throws EventException, ParseException {
-        setIdEvent(idEvent);
+    public Event(int idOwner,String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
+        setIdOwner(idOwner);
         setNameEvent(nameEvent);
         setDateTimeEvent(dateTimeEvent);
-        setAdress(adress);
+        setDescription(description);
+        setLatitude(latitude);
+        setLongitude(longitude);
+        setCategory(category);
+    }
+
+    public Event(int idOwner,String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
+        setIdOwner(idOwner);
+        setNameEvent(nameEvent);
+        setDateTimeEvent(dateTimeEvent);
         setDescription(description);
         setLatitude(latitude);
         setLongitude(longitude);
     }
 
-    public Event(String nameEvent,String dateTimeEvent,String adress,String description,Double latitude, Double longitude) throws EventException, ParseException {
+    public Event(int idEvent, int idOwner,String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
+        setIdEvent(idEvent);
+        setIdOwner(idOwner);
         setNameEvent(nameEvent);
         setDateTimeEvent(dateTimeEvent);
-        setAdress(adress);
+        setDescription(description);
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
+
+    public Event(int id,int owner, String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, String evaluate) throws EventException, ParseException {
+        setEvaluation((evaluate.equals("null"))? 1 : Integer.parseInt(evaluate));
+        setIdEvent(id);
+        setIdOwner(owner);
+        setNameEvent(nameEvent);
+        setDateTimeEvent(dateTimeEvent);
         setDescription(description);
         setLatitude(latitude);
         setLongitude(longitude);
@@ -97,27 +116,13 @@ public class Event {
     }
 
     public void setEvaluation(Integer evaluation) throws  EventException{
-        if(evaluation >1 && evaluation<5)
+        if(evaluation >=0 && evaluation<=5)
         {
             this.evaluation = evaluation;
         }
         else
         {
             throw new EventException(INVALID_EVALUATION);
-        }
-
-    }
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) throws EventException{
-        if(!(adress.isEmpty()) && adress!=null)
-        {
-            this.adress = adress;
-        }else{
-            throw new EventException(ADDRESS_IS_EMPTY);
         }
 
     }
@@ -134,11 +139,12 @@ public class Event {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) throws EventException{
-        if(!(longitude.toString().isEmpty()))
+    public void setLongitude(String longitude) throws EventException{
+        if(!(longitude.toString().isEmpty()) && longitude!=null)
         {
-            if(longitude > -180 && longitude < 180) {
-                this.longitude = longitude;
+            Double longitudeDouble = Double.parseDouble(longitude);
+            if(longitudeDouble >= -180 && longitudeDouble <= 180) {
+                this.longitude = longitudeDouble;
 
             }else
             {
@@ -196,12 +202,13 @@ public class Event {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) throws EventException{
-        if(!(latitude.toString().isEmpty()))
+    public void setLatitude(String latitude) throws EventException{
+        if(!(latitude.toString().isEmpty()) && latitude!=null)
         {
-            if(latitude >= -90 && latitude <= 90)
+            Double latitudeDouble = Double.parseDouble(latitude);
+            if(latitudeDouble >= -90 && latitudeDouble <= 90)
             {
-                this.latitude = latitude;
+                this.latitude = latitudeDouble;
             }else
             {
                 throw  new EventException(LATITUDE_IS_INVALID);
@@ -212,18 +219,25 @@ public class Event {
         }
     }
 
-    public void addCategory(String category)
-    {
-        this.category.add(category);
-    }
-
-    public void setCategory(Vector<String> category) {
-        this.category = category;
+    public void setCategory(Vector<String> category) throws EventException{
+        if(category!=null && !category.isEmpty()){
+            this.category = category;
+        }else{
+            throw  new EventException(CATEGORY_IS_INVALID);
+        }
     }
 
     public Vector<String> getCategory()
     {
         return category;
+    }
+
+    public int getIdOwner() {
+        return idOwner;
+    }
+
+    public void setIdOwner(int idOwner) {
+        this.idOwner = idOwner;
     }
 
 }

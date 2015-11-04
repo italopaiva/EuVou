@@ -1,5 +1,7 @@
 package com.mathheals.euvou.controller.event_registration;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -18,6 +20,7 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_local_event);
         setUpMapIfNeeded();
+        mMap.setOnMapClickListener(this);
     }
 
     @Override
@@ -65,11 +68,10 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
 
     @Override
     public void onMapClick(LatLng latLng) {
-        Bundle bundle = new Bundle();
-        bundle.putString("longitude", ""+latLng.longitude);
-        bundle.putString("latitude", "" + latLng.latitude);
-
-
-
+        /*Intent resultado = new Intent();
+        resultado.putExtra("longitude", " "+latLng.longitude);
+        resultado.putExtra("latitude", " "+latLng.latitude);
+        setResult(Activity.RESULT_OK, resultado);
+        finish();*/
     }
 }
