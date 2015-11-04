@@ -1,13 +1,9 @@
 package com.mathheals.euvou.controller.show_event;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,15 +13,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mathheals.euvou.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-
-import dao.PlaceDAO;
-import exception.PlaceException;
-import model.Place;
 
 public class ShowOnMap extends FragmentActivity {
     protected GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -46,7 +33,11 @@ public class ShowOnMap extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        Toast.makeText(getBaseContext(),"Map",Toast.LENGTH_LONG).show();
+        Bundle b=this.getIntent().getExtras();
+        String[] array = b.getStringArray("LatitudeAndLongitude");
+        latitude = Double.parseDouble(array[0]);
+        longitude = Double.parseDouble(array[1]);
+        //Toast.makeText(getBaseContext(),array[0]+"\n"+array[1],Toast.LENGTH_LONG).show();
         // setUpMapIfNeeded();
 
     }
@@ -72,7 +63,7 @@ public class ShowOnMap extends FragmentActivity {
 
     private void setUpMap() {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(-15.7941454, -47.8825479), 9));
+                new LatLng(latitude, longitude), 9));
         setFilter(getIntent().getStringExtra("query"));
         addMarkerPlace(latitude,longitude);
 
@@ -81,8 +72,8 @@ public class ShowOnMap extends FragmentActivity {
     private void addMarkerPlace(Double latitude, Double longitude) {
         mMap.addMarker(
                 new MarkerOptions()
-                        //.title(place.getName())
-                        //.snippet(place.getAddress())
+                        .title("Nome do Evento")
+                        .snippet("Endereço")
                         .position(new LatLng(latitude, longitude))
         );
 

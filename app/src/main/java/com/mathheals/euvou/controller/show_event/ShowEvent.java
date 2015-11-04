@@ -67,7 +67,6 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             TextView description = (TextView) view.findViewById(R.id.descriptionEvent);
             eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
             eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
-
             name1Event.setText(eventNameDB);
             description.setText(eventDescription);
             dateEvent.setText(eventDateTime);
