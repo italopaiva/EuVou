@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.mathheals.euvou.R;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.widget.Button;
 import java.util.ArrayList;
 
 import dao.CategoryDAO;
@@ -22,12 +22,15 @@ import dao.EventDAO;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShowEvent extends android.support.v4.app.Fragment {
+public class ShowEvent extends android.support.v4.app.Fragment implements View.OnClickListener {
     private TextView eventCategoriesText;
     private EventDAO eventDAO;
     private final String PRICE_COLUMN = "price";
     private String eventPrice;
     private TextView eventPriceText;
+    private Button showEventOnMapButton;
+    private String eventLongitude;
+    private String eventLatitude;
 
     public ShowEvent() {
         // Required empty public constructor
@@ -39,6 +42,10 @@ public class ShowEvent extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_show_event, container, false);
+
+        showEventOnMapButton = (Button) view.findViewById(R.id.showEventOnMapButton);
+        showEventOnMapButton.setOnClickListener(this);
+
         eventDAO = new EventDAO(this.getActivity());
         String eventId = this.getArguments().getString("idEventSearch");
         JSONObject eventDATA = eventDAO.searchEventById(eventId);
@@ -52,8 +59,8 @@ public class ShowEvent extends android.support.v4.app.Fragment {
             String eventDescription = eventDATA.getJSONObject("0").getString("description");
             String eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
             eventPrice = eventDATA.getJSONObject("0").getString(PRICE_COLUMN);
-            String eventLongitude = eventDATA.getJSONObject("0").getString("longitude");
-            String eventLatitude = eventDATA.getJSONObject("0").getString("latitude");
+            eventLongitude = eventDATA.getJSONObject("0").getString("longitude");
+            eventLatitude = eventDATA.getJSONObject("0").getString("latitude");
 
             TextView name1Event = (TextView) view.findViewById(R.id.nameEventShow);
             TextView dateEvent = (TextView) view.findViewById(R.id.dateEvent);
@@ -125,9 +132,19 @@ public class ShowEvent extends android.support.v4.app.Fragment {
         return;
     }
 
-    public void showEventOnMap(View view)
-    {
-        Intent intent = new Intent(getActivity(), ShowOnMap.class);
+    private void showEventOnMap() {
+        Bundle latitudeAndLongitude = new Bundle();
+        latitudeAndLongitude.putStringArray("LatitudeAndLongitude", new String[]{eventLatitude, eventLongitude});
+        Intent intent = new Intent(getContext(), ShowOnMap.class);
+        intent.putExtras(latitudeAndLongitude);
         startActivity(intent);
+    }
+
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.showEventOnMapButton:
+                showEventOnMap();
+                break;
+        }
     }
 }

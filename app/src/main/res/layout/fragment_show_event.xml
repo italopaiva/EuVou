@@ -139,12 +139,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/showEventOnMapButton"
             android:text="@string/button_show_map_txt"
             android:layout_below="@+id/eventPlaces"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:background="@color/turquesa_app"
-            android:onClick="showEventOnMap"/>
+            ></Button>
 
     </RelativeLayout>
 </FrameLayout>
