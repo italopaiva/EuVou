@@ -4,6 +4,7 @@ import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.mathheals.euvou.controller.home_page.HomePage;
+import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import org.junit.Before;
 
@@ -22,6 +23,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  */
 public class RemoveUserControlTest extends ActivityInstrumentationTestCase2<HomePage> {
 
+    LoginUtility isLoged;
     public RemoveUserControlTest() {
         super(HomePage.class);
     }
@@ -30,31 +32,38 @@ public class RemoveUserControlTest extends ActivityInstrumentationTestCase2<Home
     public void setUp() throws Exception {
         super.setUp();
         getActivity();
+        isLoged = new LoginUtility(getActivity());
     }
 
     public void testIfConfigureOptionIsDisplayedForUserLoggedOut() {
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText("Sair")).perform(click());
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Configurações")).check((doesNotExist()));
     }
 
     public void testIfConfigureOptionIsDisplayedForUserLoggedIn() {
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText("Entrar")).perform(click());
-        onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
-        onView(withId(R.id.passwordField)).perform(typeText("123456"));
-        onView(withText("Login")).perform(click());
+        if(!isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Entrar")).perform(click());
+            onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
+            onView(withId(R.id.passwordField)).perform(typeText("123456"));
+            onView(withText("Login")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Configurações")).check(matches(isDisplayed()));
     }
 
     public void testRemoveButton() {
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText("Entrar")).perform(click());
-        onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
-        onView(withId(R.id.passwordField)).perform(typeText("123456"));
-        onView(withText("Login")).perform(click());
+        if(!isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Entrar")).perform(click());
+            onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
+            onView(withId(R.id.passwordField)).perform(typeText("123456"));
+            onView(withText("Login")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Configurações")).perform(click());
         onView(withText("Desativar conta")).check(matches(isDisplayed()));
@@ -62,6 +71,23 @@ public class RemoveUserControlTest extends ActivityInstrumentationTestCase2<Home
         onView(withText("DESATIVAR")).perform(click());
         onView(withText("Sim")).check(matches(isDisplayed()));
         onView(withText("Não")).check(matches(isDisplayed()));
+    }
+
+    public void testRemoveConfirmationButton(){
+        if(!isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Entrar")).perform(click());
+            onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
+            onView(withId(R.id.passwordField)).perform(typeText("123456"));
+            onView(withText("Login")).perform(click());
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Configurações")).perform(click());
+        onView(withText("DESATIVAR")).perform(click());
+        onView(withText("Não")).perform(click());
+        onView(withId(R.id.button_disable_account_confirmation_id)).check(matches(isDisplayed()));
+        onView(withId(R.id.button_disable_account_confirmation_id)).check(matches(withText("DESATIVAR")));
+
     }
 
 }

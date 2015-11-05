@@ -4,6 +4,8 @@ import static android.support.test.espresso.Espresso.openActionBarOverflowOrOpti
 import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
 import com.mathheals.euvou.controller.home_page.HomePage;
+import com.mathheals.euvou.controller.utility.LoginUtility;
+
 import org.junit.Before;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -27,6 +29,8 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     public void setUp() throws Exception {
         super.setUp();
         getActivity();
+        LoginUtility utility = new LoginUtility(getActivity());
+        utility.setUserLogOff();
     }
 
     public void testRegisterOptionInActionBarMenu() {
@@ -85,6 +89,8 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testIfMailConfirmationLabelIsCorrect() {
+        LoginUtility utility = new LoginUtility(getActivity());
+        utility.setUserLogOff();
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.confirmUserMailLabel)).check(matches(isDisplayed()));
@@ -92,6 +98,8 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testMailConfirmationField(){
+        LoginUtility utility = new LoginUtility(getActivity());
+        utility.setUserLogOff();
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.confirmMailField)).check(matches(isDisplayed()));

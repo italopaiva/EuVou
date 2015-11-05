@@ -34,12 +34,9 @@ public class UserDAOTest extends TestCase {
 
     private Activity activity;
 
-    public UserDAOTest()
-    {
-        activity = new Activity();
-    }
+
     public void testSave() throws ParseException, UserException {
-            UserDAO userDAO = new UserDAO(activity);
+            UserDAO userDAO = new UserDAO();
             User user;
         user = new User("marceloChavosaao","marceloChavosaao","marceloChavosao@euvou.com","marceloChavosao@euvou.com","123456","123456","11/09/2015");
         assertTrue(userDAO.save(user).contains("Salvo"));
@@ -48,7 +45,7 @@ public class UserDAOTest extends TestCase {
 
     public void testDeleteByName() throws ParseException, UserException  {
 
-        UserDAO userDAO = new UserDAO(activity);
+        UserDAO userDAO = new UserDAO();
         User user = new User("Marcelo", "marceloChavosaoa", "galudo11cm@uol.com", "123456", "24/11/1969");
         if(!userDAO.save(user).contains("Salvo"))
             assertTrue(false);
@@ -58,7 +55,7 @@ public class UserDAOTest extends TestCase {
 
     public void testDeleteById() throws ParseException, UserException, JSONException {
 
-        UserDAO userDAO = new UserDAO(activity);
+        UserDAO userDAO = new UserDAO();
         User user = new User("VIny", "viny", "viny@uol.com", "123456", "14/02/1995");
         if(!userDAO.save(user).contains("Salvo"))
             assertTrue(false);
@@ -69,11 +66,11 @@ public class UserDAOTest extends TestCase {
 
     public void testeSearchUserById()
     {
-        assertFalse(new UserDAO(activity).searchUserById(3) == null);
+        assertFalse(new UserDAO().searchUserById(3) == null);
     }
 
     public void testUpdateUser() throws ParseException, UserException, JSONException {
-        UserDAO userDAO = new UserDAO(activity);
+        UserDAO userDAO = new UserDAO();
         User user = new User(1,"Vinicius ppp", "umteste", "14/02/1995", "viny-pinheiro@hotmail.com",
                 "viny-pinheiro@hotmail.com", "123456", "123456");
         if(!userDAO.save(user).contains("Salvo")) {
@@ -86,7 +83,7 @@ public class UserDAOTest extends TestCase {
     }
 
     public void testDisableLogin() throws ParseException, UserException, JSONException {
-        UserDAO userDAO = new UserDAO(activity);
+        UserDAO userDAO = new UserDAO();
         User user = new User(1,"Vinicius Pinheiro", "umteste", "14/02/1995", "viny-pinheiro@hotmail.com",
                 "viny-pinheiro@hotmail.com", "123456", "123456");
         if(!userDAO.save(user).contains("Salvo")) {

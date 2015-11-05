@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import org.json.JSONObject;
 
+import model.Place;
+
 /**
  * Created by viny on 30/09/15.
  */
@@ -12,6 +14,8 @@ public class PlaceDAO extends DAO {
     public PlaceDAO(Activity currentActivity) {
         super(currentActivity);
     }
+
+    public PlaceDAO(){};
 
     public JSONObject searchPlaceByPartName(String name)
     {

@@ -151,7 +151,7 @@ public class User {
     private  void  setUsername (String username) throws UserException{
 
         if (!username.isEmpty()) {
-            if(new UserDAO(new Activity()).searchUserByUsername(username) != null){
+            if(new UserDAO().searchUserByUsername(username) != null){
                 throw new UserException(USERNAME_EXISTENT);
             }
             if(username.length() <= MAX_LENGTH_USERNAME){
