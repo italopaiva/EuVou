@@ -21,6 +21,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  */
 public class UserRegistrationControlTest extends ActivityInstrumentationTestCase2<HomePage> {
 
+    LoginUtility isLoged;
+
     public UserRegistrationControlTest() {
         super(HomePage.class);
     }
@@ -29,11 +31,14 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     public void setUp() throws Exception {
         super.setUp();
         getActivity();
-        LoginUtility utility = new LoginUtility(getActivity());
-        utility.setUserLogOff();
+        isLoged = new LoginUtility(getActivity());
     }
 
     public void testRegisterOptionInActionBarMenu() {
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.saveButton)).check(matches(isDisplayed()));
@@ -41,6 +46,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
     
     public void testIfNameLabelIsCorrect() {
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.userNameLabel)).check(matches(isDisplayed()));
@@ -48,6 +57,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testNameField(){
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.nameField)).check(matches(isDisplayed()));
@@ -57,6 +70,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testIfDateLabelIsCorrect() {
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.birthDateLabel)).check(matches(isDisplayed()));
@@ -64,15 +81,23 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testDateField(){
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.dateField)).check(matches(isDisplayed()));
-        onView(withId(R.id.dateField)).perform(typeText("22/12/2050"));
+        onView(withId(R.id.dateField)).perform(typeText("22/12/2000"));
         onView(withId(R.id.mailField)).perform(click());
-        onView(withId(R.id.dateField)).check(matches(withText("22/12/2050")));
+        onView(withId(R.id.dateField)).check(matches(withText("22/12/2000")));
     }
 
     public void testIfMailLabelIsCorrect() {
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.userMailLabel)).check(matches(isDisplayed()));
@@ -80,6 +105,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testMailField(){
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.mailField)).check(matches(isDisplayed()));
@@ -89,8 +118,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testIfMailConfirmationLabelIsCorrect() {
-        LoginUtility utility = new LoginUtility(getActivity());
-        utility.setUserLogOff();
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.confirmUserMailLabel)).check(matches(isDisplayed()));
@@ -98,8 +129,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testMailConfirmationField(){
-        LoginUtility utility = new LoginUtility(getActivity());
-        utility.setUserLogOff();
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.confirmMailField)).check(matches(isDisplayed()));
@@ -109,6 +142,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testIfLoginLabelIsCorrect() {
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.userLoginLabel)).check(matches(isDisplayed()));
@@ -116,6 +153,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testLoginField(){
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.loginField)).check(matches(isDisplayed()));
@@ -125,6 +166,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testIfPasswordLabelIsCorrect() {
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.userPasswordLabel)).check(matches(isDisplayed()));
@@ -132,6 +177,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testPasswordField(){
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.passwordField)).check(matches(isDisplayed()));
@@ -141,6 +190,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testIfConfirmPasswordLabelIsCorrect() {
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.userConfirmPasswordLabel)).check(matches(isDisplayed()));
@@ -148,6 +201,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     }
 
     public void testConfirmPasswordField(){
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.confirmMailPassword)).check(matches(isDisplayed()));
