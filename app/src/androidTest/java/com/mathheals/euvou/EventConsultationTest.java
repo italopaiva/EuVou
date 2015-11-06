@@ -1,5 +1,6 @@
 package com.mathheals.euvou;
 
+import android.support.test.espresso.Espresso;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.mathheals.euvou.controller.event_consultation.EventConsultation;
@@ -23,6 +24,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
@@ -58,5 +60,11 @@ public class EventConsultationTest extends ActivityInstrumentationTestCase2<Home
                 .perform(click());
         onView(withId(R.id.event_name_text)).check(matches(isDisplayed()));
 
+    }
+
+    public void testIfEventConsultationReturnsToHomePage() {
+        onView(withId(R.id.search)).perform(click());
+        Espresso.pressBack();
+        onView(withContentDescription("Navigate up")).check(matches(isDisplayed()));
     }
 }
