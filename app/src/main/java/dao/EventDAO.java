@@ -18,13 +18,8 @@ public class EventDAO extends DAO {
     }
 
     public void saveEvent(Event event){
-        if(executeConsult("Select count(longitude) from tb_locate where longitude = " +
-                event.getLongitude() +" and latitude = " + event.getLatitude()) == null)
-            executeQuery("insert into tb_locate values("+event.getLongitude() +","+event.getLatitude() +
-                    ",'"+event.getAdress()+"')");
-
-        executeQuery("insert into tb_event(nameEvent,dateTimeEvent,description,longitude,latitude) VALUES('" +
-                event.getNameEvent() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
+        executeQuery("insert into tb_event(nameEvent, price, address, dateTimeEvent,description,longitude,latitude) VALUES('" +
+                event.getNameEvent() + "', '" + event.getPrice() + "', '" + event.getAddress() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
                 "" + event.getLongitude() + "," + event.getLatitude() + ")");
 
         //String query = "";
@@ -49,10 +44,12 @@ public class EventDAO extends DAO {
         if(executeConsult("Select count(longitude) from tb_locate where longitude = " +
                 event.getLongitude() +" and latitude = " + event.getLatitude()) == null)
             executeQuery("insert into tb_locate values("+event.getLongitude() +","+event.getLatitude() +
-                    ",'"+event.getAdress()+"')");
+                    ",'"+event.getAddress()+"')");
 
-        executeQuery("UPDATE tb_event SET nameEvent=\""+event.getNameEvent()+"\", "+"dateTimeEvent=\""+event.getDateTimeEvent()+
-                "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", "+"latitude=\""+event.getLatitude()+" WHERE idEvent = " + event.getIdEvent());
+        executeQuery("UPDATE tb_event SET price=\"" + event.getPrice() + "\", address=\"" + event.getAddress() + "\", " +
+                "nameEvent=\""+event.getNameEvent()+"\", "+"dateTimeEvent=\""+event.getDateTimeEvent()+
+                "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", " +
+                " "+" latitude=\""+event.getLatitude()+ "\" WHERE idEvent = " + event.getIdEvent());
 
         executeQuery("delete from event_category where idEvent ="+event.getIdEvent());
 
@@ -65,7 +62,7 @@ public class EventDAO extends DAO {
     }
 
     public JSONObject searchEventByName(String eventName){
-       return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%'");
+        return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%'");
     }
 
     public JSONObject searchEventById(int idEvent){
