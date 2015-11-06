@@ -2,14 +2,33 @@ package com.mathheals.euvou;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.Espresso;
+import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.action.CoordinatesProvider;
+import android.support.test.espresso.action.GeneralClickAction;
+import android.support.test.espresso.action.Press;
+import android.support.test.espresso.action.Tap;
+import android.support.test.espresso.action.ViewActions;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
+
 import com.mathheals.euvou.controller.home_page.HomePage;
+import com.mathheals.euvou.controller.user_registration.RegisterFragment;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import org.junit.Before;
 
+import java.text.ParseException;
+
+import dao.UserDAO;
+import exception.UserException;
+import model.User;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.longClick;
+import static android.support.test.espresso.action.ViewActions.pressKey;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -22,6 +41,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class UserRegistrationControlTest extends ActivityInstrumentationTestCase2<HomePage> {
 
     LoginUtility isLoged;
+    RegisterFragment registerFragment = new RegisterFragment();
+    UserDAO userDao = new UserDAO();
 
     public UserRegistrationControlTest() {
         super(HomePage.class);
@@ -32,6 +53,26 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
         super.setUp();
         getActivity();
         isLoged = new LoginUtility(getActivity());
+    }
+
+    public static ViewAction clickXY(final int x, final int y){
+        return new GeneralClickAction(
+                Tap.SINGLE,
+                new CoordinatesProvider() {
+                    @Override
+                    public float[] calculateCoordinates(View view) {
+
+                        final int[] screenPos = new int[2];
+                        view.getLocationOnScreen(screenPos);
+
+                        final float screenX = screenPos[0] + x;
+                        final float screenY = screenPos[1] + y;
+                        float[] coordinates = {screenX, screenY};
+
+                        return coordinates;
+                    }
+                },
+                Press.FINGER);
     }
 
     public void testRegisterOptionInActionBarMenu() {
@@ -213,4 +254,32 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
         onView(withId(R.id.confirmMailPassword)).check(matches(withText("1234567")));
     }
 
+    public void testUserRegistration(){
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("Iza Cristina"));
+        onView(withId(R.id.dateField)).perform(typeText("09/06/1997"));
+        onView(withId(R.id.mailField)).perform(typeText("iza@oi.com"));
+        onView(withId(R.id.confirmMailField)).perform(typeText("iza@oi.com"));
+        onView(withId(R.id.loginField)).perform(typeText("izacris"));
+        onView(withId(R.id.passwordField)).perform(typeText("123456"));
+        onView(withId(R.id.confirmMailPassword)).perform(typeText("123456"));
+
+    }
+
+    public void testSaveUserMethod() throws ParseException, UserException {
+        if(userDao.searchUserByUsername("izacristeste")!=null)
+            userDao.delete("izacristeste");
+
+        User user = new User("Iza Cristina", "izacristeste", "iza@oi.com", "123456","09/06/1997");
+        registerFragment.registerUser(user);
+        onView(withId(R.id.search)).perform(click());
+        onView(withId(R.id.search_src_text)).perform(typeText("izacristeste"), pressKey(66));
+        onView(withId(R.id.labelName)).check(matches(withText("Iza Cristina")));
+        userDao.delete("izacristeste");
+    }
 }

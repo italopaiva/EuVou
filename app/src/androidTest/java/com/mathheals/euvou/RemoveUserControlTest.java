@@ -90,4 +90,23 @@ public class RemoveUserControlTest extends ActivityInstrumentationTestCase2<Home
 
     }
 
+    public void testRemoveUserAndPasswordConfirmation(){
+        if(!isLoged.hasUserLoggedIn()) {
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Entrar")).perform(click());
+            onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
+            onView(withId(R.id.passwordField)).perform(typeText("123456"));
+            onView(withText("Login")).perform(click());
+
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Configurações")).perform(click());
+        onView(withText("DESATIVAR")).perform(click());
+        onView(withText("Não")).perform(click());
+        onView(withId(R.id.edit_text_login_id)).check(matches(isDisplayed()));
+        onView(withId(R.id.edit_text_login_id)).perform(typeText("vouremover"));
+        onView(withId(R.id.edit_text_password_id)).check(matches(isDisplayed()));
+        onView(withId(R.id.edit_text_password_id)).perform(typeText("123456"));
+    }
+
 }
