@@ -41,4 +41,16 @@
         android:layout_marginTop="25dp">
     </ListView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/black"
+        android:id="@+id/event_not_found_text"
+        android:layout_below="@id/search_radio_group"
+        android:text="@string/event_not_found_message"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
 </RelativeLayout>

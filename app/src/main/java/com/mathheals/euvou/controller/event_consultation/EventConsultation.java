@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
@@ -30,8 +31,7 @@ import java.util.ArrayList;
 
 import dao.EventDAO;
 
-public class EventConsultation extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
-        View.OnClickListener {
+public class EventConsultation extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     private RadioGroup radioGroup;
     private ActionBar actionBar;
@@ -40,12 +40,14 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     private ListView listView;
     private Integer eventId;
     private JSONObject eventDATA;
+    private TextView event_not_found_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_consultation);
         listView = (ListView) findViewById(R.id.events_list);
+        event_not_found_text = (TextView) findViewById(R.id.event_not_found_text);
         setListViewListener();
     }
 
@@ -87,6 +89,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         final String EVENT_COLUMN = "nameEvent";
 
                         if (eventDATA != null) {
+                            event_not_found_text.setVisibility(View.GONE);
                             try {
                                 for (int i = 0; i < eventDATA.length(); ++i) {
                                     eventsFound.add(eventDATA.getJSONObject(new Integer(i).toString()).getString(EVENT_COLUMN));
@@ -99,15 +102,8 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                             }
                         } else {
                             listView.setAdapter(null);
-                            final String EVENT_NOT_FOUND_MESSAGE = "O evento não foi encontrado";
-                            Toast.makeText(getBaseContext(), EVENT_NOT_FOUND_MESSAGE, Toast.LENGTH_LONG).show();
+                            event_not_found_text.setVisibility(View.VISIBLE);
                         }
-                        break;
-                    case R.id.radio_places:
-                        //Toast.makeText(getBaseContext(), "LOCAIS: " + query, Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.radio_people:
-                        //Toast.makeText(getBaseContext(), "PESSOAS: " + query, Toast.LENGTH_LONG).show();
                         break;
                 }
                 return true;
@@ -164,9 +160,8 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         String query = searchView.getQuery().toString();
@@ -181,10 +176,5 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                 Toast.makeText(getBaseContext(), "AGORA EM PESSOAS: " + query, Toast.LENGTH_LONG).show();
                 break;
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        radioGroup.clearCheck();
     }
 }
