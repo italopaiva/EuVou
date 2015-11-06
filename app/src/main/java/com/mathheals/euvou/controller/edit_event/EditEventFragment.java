@@ -31,7 +31,7 @@ import exception.EventException;
 import model.Event;
 
 public class EditEventFragment extends Fragment implements View.OnClickListener {
-    private static int idEvent=13;
+    private static int idEvent=2;
     private static final String SUCCESSFULL_UPDATE_MESSAGE = "Evento alterado com sucesso :)";
     private String latitude;
     private String longitude;
@@ -54,6 +54,11 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
 
         EditText descriptionField = (EditText) view.findViewById(R.id.eventDescription);
+
+        EditText priceRealField = (EditText) view.findViewById(R.id.eventPriceReal);
+        EditText priceDecimalField = (EditText) view.findViewById(R.id.eventPriceDecimal);
+
+        EditText addressField = (EditText) view.findViewById(R.id.eventAddress);
 
         CheckBox showCheckbox = (CheckBox) view.findViewById(R.id.optionShow);
         CheckBox expositionCheckbox = (CheckBox) view.findViewById(R.id.optionExposition);
@@ -82,6 +87,13 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
             String descriptionEvent = jsonEvent.getJSONObject("0").getString("description");
             descriptionField.setText(descriptionEvent);
+
+            String addressEvent = jsonEvent.getJSONObject("0").getString("address");
+            addressField.setText(addressEvent);
+
+            Integer priceEvent = jsonEvent.getJSONObject("0").getInt("price");
+            priceRealField.setText(Integer.toString(priceEvent/100));
+            priceDecimalField.setText(Integer.toString(priceEvent - priceEvent / 100 * 100));
 
             latitude = jsonEvent.getJSONObject("0").getString("latitude");
             longitude = jsonEvent.getJSONObject("0").getString("longitude");
@@ -246,9 +258,19 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
             EditText descriptionField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
             String descriptionEvent = descriptionField.getText().toString();
 
+            EditText addresField = (EditText) this.getActivity().findViewById(R.id.eventAddress);
+            String addresEvent = addresField.getText().toString();
+
+            EditText priceRealField = (EditText) this.getActivity().findViewById(R.id.eventPriceReal);
+            EditText priceDecimalField = (EditText) this.getActivity().findViewById(R.id.eventPriceDecimal);
+            Integer eventPriceReal = Integer.parseInt(priceRealField.getText().toString());
+            Integer eventPriceDecimal = Integer.parseInt(priceDecimalField.getText().toString());
+            Integer priceEvent = eventPriceReal * 100 + eventPriceDecimal;
+
             try {
-                Event event = new Event(idEvent, nameEvent, dateEvent, descriptionEvent,
+                Event event = new Event(idEvent, nameEvent, priceEvent, addresEvent, dateEvent, descriptionEvent,
                         latitude, longitude, categories);
+
                 updateEvent(event);
 
                 Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_UPDATE_MESSAGE, Toast.LENGTH_LONG).show();
