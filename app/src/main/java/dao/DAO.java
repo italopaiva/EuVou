@@ -9,8 +9,9 @@ import java.util.Calendar;
 
 public abstract class DAO {
 
-    private final String URLQUERY = "http://10.0.0.112/webservice/query.php";
-    private final String URLCONSULT = "http://10.0.0.112/webservice/consult.php";
+    private final String URLQUERY = "http://euvou.esy.es/query.php";
+    private final String URLCONSULT = "http://euvou.esy.es/consult.php";
+
     private final int LIMITCONECTIONTIME = 15000;
     protected Activity currentActivity;
 
