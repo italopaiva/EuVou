@@ -84,4 +84,14 @@ public class EventConsultationTest extends ActivityInstrumentationTestCase2<Home
         onView(withId(R.id.radio_events))
                 .check(matches(isChecked()));
     }
+    public void testButtonToMap()
+    {
+        onView(withId(R.id.search)).perform(click());
+        onView(isAssignableFrom(EditText.class)).perform(typeText("t"), pressKey(66));
+        onData(hasToString(containsString("t")))
+                .inAdapterView(withId(R.id.events_list)).atPosition(0)
+                .perform(click());
+        onView(withId(R.id.showEventOnMapButton)).perform(click());
+        onView(withId(R.id.map)).check(matches(isDisplayed()));
+    }
 }
