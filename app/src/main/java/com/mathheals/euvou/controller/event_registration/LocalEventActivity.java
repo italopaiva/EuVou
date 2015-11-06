@@ -68,10 +68,10 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
 
     @Override
     public void onMapClick(LatLng latLng) {
-        Intent resultado = new Intent();
+        /*Intent resultado = new Intent();
         resultado.putExtra("longitude", " "+latLng.longitude);
         resultado.putExtra("latitude", " "+latLng.latitude);
         setResult(Activity.RESULT_OK, resultado);
-        finish();
+        finish();*/
     }
 }

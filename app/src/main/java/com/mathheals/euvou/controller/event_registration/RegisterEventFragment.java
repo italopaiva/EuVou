@@ -11,7 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.utility.LoginUtility;
 import com.mathheals.euvou.controller.utility.Mask;
+
+import org.json.JSONException;
 
 import java.text.ParseException;
 import java.util.Vector;
@@ -100,7 +103,7 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
             String descriptionEvent = descriptionEventField.getText().toString();
 
             try {
-                Event event = new Event(nameEvent, dateEvent, descriptionEvent,
+                Event event = new Event(new LoginUtility().getUserId(),nameEvent, dateEvent, descriptionEvent,
                                         latitude, longitude, categories);
                 registerEvent(event);
 

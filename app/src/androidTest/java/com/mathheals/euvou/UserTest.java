@@ -346,13 +346,33 @@ public class UserTest extends TestCase {
     }
 
     /* Invalid entries for user email */
+    public void testEmailWithInValid() {
+        try {
+            user = new User(3, "maria", "22/02/2015", "amaria @euvou.com");
+            assertTrue(false);
+        } catch (UserException e) {
+            assertTrue(true);
+        } catch (ParseException e) {
+            assertTrue(false);
+        }
+    }
 
+    public void testEmailWithMore150characteres() {
+        try {
+            user = new User(3, "maria", "22/02/2015", "amariaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@euvou.com");
+            assertTrue(false);
+        } catch (UserException e) {
+            assertTrue(true);
+        } catch (ParseException e) {
+            assertTrue(false);
+        }
+    }
     /* Valid entries for user password */
     public void testIfPasswordIsValidTo7Caracteres() {
 
         try {
             user = new User("maria", "Mariazinha", "maria@euvou.com", "1234567", "11/09/2015");
-            assertEquals ("1234567",user.getPassword());
+            assertEquals("1234567", user.getPassword());
         } catch (UserException e) {
             fail();
         } catch (ParseException e) {
@@ -364,7 +384,7 @@ public class UserTest extends TestCase {
 
         try {
             user = new User("maria", "Mariazinha", "maria@euvou.com", "123456", "11/09/2015");
-            assertEquals ("123456",user.getPassword());
+            assertEquals("123456", user.getPassword());
         } catch (UserException e) {
             fail();
         } catch (ParseException e) {
@@ -387,6 +407,24 @@ public class UserTest extends TestCase {
         boolean ok = false;
         try {
             user = new User("Maria","","maria@euvou.com","123456","11/02/1234");
+            ok = true;
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+        } catch (UserException e) {
+            e.printStackTrace();
+            ok = false;
+        }
+        finally {
+            assertFalse(ok);
+        }
+    }
+
+
+    public void testIfUsernameIsExists(){
+        boolean ok = false;
+        try {
+            user = new User("Maria","igodudu","maria@euvou.com","123456","11/02/1234");
             ok = true;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -540,4 +578,66 @@ public class UserTest extends TestCase {
             assertFalse(false);
         }
     }
+
+    public void testInvalidUsernameWithMore100characters()
+    {
+
+        try {
+            user = new User( "maria","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","maria@euvou.com","12346", "11/09/2015");
+            assertFalse(true);
+        } catch (UserException e) {
+            assertFalse(false);
+        } catch (ParseException e) {
+            assertFalse(false);
+        }
+    }
+    public void testInvalidPasswordLess6Characters()
+    {
+        try {
+            user = new User("Julliana","Ju","ju@eu.com","1234","11/02/2000");
+            assertFalse(true);
+        } catch (UserException e) {
+            assertFalse(false);
+        } catch (ParseException e) {
+            assertFalse(false);
+        }
+    }
+
+    public void testVerifyPasswordConfirmation()
+    {
+        try {
+            user = new User(1, "maria","11/09/2015", "maria@euvou.com","maria@euvou.com","123456","12s3456");
+            assertFalse(true);
+        } catch (UserException e) {
+            assertFalse(false);
+        } catch (ParseException e) {
+            assertFalse(false);
+        }
+    }
+
+
+    public void testIfInstantiatedConstructWith7StringsValidArguments()
+    {
+        try {
+            user = new User("maria","teste","maria@euvou.com","maria@euvou.com","123456","123456","11/09/2015");
+            assertTrue(true);
+        } catch (UserException e) {
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(false);
+        }
+    }
+
+    public void testIfInstantiatedConstructWith7StringsArgumentsWithInvalidArgument()
+    {
+        try {
+            user = new User("maria","teste","maria@euvoa.com","maria@euvou.com","123456","123456","11/09/2015");
+            assertFalse(true);
+        } catch (UserException e) {
+            assertFalse(false);
+        } catch (ParseException e) {
+            assertFalse(false);
+        }
+    }
+
 }

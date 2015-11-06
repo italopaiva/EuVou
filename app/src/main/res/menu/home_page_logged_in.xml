@@ -21,12 +21,16 @@
         android:title="Configurações"
         app:showAsAction="never" />
 
-    <item android:id="@+id/event_registration"
-        android:title="Cadastrar evento"
+    <item android:id="@+id/myEvents"
+        android:title="Meus Eventos"
         app:showAsAction="never" />
 
     <item android:id="@+id/logout"
         android:title="Sair"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/event_registration"
+        android:title="Cadastrar evento"
         app:showAsAction="never" />
 
 </menu>
