@@ -21,6 +21,10 @@ public class EventDAO extends DAO {
         super(currentActivity);
     }
 
+    public EventDAO(){
+
+    }
+
     public void saveEvent(Event event) throws JSONException {
         if(executeConsult("Select count(longitude) from tb_locate where longitude = " +
                 event.getLongitude() +" and latitude = " + event.getLatitude()) == null)

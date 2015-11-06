@@ -2,8 +2,10 @@ package com.mathheals.euvou;
 
 import android.support.test.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 
 import com.mathheals.euvou.controller.home_page.HomePage;
+import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import org.junit.Before;
 
@@ -22,6 +24,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  */
 public class EditUserControlTest extends ActivityInstrumentationTestCase2<HomePage> {
 
+    LoginUtility isLoged;
+
     public EditUserControlTest() {
         super(HomePage.class);
     }
@@ -30,21 +34,26 @@ public class EditUserControlTest extends ActivityInstrumentationTestCase2<HomePa
     public void setUp() throws Exception {
         super.setUp();
         getActivity();
+        isLoged = new LoginUtility(getActivity());
     }
 
     public void testIfEditUserOptionIsDisplayedForUserLoggedOut() {
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText("Sair")).perform(click());
+        if(isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Alterar cadastro")).check((doesNotExist()));
     }
 
     public void testIfEditUserOptionIsDisplayedForUserLoggedIn() {
-        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText("Entrar")).perform(click());
-        onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
-        onView(withId(R.id.passwordField)).perform(typeText("123456"));
-        onView(withText("Login")).perform(click());
+        if(!isLoged.hasUserLoggedIn()){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Entrar")).perform(click());
+            onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
+            onView(withId(R.id.passwordField)).perform(typeText("123456"));
+            onView(withText("Login")).perform(click());
+        }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Alterar cadastro")).check(matches(isDisplayed()));
     }
