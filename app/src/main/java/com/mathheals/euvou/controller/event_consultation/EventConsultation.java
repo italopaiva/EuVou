@@ -83,7 +83,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         EventDAO eventDAO = new EventDAO(getParent());
 
                         ArrayList<String> eventsFound = new ArrayList<String>();
-                        eventDATA = eventDAO.searchEventByName(query);
+                        eventDATA = eventDAO.searchEventByNameGroup(query);
                         final String EVENT_COLUMN = "nameEvent";
 
                         if (eventDATA != null) {
