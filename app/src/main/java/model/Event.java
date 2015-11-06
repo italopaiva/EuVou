@@ -33,12 +33,15 @@ public class Event {
     private Double longitude;
     private String adress;
     private Integer evaluation;
+    private Integer price;
     private Vector<String> category;
 
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
 
-    public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
+    public Event(String nameEvent,String dateTimeEvent, Integer price, String address, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
+        setAddress(address);
+        setPrice(price);
         setNameEvent(nameEvent);
         setDateTimeEvent(dateTimeEvent);
         setDescription(description);
@@ -47,9 +50,11 @@ public class Event {
         setCategory(category);
     }
 
-    public Event(int idEvent, String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
+    public Event(int idEvent, String nameEvent, Integer price, String address, String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
         setIdEvent(idEvent);
         setNameEvent(nameEvent);
+        setAddress(address);
+        setPrice(price);
         setDateTimeEvent(dateTimeEvent);
         setDescription(description);
         setLatitude(latitude);
@@ -57,8 +62,10 @@ public class Event {
         setCategory(category);
     }
 
-    public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
+    public Event(String nameEvent, Integer price, String address, String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
         setNameEvent(nameEvent);
+        setAddress(address);
+        setPrice(price);
         setDateTimeEvent(dateTimeEvent);
         setDescription(description);
         setLatitude(latitude);
@@ -113,11 +120,19 @@ public class Event {
 
     }
 
-    public String getAdress() {
+    public void setPrice(Integer price) throws EventException{
+        this.price = price;
+    }
+
+    public Integer getPrice(){
+        return price;
+    }
+
+    public String getAddress() {
         return adress;
     }
 
-    public void setAdress(String adress) throws EventException{
+    public void setAddress(String adress) throws EventException{
         if(!(adress.isEmpty()) && adress!=null)
         {
             this.adress = adress;
