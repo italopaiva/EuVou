@@ -82,7 +82,7 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    private void updateUser(User user){
+    public void updateUser(User user){
         UserDAO userDAO = new UserDAO(getActivity());
         userDAO.update(user);
     }

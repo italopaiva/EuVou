@@ -13,7 +13,8 @@
     <TextView
         android:text="Nome do Evento"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/eventNameLabel"/>
 
     <EditText
         android:id="@+id/eventName"
@@ -24,7 +25,8 @@
     <TextView
         android:text="Data do Evento"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/eventDateLabel"/>
 
     <EditText
         android:id="@+id/eventDate"
@@ -153,9 +155,10 @@
         android:text="Selecionar Local do evento" />
 
     <TextView
-        android:text="Descriçao do Evento"
+        android:text="Descrição do Evento"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/descriptionLabel"/>
 
     <EditText
         android:layout_width="match_parent"
