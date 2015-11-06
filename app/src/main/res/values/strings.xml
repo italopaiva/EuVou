@@ -45,7 +45,21 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_search_user">SearchUser</string>
     <string name="title_activity_maps">Map</string>
+    <string name="events">Eventos</string>
+    <string name="places">Locais</string>
+    <string name="people">Pessoas</string>
+    <string name="title_activity_event_consultation">EventConsultation</string>
+
+    <!-- Event Consultation -->
     <string name="DISABLE_ACCOUNT_FRAGMENT_TAG">disable_account_fragment_tag</string>
     <string name="title_activity_local_event">Map</string>
+    <string name="event_date">Data:</string>
+    <string name="event_description">Descrição:</string>
+    <string name="event_name">Nome:</string>
+    <string name="event_price">Preço:</string>
+    <string name="event_categories">Categorias:</string>
+    <string name="event_adress">Endereço:</string>
+    <string name="button_show_map_txt">Ver no mapa</string>
+    <string name="event_not_found_message">Nenhum evento foi encontrado :(</string>
 
 </resources>

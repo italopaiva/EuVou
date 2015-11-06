@@ -6,7 +6,6 @@ address VARCHAR(150)
 
 CREATE TABLE tb_event (
 idEvent INTEGER NOT NULL,
-idOwner INTEGER NOT NULL,
 nameEvent VARCHAR(30) NOT NULL,
 dateTimeEvent DATETIME NOT NULL,
 description VARCHAR(500) NOT NULL,
@@ -112,9 +111,6 @@ ALTER TABLE tb_category CHANGE COLUMN idCategory idCategory INTEGER NOT NULL AUT
 ALTER TABLE participate ADD CONSTRAINT fk_participate_user FOREIGN key(idUser) 
 	REFERENCES tb_user(idUser) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-ALTER TABLE tb_event ADD CONSTRAINT fk_owner_event FOREIGN KEY (idOwner)
-	REFERENCES tb_user(idUser) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
 ALTER TABLE evaluate_user ADD CONSTRAINT fk_user_user FOREIGN key(idUser) 
 	REFERENCES tb_user(idUser) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
@@ -149,9 +145,16 @@ ALTER TABLE event_category ADD CONSTRAINT fk_event_category_category FOREIGN KEY
 	REFERENCES tb_category(idCategory) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /* views */
+CREATE VIEW vw_event_grade AS
+	SELECT tb_event.*, tb_locate.address,AVG(grade) evaluate FROM
+	tb_event INNER JOIN tb_locate ON 
+		(tb_event.latitude = tb_locate.latitude AND 
+        tb_event.longitude = tb_locate.longitude)
+	LEFT JOIN participate ON participate.idEvent = tb_event.idEvent
+    GROUP BY tb_event.idEvent;
 
-CREATE VIEW vw_event AS
-	SELECT tb_event.*, tb_locate.address, nameCategory,(SELECT AVG(grade) FROM participate p WHERE p.idEvent = tb_event.idEvent GROUP BY  tb_event.idEvent) AS evaluate FROM
+CREATE VIEW vw_event_comment AS
+	SELECT tb_event.*, tb_locate.address, nameCategory FROM
 	tb_event INNER JOIN tb_locate ON 
 		(tb_event.latitude = tb_locate.latitude AND 
         tb_event.longitude = tb_locate.longitude)
@@ -174,19 +177,9 @@ CREATE VIEW vw_user AS
 	SELECT tb_user.*, AVG(evaluate_user.grade) evaluated from tb_user
     LEFT JOIN evaluate_user ON tb_user.idUser = evaluate_user.idUserEvaluated
     GROUP BY tb_user.idUser;
-
 INSERT INTO tb_user(nameUser, login,passwordUser,birthDate, email)
 VALUES
-("Vinicius Pinheiro", "VinyPinheiro", "123456", "1995-02-14","viny-pinheiro@hotmail.com"),
-("Julliana Couto", "juh", "123456", "1994-02-11","julliana.coutoalmeida@gmail.com"),
-("Igor Duarte", "igodudu", "123456", "1995-11-14","igor-ribeiro@hotmail.com");
-
-INSERT INTO tb_category(nameCategory) VALUES('Exposicao'),('Educacao'),('Cinema'),('Balada'),('Teatro'),('Museu'),('Show'),('Esporte'),('Outros');
-
-
-
-
-
-
-
+("Vinicius Pinheiro", "VinyPinheiro", "123", "1995-02-14","viny-pinheiro@hotmail.com"),
+("Julliana Couto", "juh", "123", "1994-02-11","julliana.coutoalmeida@gmail.com"),
+("Igor Duarte", "igodudu", "1234", "1995-11-14","igor-ribeiro@hotmail.com");
 

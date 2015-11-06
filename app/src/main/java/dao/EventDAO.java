@@ -20,38 +20,34 @@ public class EventDAO extends DAO {
     public EventDAO(Activity currentActivity) {
         super(currentActivity);
     }
+    
+    public EventDAO(){}
 
-    public EventDAO(){
-
-    }
-
-    public void saveEvent(Event event) throws JSONException {
+    public void saveEvent(Event event){
         if(executeConsult("Select count(longitude) from tb_locate where longitude = " +
                 event.getLongitude() +" and latitude = " + event.getLatitude()) == null)
             executeQuery("insert into tb_locate values("+event.getLongitude() +","+event.getLatitude() +
-                    "')");
+                    ",'"+event.getAdress()+"')");
 
-        executeQuery("insert into tb_event(nameEvent,idOwner,dateTimeEvent,description,longitude,latitude) VALUES('" +
-                event.getNameEvent() + "'," + event.getIdOwner() + ",'" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
+        executeQuery("insert into tb_event(nameEvent,dateTimeEvent,description,longitude,latitude) VALUES('" +
+                event.getNameEvent() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
                 "" + event.getLongitude() + "," + event.getLatitude() + ")");
 
         //String query = "";
-
         Vector<String> categories = event.getCategory();
-
         //for (String category : event.getCategory()) {
         for(int i=0; i<categories.size(); i++){
             String query = "INSERT INTO event_category(idEvent, idCategory) VALUES((SELECT idEvent FROM tb_event " +
-                    "WHERE nameEvent='"+event.getNameEvent()+"'), " +
-                    "(SELECT idCategory FROM tb_category WHERE nameCategory = '"+categories.get(i)+"'))";
+                    "WHERE nameEvent=\""+event.getNameEvent()+"\"), " +
+                    "(SELECT idCategory FROM tb_category WHERE nameCategory = \""+categories.get(i)+"\"))";
 
             executeQuery(query);
         }
 
     }
-    public String deleteEvent(Event event)
+    public  String deleteEvent(Event event)
     {
-       return this.executeQuery("DELETE FROM tb_event WHERE idEvent ="+event.getIdEvent());
+        return this.executeQuery("DELETE FROM tb_event WHERE idEvent =" + event.getIdEvent());
     }
 
     public void updateEvent(Event event)
@@ -59,7 +55,7 @@ public class EventDAO extends DAO {
         if(executeConsult("Select count(longitude) from tb_locate where longitude = " +
                 event.getLongitude() +" and latitude = " + event.getLatitude()) == null)
             executeQuery("insert into tb_locate values("+event.getLongitude() +","+event.getLatitude() +
-                    "')");
+                    ",'"+event.getAdress()+"')");
 
         executeQuery("UPDATE tb_event SET nameEvent=\""+event.getNameEvent()+"\", "+"dateTimeEvent=\""+event.getDateTimeEvent()+
                 "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", "+"latitude=\""+event.getLatitude()+" \", \""+event.getCategory()+" \")");
@@ -73,9 +69,20 @@ public class EventDAO extends DAO {
         }
         executeQuery(query);
     }
+
     public JSONObject searchEventByName(String eventName)
     {
-        return this.executeConsult("SELECT * FROM tb_event WHERE nameEvent=\""+ eventName + "\"");
+        return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%'");
+    }
+
+    public JSONObject searchEventByNameGroup(String eventName)
+    {
+        return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%' GROUP BY idEvent");
+    }
+
+    public JSONObject searchEventById(String idEvent)
+    {
+        return this.executeConsult("SELECT * FROM tb_event WHERE idEvent ='"+idEvent+"'");
     }
 
     public Vector<Event> searchEventByOwner(int owner) throws JSONException, ParseException, EventException {
@@ -97,6 +104,5 @@ public class EventDAO extends DAO {
 
         return events;
     }
-
 
 }
