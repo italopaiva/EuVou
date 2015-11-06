@@ -65,8 +65,8 @@ public class EventConsultationTest extends ActivityInstrumentationTestCase2<Home
 
     public void testIfEventConsultationReturnsToHomePage() {
         onView(withId(R.id.search)).perform(click());
-        Espresso.pressBack();
-        onView(withContentDescription("Navigate up")).check(matches(isDisplayed()));
+        onView(withContentDescription("Navigate up")).perform(click());
+        onView(withText("EuVou")).check(matches(isDisplayed()));
     }
 
     public void testConsultationByCategory() {
@@ -84,8 +84,7 @@ public class EventConsultationTest extends ActivityInstrumentationTestCase2<Home
         onView(withId(R.id.radio_events))
                 .check(matches(isChecked()));
     }
-    public void testButtonToMap()
-    {
+    public void testButtonToMap() {
         onView(withId(R.id.search)).perform(click());
         onView(isAssignableFrom(EditText.class)).perform(typeText("t"), pressKey(66));
         onData(hasToString(containsString("t")))
