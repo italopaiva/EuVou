@@ -9,13 +9,10 @@ import static junit.framework.Assert.assertEquals;
  * Created by geovanni on 04/11/15.
  */
 public class ShowEventTest extends TestCase {
-    private Activity activity;
-    public ShowEventTest(){
-        activity = new Activity();
-    }
+
     public void testEventName()
     {
-        EventDAO eventDAO = new EventDAO(activity);
+        EventDAO eventDAO = new EventDAO();
         JSONObject eventData = eventDAO.searchEventById("2");
         try
         {
@@ -29,7 +26,7 @@ public class ShowEventTest extends TestCase {
     }
     public void testEventDescription()
     {
-        EventDAO eventDAO = new EventDAO(activity);
+        EventDAO eventDAO = new EventDAO();
         JSONObject eventData = eventDAO.searchEventById("2");
         try
         {
@@ -43,7 +40,7 @@ public class ShowEventTest extends TestCase {
     }
     public void testEventDate()
     {
-        EventDAO eventDAO = new EventDAO(activity);
+        EventDAO eventDAO = new EventDAO();
         JSONObject eventData = eventDAO.searchEventById("2");
         try
         {
@@ -57,7 +54,7 @@ public class ShowEventTest extends TestCase {
     }
     public void testEventLatitude()
     {
-        EventDAO eventDAO = new EventDAO(activity);
+        EventDAO eventDAO = new EventDAO();
         JSONObject eventData = eventDAO.searchEventById("2");
         try
         {
@@ -71,7 +68,7 @@ public class ShowEventTest extends TestCase {
     }
     public void testEventLongitude()
     {
-        EventDAO eventDAO = new EventDAO(activity);
+        EventDAO eventDAO = new EventDAO();
         JSONObject eventData = eventDAO.searchEventById("2");
         try
         {
@@ -85,8 +82,8 @@ public class ShowEventTest extends TestCase {
     }
     public void testEventPrice()
     {
-        EventDAO eventDAO = new EventDAO(activity);
-        JSONObject eventData = eventDAO.searchEventById("2");
+        EventDAO eventDAO = new EventDAO();
+        JSONObject eventData = eventDAO.searchEventById("1");
         try{
             String eventPrice = eventData.getJSONObject("0").getString("price");
             assertEquals(101,Integer.parseInt(eventPrice));
