@@ -23,6 +23,7 @@ import static android.support.test.espresso.action.ViewActions.pressKey;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -66,5 +67,21 @@ public class EventConsultationTest extends ActivityInstrumentationTestCase2<Home
         onView(withId(R.id.search)).perform(click());
         Espresso.pressBack();
         onView(withContentDescription("Navigate up")).check(matches(isDisplayed()));
+    }
+
+    public void testConsultationByCategory() {
+        onView(withId(R.id.search)).perform(click());
+        onView(withId(R.id.radio_people))
+                .perform(click());
+        onView(withId(R.id.radio_people))
+                .check(matches(isChecked()));
+        onView(withId(R.id.radio_places))
+                .perform(click());
+        onView(withId(R.id.radio_places))
+                .check(matches(isChecked()));
+        onView(withId(R.id.radio_events))
+                .perform(click());
+        onView(withId(R.id.radio_events))
+                .check(matches(isChecked()));
     }
 }
