@@ -144,8 +144,17 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
             EditText descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
             String descriptionEvent = descriptionEventField.getText().toString();
 
+            EditText addressEventField = (EditText) this.getActivity().findViewById(R.id.eventAddress);
+            String addressEvent = addressEventField.getText().toString();
+
+            EditText priceEventRealField = (EditText) this.getActivity().findViewById(R.id.eventPriceReal);
+            EditText priceEventDecimalField = (EditText) this.getActivity().findViewById(R.id.eventPriceDecimal);
+            Integer priceEventReal = Integer.parseInt(priceEventRealField.getText().toString());
+            Integer priceEventDecimal = Integer.parseInt(priceEventDecimalField.getText().toString());
+            Integer priceEvent = priceEventReal * 100 + priceEventDecimal;
+
             try {
-                Event event = new Event(nameEvent, dateEvent, descriptionEvent,
+                Event event = new Event(nameEvent, dateEvent, priceEvent, addressEvent, descriptionEvent,
                                         latitude, longitude, categories);
                 registerEvent(event);
 
