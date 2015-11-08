@@ -147,5 +147,15 @@
             android:background="@color/turquesa_app"
             ></Button>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EuVou"
+            android:text="#EuVou"
+            android:layout_below="@+id/eventPlaces"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:background="@color/green"></Button>
     </RelativeLayout>
+
 </FrameLayout>

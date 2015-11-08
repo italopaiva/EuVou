@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.utility.LoginUtility;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.widget.Button;
@@ -28,7 +30,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private final String PRICE_COLUMN = "price";
     private String eventPrice;
     private TextView eventPriceText;
-    private Button showEventOnMapButton;
+    private Button showEventOnMapButton, participateButton;
     private String eventLongitude;
     private String eventLatitude;
 
@@ -44,12 +46,18 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         View view = inflater.inflate(R.layout.fragment_show_event, container, false);
 
         showEventOnMapButton = (Button) view.findViewById(R.id.showEventOnMapButton);
+        participateButton = (Button) view.findViewById(R.id.EuVou);
         showEventOnMapButton.setOnClickListener(this);
+        participateButton.setOnClickListener(this);
 
         eventDAO = new EventDAO(this.getActivity());
         String eventId = this.getArguments().getString("idEventSearch");
         JSONObject eventDATA = eventDAO.searchEventById(eventId);
-        //Toast.makeText(getContext(), eventNamee, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), new LoginUtility(getActivity()).getUserId() +"", Toast.LENGTH_LONG).show();
+        if(new LoginUtility(getActivity()).getUserId() == -1)
+            participateButton.setVisibility(View.GONE);
+        else
+            participateButton.setVisibility(View.VISIBLE);
 
 
         try {
@@ -138,11 +146,18 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         intent.putExtras(latitudeAndLongitude);
         startActivity(intent);
     }
+    private void participate()
+    {
+        Toast.makeText(getActivity(), "Marcado", Toast.LENGTH_SHORT).show();
+    }
 
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.showEventOnMapButton:
                 showEventOnMap();
+                break;
+            case R.id.EuVou:
+                participate();
                 break;
         }
     }
