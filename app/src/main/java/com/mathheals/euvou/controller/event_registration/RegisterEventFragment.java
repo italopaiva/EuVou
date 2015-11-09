@@ -178,11 +178,7 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
 
     private void registerEvent(Event event){
         EventDAO eventDAO = new EventDAO(getActivity());
-        try {
-            eventDAO.saveEvent(event);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        eventDAO.saveEvent(event);
     }
 
     private void addCheckBoxListeners(View v){

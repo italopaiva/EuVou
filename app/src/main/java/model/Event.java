@@ -26,18 +26,35 @@ public class Event {
 
 
     private int idEvent;
-    private int idOwner;
     private String nameEvent;
     private String dateTimeEvent;
     private String description;
     private Double latitude;
     private Double longitude;
+    private String adress;
     private Integer evaluation;
     private Vector<String> category;
 
-
     private static final int MAX_LENGTH_NAME = 50;
     private static final int MAX_LENGTH_DESCRIPTION = 500;
+    private int idOwner;
+
+    public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
+        setNameEvent(nameEvent);
+        setDateTimeEvent(dateTimeEvent);
+        setDescription(description);
+        setLatitude(latitude);
+        setLongitude(longitude);
+        setCategory(category);
+    }
+
+    public Event(String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
+        setNameEvent(nameEvent);
+        setDateTimeEvent(dateTimeEvent);
+        setDescription(description);
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
 
     public Event(int idOwner,String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
         setIdOwner(idOwner);
@@ -116,13 +133,27 @@ public class Event {
     }
 
     public void setEvaluation(Integer evaluation) throws  EventException{
-        if(evaluation >=0 && evaluation<=5)
+        if(evaluation >1 && evaluation<5)
         {
             this.evaluation = evaluation;
         }
         else
         {
             throw new EventException(INVALID_EVALUATION);
+        }
+
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) throws EventException{
+        if(!(adress.isEmpty()) && adress!=null)
+        {
+            this.adress = adress;
+        }else{
+            throw new EventException(ADDRESS_IS_EMPTY);
         }
 
     }
@@ -232,6 +263,7 @@ public class Event {
         return category;
     }
 
+
     public int getIdOwner() {
         return idOwner;
     }
@@ -239,5 +271,4 @@ public class Event {
     public void setIdOwner(int idOwner) {
         this.idOwner = idOwner;
     }
-
 }
