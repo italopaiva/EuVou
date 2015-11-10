@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
+
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.search_event.ListEvents;
 import com.mathheals.euvou.controller.show_event.ShowEvent;
@@ -32,6 +35,9 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.edit_or_remove_event_fragment, container, false);
+
+        Button editOrRemoveButton = (Button) view.findViewById(R.id.editRemoveButton);
+        editOrRemoveButton.setOnClickListener(this);
 
         String eventName = evento.getNameEvent();
         String eventDescription = evento.getDescription();

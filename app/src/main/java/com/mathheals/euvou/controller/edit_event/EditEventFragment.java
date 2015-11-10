@@ -31,7 +31,7 @@ import exception.EventException;
 import model.Event;
 
 public class EditEventFragment extends Fragment implements View.OnClickListener {
-    private static int idEvent=2;
+    private static int idEvent=1;
     private static final String SUCCESSFULL_UPDATE_MESSAGE = "Evento alterado com sucesso :)";
     private String latitude;
     private String longitude;
@@ -165,12 +165,81 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         return view;
     }
 
-    private void updateEvent(Event event){
+    private void updateEventOnDataBase(Event event){
         EventDAO eventDAO = new EventDAO(getActivity());
         eventDAO.updateEvent(event);
     }
 
-    public void addEventCategories(View v){
+    public void updateEvent(){
+        EditText nameField = (EditText) this.getActivity().findViewById(R.id.eventName);
+        String nameEvent = nameField.getText().toString();
+
+        EditText dateField = (EditText) this.getActivity().findViewById(R.id.eventDate);
+        String dateEvent = dateField.getText().toString();
+
+        EditText descriptionField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
+        String descriptionEvent = descriptionField.getText().toString();
+
+        EditText addresField = (EditText) this.getActivity().findViewById(R.id.eventAddress);
+        String addresEvent = addresField.getText().toString();
+
+        EditText priceRealField = (EditText) this.getActivity().findViewById(R.id.eventPriceReal);
+        EditText priceDecimalField = (EditText) this.getActivity().findViewById(R.id.eventPriceDecimal);
+        Integer eventPriceReal = Integer.parseInt(priceRealField.getText().toString());
+        Integer eventPriceDecimal = Integer.parseInt(priceDecimalField.getText().toString());
+        Integer priceEvent = eventPriceReal * 100 + eventPriceDecimal;
+
+        try {
+            Event event = new Event(idEvent, nameEvent, priceEvent, addresEvent, dateEvent, descriptionEvent,
+                    latitude, longitude, categories);
+
+            updateEventOnDataBase(event);
+
+            Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_UPDATE_MESSAGE, Toast.LENGTH_LONG).show();
+        } catch (EventException e) {
+            String message = e.getMessage();
+
+            //Verify address field
+            if(message.equals(Event.ADDRESS_IS_EMPTY)){
+
+            }
+
+            if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
+                descriptionField.requestFocus();
+                descriptionField.setError(message);
+            }
+
+            if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)){
+                descriptionField.requestFocus();
+                descriptionField.setError(message);
+            }
+
+            if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
+                dateField.requestFocus();
+                dateField.setError(message);
+            }
+
+            if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
+                nameField.requestFocus();
+                nameField.setError(message);
+            }
+
+            if(message.equals(Event.INVALID_EVENT_DATE)){
+                dateField.requestFocus();
+                dateField.setError(message);
+            }
+
+            if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
+                nameField.requestFocus();
+                nameField.setError(message);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    private void addEventCategories(View v){
         if(v.getId() == R.id.optionCinema){
             CheckBox cinemaCheckBox = (CheckBox) v;
 
@@ -249,72 +318,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.updateEvent) {
-            EditText nameField = (EditText) this.getActivity().findViewById(R.id.eventName);
-            String nameEvent = nameField.getText().toString();
-
-            EditText dateField = (EditText) this.getActivity().findViewById(R.id.eventDate);
-            String dateEvent = dateField.getText().toString();
-
-            EditText descriptionField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
-            String descriptionEvent = descriptionField.getText().toString();
-
-            EditText addresField = (EditText) this.getActivity().findViewById(R.id.eventAddress);
-            String addresEvent = addresField.getText().toString();
-
-            EditText priceRealField = (EditText) this.getActivity().findViewById(R.id.eventPriceReal);
-            EditText priceDecimalField = (EditText) this.getActivity().findViewById(R.id.eventPriceDecimal);
-            Integer eventPriceReal = Integer.parseInt(priceRealField.getText().toString());
-            Integer eventPriceDecimal = Integer.parseInt(priceDecimalField.getText().toString());
-            Integer priceEvent = eventPriceReal * 100 + eventPriceDecimal;
-
-            try {
-                Event event = new Event(idEvent, nameEvent, priceEvent, addresEvent, dateEvent, descriptionEvent,
-                        latitude, longitude, categories);
-
-                updateEvent(event);
-
-                Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_UPDATE_MESSAGE, Toast.LENGTH_LONG).show();
-            } catch (EventException e) {
-                String message = e.getMessage();
-
-                //Verify address field
-                if(message.equals(Event.ADDRESS_IS_EMPTY)){
-
-                }
-
-                if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
-                    descriptionField.requestFocus();
-                    descriptionField.setError(message);
-                }
-
-                if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)){
-                    descriptionField.requestFocus();
-                    descriptionField.setError(message);
-                }
-
-                if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
-                    dateField.requestFocus();
-                    dateField.setError(message);
-                }
-
-                if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
-                    nameField.requestFocus();
-                    nameField.setError(message);
-                }
-
-                if(message.equals(Event.INVALID_EVENT_DATE)){
-                    dateField.requestFocus();
-                    dateField.setError(message);
-                }
-
-                if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
-                    nameField.requestFocus();
-                    nameField.setError(message);
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-
-            }
+            updateEvent();
         }else if(v.getId() == R.id.eventLocal){
             Intent map = new Intent(getActivity(), LocalEventActivity.class);
             startActivityForResult(map, 2);
