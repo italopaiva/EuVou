@@ -33,6 +33,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private Button showEventOnMapButton, participateButton;
     private String eventLongitude;
     private String eventLatitude;
+    private String eventId;
 
     public ShowEvent() {
         // Required empty public constructor
@@ -51,7 +52,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         participateButton.setOnClickListener(this);
 
         eventDAO = new EventDAO(this.getActivity());
-        String eventId = this.getArguments().getString("idEventSearch");
+        eventId = this.getArguments().getString("idEventSearch");
         JSONObject eventDATA = eventDAO.searchEventById(eventId);
         //Toast.makeText(getContext(), new LoginUtility(getActivity()).getUserId() +"", Toast.LENGTH_LONG).show();
         if(new LoginUtility(getActivity()).getUserId() == -1)
@@ -148,7 +149,11 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     }
     private void participate()
     {
-        Toast.makeText(getActivity(), "Marcado", Toast.LENGTH_SHORT).show();
+        int idUser = new LoginUtility(getActivity()).getUserId();
+        if(eventDAO.verifyParticipate(Integer.parseInt(eventId), idUser) != null)
+            Toast.makeText(getActivity(), "Heyy, você já marcou sua participação", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getActivity(), eventDAO.markParticipate(Integer.parseInt(eventId), idUser), Toast.LENGTH_SHORT).show();
     }
 
     public void onClick(View view) {

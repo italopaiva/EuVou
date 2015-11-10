@@ -105,4 +105,12 @@ public class EventDAO extends DAO {
         return events;
     }
 
+    public String markParticipate(int idUser, int idEvent) {
+        return this.executeQuery("INSERT INTO participate(idEvent, idUser) VALUES(" + idEvent + "," + idUser + ");");
+    }
+
+    public JSONObject verifyParticipate(int idUser, int idEvent) {
+        return this.executeConsult("SELECT idUser FROM participate WHERE idEvent=" + idEvent + " AND idUser=" + idUser);
+    }
+
 }
