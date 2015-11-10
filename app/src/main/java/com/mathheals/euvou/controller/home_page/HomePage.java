@@ -1,10 +1,7 @@
 package com.mathheals.euvou.controller.home_page;
 
 import android.content.Context;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,9 +13,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,16 +26,17 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.event_consultation.EventConsultation;
 import com.mathheals.euvou.controller.event_registration.RegisterEventFragment;
 import com.mathheals.euvou.controller.login_user.LoginValidation;
 import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
 import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
 import com.mathheals.euvou.controller.remove_user.OhGoshFragment;
-import com.mathheals.euvou.controller.user_profile.ShowUser;
 import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.login_user.LoginActivity;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 import com.mathheals.euvou.controller.remove_user.RemoveUserVIewMessages;
+import com.mathheals.euvou.controller.search_event.ListEvents;
 import com.mathheals.euvou.controller.search_place.SearchPlaceMaps;
 import com.mathheals.euvou.controller.user_registration.RegisterFragment;
 import com.mathheals.euvou.controller.utility.ActivityUtility;
@@ -148,42 +143,6 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
             return false;
         }
 
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView search = (SearchView) menu.findItem(R.id.search).getActionView();
-        search.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        search.setQueryHint("Buscar locais e usuário");
-        
-        MenuItem searchBar = menu.findItem(R.id.search);
-        SearchView userSearch = (SearchView) searchBar.getActionView();
-        userSearch.setQueryHint("Busque usuários");
-        userSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                Bundle bundle = new Bundle();
-                bundle.putString("username", query);
-                ShowUser user = new ShowUser();
-                user.setArguments(bundle);
-                UserDAO userDAO = new UserDAO(getParent());
-                if(userDAO.searchUserByUsername(query)!=null) {
-                    fragmentTransaction.replace(R.id.content_frame, user);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
-                else{
-                    Toast.makeText(getBaseContext(), "O nome não foi encontrado", Toast.LENGTH_LONG).show();
-                }
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -242,18 +201,18 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
                 fragmentTransaction.replace(R.id.content_frame, new RegisterEventFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+                return true;
             case R.id.logout:
                 new LoginUtility(HomePage.this).setUserLogOff();
-
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
                 return true;
-            case R.id.event_registration:
-                fragmentTransaction.replace(R.id.content_frame, new RegisterEventFragment());
+            case R.id.myEvents:
+                fragmentTransaction.replace(R.id.content_frame, new ListEvents());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                //Toast.makeText(getBaseContext(), "Cadastrar evento", Toast.LENGTH_LONG).show();
+                return true;
             default:
                 return false;
         }
@@ -285,30 +244,34 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         return;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String aux = "";
-        switch (position) {
-            case 1:
-                aux = "Museu";
-                break;
-            case 2:
-                aux = "Parque";
-                break;
-            case 3:
-                aux = "Teatro";
-                break;
-            case 4:
-                aux = "shop";
-                break;
-            case 5:
-                aux = "Unidade";
-                break;
-
-        }
-        Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
-        map.putExtra(QUERY, aux);
-        HomePage.this.startActivity(map);
-        drawerLayout.closeDrawer(linearLayout);
+    public void searchOnclick(MenuItem item) {
+        Intent eventConsultation = new Intent(HomePage.this, EventConsultation.class);
+        HomePage.this.startActivity(eventConsultation);
     }
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String aux = "";
+            switch (position) {
+                case 1:
+                    aux = "Museu";
+                    break;
+                case 2:
+                    aux = "Parque";
+                    break;
+                case 3:
+                    aux = "Teatro";
+                    break;
+                case 4:
+                    aux = "shop";
+                    break;
+                case 5:
+                    aux = "Unidade";
+                    break;
+
+            }
+            Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
+            map.putExtra(QUERY, aux);
+            HomePage.this.startActivity(map);
+            drawerLayout.closeDrawer(linearLayout);
+        }
 }

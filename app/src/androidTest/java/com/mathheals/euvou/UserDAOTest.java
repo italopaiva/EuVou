@@ -34,81 +34,66 @@ public class UserDAOTest extends TestCase {
 
     private Activity activity;
 
-    public UserDAOTest()
+
+    public void testSave() throws ParseException, UserException {
+            UserDAO userDAO = new UserDAO();
+            User user;
+        user = new User("marceloChavosaao","marceloChavosaao","marceloChavosao@euvou.com","marceloChavosao@euvou.com","123456","123456","11/09/2015");
+        assertTrue(userDAO.save(user).contains("Salvo"));
+            userDAO.delete("marceloChavosaao");
+    }
+
+    public void testDeleteByName() throws ParseException, UserException  {
+
+        UserDAO userDAO = new UserDAO();
+        User user = new User("Marcelo", "marceloChavosaoa", "galudo11cm@uol.com", "123456", "24/11/1969");
+        if(!userDAO.save(user).contains("Salvo"))
+            assertTrue(false);
+        assertTrue(userDAO.delete("marceloChavosaoa").contains("Salvo"));
+    }
+
+
+    public void testDeleteById() throws ParseException, UserException, JSONException {
+
+        UserDAO userDAO = new UserDAO();
+        User user = new User("VIny", "viny", "viny@uol.com", "123456", "14/02/1995");
+        if(!userDAO.save(user).contains("Salvo"))
+            assertTrue(false);
+        int id = userDAO.searchUserByUsername("viny").getJSONObject("0").getInt("idUser");
+        assertTrue(userDAO.delete(id).contains("Salvo"));
+        userDAO.delete("viny");
+    }
+
+    public void testeSearchUserById()
     {
-        activity = new Activity();
-    }
-    public void testRegisterUser(){
-        try {
-            UserDAO userDAO = new UserDAO(activity);
-            User user = new User("Marcelo", "marceloChavosao", "galudo11cm@uol.com", "123456", "24/11/1969");
-            userDAO.save(user);
-
-            LoginUtility loginUtility = new LoginUtility();
-
-            JSONObject jsonObject = userDAO.searchUserByUsername("marceloChavosao");
-
-            User user2 = new User(jsonObject.getJSONObject("0").getString(COLUMN_USER_NAME),
-                    jsonObject.getJSONObject("0").getString(COLUMN_USER_LOGIN),
-                    jsonObject.getJSONObject("0").getString(COLUMN_USER_EMAIL),
-                    jsonObject.getJSONObject("0").getString(COLUMN_USER_PASSWORD),
-                    loginUtility.formatDateToBr(jsonObject.getJSONObject("0").getString(COLUMN_USER_BIRTHDATE)));;
-
-            assertTrue(user.equals(user2));
-
-            userDAO.delete("marceloChavosao");
-        } catch (UserException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        assertFalse(new UserDAO().searchUserById(3) == null);
     }
 
-    public void testUpdateUser(){
-        try {
-            UserDAO userDAO = new UserDAO(activity);
-            User user = new User(1, "Marcelo", "marceloChavosao", "12/12/2012", "galudo11cm@uol.com", "galudo11cm@uol.com", "123456", "123456");
-            userDAO.save(user);
-
-            LoginUtility loginUtility = new LoginUtility();
-            int idUser = loginUtility.getUserId("marceloChavosao");
-
-            user = new User(idUser, "Juliana", "marceloChavosao", "12/12/2012", "jarbas@uol.com", "jarbas@uol.com", "OMEUPAI!?", "OMEUPAI!?");
-            userDAO.update(user);
-
-            User user2 = loginUtility.getUser("marceloChavosao");
-
-            assertTrue(user.equals(user2));
-
-            userDAO.delete("marceloChavosao");
-        } catch (UserException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public void testUpdateUser() throws ParseException, UserException, JSONException {
+        UserDAO userDAO = new UserDAO();
+        User user = new User(1,"Vinicius ppp", "umteste", "14/02/1995", "viny-pinheiro@hotmail.com",
+                "viny-pinheiro@hotmail.com", "123456", "123456");
+        if(!userDAO.save(user).contains("Salvo")) {
+            assertTrue(false);
+            userDAO.delete("umteste");
         }
+        assertTrue(userDAO.update(user).contains("Salvo"));
+        userDAO.delete("umteste");
 
     }
 
-    public void testDisableLogin(){
-        try {
-            LoginUtility loginUtility = new LoginUtility();
-            User user = new User("Marcelo", "marceloChavosao", "galudo11cm@uol.com", "123456", "24/11/1969");
-            UserDAO userDAO = new UserDAO(activity);
-            userDAO.save(user);
-            userDAO.disableUser(loginUtility.getUserId(user.getUsername()));
-            assertFalse(loginUtility.isUserActive("marceloChavosao"));
-            userDAO.delete("marceloChavosao");
-        } catch (UserException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public void testDisableLogin() throws ParseException, UserException, JSONException {
+        UserDAO userDAO = new UserDAO();
+        User user = new User(1,"Vinicius Pinheiro", "umteste", "14/02/1995", "viny-pinheiro@hotmail.com",
+                "viny-pinheiro@hotmail.com", "123456", "123456");
+        if(!userDAO.save(user).contains("Salvo")) {
+            assertTrue(false);
+            userDAO.delete("umteste");
         }
+        int id = userDAO.searchUserByUsername("umteste").getJSONObject("0").getInt("idUser");
+        assertTrue(userDAO.disableUser(id).contains("Salvo"));
+        userDAO.delete("umteste");
+
     }
     
 

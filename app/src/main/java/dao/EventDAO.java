@@ -1,11 +1,15 @@
 package dao;
 
 import android.app.Activity;
+import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.Vector;
 
+import exception.EventException;
 import model.Event;
 
 /**
@@ -16,6 +20,8 @@ public class EventDAO extends DAO {
     public EventDAO(Activity currentActivity) {
         super(currentActivity);
     }
+    
+    public EventDAO(){}
 
     public void saveEvent(Event event){
         executeQuery("insert into tb_event(nameEvent, price, address, dateTimeEvent,description,longitude,latitude) VALUES('" +
@@ -34,9 +40,9 @@ public class EventDAO extends DAO {
         }
 
     }
-    public  void deleteEvent(Event event)
+    public  String deleteEvent(Event event)
     {
-        this.executeQuery("DELETE FROM tb_event WHERE idEvent ="+event.getIdEvent());
+        return this.executeQuery("DELETE FROM tb_event WHERE idEvent ="+event.getIdEvent());
     }
 
     public void updateEvent(Event event)
@@ -65,8 +71,33 @@ public class EventDAO extends DAO {
         return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%'");
     }
 
+    public JSONObject searchEventByNameGroup(String eventName)
+    {
+        return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%' GROUP BY idEvent");
+    }
+
     public JSONObject searchEventById(int idEvent){
         return this.executeConsult("SELECT * FROM tb_event WHERE idEvent = " + idEvent);
     }
 
+    public Vector<Event> searchEventByOwner(int owner) throws JSONException, ParseException, EventException {
+        JSONObject json = this.executeConsult("SELECT * FROM tb_event WHERE idOwner=" + owner + " GROUP BY idEvent");
+
+        if(json == null)
+            return null;
+
+        Vector<Event> events = new Vector<>();
+
+        for (int i = 0; i < json.length(); i++)
+        {
+
+            Event event = new Event(json.getJSONObject(""  + i).getInt("idEvent"),json.getJSONObject(""  + i).getInt("idOwner"),
+                    json.getJSONObject("" + i).getString("nameEvent"),
+                    json.getJSONObject("" + i).getString("dateTimeEvent"),json.getJSONObject(""  + i).getString("description"),
+                    json.getJSONObject("" + i).getString("longitude"),json.getJSONObject(""  + i).getString("latitude"));
+            events.add(event);
+        }
+
+        return events;
+    }
 }

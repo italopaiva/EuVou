@@ -3,18 +3,19 @@ package dao;
 import android.app.Activity;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.Calendar;
 
 public abstract class DAO {
 
-    private final String URLQUERY = "http://euvou.atwebpages.com/query.php";
-    private final String URLCONSULT = "http://euvou.atwebpages.com/consult.php";
+    private final String URLQUERY = "http://euvou.esy.es/query.php";
+    private final String URLCONSULT = "http://euvou.esy.es/consult.php";
     private long timeLimit;
     private final int LIMITCONECTIONTIME = 15000;
     private Activity currentActivity;
-
     public DAO(Activity currentActivity){
         this.currentActivity = currentActivity;
     }
@@ -32,7 +33,7 @@ public abstract class DAO {
             currentTime = Calendar.getInstance().getTime().getTime();
         }
 
-        if(currentTime >= timeLimit) {
+        if(limitExceded(timeLimit,currentTime)) {
             Toast.makeText(currentActivity,"Problema de conexão com o servidor (verifique se esta conectado a internet)", Toast.LENGTH_LONG).show();
             return null;
         }
@@ -40,7 +41,10 @@ public abstract class DAO {
 
         return consult.getResult();
     }
-
+    public static boolean limitExceded(long timeLimit, long currentTime)
+    {
+        return (currentTime >= timeLimit);
+    }
     protected String executeQuery(String query){
         return query(query, URLQUERY);
     }

@@ -11,9 +11,10 @@
     android:weightSum="1">
 
     <TextView
-        android:text="Nome do Evento"
+        android:text="Nome"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/userNameLabel"/>
 
     <EditText
         android:id="@+id/nameField"
@@ -23,9 +24,10 @@
         android:singleLine="true" />
 
     <TextView
-        android:text="Data do Evento"
+        android:text="Data de Nascimento"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/birthDateLabel"/>
 
     <EditText
         android:id="@+id/dateField"
@@ -37,7 +39,8 @@
     <TextView
         android:text="E-mail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/userMailLabel"/>
 
     <EditText
         android:id="@+id/mailField"
@@ -50,7 +53,8 @@
     <TextView
         android:text="Confirme o e-mail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/confirmUserMailLabel"/>
 
     <EditText
         android:id="@+id/confirmMailField"
@@ -63,7 +67,8 @@
     <TextView
         android:text="Login"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/userLoginLabel"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -76,7 +81,8 @@
     <TextView
         android:text="Senha"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/userPasswordLabel"/>
 
     <EditText
         android:id="@+id/passwordField"
@@ -88,7 +94,8 @@
     <TextView
         android:text="Confirme a senha"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/userConfirmPasswordLabel"/>
 
     <EditText
         android:id="@+id/confirmMailPassword"

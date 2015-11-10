@@ -14,16 +14,9 @@ import dao.UserDAO;
 
 public class ShowUserTest extends TestCase {
 
-    private Activity activity;
-
-    public ShowUserTest()
-    {
-        activity = new Activity();
-    }
-
     public void testShowUserName(){
 
-        UserDAO userDAO = new UserDAO(activity);
+        UserDAO userDAO = new UserDAO();
 
         JSONObject userData = userDAO.searchUserByUsername("igodudu");
 
@@ -43,7 +36,7 @@ public class ShowUserTest extends TestCase {
     }
     public void testShowUserBirthDate()
     {
-        UserDAO userDAO = new UserDAO(activity);
+        UserDAO userDAO = new UserDAO();
 
         JSONObject userData = userDAO.searchUserByUsername("igodudu");
 
@@ -63,7 +56,7 @@ public class ShowUserTest extends TestCase {
     }
     public void testShowUserEmail()
     {
-        UserDAO userDAO = new UserDAO(activity);
+        UserDAO userDAO = new UserDAO();
 
         JSONObject userData = userDAO.searchUserByUsername("igodudu");
 

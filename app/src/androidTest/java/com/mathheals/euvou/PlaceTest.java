@@ -114,7 +114,7 @@ public class PlaceTest extends TestCase {
     {
         boolean ok = false;
         try {
-            Place place= new Place("Pizza","2","14.0025",null,"8h às 12h","Descrição","rua das flores");
+            Place place= new Place("Pizza","2","14.0025","","8h às 12h","Descrição","rua das flores");
             ok = true;
         }catch (Exception e)
         {
@@ -178,6 +178,19 @@ public class PlaceTest extends TestCase {
         }
     }
 
+    public void testInvalidName()
+    {
+        try {
+            Place place= new Place("","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+
+            assertFalse(true);
+        } catch (PlaceException e) {
+            assertFalse(false);
+        } catch (ParseException e) {
+            assertFalse(false);
+        }
+    }
+
     public void testAddComment()
     {
         try {
@@ -230,6 +243,51 @@ public class PlaceTest extends TestCase {
         } catch (PlaceException e) {
             assertTrue(false);
         } catch (ParseException e) {
+            assertTrue(false);
+        }
+    }
+
+    public void testSetWrongEvaluated()
+    {
+        try {
+            Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+            place.setEvaluate("gfhj");
+            assertFalse(true);
+        } catch (PlaceException e) {
+            assertFalse(false);
+        } catch (ParseException e) {
+            assertFalse(false);
+        } catch (NumberFormatException e) {
+            assertFalse(false);
+        }
+    }
+
+    public void testSetEvaluated()
+    {
+        try {
+            Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+            place.setEvaluate("4.5");
+            assertTrue(true);
+        } catch (PlaceException e) {
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(false);
+        } catch (NumberFormatException e) {
+            assertTrue(false);
+        }
+    }
+
+    public void testSetNullStringEvaluated()
+    {
+        try {
+            Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores");
+            place.setEvaluate("null");
+            assertTrue(true);
+        } catch (PlaceException e) {
+            assertTrue(false);
+        } catch (ParseException e) {
+            assertTrue(false);
+        } catch (NumberFormatException e) {
             assertTrue(false);
         }
     }

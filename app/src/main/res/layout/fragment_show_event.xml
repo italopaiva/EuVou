@@ -1,0 +1,151 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.mathheals.euvou.controller.show_event.ShowEvent"
+    android:background="@color/gray_CDC9C9">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id = "@+id/eventLayout"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/event_name"
+            android:layout_marginTop="20dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/event_name_text"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/nameEventShow"
+            android:layout_toRightOf="@id/event_name_text"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/event_description_text"
+            android:layout_marginTop="20dp"
+            android:text="@string/event_description"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_below="@id/event_name_text"
+            />
+
+        <TextView
+            android:id="@+id/descriptionEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_toRightOf="@id/event_description_text"
+            android:layout_below="@id/event_name_text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/date_event_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/event_date"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_alignTop="@+id/dateEvent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/dateEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/date_event_text"
+            android:layout_below="@id/event_description_text"
+            android:layout_marginTop="20dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/event_price_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/event_price"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_below="@+id/date_event_text"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp" />
+
+
+        <TextView
+            android:id="@+id/eventPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_below="@+id/date_event_text"
+            android:layout_toRightOf="@id/event_price_txt"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/event_categories_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/event_categories"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_below="@+id/event_price_txt"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/eventCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_below="@+id/event_price_txt"
+            android:layout_toRightOf="@id/event_categories_txt"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/event_adress_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/event_adress"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_below="@+id/event_categories_txt"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/eventPlaces"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_below="@+id/event_categories_txt"
+            android:layout_toRightOf="@id/event_adress_txt"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/showEventOnMapButton"
+            android:text="@string/button_show_map_txt"
+            android:layout_below="@+id/eventPlaces"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@color/turquesa_app"
+            ></Button>
+
+    </RelativeLayout>
+</FrameLayout>

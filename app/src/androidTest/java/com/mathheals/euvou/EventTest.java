@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 import java.text.ParseException;
 import java.util.Vector;
 
+import dao.EventDAO;
 import exception.EventException;
 import model.Event;
 
@@ -16,7 +17,7 @@ public class EventTest extends TestCase{
     public void testIfCategoryIsNull () {
         boolean ok = true;
         try{
-            event = new Event("Swing na casa do Miranda", "24/10/2016", "e trenzinho e eu fico no meio", "1", "2", null);
+            event = new Event(3,"Swing na casa do Miranda", "24/10/2016", "e trenzinho e eu fico no meio", "1", "2", null);
         }
         catch (EventException e){
             ok = false;
@@ -32,7 +33,7 @@ public class EventTest extends TestCase{
         Vector<String> categories = new Vector<>();
         boolean ok = true;
         try {
-            event = new Event("Swing na casa do Miranda", "25/10/2016", "e trenzinho e eu fico no meio", "1", "2", categories);
+            event = new Event(3,"Swing na casa do Miranda", "25/10/2016", "e trenzinho e eu fico no meio", "1", "2", categories);
         } catch(EventException e) {
             ok = false;
         }
@@ -47,7 +48,7 @@ public class EventTest extends TestCase{
         Vector<String> categories = new Vector<String >();
         categories.add("Museus");
         try{
-            event = new Event("Swing na casa do Miranda", "22/10/2016", "e trenzinho e eu fico no meio", "1", "2", categories);
+            event = new Event(3,"Swing na casa do Miranda", "22/10/2016", "e trenzinho e eu fico no meio", "1", "2", categories);
         }
         catch (EventException e){
             ok = false;
@@ -64,7 +65,7 @@ public class EventTest extends TestCase{
         categories.add("Educacao");
         boolean ok = true;
         try{
-            event = new Event("","14/10/2016","Descrição do evento", "50.01","60.002", categories);
+            event = new Event(3,"","14/10/2016","Descrição do evento", "50.01","60.002", categories);
         }catch(EventException e)
         {
             ok = false;
@@ -80,7 +81,7 @@ public class EventTest extends TestCase{
         categories.add("Balada");
         boolean ok = true;
         try{
-            event =  new Event("Geovanni","22/02/2016","descrição","21.4","30.2", categories);
+            event =  new Event(3,"Geovanni","22/02/2016","descrição","21.4","30.2", categories);
         }catch(EventException e)
         {
             ok = false;
@@ -97,7 +98,7 @@ public class EventTest extends TestCase{
         boolean ok = true;
         try
         {
-            event = new Event("Joãozinho da Silva Gosta da Dilma, venham conhecer esse jovem muito jovem","02/02/2016","Venham conhecer o Joãozinho!","50.8","60.2", categories);
+            event = new Event(3,"Joãozinho da Silva Gosta da Dilma, venham conhecer esse jovem muito jovem","02/02/2016","Venham conhecer o Joãozinho!","50.8","60.2", categories);
 
         } catch (EventException e) {
             e.printStackTrace();
@@ -113,7 +114,7 @@ public class EventTest extends TestCase{
         Vector<String> categories = new Vector<String>();
         categories.add("Exposicao");
         try {
-            event = new Event("festa2", "", "festa top","34.0","34.0", categories);
+            event = new Event(3,"festa2", "", "festa top","34.0","34.0", categories);
         } catch (EventException e) {
             ok=false;
         }catch(ParseException ex)
@@ -129,7 +130,7 @@ public class EventTest extends TestCase{
         categories.add("Show");
         boolean ok = true;
         try{
-            event = new Event("FG Party","10/10/2016","","44.2","46.2", categories);
+            event = new Event(3,"FG Party","10/10/2016","","44.2","46.2", categories);
             ok = true;
 
         }catch(EventException e)
@@ -149,7 +150,7 @@ public class EventTest extends TestCase{
         boolean ok = true;
         try{
 
-            event = new Event("FG a Party","10/10/2016","Venha se perder com a gente!", "44.2","65.2", categories);
+            event = new Event(3,"FG a Party","10/10/2016","Venha se perder com a gente!", "44.2","65.2", categories);
         }catch(EventException e){
             ok = false;
         }catch(ParseException ex)
@@ -166,7 +167,7 @@ public class EventTest extends TestCase{
         boolean ok = true;
         try
         {
-            event = new Event("FG a Party","10/10/2016","kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
+            event = new Event(3,"FG a Party","10/10/2016","kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
                     "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n" +
@@ -195,7 +196,7 @@ public class EventTest extends TestCase{
         boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2015","Descrição teste de evento","-90.9","140.2", categories);
+            event = new Event(3,"Evento teste","12/12/2015","Descrição teste de evento","-90.9","140.2", categories);
         }catch(EventException e)
         {
             ok = false;
@@ -213,7 +214,7 @@ public class EventTest extends TestCase{
         boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2015","Descrição teste de evento","99.2","130.2", categories);
+            event = new Event(3,"Evento teste","12/12/2015","Descrição teste de evento","99.2","130.2", categories);
         }catch(EventException e)
         {
             ok = false;
@@ -232,7 +233,7 @@ public class EventTest extends TestCase{
         boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2015","Descrição teste de evento","-40.9","140.2", categories);
+            event = new Event(3,"Evento teste","12/12/2015","Descrição teste de evento","-40.9","140.2", categories);
         }catch(EventException e)
         {
             ok = false;
@@ -249,7 +250,7 @@ public class EventTest extends TestCase{
         boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2015","Descrição teste de evento","90.0","-181.1", categories);
+            event = new Event(3,"Evento teste","12/12/2015","Descrição teste de evento","90.0","-181.1", categories);
         }catch(EventException e)
         {
             ok = false;
@@ -267,7 +268,7 @@ public class EventTest extends TestCase{
         boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2015","Descrição teste de evento","19.2","190.2", categories);
+            event = new Event(3,"Evento teste","12/12/2015","Descrição teste de evento","19.2","190.2", categories);
         }catch(EventException e)
         {
             ok = false;
@@ -285,7 +286,7 @@ public class EventTest extends TestCase{
         boolean ok = true;
         try
         {
-            event = new Event("Evento teste","12/12/2016","Descrição", "1", "2", categories);
+            event = new Event(3,"Evento teste","12/12/2016","Descrição", "1", "2", categories);
         }catch(EventException e)
         {
             ok = false;
@@ -301,7 +302,7 @@ public class EventTest extends TestCase{
         Vector<String> categories = new Vector<String>();
         categories.add("Exposicao");
         try {
-            event = new Event("festa2", "20/01/2000", "festa top","34.0","34.0", categories);
+            event = new Event(1, "festa2", "20/01/2000", "festa top","34.0","34.0", categories);
         } catch (EventException e) {
             ok=false;
         }catch(ParseException ex)
@@ -309,5 +310,19 @@ public class EventTest extends TestCase{
             ok=false;
         }
         assertFalse(ok);
+    }
+
+    public void testEventConstructorWithId() throws ParseException, EventException {
+        Event event = new Event(1,2,"nome","14/02/2020 20:15:10","DESCRICAO", "12.20","78.41520","null");
+        assertEquals("nome",event.getNameEvent());
+    }
+
+    public void testEventConstructorWithIdAndIvanlidGrade() throws ParseException, EventException {
+        try{
+            Event event = new Event(1,2,"nome","14/02/2000 20:15:10","DESCRICAO", "12.20","78.41520","80");
+            fail();
+        }catch (Exception e) {
+            assertTrue(true);
+        }
     }
 }
