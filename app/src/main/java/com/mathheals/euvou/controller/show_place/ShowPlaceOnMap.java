@@ -9,6 +9,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.mathheals.euvou.R;
 
 import org.json.JSONException;
@@ -33,7 +34,6 @@ public class ShowPlaceOnMap extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_place_on_map);
-
         setPlaceInfo(savedInstanceState);
         setUpMapIfNeeded();
     }
@@ -64,11 +64,18 @@ public class ShowPlaceOnMap extends FragmentActivity {
 
     private void setUpMap() {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(-15.7941454, -47.8825479), 9));
+                new LatLng(getLatitue(), getLongitude()), 9));
+        markPlaceOnMap();
     }
 
-    private void markPlaceOnMap(double latitute, double longitude) {
+    private void markPlaceOnMap() {
 
+        mMap.addMarker(
+                new MarkerOptions()
+                        .title(getName())
+                        .snippet(getAdress())
+                        .position(new LatLng(getLatitue(), getLongitude()))
+        );
     }
 
     @Override
