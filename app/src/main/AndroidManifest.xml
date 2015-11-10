@@ -27,6 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".controller.login_user.LoginActivity"
@@ -44,21 +47,9 @@
             android:label="@string/title_activity_maps" >
         </activity>
         <activity
-            android:name=".controller.event_consultation.EventConsultation"
-            android:label="@string/title_activity_event_consultation" >
-            <intent-filter>
-              <!-- <action android:name="android.intent.action.SEARCH"></action> -->
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+            android:name=".controller.event_registration.LocalEventActivity"
+            android:label="@string/title_activity_local_event" >
         </activity>
-
-        <activity
-                android:name=".controller.show_event.ShowOnMap">
-        </activity>
-
     </application>
 
 </manifest>
