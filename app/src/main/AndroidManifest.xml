@@ -58,8 +58,8 @@
         <activity android:name=".controller.show_event.ShowOnMap" >
         </activity>
         <activity
-            android:name=".controller.show_place.ShowPlaceOnMap"
-            android:label="@string/title_activity_show_place_on_map" >
+            android:name=".controller.show_place.ShowPlaceInfo"
+            android:label="@string/title_activity_show_single" >
         </activity>
     </application>
 

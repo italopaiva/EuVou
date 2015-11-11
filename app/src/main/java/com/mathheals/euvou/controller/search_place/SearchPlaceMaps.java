@@ -1,8 +1,8 @@
 package com.mathheals.euvou.controller.search_place;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -12,7 +12,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mathheals.euvou.R;
-import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.show_place.ShowPlaceInfo;
 
 import org.json.JSONException;
@@ -132,7 +131,9 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         String marke = marker.getId().substring(1);
         int id = Integer.parseInt(marke);
         select(id);
-        startShowInfoFragment();
+        startShowInfoActivity();
+        //startShowInfoFragment();
+        //Toast.makeText(getBaseContext(), clickedPlace.getName(), Toast.LENGTH_SHORT).show();
         return false;
     }
 
@@ -157,15 +158,10 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         campo.setText("Avaliação: " + place.getEvaluate());
   */
     }
-
-    private void startShowInfoFragment() {
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
-        ShowPlaceInfo showPlaceInfo = new ShowPlaceInfo();
-        showPlaceInfo.setArguments(getPlaceInfoAsBundle());
-        fragmentTransaction.replace(R.id.show_place_fragment_container, showPlaceInfo);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+    private void startShowInfoActivity() {
+        Intent intent = new Intent(this, ShowPlaceInfo.class);
+        intent.putExtras(getPlaceInfoAsBundle());
+        startActivity(intent);
     }
 
     private Bundle getPlaceInfoAsBundle() {
