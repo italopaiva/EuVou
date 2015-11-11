@@ -12,6 +12,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.edit_user.EditUserFragment;
+import com.mathheals.euvou.controller.show_place.ShowPlaceInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -126,10 +128,13 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        /*
         String marke = marker.getId().substring(1);
         int id = Integer.parseInt(marke);
 
         select(id);
+        */
+        startShowInfoFragment();
         return false;
     }
 
@@ -151,5 +156,12 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
 
         campo = (TextView) findViewById(R.id.grade);
         campo.setText("Avaliação: " + place.getEvaluate());
+    }
+
+    private void startShowInfoFragment() {
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.show_place_fragment_container, new ShowPlaceInfo());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

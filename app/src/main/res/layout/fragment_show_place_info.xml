@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mathheals.euvou.controller.show_place.ShowPlaceInfo"
+    android:background="@color/gray_CDC9C9">
+
+
+    <TextView
+        android:id="@+id/address"
+        android:text="Endereço: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/operation"
+        android:text="Funcionamento: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address"/>
+
+    <TextView
+        android:id="@+id/phone"
+        android:text="Telefone: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/operation"
+        />
+
+    <TextView
+        android:id="@+id/description"
+        android:text="Descrição: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone"
+        />
+
+    <TextView
+        android:id="@+id/grade"
+        android:text="Avaliação: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exibir mapa"
+        android:id="@+id/button_show_map"
+        android:textColor="#FFFFFF"
+        android:background="@color/turquesa_app"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/grade"/>
+
+</RelativeLayout>
