@@ -34,6 +34,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private String eventLongitude;
     private String eventLatitude;
     private String eventId;
+    private int idUser;
 
     public ShowEvent() {
         // Required empty public constructor
@@ -55,11 +56,21 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         eventId = this.getArguments().getString("idEventSearch");
         JSONObject eventDATA = eventDAO.searchEventById(eventId);
         //Toast.makeText(getContext(), new LoginUtility(getActivity()).getUserId() +"", Toast.LENGTH_LONG).show();
+
+        idUser = new LoginUtility(getActivity()).getUserId();
         if(new LoginUtility(getActivity()).getUserId() == -1)
             participateButton.setVisibility(View.GONE);
         else
+        {
             participateButton.setVisibility(View.VISIBLE);
-
+            if(eventDAO.verifyParticipate(Integer.parseInt(eventId), idUser) == null) {
+                participateButton.setText("#EUVOU");
+            }
+            else
+            {
+                participateButton.setText("#NAOVOU");
+            }
+        }
 
         try {
             String eventNameDB = eventDATA.getJSONObject("0").getString("nameEvent");
@@ -149,7 +160,6 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     }
     private void participate()
     {
-        int idUser = new LoginUtility(getActivity()).getUserId();
         if(eventDAO.verifyParticipate(Integer.parseInt(eventId), idUser) != null)
             Toast.makeText(getActivity(), "Heyy, você já marcou sua participação", Toast.LENGTH_SHORT).show();
         else
