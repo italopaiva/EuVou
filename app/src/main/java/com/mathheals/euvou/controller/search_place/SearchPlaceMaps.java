@@ -168,7 +168,7 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         Bundle placeInfo = new Bundle();
         placeInfo.putString("name", clickedPlace.getName());
         placeInfo.putString("phone", clickedPlace.getPhone());
-        placeInfo.putString("addres", clickedPlace.getAddress());
+        placeInfo.putString("address", clickedPlace.getAddress());
         placeInfo.putString("description", clickedPlace.getDescription());
         placeInfo.putDouble("latitude", clickedPlace.getLatitude());
         placeInfo.putDouble("longitude", clickedPlace.getLongitude());

@@ -3,9 +3,11 @@ package com.mathheals.euvou.controller.show_place;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,7 +26,7 @@ public class ShowPlaceInfo extends FragmentActivity {
     private String description;
     private double longitude;
     private double latitude;
-    private String adress;
+    private String address;
     private float grade;
 
     private TextView addressText;
@@ -39,6 +41,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_place_info);
         setPlaceInfo();
+        setAllTextViews();
         setUpMapIfNeeded();
     }
 
@@ -88,7 +91,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         mMap.addMarker(
                 new MarkerOptions()
                         .title(getName())
-                        .snippet(getAdress())
+                        .snippet(getAddress())
                         .position(new LatLng(getLatitude(), getLongitude()))
         );
     }
@@ -97,7 +100,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         Intent intent = getIntent();
         setName(intent.getStringExtra("name"));
         setPhone(intent.getStringExtra("phone"));
-        setAdress(intent.getStringExtra("adress"));
+        setAddress(intent.getStringExtra("address"));
         setGrade(intent.getFloatExtra("grade", 0.0F));
         setDescription(intent.getStringExtra("description"));
         setLatitude(intent.getDoubleExtra("latitude", 0.0));
@@ -109,12 +112,12 @@ public class ShowPlaceInfo extends FragmentActivity {
         this.grade = grade;
     }
 
-    private void setAdress(String adress) {
-        this.adress = adress;
+    private void setAddress(String address) {
+        this.address = address;
     }
 
-    private String getAdress() {
-        return adress;
+    private String getAddress() {
+        return address;
     }
 
     private float getGrade() {
@@ -169,9 +172,10 @@ public class ShowPlaceInfo extends FragmentActivity {
         this.latitude = latitude;
     }
 
-    private void setAdressText(String adressText) {
+    private void setAddressText(String adressText) {
         this.addressText = (TextView) findViewById(R.id.address_text);
         this.addressText.setText(adressText);
+        this.addressText.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void setOperationText(String operationText) {
@@ -181,7 +185,7 @@ public class ShowPlaceInfo extends FragmentActivity {
 
     private void setPhoneText(String phoneText) {
         this.phoneText = (TextView) findViewById(R.id.phone_text);
-        this.phoneText.setText(phoneText);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   this.phoneText.setText(phoneText);
     }
 
     private void setGradeText(String gradeText) {
@@ -192,5 +196,14 @@ public class ShowPlaceInfo extends FragmentActivity {
     private void setDescriptionText(String descriptionText) {
         this.descriptionText = (TextView) findViewById(R.id.description_text);
         this.descriptionText.setText(descriptionText);
+        this.descriptionText.setMovementMethod(new ScrollingMovementMethod());
+    }
+
+    private void setAllTextViews() {
+        setAddressText(address);
+        setOperationText(operation);
+        setPhoneText(phone);
+        setGradeText(Float.toString(grade));
+        setDescriptionText(description);
     }
 }
