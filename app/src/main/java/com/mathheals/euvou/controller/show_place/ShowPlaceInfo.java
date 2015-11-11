@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,6 +17,7 @@ import com.mathheals.euvou.R;
 public class ShowPlaceInfo extends FragmentActivity {
 
     protected GoogleMap mMap;
+
     private String name;
     private String phone;
     private String operation;
@@ -24,6 +26,12 @@ public class ShowPlaceInfo extends FragmentActivity {
     private double latitude;
     private String adress;
     private float grade;
+
+    private TextView addressText;
+    private TextView operationText;
+    private TextView phoneText;
+    private TextView descriptionText;
+    private TextView gradeText;
 
 
     @Override
@@ -96,67 +104,93 @@ public class ShowPlaceInfo extends FragmentActivity {
         setLongitude(intent.getDoubleExtra("longitude", 0.0));
         setOperation(intent.getStringExtra("operation"));
     }
-    public void setGrade(float grade) {
+
+    private void setGrade(float grade) {
         this.grade = grade;
     }
 
-    public void setAdress(String adress) {
+    private void setAdress(String adress) {
         this.adress = adress;
     }
 
-    public String getAdress() {
+    private String getAdress() {
         return adress;
     }
 
-    public float getGrade() {
+    private float getGrade() {
         return grade;
     }
 
-    public double getLongitude() {
+    private double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    private void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public String getDescription() {
+    private String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    private void setDescription(String description) {
         this.description = description;
     }
 
-    public String getOperation() {
+    private String getOperation() {
         return operation;
     }
 
-    public void setOperation(String operation) {
+    private void setOperation(String operation) {
         this.operation = operation;
     }
 
-    public String getPhone() {
+    private String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    private void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public String getName() {
+    private String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
-    public double getLatitude() {
+    private double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    private void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    private void setAdressText(String adressText) {
+        this.addressText = (TextView) findViewById(R.id.address_text);
+        this.addressText.setText(adressText);
+    }
+
+    private void setOperationText(String operationText) {
+        this.operationText = (TextView) findViewById(R.id.operation_text);
+        this.operationText.setText(operationText);
+    }
+
+    private void setPhoneText(String phoneText) {
+        this.phoneText = (TextView) findViewById(R.id.phone_text);
+        this.phoneText.setText(phoneText);
+    }
+
+    private void setGradeText(String gradeText) {
+        this.gradeText = (TextView) findViewById(R.id.grade_text);
+        this.gradeText.setText(gradeText);
+    }
+
+    private void setDescriptionText(String descriptionText) {
+        this.descriptionText = (TextView) findViewById(R.id.description_text);
+        this.descriptionText.setText(descriptionText);
     }
 }

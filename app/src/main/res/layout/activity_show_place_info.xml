@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/adress_text"
+        android:id="@+id/address_text"
         android:layout_toRightOf="@id/address"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
