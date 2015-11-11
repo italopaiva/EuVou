@@ -1,22 +1,50 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.mathheals.euvou.controller.show_place.ShowPlaceInfo"
-    android:background="@color/gray_CDC9C9">
+    android:background="@color/gray_CDC9C9"
+    >
 
 
     <TextView
         android:id="@+id/address"
         android:text="Endereço: "
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/adress_text"
+        android:layout_toRightOf="@id/address"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:text="ACERTO MIZERAVI"/>
 
     <TextView
         android:id="@+id/operation"
         android:text="Funcionamento: "
+        android:layout_below="@id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/address"/>
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/operation_text"
+        android:text="ACERTO 2"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/operation"
+        android:layout_toRightOf="@+id/operation"
+        android:layout_toEndOf="@+id/operation" />
 
     <TextView
         android:id="@+id/phone"
@@ -24,7 +52,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/operation"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone_text"
+        android:text="ACERTO 2"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/phone"
+        android:layout_toRightOf="@+id/phone"
+        android:layout_toEndOf="@+id/phone" />
 
     <TextView
         android:id="@+id/description"
@@ -32,6 +73,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/phone"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/description_text"
+        android:text="ACERTO 2"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/description"
+        android:layout_toRightOf="@+id/description"
+        android:layout_toEndOf="@+id/description"
         />
 
     <TextView
@@ -40,6 +95,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/description"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/grade_text"
+        android:text="ACERTO 2"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/grade"
+        android:layout_toRightOf="@+id/grade"
+        android:layout_toEndOf="@+id/grade"
         />
 
     <Button
@@ -50,6 +119,23 @@
         android:textColor="#FFFFFF"
         android:background="@color/turquesa_app"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@id/grade"/>
+        android:layout_below="@+id/grade_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ESCONDER MAPA"
+        android:id="@+id/button_hide_map"
+        android:textColor="#FFFFFF"
+        android:background="@color/turquesa_app"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/grade_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:visibility="gone"/>
+
 
 </RelativeLayout>
