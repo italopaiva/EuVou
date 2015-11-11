@@ -30,6 +30,7 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
     protected GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private ArrayList<Place> places;
     private String filter;
+    private Place clickedPlace;
 
     public String getFilter() {
         return filter;
@@ -128,20 +129,18 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        /*
         String marke = marker.getId().substring(1);
         int id = Integer.parseInt(marke);
-
         select(id);
-        */
         startShowInfoFragment();
         return false;
     }
 
     private void select(int id) {
-        TextView campo;
-        Place place = places.get(id);
-
+        //TextView campo;
+        //Place place = places.get(id);
+        clickedPlace = places.get(id);
+/*
         campo = (TextView) findViewById(R.id.address);
         campo.setText("Endereço: " + ((place.getAddress().isEmpty()) ? "Não há" : place.getAddress()));
 
@@ -156,12 +155,28 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
 
         campo = (TextView) findViewById(R.id.grade);
         campo.setText("Avaliação: " + place.getEvaluate());
+  */
     }
 
     private void startShowInfoFragment() {
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.show_place_fragment_container, new ShowPlaceInfo());
+
+        ShowPlaceInfo showPlaceInfo = new ShowPlaceInfo();
+        showPlaceInfo.setArguments(getPlaceInfoAsBundle());
+        fragmentTransaction.replace(R.id.show_place_fragment_container, showPlaceInfo);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    private Bundle getPlaceInfoAsBundle() {
+        Bundle placeInfo = new Bundle();
+        placeInfo.putString("name", clickedPlace.getName());
+        placeInfo.putString("phone", clickedPlace.getPhone());
+        placeInfo.putString("addres", clickedPlace.getAddress());
+        placeInfo.putString("description", clickedPlace.getDescription());
+        placeInfo.putDouble("latitude", clickedPlace.getLatitude());
+        placeInfo.putDouble("longitude", clickedPlace.getLongitude());
+        placeInfo.putString("operation", clickedPlace.getOperation());
+        return placeInfo;
     }
 }
