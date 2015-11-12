@@ -1,115 +1,120 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    android:gravity="center_vertical"
-    android:weightSum="1">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <TextView
-        android:text="Nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/userNameLabel"/>
-
-    <EditText
-        android:id="@+id/nameField"
-        android:maxLength="50"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true" />
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:weightSum="1">
 
-    <TextView
-        android:text="Data de Nascimento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/birthDateLabel"/>
+        <TextView
+            android:text="Nome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userNameLabel"/>
 
-    <EditText
-        android:id="@+id/dateField"
-        android:inputType="date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true" />
+        <EditText
+            android:id="@+id/nameField"
+            android:maxLength="50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
 
-    <TextView
-        android:text="E-mail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/userMailLabel"/>
+        <TextView
+            android:text="Data de Nascimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/birthDateLabel"/>
 
-    <EditText
-        android:id="@+id/mailField"
-        android:maxLength="150"
-        android:inputType="textEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true" />
+        <EditText
+            android:id="@+id/dateField"
+            android:inputType="date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
 
-    <TextView
-        android:text="Confirme o e-mail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/confirmUserMailLabel"/>
+        <TextView
+            android:text="E-mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userMailLabel"/>
 
-    <EditText
-        android:id="@+id/confirmMailField"
-        android:maxLength="150"
-        android:inputType="textEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true" />
+        <EditText
+            android:id="@+id/mailField"
+            android:maxLength="150"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
 
-    <TextView
-        android:text="Login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/userLoginLabel"/>
+        <TextView
+            android:text="Confirme o e-mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/confirmUserMailLabel"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:maxLength="100"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/loginField" />
+        <EditText
+            android:id="@+id/confirmMailField"
+            android:maxLength="150"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
 
-    <TextView
-        android:text="Senha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/userPasswordLabel"/>
+        <TextView
+            android:text="Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userLoginLabel"/>
 
-    <EditText
-        android:id="@+id/passwordField"
-        android:inputType="textPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true" />
+        <EditText
+            android:layout_width="match_parent"
+            android:maxLength="100"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/loginField" />
 
-    <TextView
-        android:text="Confirme a senha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/userConfirmPasswordLabel"/>
+        <TextView
+            android:text="Senha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userPasswordLabel"/>
 
-    <EditText
-        android:id="@+id/confirmMailPassword"
-        android:inputType="textPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true" />
+        <EditText
+            android:id="@+id/passwordField"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:background="#00C0C3"
-        android:text="Cadastrar"    />
+        <TextView
+            android:text="Confirme a senha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userConfirmPasswordLabel"/>
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/confirmMailPassword"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
+
+       <Button
+           android:layout_width="353dp"
+           android:layout_height="wrap_content"
+           android:id="@+id/saveButton"
+           android:textColor="#FFFFFF"
+           android:background="#00C0C3"
+           android:text="Cadastrar Evento"  />
+
+    </LinearLayout>
+</ScrollView>

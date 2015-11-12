@@ -2,6 +2,8 @@ package com.mathheals.euvou;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.test.ActivityInstrumentationTestCase2;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.utility.LoginUtility;
@@ -10,9 +12,12 @@ import org.junit.Before;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
@@ -210,6 +215,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
         onView(withId(R.id.confirmMailPassword)).check(matches(isDisplayed()));
         onView(withId(R.id.confirmMailPassword)).perform(typeText("1234567"));
         onView(withId(R.id.passwordField)).perform(click());
+        onView(withId(R.id.passwordField)).perform(closeSoftKeyboard());
         onView(withId(R.id.confirmMailPassword)).check(matches(withText("1234567")));
     }
 

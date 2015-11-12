@@ -17,6 +17,8 @@ import com.mathheals.euvou.controller.utility.Mask;
 import org.json.JSONException;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 import dao.EventDAO;
@@ -143,9 +145,12 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
 
             EditText dateEventField = (EditText) this.getActivity().findViewById(R.id.eventDate);
             String dateEvent = dateEventField.getText().toString();
+            String[] dateEventSplit = dateEvent.split("/");
+            dateEvent = dateEventSplit[2]+"-"+dateEventSplit[1]+"-"+dateEventSplit[0];
 
-            EditText eventTime = (EditText) this.getActivity().findViewById(R.id.eventHour);
-            String eventHour = eventTime.getText().toString();
+            EditText hourEventField = (EditText) this.getActivity().findViewById(R.id.eventHour);
+            String eventHour = hourEventField.getText().toString();
+            String dateHourEvent = dateEvent + " " + eventHour;
 
             EditText descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
             String descriptionEvent = descriptionEventField.getText().toString();
@@ -160,7 +165,7 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
             Integer priceEvent = priceEventReal * 100 + priceEventDecimal;
 
             try {
-                Event event = new Event(nameEvent, dateEvent, priceEvent, addressEvent, descriptionEvent,
+                Event event = new Event(nameEvent, dateHourEvent, priceEvent, addressEvent, descriptionEvent,
                                         latitude, longitude, categories);
                 registerEvent(event);
 
