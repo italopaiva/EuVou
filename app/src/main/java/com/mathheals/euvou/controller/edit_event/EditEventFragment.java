@@ -31,7 +31,7 @@ import exception.EventException;
 import model.Event;
 
 public class EditEventFragment extends Fragment implements View.OnClickListener {
-    private static int idEvent=1;
+    private int idEvent;
     private static final String SUCCESSFULL_UPDATE_MESSAGE = "Evento alterado com sucesso :)";
     private String latitude;
     private String longitude;
@@ -46,6 +46,9 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        idEvent = this.getArguments().getInt("idEvent");
+
         View view = inflater.inflate(R.layout.fragment_edit_event, container, false);
 
         EditText nameField = (EditText) view.findViewById(R.id.eventName);
@@ -126,9 +129,9 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
                         partyCheckbox.setChecked(true);
                         categories.add("Balada");
                         break;
-                    case "Museus":
+                    case "Museu":
                         museumCheckbox.setChecked(true);
-                        categories.add("Museus");
+                        categories.add("Museu");
                         break;
                     case "Educacao":
                         educationCheckbox.setChecked(true);
@@ -138,9 +141,9 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
                         expositionCheckbox.setChecked(true);
                         categories.add("Exposicao");
                         break;
-                    case "Esportes":
+                    case "Esporte":
                         sportsCheckbox.setChecked(true);
-                        categories.add("Esportes");
+                        categories.add("Esporte");
                         break;
                     case "Outros":
                         othersCheckbox.setChecked(true);
@@ -252,17 +255,17 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
             CheckBox educationCheckBox = (CheckBox) v;
 
             if(educationCheckBox.isChecked()) {
-                categories.add(educationCheckBox.getText().toString());
+                categories.add("Educacao");
             }else{
-                categories.remove(educationCheckBox.getText().toString());
+                categories.remove("Educacao");
             }
         }else if(v.getId() == R.id.optionExposition){
             CheckBox expositionCheckBox = (CheckBox) v;
 
             if(expositionCheckBox.isChecked()) {
-                categories.add(expositionCheckBox.getText().toString());
+                categories.add("Exposicao");
             }else{
-                categories.remove(expositionCheckBox.getText().toString());
+                categories.remove("Exposicao");
             }
         }else if(v.getId() == R.id.optionMuseum){
             CheckBox museumCheckBox = (CheckBox) v;

@@ -3,6 +3,7 @@ package com.mathheals.euvou.controller.edit_event;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,9 +60,16 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.editRemoveButton){
+            EditEventFragment editEventFragment = new EditEventFragment();
+            Bundle bundle = new Bundle();
+
             android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content_frame, new EditEventFragment());
+            bundle.putInt("idEvent", evento.getIdEvent());
+            editEventFragment.setArguments(bundle);
+
             fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.replace(R.id.content_frame, editEventFragment);
+
             fragmentTransaction.commit();
         }
 

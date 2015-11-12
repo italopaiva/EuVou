@@ -28,12 +28,17 @@ public class EventDAO extends DAO {
                 event.getNameEvent() + "', '" + event.getPrice() + "', '" + event.getAddress() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
                 "" + event.getLongitude() + "," + event.getLatitude() + ")");
 
-        //String query = "";
         Vector<String> categories = event.getCategory();
-        //for (String category : event.getCategory()) {
+        JSONObject jsonObject = executeConsult("SELECT idEvent FROM tb_event WHERE nameEvent = \"" + event.getNameEvent() + "\"");
+        int idEvent = 0;
+        try {
+            idEvent = jsonObject.getJSONObject("0").getInt("idEvent");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         for(int i=0; i<categories.size(); i++){
-            String query = "INSERT INTO event_category(idEvent, idCategory) VALUES((SELECT idEvent FROM tb_event " +
-                    "WHERE nameEvent=\""+event.getNameEvent()+"\"), " +
+            String query = "INSERT INTO event_category(idEvent, idCategory) VALUES(\"" + idEvent + "\", " +
                     "(SELECT idCategory FROM tb_category WHERE nameCategory = \""+categories.get(i)+"\"))";
 
             executeQuery(query);
@@ -47,11 +52,6 @@ public class EventDAO extends DAO {
 
     public void updateEvent(Event event)
     {
-        if(executeConsult("Select count(longitude) from tb_locate where longitude = " +
-                event.getLongitude() +" and latitude = " + event.getLatitude()) == null)
-            executeQuery("insert into tb_locate values("+event.getLongitude() +","+event.getLatitude() +
-                    ",'"+event.getAddress()+"')");
-
         executeQuery("UPDATE tb_event SET price=\"" + event.getPrice() + "\", address=\"" + event.getAddress() + "\", " +
                 "nameEvent=\""+event.getNameEvent()+"\", "+"dateTimeEvent=\""+event.getDateTimeEvent()+
                 "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", " +
@@ -59,12 +59,13 @@ public class EventDAO extends DAO {
 
         executeQuery("delete from event_category where idEvent ="+event.getIdEvent());
 
-        String query = "";
         for (String category : event.getCategory()) {
-            query += "INSERT INTO event_category VALUES("+event.getIdEvent() +","
+            String query = "INSERT INTO event_category VALUES("+event.getIdEvent() +","
                     + "(SELECT idCategory FROM tb_category WHERE namecategory = '"+category+"'));";
+
+            executeQuery(query);
         }
-        executeQuery(query);
+
     }
 
     public JSONObject searchEventByName(String eventName){

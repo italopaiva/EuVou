@@ -96,7 +96,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Museus"
+                android:text="Museu"
                 android:id="@+id/optionMuseum"
                 android:checked="false"
                 android:layout_below="@+id/optionCinema"
@@ -126,7 +126,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Esportes"
+                android:text="Esporte"
                 android:id="@+id/optionSports"
                 android:checked="false"
                 android:layout_below="@+id/optionTheater"

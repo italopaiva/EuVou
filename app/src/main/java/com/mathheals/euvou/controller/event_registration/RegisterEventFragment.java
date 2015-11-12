@@ -72,17 +72,17 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
             CheckBox educationCheckBox = (CheckBox) v;
 
             if(educationCheckBox.isChecked()) {
-                categories.add(educationCheckBox.getText().toString());
+                categories.add("Educacao");
             }else{
-                categories.remove(educationCheckBox.getText().toString());
+                categories.remove("Educacao");
             }
         }else if(v.getId() == R.id.optionExposition){
             CheckBox expositionCheckBox = (CheckBox) v;
 
             if(expositionCheckBox.isChecked()) {
-                categories.add(expositionCheckBox.getText().toString());
+                categories.add("Exposicao");
             }else{
-                categories.remove(expositionCheckBox.getText().toString());
+                categories.remove("Exposicao");
             }
         }else if(v.getId() == R.id.optionMuseum){
             CheckBox museumCheckBox = (CheckBox) v;
