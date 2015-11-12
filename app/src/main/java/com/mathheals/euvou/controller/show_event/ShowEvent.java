@@ -172,7 +172,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         if(eventDAO.verifyParticipate(idUser,Integer.parseInt(eventId)) == null)
             Toast.makeText(getActivity(), "Heyy, você já desmarcou sua participação", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(getActivity(), eventDAO.markOffParticipate(idUser,Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), eventDAO.markOffParticipate(idUser, Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
     }
 
     public void onClick(View view) {
