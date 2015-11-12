@@ -92,10 +92,16 @@ public class EventDAO extends DAO {
         for (int i = 0; i < json.length(); i++)
         {
 
-            Event event = new Event(json.getJSONObject(""  + i).getInt("idEvent"),json.getJSONObject(""  + i).getInt("idOwner"),
+            Event event = new Event(json.getJSONObject(""  + i).getInt("idEvent"),
+                    json.getJSONObject(""  + i).getInt("idOwner"),
                     json.getJSONObject("" + i).getString("nameEvent"),
-                    json.getJSONObject("" + i).getString("dateTimeEvent"),json.getJSONObject(""  + i).getString("description"),
-                    json.getJSONObject("" + i).getString("longitude"),json.getJSONObject(""  + i).getString("latitude"));
+                    json.getJSONObject("" + i).getString("dateTimeEvent"),
+                    json.getJSONObject("" + i).getInt("price"),
+                    json.getJSONObject("" + i).getString("address"),
+                    json.getJSONObject(""  + i).getString("description"),
+                    json.getJSONObject("" + i).getString("latitude"),
+                    json.getJSONObject("" + i).getString("longitude")
+            );
             events.add(event);
         }
 

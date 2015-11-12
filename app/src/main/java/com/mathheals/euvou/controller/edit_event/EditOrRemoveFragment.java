@@ -43,15 +43,20 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
         String eventName = evento.getNameEvent();
         String eventDescription = evento.getDescription();
         String eventDateTime = evento.getDateTimeEvent();
-
+        Integer eventPrice = evento.getPrice();
+        String eventAddress = evento.getAddress();
 
         TextView name1Event = (TextView) view.findViewById(R.id.nameEventShow);
         TextView dateEvent = (TextView) view.findViewById(R.id.dateEvent);
         TextView description = (TextView) view.findViewById(R.id.descriptionEvent);
+        TextView eventAddres = (TextView) view.findViewById(R.id.eventPlaces);
+        TextView eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
         eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
         name1Event.setText(eventName);
         description.setText(eventDescription);
         dateEvent.setText(eventDateTime);
+        eventAddres.setText(eventAddress);
+        showEvent.setPriceText(eventPriceText, eventPrice+"");
         showEvent.setCategoriesText(new Integer(evento.getIdEvent()), eventCategoriesText);
 
         return view;

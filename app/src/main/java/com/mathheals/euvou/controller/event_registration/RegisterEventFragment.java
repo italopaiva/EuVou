@@ -144,6 +144,9 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
             EditText dateEventField = (EditText) this.getActivity().findViewById(R.id.eventDate);
             String dateEvent = dateEventField.getText().toString();
 
+            EditText eventTime = (EditText) this.getActivity().findViewById(R.id.eventHour);
+            String eventHour = eventTime.getText().toString();
+
             EditText descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
             String descriptionEvent = descriptionEventField.getText().toString();
 
