@@ -1,13 +1,18 @@
 package com.mathheals.euvou.controller.show_place;
 
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,14 +40,21 @@ public class ShowPlaceInfo extends FragmentActivity {
     private TextView descriptionText;
     private TextView gradeText;
 
+    private Button showMapButton;
+    private Button hideMapButton;
+    private SupportMapFragment mMapFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_place_info);
+        setShowMapButton((Button) findViewById(R.id.button_show_map));
+        setHideMapButton((Button) findViewById(R.id.button_hide_map));
         setPlaceInfo();
         setAllTextViews();
         setUpMapIfNeeded();
+        mMapFragment.getView().setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -72,8 +84,8 @@ public class ShowPlaceInfo extends FragmentActivity {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_show_place_info_map))
-                    .getMap();
+            mMapFragment = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_show_place_info_map));
+            mMap = mMapFragment.getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 setUpMap();
@@ -96,6 +108,21 @@ public class ShowPlaceInfo extends FragmentActivity {
         );
     }
 
+    public void showPlaceInfoOnClick(View view) {
+        switch(view.getId()) {
+            case R.id.button_show_map:
+                setUpMapIfNeeded();
+                hideMapButton.setVisibility(View.VISIBLE);
+                showMapButton.setVisibility(View.GONE);
+                mMapFragment.getView().setVisibility(View.VISIBLE);
+                break;
+            case R.id.button_hide_map:
+                hideMapButton.setVisibility(View.GONE);
+                showMapButton.setVisibility(View.VISIBLE);
+                mMapFragment.getView().setVisibility(View.INVISIBLE);
+                break;
+        }
+    }
     private void setPlaceInfo() {
         Intent intent = getIntent();
         setName(intent.getStringExtra("name"));
@@ -205,5 +232,13 @@ public class ShowPlaceInfo extends FragmentActivity {
         setPhoneText(phone);
         setGradeText(Float.toString(grade));
         setDescriptionText(description);
+    }
+
+    public void setShowMapButton(Button showMapButton) {
+        this.showMapButton = showMapButton;
+    }
+
+    public void setHideMapButton(Button hideMapButton) {
+        this.hideMapButton = hideMapButton;
     }
 }

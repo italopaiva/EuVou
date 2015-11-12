@@ -123,9 +123,25 @@
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/grade_text"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp" />
+        android:layout_marginTop="70dp"
+        android:onClick="showPlaceInfoOnClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ocultar mapa"
+        android:id="@+id/button_hide_map"
+        android:textColor="#FFFFFF"
+        android:background="@color/turquesa_app"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/grade_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:visibility="gone"
+        android:onClick="showPlaceInfoOnClick"/>
 
     <fragment
+        android:visibility="invisible"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
@@ -134,21 +150,8 @@
         tools:context="com.mathheals.euvou.controller.show_place.ShowPlaceInfo"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_below="@id/button_show_map"
+        android:layout_marginTop="120dp"
         android:layout_centerHorizontal="true"
-
         />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ESCONDER MAPA"
-        android:id="@+id/button_hide_map"
-        android:textColor="#FFFFFF"
-        android:background="@color/turquesa_app"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/grade_text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
-        android:visibility="gone"/>
 
 </RelativeLayout>
