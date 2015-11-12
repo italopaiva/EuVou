@@ -35,6 +35,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private String eventLatitude;
     private String eventId;
     private int idUser;
+    private final String GO = "#EUVOU";
+    private final String NOTGO = "#NÃOVOU";
 
     public ShowEvent() {
         // Required empty public constructor
@@ -63,12 +65,11 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         else
         {
             participateButton.setVisibility(View.VISIBLE);
-            if(eventDAO.verifyParticipate(Integer.parseInt(eventId), idUser) == null) {
-                participateButton.setText("#EUVOU");
+            if(eventDAO.verifyParticipate(idUser,Integer.parseInt(eventId)) == null) {
+                participateButton.setText(GO);
             }
-            else
-            {
-                participateButton.setText("#NAOVOU");
+            else{
+                participateButton.setText(NOTGO);
             }
         }
 
@@ -158,12 +159,20 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         intent.putExtras(latitudeAndLongitude);
         startActivity(intent);
     }
-    private void participate()
+    private void markParticipate()
     {
-        if(eventDAO.verifyParticipate(Integer.parseInt(eventId), idUser) != null)
+        if(eventDAO.verifyParticipate(idUser,Integer.parseInt(eventId)) != null)
             Toast.makeText(getActivity(), "Heyy, você já marcou sua participação", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(getActivity(), eventDAO.markParticipate(Integer.parseInt(eventId), idUser), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), eventDAO.markParticipate(idUser,Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
+    }
+    private void markOffParticipate()
+    {
+
+        if(eventDAO.verifyParticipate(idUser,Integer.parseInt(eventId)) == null)
+            Toast.makeText(getActivity(), "Heyy, você já desmarcou sua participação", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getActivity(), eventDAO.markOffParticipate(idUser,Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
     }
 
     public void onClick(View view) {
@@ -172,7 +181,10 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                 showEventOnMap();
                 break;
             case R.id.EuVou:
-                participate();
+                if(((Button)view.findViewById(R.id.EuVou)).getText().equals(GO))
+                    markParticipate();
+                else
+                    markOffParticipate();
                 break;
         }
     }

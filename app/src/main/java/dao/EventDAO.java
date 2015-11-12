@@ -113,4 +113,8 @@ public class EventDAO extends DAO {
         return this.executeConsult("SELECT idUser FROM participate WHERE idEvent=" + idEvent + " AND idUser=" + idUser);
     }
 
+    public String markOffParticipate(int idUser, int idEvent) {
+        return this.executeQuery("DELETE FROM participate WHERE idEvent=" + idEvent + " AND idUser=" + idUser);
+    }
+
 }
