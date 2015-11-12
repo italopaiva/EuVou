@@ -71,7 +71,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             name1Event.setText(eventNameDB);
             description.setText(eventDescription);
             dateEvent.setText(eventDateTime);
-            setPriceText(eventPriceText);
+            setPriceText(eventPriceText, eventPrice);
             setCategoriesText(new Integer(eventId), eventCategoriesText);
 
             /*adressShow.setText(eventAdress);
@@ -122,7 +122,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         eventCategoriesText.setText(text);
     }
 
-    public void setPriceText(TextView eventPriceText) {
+    public void setPriceText(TextView eventPriceText, String eventPrice) {
         final int PRICE = new Integer(eventPrice);
         final String REAIS_PART = Integer.toString(PRICE / 100);
         final String CENTS = Integer.toString(PRICE % 100);

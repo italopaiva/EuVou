@@ -3,6 +3,7 @@ package com.mathheals.euvou.controller.edit_event;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,15 +43,20 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
         String eventName = evento.getNameEvent();
         String eventDescription = evento.getDescription();
         String eventDateTime = evento.getDateTimeEvent();
-
+        Integer eventPrice = evento.getPrice();
+        String eventAddress = evento.getAddress();
 
         TextView name1Event = (TextView) view.findViewById(R.id.nameEventShow);
         TextView dateEvent = (TextView) view.findViewById(R.id.dateEvent);
         TextView description = (TextView) view.findViewById(R.id.descriptionEvent);
+        TextView eventAddres = (TextView) view.findViewById(R.id.eventPlaces);
+        TextView eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
         eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
         name1Event.setText(eventName);
         description.setText(eventDescription);
         dateEvent.setText(eventDateTime);
+        eventAddres.setText(eventAddress);
+        showEvent.setPriceText(eventPriceText, eventPrice+"");
         showEvent.setCategoriesText(new Integer(evento.getIdEvent()), eventCategoriesText);
 
         return view;
@@ -59,9 +65,16 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.editRemoveButton){
+            EditEventFragment editEventFragment = new EditEventFragment();
+            Bundle bundle = new Bundle();
+
             android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content_frame, new EditEventFragment());
+            bundle.putInt("idEvent", evento.getIdEvent());
+            editEventFragment.setArguments(bundle);
+
             fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.replace(R.id.content_frame, editEventFragment);
+
             fragmentTransaction.commit();
         }
 

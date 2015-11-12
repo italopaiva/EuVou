@@ -40,6 +40,18 @@ public class Event {
     private static final int MAX_LENGTH_DESCRIPTION = 500;
     private int idOwner;
 
+    public Event(int idEvent, int idOwner, String nameEvent, String dateTimeEvent, Integer price, String address, String description, String latitude, String longitude) throws EventException, ParseException{
+        setIdEvent(idEvent);
+        setIdOwner(idOwner);
+        setNameEvent(nameEvent);
+        setDateTimeEvent(dateTimeEvent);
+        setPrice(price);
+        setAddress(address);
+        setDescription(description);
+        setLatitude(latitude);
+        setLongitude(longitude);
+    }
+
     public Event(String nameEvent,String dateTimeEvent, Integer price, String address, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
         setAddress(address);
         setPrice(price);
