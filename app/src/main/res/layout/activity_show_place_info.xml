@@ -27,6 +27,31 @@
         android:scrollbars="vertical"
         />
 
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:rating="1.0"
+        android:layout_below="@+id/button_show_map"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_below="@+id/txtRatingValue"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/txtRatingValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@+id/ratingBar"
+        android:layout_toRightOf="@+id/description_text"
+        android:layout_toEndOf="@+id/description_text" />
+
     <TextView
         android:id="@+id/operation"
         android:text="Funcionamento: "
@@ -95,10 +120,10 @@
         android:text="Descrição: "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/grade"
+    android:layout_below="@id/grade"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:textStyle="bold"
+            android:textStyle="bold"
         />
 
     <TextView
