@@ -77,7 +77,7 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
         onView(withId(R.id.fragment_show_place_info_map)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
     }
 
-    public void testIfRatingBarIsAvailableForLoggedInUser() {
+    public void testIfRatingBarIsAvailableForLoggedOutUser() {
         makeUserLogOut();
         startShowPlaceInfoForSettedUpPlace();
         try {
@@ -88,15 +88,20 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
         onView(withId(R.id.ratingBar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
     }
 
-    public void testIfRatingBarIsAvailableForLoggedOutUser() {
+    public void testIfRatingBarIsAvailableForLoggedInUser() {
         boolean result;
-        makeUserLogOut();
+        makeUserLogIn();
         startShowPlaceInfoForSettedUpPlace();
         try {
             onView(withId(R.id.ratingBar)).perform(new SetRating());
-            result = false;
-        } catch (PerformException performException) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             result = true;
+        } catch (PerformException performException) {
+            result = false;
         }
         assertTrue(result);
     }
