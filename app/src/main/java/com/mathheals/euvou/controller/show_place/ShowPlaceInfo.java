@@ -89,8 +89,9 @@ public class ShowPlaceInfo extends FragmentActivity {
         ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2) {
-                Toast.makeText(getBaseContext(), "" + rateValue, Toast.LENGTH_SHORT).show();
                 setRatingEvaluation(idPlace, userId, rateValue);
+                EvaluatePlaceDAO evaluatePlaceDAO = new EvaluatePlaceDAO();
+                evaluatePlaceDAO.evaluatePlace(ratingEvaluation);
             }
         });
         setRatingBarStyle();
@@ -113,6 +114,7 @@ public class ShowPlaceInfo extends FragmentActivity {
             }
         }
     }
+    
     private void setUpMap() {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(getLatitude(), getLongitude()), 9));

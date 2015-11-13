@@ -12,10 +12,10 @@ public class Evaluation {
     public Evaluation(int idPlace, int idUser, float grade){
         setIdPlace(idPlace);
         setIdUser(idUser);
-        setgrade(grade);
+        setGrade(grade);
     }
 
-    public void setgrade(float grade) {
+    public void setGrade(float grade) {
         this.grade = grade;
     }
 
