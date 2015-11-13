@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RatingBar;
+import android.widget.RatingBar.*;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
@@ -60,49 +61,22 @@ public class ShowPlaceInfo extends FragmentActivity {
         setAllTextViews();
         setUpMapIfNeeded();
         mMapFragment.getView().setVisibility(View.INVISIBLE);
-        addListenerOnRatingBar();
-        addListenerOnButton();
+        setRatingBar();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_show_place_info, menu);
         return true;
     }
 
-    public void addListenerOnRatingBar()
-    {
+    private void setRatingBar() {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                txtRatingValue = (TextView) findViewById(R.id.txtRatingValue);
-                txtRatingValue.setText(String.valueOf(rating));
+            public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2) {Toast.makeText(getBaseContext(), "" + rateValue, Toast.LENGTH_SHORT).show();
             }
         });
-    }
-    public void addListenerOnButton() {
-
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        btnSubmit = (Button) findViewById(R.id.btnSubmit);
-
-        //if click on me, then display the current rating value.
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(getBaseContext(),
-                        String.valueOf(ratingBar.getRating()),
-                        Toast.LENGTH_SHORT).show();
-
-
-            }
-
-        });
-
-
     }
 
     @Override
