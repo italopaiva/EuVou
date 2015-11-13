@@ -21,9 +21,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.utility.LoginUtility;
 
 public class ShowPlaceInfo extends FragmentActivity {
 
+    private final Integer LOGGED_OUT = -1;
     protected GoogleMap mMap;
 
     private String name;
@@ -45,23 +47,39 @@ public class ShowPlaceInfo extends FragmentActivity {
     private Button hideMapButton;
     private SupportMapFragment mMapFragment;
 
+    private TextView ratingMessage;
     private RatingBar ratingBar;
+    private Integer userId;
+    private boolean isUserLoggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_place_info);
+
         setShowMapButton((Button) findViewById(R.id.button_show_map));
         setHideMapButton((Button) findViewById(R.id.button_hide_map));
+
+        setUserId(new LoginUtility(this).getUserId());
+        setIsUserLoggedIn(userId != LOGGED_OUT);
+
         setPlaceInfo();
         setAllTextViews();
         setUpMapIfNeeded();
         mMapFragment.getView().setVisibility(View.INVISIBLE);
-        setRatingBar();
+
+        setRatingMessage(isUserLoggedIn);
+        setRatingBarIfNeeded();
+    }
+
+    private void setRatingBarIfNeeded() {
+        if(isUserLoggedIn)
+            setRatingBar();
     }
 
     private void setRatingBar() {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        ratingBar.setVisibility(View.VISIBLE);
         ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2) {
@@ -215,11 +233,25 @@ public class ShowPlaceInfo extends FragmentActivity {
         setDescriptionText(description);
     }
 
-    public void setShowMapButton(Button showMapButton) {
+    private void setShowMapButton(Button showMapButton) {
         this.showMapButton = showMapButton;
     }
 
-    public void setHideMapButton(Button hideMapButton) {
+    private void setHideMapButton(Button hideMapButton) {
         this.hideMapButton = hideMapButton;
+    }
+
+    private void setRatingMessage(boolean isUserLoggedIn) {
+        String message = isUserLoggedIn ? "Sua avaliação:" : "Faça login para avaliar!";
+        ratingMessage = (TextView) findViewById(R.id.rate_it_text);
+        ratingMessage.setText(message);
+    }
+
+    private void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setIsUserLoggedIn(boolean isUserLoggedIn) {
+        this.isUserLoggedIn = isUserLoggedIn;
     }
 }

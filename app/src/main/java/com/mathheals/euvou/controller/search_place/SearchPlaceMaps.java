@@ -134,37 +134,16 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         int id = Integer.parseInt(marke);
         select(id);
         startShowInfoActivity();
-        //startShowInfoFragment();
-        //Toast.makeText(getBaseContext(), clickedPlace.getName(), Toast.LENGTH_SHORT).show();
         return false;
     }
 
     private void select(int id) {
-        //TextView campo;
-        //Place place = places.get(id);
         clickedPlace = places.get(id);
         try {
             selectedPlaceId = foundPlaces.getJSONObject(Integer.toString(id)).getInt("idPlace");
-            Toast.makeText(getBaseContext(), "" + selectedPlaceId, Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-/*
-        campo = (TextView) findViewById(R.id.address);
-        campo.setText("Endereço: " + ((place.getAddress().isEmpty()) ? "Não há" : place.getAddress()));
-
-        campo = (TextView) findViewById(R.id.operation);
-        campo.setText("Funcionamento: " + ((place.getOperation().isEmpty()) ? "Não há" : place.getOperation()));
-
-        campo = (TextView) findViewById(R.id.phone);
-        campo.setText("Telefone: " + ((place.getPhone().isEmpty()) ? "Não há" : place.getPhone()));
-
-        campo = (TextView) findViewById(R.id.description);
-        campo.setText("Descrição: " + ((place.getDescription().isEmpty()) ? "Não há" : place.getDescription()));;
-
-        campo = (TextView) findViewById(R.id.grade);
-        campo.setText("Avaliação: " + place.getEvaluate());
-  */
     }
     private void startShowInfoActivity() {
         Intent intent = new Intent(this, ShowPlaceInfo.class);
