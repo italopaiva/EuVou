@@ -78,14 +78,25 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
     }
 
     public void testIfRatingBarIsAvailableForLoggedInUser() {
+        makeUserLogOut();
+        startShowPlaceInfoForSettedUpPlace();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.ratingBar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
+    }
+
+    public void testIfRatingBarIsAvailableForLoggedOutUser() {
         boolean result;
-        makeUserLogIn();
+        makeUserLogOut();
         startShowPlaceInfoForSettedUpPlace();
         try {
             onView(withId(R.id.ratingBar)).perform(new SetRating());
-            result = true;
-        } catch (PerformException performException) {
             result = false;
+        } catch (PerformException performException) {
+            result = true;
         }
         assertTrue(result);
     }
@@ -125,6 +136,7 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
             onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
             onView(withId(R.id.passwordField)).perform(typeText("123456"));
             onView(withText("Login")).perform(click());
+            isUserLoggedIn = true;
         }
     }
 
@@ -132,6 +144,7 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
         if(isUserLoggedIn) {
             openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
             onView(withText("Sair")).perform(click());
+            isUserLoggedIn = false;
         }
     }
 
