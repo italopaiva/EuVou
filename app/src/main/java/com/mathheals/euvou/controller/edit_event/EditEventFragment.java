@@ -56,6 +56,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         EditText dateField = (EditText) view.findViewById(R.id.eventDate);
         dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
 
+        EditText hourField = (EditText) view.findViewById(R.id.eventHour);
+
         EditText descriptionField = (EditText) view.findViewById(R.id.eventDescription);
 
         EditText priceRealField = (EditText) view.findViewById(R.id.eventPriceReal);
@@ -85,8 +87,17 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
             String nameEvent = jsonEvent.getJSONObject("0").getString("nameEvent");
             nameField.setText(nameEvent);
 
-            String dateEvent = jsonEvent.getJSONObject("0").getString("dateTimeEvent");
+            String dateHourEvent = jsonEvent.getJSONObject("0").getString("dateTimeEvent");
+            String[] dateHourEventSplit = dateHourEvent.split(" ");
+
+            String dateEvent = dateHourEventSplit[0];
+            String[] dateEventSplit = dateEvent.split("-");
+            dateEvent = dateEventSplit[2]+"/"+dateEventSplit[1]+"/"+dateEventSplit[0];
+
+            String hourEvent = dateHourEventSplit[1];
+
             dateField.setText(dateEvent);
+            hourField.setText(hourEvent);
 
             String descriptionEvent = jsonEvent.getJSONObject("0").getString("description");
             descriptionField.setText(descriptionEvent);
@@ -179,6 +190,13 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
         EditText dateField = (EditText) this.getActivity().findViewById(R.id.eventDate);
         String dateEvent = dateField.getText().toString();
+        String[] dateEventSplit = dateEvent.split("/");
+        dateEvent = dateEventSplit[2]+"-"+dateEventSplit[1]+"-"+dateEventSplit[0];
+
+        EditText hourField = (EditText) this.getActivity().findViewById(R.id.eventHour);
+        String hourEvent = hourField.getText().toString();
+
+        String dateHourEvent = dateEvent + " " + hourEvent;
 
         EditText descriptionField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
         String descriptionEvent = descriptionField.getText().toString();
@@ -193,7 +211,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         Integer priceEvent = eventPriceReal * 100 + eventPriceDecimal;
 
         try {
-            Event event = new Event(idEvent, nameEvent, priceEvent, addresEvent, dateEvent, descriptionEvent,
+            Event event = new Event(idEvent, nameEvent, priceEvent, addresEvent, dateHourEvent, descriptionEvent,
                     latitude, longitude, categories);
 
             updateEventOnDataBase(event);
