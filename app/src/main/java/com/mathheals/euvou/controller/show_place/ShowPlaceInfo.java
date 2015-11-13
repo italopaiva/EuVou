@@ -23,6 +23,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
+import dao.EvaluatePlaceDAO;
+import model.Evaluation;
+
 public class ShowPlaceInfo extends FragmentActivity {
 
     private final Integer LOGGED_OUT = -1;
@@ -36,6 +39,7 @@ public class ShowPlaceInfo extends FragmentActivity {
     private double latitude;
     private String address;
     private float grade;
+    private int idPlace;
 
     private TextView addressText;
     private TextView operationText;
@@ -51,6 +55,8 @@ public class ShowPlaceInfo extends FragmentActivity {
     private RatingBar ratingBar;
     private Integer userId;
     private boolean isUserLoggedIn;
+
+    private Evaluation ratingEvaluation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +90,7 @@ public class ShowPlaceInfo extends FragmentActivity {
             @Override
             public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2) {
                 Toast.makeText(getBaseContext(), "" + rateValue, Toast.LENGTH_SHORT).show();
+                setRatingEvaluation(idPlace, userId, rateValue);
             }
         });
         setRatingBarStyle();
@@ -147,6 +154,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         setLatitude(intent.getDoubleExtra("latitude", 0.0));
         setLongitude(intent.getDoubleExtra("longitude", 0.0));
         setOperation(intent.getStringExtra("operation"));
+        setIdPlace(intent.getIntExtra("idPlace", 0));
     }
 
     private void setGrade(float grade) {
@@ -253,5 +261,17 @@ public class ShowPlaceInfo extends FragmentActivity {
 
     public void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
+    }
+
+    public int getIdPlace() {
+        return idPlace;
+    }
+
+    public void setIdPlace(int idPlace) {
+        this.idPlace = idPlace;
+    }
+
+    public void setRatingEvaluation(int idPlace, int idUser, float grade) {
+        this.ratingEvaluation = new Evaluation(idPlace, idUser, grade);
     }
 }
