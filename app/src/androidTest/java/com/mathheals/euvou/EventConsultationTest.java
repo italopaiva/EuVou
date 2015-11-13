@@ -35,7 +35,7 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 /**
  * Created by marlonmendes on 04/11/15.
  */
-public class EventConsultationTest extends ActivityInstrumentationTestCase2<HomePage>{
+public class    EventConsultationTest extends ActivityInstrumentationTestCase2<HomePage>{
     public EventConsultationTest() {
         super(HomePage.class);
     }

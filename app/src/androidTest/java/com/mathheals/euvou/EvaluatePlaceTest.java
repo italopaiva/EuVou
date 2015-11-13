@@ -1,5 +1,7 @@
 package com.mathheals.euvou;
 
+import android.os.Bundle;
+
 import junit.framework.TestCase;
 
 import org.json.JSONException;
@@ -11,6 +13,9 @@ import dao.EvaluatePlaceDAO;
  * Created by marlonmendes on 09/11/15.
  */
 public class EvaluatePlaceTest extends TestCase {
+
+    private Bundle placeInfo;
+
     public void testEvaluatePlace() {
         final float GRADE = 5.0F;
         final int ID_USER = 1;
