@@ -1,10 +1,14 @@
 package com.mathheals.euvou.controller.show_place;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
@@ -47,9 +51,6 @@ public class ShowPlaceInfo extends FragmentActivity {
     private SupportMapFragment mMapFragment;
 
     private RatingBar ratingBar;
-    private TextView txtRatingValue;
-    private Button btnSubmit;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,23 +75,24 @@ public class ShowPlaceInfo extends FragmentActivity {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2) {Toast.makeText(getBaseContext(), "" + rateValue, Toast.LENGTH_SHORT).show();
+            public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2) {
+                Toast.makeText(getBaseContext(), "" + rateValue, Toast.LENGTH_SHORT).show();
             }
         });
+        setRatingBarStyle();
+    }
+
+    private void setRatingBarStyle() {
+        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
