@@ -1,8 +1,8 @@
 package com.mathheals.euvou.controller.search_place;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.show_place.ShowPlaceInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +29,9 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
     protected GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private ArrayList<Place> places;
     private String filter;
+    private Place clickedPlace;
+    private int selectedPlaceId;
+    private JSONObject foundPlaces;
 
     public String getFilter() {
         return filter;
@@ -44,7 +48,6 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
         mMap.setOnMarkerClickListener(this);
-
     }
 
     @Override
@@ -75,9 +78,10 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(-15.7941454, -47.8825479), 9));
         setFilter(getIntent().getStringExtra("query"));
+        foundPlaces = searchPlaces();
 
         try {
-            convertJsonToPlace(searchPlaces());
+            convertJsonToPlace(foundPlaces);
             addMarkerPlace();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -128,28 +132,35 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
     public boolean onMarkerClick(Marker marker) {
         String marke = marker.getId().substring(1);
         int id = Integer.parseInt(marke);
-
         select(id);
+        startShowInfoActivity();
         return false;
     }
 
     private void select(int id) {
-        TextView campo;
-        Place place = places.get(id);
+        clickedPlace = places.get(id);
+        try {
+            selectedPlaceId = foundPlaces.getJSONObject(Integer.toString(id)).getInt("idPlace");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    private void startShowInfoActivity() {
+        Intent intent = new Intent(this, ShowPlaceInfo.class);
+        intent.putExtras(getPlaceInfoAsBundle());
+        startActivity(intent);
+    }
 
-        campo = (TextView) findViewById(R.id.address);
-        campo.setText("Endereço: " + ((place.getAddress().isEmpty()) ? "Não há" : place.getAddress()));
-
-        campo = (TextView) findViewById(R.id.operation);
-        campo.setText("Funcionamento: " + ((place.getOperation().isEmpty()) ? "Não há" : place.getOperation()));
-
-        campo = (TextView) findViewById(R.id.phone);
-        campo.setText("Telefone: " + ((place.getPhone().isEmpty()) ? "Não há" : place.getPhone()));
-
-        campo = (TextView) findViewById(R.id.description);
-        campo.setText("Descrição: " + ((place.getDescription().isEmpty()) ? "Não há" : place.getDescription()));;
-
-        campo = (TextView) findViewById(R.id.grade);
-        campo.setText("Avaliação: " + place.getEvaluate());
+    private Bundle getPlaceInfoAsBundle() {
+        Bundle placeInfo = new Bundle();
+        placeInfo.putString("name", clickedPlace.getName());
+        placeInfo.putString("phone", clickedPlace.getPhone());
+        placeInfo.putString("address", clickedPlace.getAddress());
+        placeInfo.putString("description", clickedPlace.getDescription());
+        placeInfo.putDouble("latitude", clickedPlace.getLatitude());
+        placeInfo.putDouble("longitude", clickedPlace.getLongitude());
+        placeInfo.putString("operation", clickedPlace.getOperation());
+        placeInfo.putInt("idPlace", selectedPlaceId);
+        return placeInfo;
     }
 }
