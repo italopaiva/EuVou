@@ -1,16 +1,12 @@
 package com.mathheals.euvou.controller.search_event;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.utility.LoginUtility;
@@ -49,11 +45,11 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
         // Inflate the layout for this fragment
         listView = (ListView) vw.findViewById(R.id.eventList);
         listView.setOnItemClickListener(this);
-        populaList();
+        fillList();
         return vw;
     }
 
-    private void populaList() {
+    private void fillList() {
         try {
             int id = (new LoginUtility(getActivity())).getUserId();
 
