@@ -1,5 +1,7 @@
 package com.mathheals.euvou;
 
+import android.app.Activity;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
@@ -7,17 +9,21 @@ import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.test.ActivityInstrumentationTestCase2;
 import com.mathheals.euvou.controller.home_page.HomePage;
+import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import org.junit.Before;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.hasToString;
 
@@ -26,8 +32,12 @@ import static org.hamcrest.Matchers.hasToString;
  */
 
 public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage>{
+
     private static final String SELECTED_PLACE_NAME = "Parque Ecológico do Tororó";
+    private static final int USER_LOGGED_OUT = -1;
     private UiDevice device;
+    private boolean isUserLoggedIn;
+    private Activity activity;
 
     public ShowPlaceInfoTest() {
         super(HomePage.class);
@@ -36,7 +46,8 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        getActivity();
+        activity = getActivity();
+        setIsUserLoggedIn(new LoginUtility(activity).getUserId() != USER_LOGGED_OUT);
         device = UiDevice.getInstance(getInstrumentation());
     }
 
@@ -80,4 +91,24 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
         }
     }
 
+    public void setIsUserLoggedIn(boolean isUserLoggedIn) {
+        this.isUserLoggedIn = isUserLoggedIn;
+    }
+
+    private void makeUserLogIn() {
+        if(!isUserLoggedIn) {
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Entrar")).perform(click());
+            onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
+            onView(withId(R.id.passwordField)).perform(typeText("123456"));
+            onView(withText("Login")).perform(click());
+        }
+    }
+
+    private void makeUserLogOut() {
+        if(isUserLoggedIn) {
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
+    }
 }
