@@ -5,18 +5,18 @@ package model;
  */
 public class Evaluation {
 
-    private float grave;
+    private float grade;
     private int idPlace;
     private int idUser;
 
-    public Evaluation(int idPlace, int idUser, float grave){
+    public Evaluation(int idPlace, int idUser, float grade){
         setIdPlace(idPlace);
         setIdUser(idUser);
-        setGrave(grave);
+        setgrade(grade);
     }
 
-    public void setGrave(float grave) {
-        this.grave = grave;
+    public void setgrade(float grade) {
+        this.grade = grade;
     }
 
     public void setIdUser(int idUser) {
@@ -27,8 +27,8 @@ public class Evaluation {
         this.idPlace = idPlace;
     }
 
-    public float getGrave() {
-        return grave;
+    public float getgrade() {
+        return grade;
     }
 
     public int getIdPlace() {

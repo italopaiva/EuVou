@@ -30,6 +30,8 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
     private ArrayList<Place> places;
     private String filter;
     private Place clickedPlace;
+    private int selectedPlaceId;
+    private JSONObject foundPlaces;
 
     public String getFilter() {
         return filter;
@@ -46,7 +48,6 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
         mMap.setOnMarkerClickListener(this);
-
     }
 
     @Override
@@ -77,9 +78,10 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(-15.7941454, -47.8825479), 9));
         setFilter(getIntent().getStringExtra("query"));
+        foundPlaces = searchPlaces();
 
         try {
-            convertJsonToPlace(searchPlaces());
+            convertJsonToPlace(foundPlaces);
             addMarkerPlace();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -141,6 +143,12 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         //TextView campo;
         //Place place = places.get(id);
         clickedPlace = places.get(id);
+        try {
+            selectedPlaceId = foundPlaces.getJSONObject(Integer.toString(id)).getInt("idPlace");
+            Toast.makeText(getBaseContext(), "" + selectedPlaceId, Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 /*
         campo = (TextView) findViewById(R.id.address);
         campo.setText("Endereço: " + ((place.getAddress().isEmpty()) ? "Não há" : place.getAddress()));
@@ -173,6 +181,7 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         placeInfo.putDouble("latitude", clickedPlace.getLatitude());
         placeInfo.putDouble("longitude", clickedPlace.getLongitude());
         placeInfo.putString("operation", clickedPlace.getOperation());
+        placeInfo.putInt("idPlace", selectedPlaceId);
         return placeInfo;
     }
 }
