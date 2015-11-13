@@ -136,7 +136,7 @@ public class ShowPlaceInfo extends FragmentActivity {
             case R.id.button_hide_map:
                 hideMapButton.setVisibility(View.GONE);
                 showMapButton.setVisibility(View.VISIBLE);
-                mMapFragment.getView().setVisibility(View.INVISIBLE);
+                mMapFragment.getView().setVisibility(View.GONE);
                 break;
         }
     }

@@ -170,7 +170,6 @@
         android:onClick="showPlaceInfoOnClick"/>
 
     <fragment
-        android:visibility="invisible"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
