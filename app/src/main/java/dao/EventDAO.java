@@ -24,8 +24,8 @@ public class EventDAO extends DAO {
     public EventDAO(){}
 
     public void saveEvent(Event event){
-        executeQuery("insert into tb_event(nameEvent, price, address, dateTimeEvent,description,longitude,latitude) VALUES('" +
-                event.getNameEvent() + "', '" + event.getPrice() + "', '" + event.getAddress() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
+        executeQuery("insert into tb_event(nameEvent, idOwner, price, address, dateTimeEvent,description,longitude,latitude) VALUES('" +
+                event.getNameEvent() + "', '" + event.getIdOwner() + "', '" + event.getPrice() + "', '" + event.getAddress() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
                 "" + event.getLongitude() + "," + event.getLatitude() + ")");
 
         Vector<String> categories = event.getCategory();

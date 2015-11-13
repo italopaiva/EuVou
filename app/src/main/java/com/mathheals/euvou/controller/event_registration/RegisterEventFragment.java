@@ -164,8 +164,11 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
             Integer priceEventDecimal = Integer.parseInt(priceEventDecimalField.getText().toString());
             Integer priceEvent = priceEventReal * 100 + priceEventDecimal;
 
+            LoginUtility loginUtility = new LoginUtility(getActivity());
+            int idOwner = loginUtility.getUserId();
+
             try {
-                Event event = new Event(nameEvent, dateHourEvent, priceEvent, addressEvent, descriptionEvent,
+                Event event = new Event(idOwner, nameEvent, dateHourEvent, priceEvent, addressEvent, descriptionEvent,
                                         latitude, longitude, categories);
                 registerEvent(event);
 
