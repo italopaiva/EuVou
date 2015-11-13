@@ -1,28 +1,19 @@
 package com.mathheals.euvou;
 
-import android.app.Activity;
-import android.app.Instrumentation;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.ActivityUnitTestCase;
-
 import com.mathheals.euvou.controller.home_page.HomePage;
-import com.mathheals.euvou.controller.show_place.ShowPlaceInfo;
 
 import org.junit.Before;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.core.deps.guava.base.Predicates.not;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
@@ -33,6 +24,7 @@ import static org.hamcrest.Matchers.hasToString;
 /**
  * Created by marlonmendes on 12/11/15.
  */
+
 public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage>{
     private static final String SELECTED_PLACE_NAME = "Parque Ecológico do Tororó";
     private UiDevice device;
@@ -51,21 +43,6 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
     public void testShowPlaceStarting() {
         startShowPlaceInfoForSettedUpPlace();
         onView(withId(R.id.address)).check(matches(isDisplayed()));
-    }
-
-    private void startShowPlaceInfoForSettedUpPlace() {
-        clickOnTodosPlaceCategory();
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        UiObject marker = device.findObject(new UiSelector().descriptionContains(SELECTED_PLACE_NAME));
-        try {
-            marker.click();
-        } catch (UiObjectNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     public void testShowMapForSelectedPlace() {
@@ -87,4 +64,20 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
                 .inAdapterView(withId(R.id.left_drawer_list)).atPosition(0)
                 .perform(click());
     }
+
+    private void startShowPlaceInfoForSettedUpPlace() {
+        clickOnTodosPlaceCategory();
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        UiObject marker = device.findObject(new UiSelector().descriptionContains(SELECTED_PLACE_NAME));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

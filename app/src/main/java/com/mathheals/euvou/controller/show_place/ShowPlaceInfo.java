@@ -1,18 +1,13 @@
 package com.mathheals.euvou.controller.show_place;
 
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
-import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.RatingBar.*;
@@ -65,12 +60,6 @@ public class ShowPlaceInfo extends FragmentActivity {
         setRatingBar();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_show_place_info, menu);
-        return true;
-    }
-
     private void setRatingBar() {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
@@ -86,16 +75,6 @@ public class ShowPlaceInfo extends FragmentActivity {
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
@@ -164,10 +143,6 @@ public class ShowPlaceInfo extends FragmentActivity {
         return address;
     }
 
-    private float getGrade() {
-        return grade;
-    }
-
     private double getLongitude() {
         return longitude;
     }
@@ -176,24 +151,12 @@ public class ShowPlaceInfo extends FragmentActivity {
         this.longitude = longitude;
     }
 
-    private String getDescription() {
-        return description;
-    }
-
     private void setDescription(String description) {
         this.description = description;
     }
 
-    private String getOperation() {
-        return operation;
-    }
-
     private void setOperation(String operation) {
         this.operation = operation;
-    }
-
-    private String getPhone() {
-        return phone;
     }
 
     private void setPhone(String phone) {
