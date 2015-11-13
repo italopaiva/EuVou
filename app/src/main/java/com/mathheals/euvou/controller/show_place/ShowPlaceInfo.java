@@ -225,6 +225,7 @@ public class ShowPlaceInfo extends FragmentActivity {
     private void setOperationText(String operationText) {
         this.operationText = (TextView) findViewById(R.id.operation_text);
         this.operationText.setText(operationText);
+        this.operationText.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void setPhoneText(String phoneText) {
