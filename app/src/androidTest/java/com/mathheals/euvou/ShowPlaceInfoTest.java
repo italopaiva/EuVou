@@ -2,15 +2,22 @@ package com.mathheals.euvou;
 
 import android.app.Activity;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.PerformException;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
+import android.widget.RatingBar;
+
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
+import org.hamcrest.Matcher;
 import org.junit.Before;
 
 import static android.support.test.espresso.Espresso.onData;
@@ -19,6 +26,7 @@ import static android.support.test.espresso.Espresso.openActionBarOverflowOrOpti
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
@@ -69,6 +77,19 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
         onView(withId(R.id.fragment_show_place_info_map)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
     }
 
+    public void testIfRatingBarIsAvailableForLoggedInUser() {
+        boolean result;
+        makeUserLogIn();
+        startShowPlaceInfoForSettedUpPlace();
+        try {
+            onView(withId(R.id.ratingBar)).perform(new SetRating());
+            result = true;
+        } catch (PerformException performException) {
+            result = false;
+        }
+        assertTrue(result);
+    }
+
     private void clickOnTodosPlaceCategory() {
         onView(withContentDescription("Navigate up")).perform(click());
         onData(hasToString(containsString("")))
@@ -95,6 +116,8 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
         this.isUserLoggedIn = isUserLoggedIn;
     }
 
+
+
     private void makeUserLogIn() {
         if(!isUserLoggedIn) {
             openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
@@ -109,6 +132,26 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
         if(isUserLoggedIn) {
             openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
             onView(withText("Sair")).perform(click());
+        }
+    }
+
+    public final class SetRating implements ViewAction {
+
+        @Override
+        public Matcher<View> getConstraints() {
+            Matcher<View> isRatingBarConstraint = isAssignableFrom(RatingBar.class);
+            return isRatingBarConstraint;
+        }
+
+        @Override
+        public String getDescription() {
+            return "Custom view action to set rating.";
+        }
+
+        @Override
+        public void perform(UiController uiController, View view) {
+            RatingBar ratingBar = (RatingBar) view;
+            ratingBar.setRating(3);
         }
     }
 }
