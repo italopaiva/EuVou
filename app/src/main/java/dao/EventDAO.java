@@ -24,21 +24,21 @@ public class EventDAO extends DAO {
     public EventDAO(){}
 
     public void saveEvent(Event event){
-        if(executeConsult("Select count(longitude) from tb_locate where longitude = " +
-                event.getLongitude() +" and latitude = " + event.getLatitude()) == null)
-            executeQuery("insert into tb_locate values("+event.getLongitude() +","+event.getLatitude() +
-                    ",'"+event.getAdress()+"')");
-
-        executeQuery("insert into tb_event(nameEvent,dateTimeEvent,description,longitude,latitude) VALUES('" +
-                event.getNameEvent() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
+        executeQuery("insert into tb_event(nameEvent, idOwner, price, address, dateTimeEvent,description,longitude,latitude) VALUES('" +
+                event.getNameEvent() + "', '" + event.getIdOwner() + "', '" + event.getPrice() + "', '" + event.getAddress() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
                 "" + event.getLongitude() + "," + event.getLatitude() + ")");
 
-        //String query = "";
         Vector<String> categories = event.getCategory();
-        //for (String category : event.getCategory()) {
+        JSONObject jsonObject = executeConsult("SELECT idEvent FROM tb_event WHERE nameEvent = \"" + event.getNameEvent() + "\"");
+        int idEvent = 0;
+        try {
+            idEvent = jsonObject.getJSONObject("0").getInt("idEvent");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         for(int i=0; i<categories.size(); i++){
-            String query = "INSERT INTO event_category(idEvent, idCategory) VALUES((SELECT idEvent FROM tb_event " +
-                    "WHERE nameEvent=\""+event.getNameEvent()+"\"), " +
+            String query = "INSERT INTO event_category(idEvent, idCategory) VALUES(\"" + idEvent + "\", " +
                     "(SELECT idCategory FROM tb_category WHERE nameCategory = \""+categories.get(i)+"\"))";
 
             executeQuery(query);
@@ -47,31 +47,28 @@ public class EventDAO extends DAO {
     }
     public  String deleteEvent(Event event)
     {
-        return this.executeQuery("DELETE FROM tb_event WHERE idEvent =" + event.getIdEvent());
+        return this.executeQuery("DELETE FROM tb_event WHERE idEvent ="+event.getIdEvent());
     }
 
     public void updateEvent(Event event)
     {
-        if(executeConsult("Select count(longitude) from tb_locate where longitude = " +
-                event.getLongitude() +" and latitude = " + event.getLatitude()) == null)
-            executeQuery("insert into tb_locate values("+event.getLongitude() +","+event.getLatitude() +
-                    ",'"+event.getAdress()+"')");
-
-        executeQuery("UPDATE tb_event SET nameEvent=\""+event.getNameEvent()+"\", "+"dateTimeEvent=\""+event.getDateTimeEvent()+
-                "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", "+"latitude=\""+event.getLatitude()+" \", \""+event.getCategory()+" \")");
+        executeQuery("UPDATE tb_event SET price=\"" + event.getPrice() + "\", address=\"" + event.getAddress() + "\", " +
+                "nameEvent=\""+event.getNameEvent()+"\", "+"dateTimeEvent=\""+event.getDateTimeEvent()+
+                "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", " +
+                " "+" latitude=\""+event.getLatitude()+ "\" WHERE idEvent = " + event.getIdEvent());
 
         executeQuery("delete from event_category where idEvent ="+event.getIdEvent());
 
-        String query = "";
         for (String category : event.getCategory()) {
-            query += "INSERT INTO event_category VALUES("+event.getIdEvent() +","
+            String query = "INSERT INTO event_category VALUES("+event.getIdEvent() +","
                     + "(SELECT idCategory FROM tb_category WHERE namecategory = '"+category+"'));";
+
+            executeQuery(query);
         }
-        executeQuery(query);
+
     }
 
-    public JSONObject searchEventByName(String eventName)
-    {
+    public JSONObject searchEventByName(String eventName){
         return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%'");
     }
 
@@ -80,13 +77,12 @@ public class EventDAO extends DAO {
         return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%' GROUP BY idEvent");
     }
 
-    public JSONObject searchEventById(String idEvent)
-    {
-        return this.executeConsult("SELECT * FROM tb_event WHERE idEvent ='"+idEvent+"'");
+    public JSONObject searchEventById(int idEvent){
+        return this.executeConsult("SELECT * FROM tb_event WHERE idEvent = " + idEvent);
     }
 
     public Vector<Event> searchEventByOwner(int owner) throws JSONException, ParseException, EventException {
-        JSONObject json = this.executeConsult("SELECT * FROM tb_event WHERE idOwner=\"" + owner + "\" GROUP BY idEvent");
+        JSONObject json = this.executeConsult("SELECT * FROM tb_event WHERE idOwner=" + owner + " GROUP BY idEvent");
 
         if(json == null)
             return null;
@@ -95,10 +91,17 @@ public class EventDAO extends DAO {
 
         for (int i = 0; i < json.length(); i++)
         {
-            Event event = new Event(json.getJSONObject(""  + i).getInt("idEvent"),json.getJSONObject(""  + i).getInt("idOwner"),
+
+            Event event = new Event(json.getJSONObject(""  + i).getInt("idEvent"),
+                    json.getJSONObject(""  + i).getInt("idOwner"),
                     json.getJSONObject("" + i).getString("nameEvent"),
-                    json.getJSONObject("" + i).getString("dateTimeEvent"),json.getJSONObject(""  + i).getString("description"),
-                    json.getJSONObject("" + i).getString("longitude"),json.getJSONObject(""  + i).getString("latitude"));
+                    json.getJSONObject("" + i).getString("dateTimeEvent"),
+                    json.getJSONObject("" + i).getInt("price"),
+                    json.getJSONObject("" + i).getString("address"),
+                    json.getJSONObject(""  + i).getString("description"),
+                    json.getJSONObject("" + i).getString("latitude"),
+                    json.getJSONObject("" + i).getString("longitude")
+            );
             events.add(event);
         }
 

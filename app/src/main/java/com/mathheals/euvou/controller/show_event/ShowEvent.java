@@ -55,9 +55,9 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         participateButton.setOnClickListener(this);
 
         eventDAO = new EventDAO(this.getActivity());
-        eventId = this.getArguments().getString("idEventSearch");
+        String eventId = this.getArguments().getString("idEventSearch");
         JSONObject eventDATA = eventDAO.searchEventById(eventId);
-        //Toast.makeText(getContext(), new LoginUtility(getActivity()).getUserId() +"", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), eventNamee, Toast.LENGTH_LONG).show();
 
         idUser = new LoginUtility(getActivity()).getUserId();
         if(new LoginUtility(getActivity()).getUserId() == -1)
@@ -75,8 +75,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
         try {
             String eventNameDB = eventDATA.getJSONObject("0").getString("nameEvent");
-            //String eventAdress = eventDATA.getJSONObject("0").getString("dateTimeEvent");
-            //o banco ainda está sem a tabela endereço!!
+            String eventAdress = eventDATA.getJSONObject("0").getString("address");
             String eventDescription = eventDATA.getJSONObject("0").getString("description");
             String eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
             eventPrice = eventDATA.getJSONObject("0").getString(PRICE_COLUMN);
@@ -86,18 +85,16 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             TextView name1Event = (TextView) view.findViewById(R.id.nameEventShow);
             TextView dateEvent = (TextView) view.findViewById(R.id.dateEvent);
             TextView description = (TextView) view.findViewById(R.id.descriptionEvent);
+            TextView addressShow = (TextView) view.findViewById(R.id.eventPlaces);
             eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
             eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
             name1Event.setText(eventNameDB);
             description.setText(eventDescription);
             dateEvent.setText(eventDateTime);
-            setPriceText();
-            setCategoriesText(new Integer(eventId));
+            setPriceText(eventPriceText, eventPrice);
+            setCategoriesText(new Integer(eventId), eventCategoriesText);
+            addressShow.setText(eventAdress);
 
-            /*adressShow.setText(eventAdress);
-            descriptionShow.setText(eventDescription);
-            dataShow.setText(eventDateTime);
-*/
         } catch (JSONException ex) {
             ex.printStackTrace();
         } catch (NullPointerException exception) {
@@ -134,7 +131,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         return categoriesArray;
     }
 
-    void setCategoriesText(int eventId){
+    public void setCategoriesText(int eventId, TextView eventCategoriesText){
         String[] eventCategories = getEventCategoriesById(eventId);
         String text = eventCategories[0];
         for(int i = 1; i < eventCategories.length; ++i)
@@ -142,7 +139,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         eventCategoriesText.setText(text);
     }
 
-    void setPriceText() {
+    public void setPriceText(TextView eventPriceText, String eventPrice) {
         final int PRICE = new Integer(eventPrice);
         final String REAIS_PART = Integer.toString(PRICE / 100);
         final String CENTS = Integer.toString(PRICE % 100);

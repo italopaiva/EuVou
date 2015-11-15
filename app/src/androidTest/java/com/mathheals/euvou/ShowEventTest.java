@@ -13,7 +13,7 @@ public class ShowEventTest extends TestCase {
     public void testEventName()
     {
         EventDAO eventDAO = new EventDAO();
-        JSONObject eventData = eventDAO.searchEventById("2");
+        JSONObject eventData = eventDAO.searchEventById(2);
         try
         {
             String nameEventDB = eventData.getJSONObject("0").getString("nameEvent");
@@ -27,7 +27,7 @@ public class ShowEventTest extends TestCase {
     public void testEventDescription()
     {
         EventDAO eventDAO = new EventDAO();
-        JSONObject eventData = eventDAO.searchEventById("2");
+        JSONObject eventData = eventDAO.searchEventById(2);
         try
         {
             String eventDescription = eventData.getJSONObject("0").getString("description");
@@ -41,7 +41,7 @@ public class ShowEventTest extends TestCase {
     public void testEventDate()
     {
         EventDAO eventDAO = new EventDAO();
-        JSONObject eventData = eventDAO.searchEventById("2");
+        JSONObject eventData = eventDAO.searchEventById(2);
         try
         {
             String eventDateTime = eventData.getJSONObject("0").getString("dateTimeEvent");
@@ -55,7 +55,7 @@ public class ShowEventTest extends TestCase {
     public void testEventLatitude()
     {
         EventDAO eventDAO = new EventDAO();
-        JSONObject eventData = eventDAO.searchEventById("2");
+        JSONObject eventData = eventDAO.searchEventById(2);
         try
         {
             String eventlatitude = eventData.getJSONObject("0").getString("latitude");
@@ -69,7 +69,7 @@ public class ShowEventTest extends TestCase {
     public void testEventLongitude()
     {
         EventDAO eventDAO = new EventDAO();
-        JSONObject eventData = eventDAO.searchEventById("2");
+        JSONObject eventData = eventDAO.searchEventById(2);
         try
         {
             String eventlongitude = eventData.getJSONObject("0").getString("longitude");
@@ -83,10 +83,10 @@ public class ShowEventTest extends TestCase {
     public void testEventPrice()
     {
         EventDAO eventDAO = new EventDAO();
-        JSONObject eventData = eventDAO.searchEventById("1");
+        JSONObject eventData = eventDAO.searchEventById(1);
         try{
             String eventPrice = eventData.getJSONObject("0").getString("price");
-            assertEquals(101,Integer.parseInt(eventPrice));
+            assertEquals(10010,Integer.parseInt(eventPrice));
         }catch(JSONException ex)
         {
         }
