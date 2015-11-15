@@ -48,16 +48,14 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_show_event, container, false);
-
         showEventOnMapButton = (Button) view.findViewById(R.id.showEventOnMapButton);
         participateButton = (Button) view.findViewById(R.id.EuVou);
         showEventOnMapButton.setOnClickListener(this);
         participateButton.setOnClickListener(this);
 
         eventDAO = new EventDAO(this.getActivity());
-        String eventId = this.getArguments().getString("idEventSearch");
-        JSONObject eventDATA = eventDAO.searchEventById(eventId);
-        //Toast.makeText(getContext(), eventNamee, Toast.LENGTH_LONG).show();
+        eventId = this.getArguments().getString("idEventSearch");
+        JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
 
         idUser = new LoginUtility(getActivity()).getUserId();
         if(new LoginUtility(getActivity()).getUserId() == -1)

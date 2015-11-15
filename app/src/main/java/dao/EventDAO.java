@@ -74,7 +74,7 @@ public class EventDAO extends DAO {
 
     public JSONObject searchEventByNameGroup(String eventName)
     {
-        return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%' GROUP BY idEvent");
+        return this.executeConsult("SELECT * FROM tb_event WHERE nameEvent LIKE'%"+eventName+"%' GROUP BY idEvent");
     }
 
     public JSONObject searchEventById(int idEvent){
@@ -113,7 +113,7 @@ public class EventDAO extends DAO {
     }
 
     public JSONObject verifyParticipate(int idUser, int idEvent) {
-        return this.executeConsult("SELECT idUser FROM participate WHERE idEvent=" + idEvent + " AND idUser=" + idUser);
+        return this.executeConsult("SELECT * FROM participate WHERE idEvent=" + idEvent + " AND idUser=" + idUser);
     }
 
     public String markOffParticipate(int idUser, int idEvent) {
