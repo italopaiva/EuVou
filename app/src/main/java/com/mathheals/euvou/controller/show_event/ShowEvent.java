@@ -1,11 +1,15 @@
 package com.mathheals.euvou.controller.show_event;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mathheals.euvou.R;
@@ -17,8 +21,11 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import dao.CategoryDAO;
+import dao.EvaluatePlaceDAO;
 import dao.EventCategoryDAO;
 import dao.EventDAO;
+import dao.EventEvaluationDAO;
+import model.EventEvaluation;
 
 
 /**
@@ -39,11 +46,15 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private final String GO = "#EUVOU";
     private final String NOTGO = "#NÃOVOU";
 
+
+    // fields for Event Evaluation
     private final Integer LOGGED_OUT = -1;
     private int userId;
     private boolean isUserLoggedIn;
     private TextView ratingMessage;
     private View showEventView;
+    private RatingBar ratingBar;
+    private EventEvaluation eventEvaluation;
 
     public ShowEvent() {
         // Required empty public constructor
@@ -108,6 +119,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
         setIsUserLoggedIn(userId != LOGGED_OUT);
         setRatingMessage(isUserLoggedIn);
+        setRatingBarIfNeeded();
 
         return showEventView;
     }
@@ -199,21 +211,53 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         this.userId = userId;
     }
 
-    public void setRatingBar() {
-
-    }
-
     public void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
     }
 
     private void setRatingMessage(boolean isUserLoggedIn) {
-        String message = isUserLoggedIn ? "Sua avaliação:" : "Faça login para avaliar este evento!";
+        final String LOGGED_IN_MESSAGE = "Sua avaliação:";
+        final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este evento!";
+        String message = isUserLoggedIn ? LOGGED_IN_MESSAGE : LOGGED_OUT_MESSAGE;
+
         ratingMessage = (TextView) showEventView.findViewById(R.id.rate_event_text);
         ratingMessage.setText(message);
     }
 
     public void setShowEventView(View showEventView) {
         this.showEventView = showEventView;
+    }
+
+    private void setRatingBarIfNeeded() {
+        if(isUserLoggedIn)
+            setRatingBar();
+    }
+
+
+    private void setRatingBar() {
+        ratingBar = (RatingBar) showEventView.findViewById(R.id.ratingBar);
+        ratingBar.setVisibility(View.VISIBLE);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2) {
+                setEventEvaluation(rateValue, userId, new Integer(eventId));
+                EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
+                eventEvaluationDAO.evaluateEvent(getEventEvaluation());
+            }
+        });
+        setRatingBarStyle();
+    }
+
+    public EventEvaluation getEventEvaluation() {
+        return eventEvaluation;
+    }
+
+    public void setEventEvaluation(Float rating, Integer userId, Integer eventId) {
+        this.eventEvaluation = new EventEvaluation(rating, userId, eventId);
+    }
+
+    private void setRatingBarStyle() {
+        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
     }
 }
