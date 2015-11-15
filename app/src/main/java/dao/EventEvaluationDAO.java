@@ -34,4 +34,10 @@ public class EventEvaluationDAO extends DAO {
 
         executeQuery(QUERY);
     }
+
+    public JSONObject searchEventEvaluation(int eventId, int userId) {
+        final String QUERY = "SELECT * FROM evaluate_event WHERE idUser = \"" + userId
+                            + "\" AND idEvent = " + eventId;
+        return executeConsult(QUERY);
+    }
 }

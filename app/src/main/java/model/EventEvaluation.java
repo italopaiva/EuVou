@@ -8,6 +8,13 @@ public class EventEvaluation {
     private Integer userId;
     private Integer eventId;
 
+
+    public EventEvaluation(Float rating, Integer userId, Integer eventId) {
+        this.rating = rating;
+        this.userId = userId;
+        this.eventId = eventId;
+    }
+
     public Float getRating() {
         return rating;
     }
