@@ -169,7 +169,8 @@
             <EditText
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/eventPriceReal" />
+                android:id="@+id/eventPriceReal"
+                android:inputType="number"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -180,7 +181,8 @@
             <EditText
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/eventPriceDecimal" />
+                android:id="@+id/eventPriceDecimal"
+                android:inputType="number"/>
         </LinearLayout>
 
         <TextView

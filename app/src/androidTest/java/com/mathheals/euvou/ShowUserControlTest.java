@@ -31,15 +31,4 @@ public class ShowUserControlTest  extends ActivityInstrumentationTestCase2<HomeP
         super.setUp();
         getActivity();
     }
-
-    public void testIfLabelsAreDisplayed() {
-        onView(withId(R.id.search)).check(matches(isDisplayed()));
-        onView(withId(R.id.search)).perform(click());
-        onView(withId(R.id.search_src_text)).perform(typeText("igodudu"), pressKey(66));
-        onView(withId(R.id.name)).check(matches(withText("Nome:")));
-        onView(withId(R.id.birthDateShown)).check(matches(withText("Data de nascimento")));
-        onView(withId(R.id.emailShown)).check(matches(withText("E-mail")));
-
-    }
-
 }

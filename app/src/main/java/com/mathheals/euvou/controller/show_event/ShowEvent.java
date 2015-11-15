@@ -55,8 +55,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
         try {
             String eventNameDB = eventDATA.getJSONObject("0").getString("nameEvent");
-            //String eventAdress = eventDATA.getJSONObject("0").getString("dateTimeEvent");
-            //o banco ainda está sem a tabela endereço!!
+            String eventAdress = eventDATA.getJSONObject("0").getString("address");
             String eventDescription = eventDATA.getJSONObject("0").getString("description");
             String eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
             eventPrice = eventDATA.getJSONObject("0").getString(PRICE_COLUMN);
@@ -66,6 +65,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             TextView name1Event = (TextView) view.findViewById(R.id.nameEventShow);
             TextView dateEvent = (TextView) view.findViewById(R.id.dateEvent);
             TextView description = (TextView) view.findViewById(R.id.descriptionEvent);
+            TextView addressShow = (TextView) view.findViewById(R.id.eventPlaces);
             eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
             eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
             name1Event.setText(eventNameDB);
@@ -73,11 +73,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             dateEvent.setText(eventDateTime);
             setPriceText(eventPriceText, eventPrice);
             setCategoriesText(new Integer(eventId), eventCategoriesText);
+            addressShow.setText(eventAdress);
 
-            /*adressShow.setText(eventAdress);
-            descriptionShow.setText(eventDescription);
-            dataShow.setText(eventDateTime);
-*/
         } catch (JSONException ex) {
             ex.printStackTrace();
         } catch (NullPointerException exception) {

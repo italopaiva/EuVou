@@ -86,7 +86,7 @@ public class ShowEventTest extends TestCase {
         JSONObject eventData = eventDAO.searchEventById(1);
         try{
             String eventPrice = eventData.getJSONObject("0").getString("price");
-            assertEquals(101,Integer.parseInt(eventPrice));
+            assertEquals(10010,Integer.parseInt(eventPrice));
         }catch(JSONException ex)
         {
         }
