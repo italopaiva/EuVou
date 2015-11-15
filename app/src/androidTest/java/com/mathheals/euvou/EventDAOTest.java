@@ -28,10 +28,10 @@ public class EventDAOTest extends TestCase {
         EventDAO eventDAO = new EventDAO();
         Vector<String> category = new Vector<>();
         category.add("Show");
-        Event event = new Event(1, "Teste Abacate", "10010", "oi", "00/00/0000", "xablau", "0", "0", category);
+        Event event = new Event(1, "Teste Abacate", 10010, "oi", "00/00/0000", "xablau", "0", "0", category);
         eventDAO.updateEvent(event);
         assertEquals(eventDAO.searchEventById(1).getJSONObject("0").getString("nameEvent"), "Teste Abacate");
-        event = new Event(1, "Teste", "10010", "oi", "00/00/0000", "xablau", "0", "0", category);
+        event = new Event(1, "Teste", 10010, "oi", "00/00/0000", "xablau", "0", "0", category);
         eventDAO.updateEvent(event);
     }
 
