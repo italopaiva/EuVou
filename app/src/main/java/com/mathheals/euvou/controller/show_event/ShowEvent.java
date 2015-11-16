@@ -34,6 +34,9 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private String eventLongitude;
     private String eventLatitude;
     private String eventId;
+    private int idUser;
+    private final String GO = "#EUVOU";
+    private final String NOTGO = "#NÃOVOU";
 
     public ShowEvent() {
         // Required empty public constructor
@@ -45,7 +48,6 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_show_event, container, false);
-
         showEventOnMapButton = (Button) view.findViewById(R.id.showEventOnMapButton);
         participateButton = (Button) view.findViewById(R.id.EuVou);
         showEventOnMapButton.setOnClickListener(this);
@@ -53,18 +55,25 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
         eventDAO = new EventDAO(this.getActivity());
         eventId = this.getArguments().getString("idEventSearch");
-        JSONObject eventDATA = eventDAO.searchEventById(eventId);
-        //Toast.makeText(getContext(), new LoginUtility(getActivity()).getUserId() +"", Toast.LENGTH_LONG).show();
+        JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
+
+        idUser = new LoginUtility(getActivity()).getUserId();
         if(new LoginUtility(getActivity()).getUserId() == -1)
             participateButton.setVisibility(View.GONE);
         else
+        {
             participateButton.setVisibility(View.VISIBLE);
-
+            if(eventDAO.verifyParticipate(idUser,Integer.parseInt(eventId)) == null) {
+                participateButton.setText(GO);
+            }
+            else{
+                participateButton.setText(NOTGO);
+            }
+        }
 
         try {
             String eventNameDB = eventDATA.getJSONObject("0").getString("nameEvent");
-            //String eventAdress = eventDATA.getJSONObject("0").getString("dateTimeEvent");
-            //o banco ainda está sem a tabela endereço!!
+            String eventAdress = eventDATA.getJSONObject("0").getString("address");
             String eventDescription = eventDATA.getJSONObject("0").getString("description");
             String eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
             eventPrice = eventDATA.getJSONObject("0").getString(PRICE_COLUMN);
@@ -74,18 +83,16 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             TextView name1Event = (TextView) view.findViewById(R.id.nameEventShow);
             TextView dateEvent = (TextView) view.findViewById(R.id.dateEvent);
             TextView description = (TextView) view.findViewById(R.id.descriptionEvent);
+            TextView addressShow = (TextView) view.findViewById(R.id.eventPlaces);
             eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
             eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
             name1Event.setText(eventNameDB);
             description.setText(eventDescription);
             dateEvent.setText(eventDateTime);
-            setPriceText();
-            setCategoriesText(new Integer(eventId));
+            setPriceText(eventPriceText, eventPrice);
+            setCategoriesText(new Integer(eventId), eventCategoriesText);
+            addressShow.setText(eventAdress);
 
-            /*adressShow.setText(eventAdress);
-            descriptionShow.setText(eventDescription);
-            dataShow.setText(eventDateTime);
-*/
         } catch (JSONException ex) {
             ex.printStackTrace();
         } catch (NullPointerException exception) {
@@ -122,7 +129,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         return categoriesArray;
     }
 
-    void setCategoriesText(int eventId){
+    public void setCategoriesText(int eventId, TextView eventCategoriesText){
         String[] eventCategories = getEventCategoriesById(eventId);
         String text = eventCategories[0];
         for(int i = 1; i < eventCategories.length; ++i)
@@ -130,7 +137,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         eventCategoriesText.setText(text);
     }
 
-    void setPriceText() {
+    public void setPriceText(TextView eventPriceText, String eventPrice) {
         final int PRICE = new Integer(eventPrice);
         final String REAIS_PART = Integer.toString(PRICE / 100);
         final String CENTS = Integer.toString(PRICE % 100);
@@ -147,13 +154,20 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         intent.putExtras(latitudeAndLongitude);
         startActivity(intent);
     }
-    private void participate()
+    private void markParticipate()
     {
-        int idUser = new LoginUtility(getActivity()).getUserId();
-        if(eventDAO.verifyParticipate(Integer.parseInt(eventId), idUser) != null)
+        if(eventDAO.verifyParticipate(idUser,Integer.parseInt(eventId)) != null)
             Toast.makeText(getActivity(), "Heyy, você já marcou sua participação", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(getActivity(), eventDAO.markParticipate(Integer.parseInt(eventId), idUser), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), eventDAO.markParticipate(idUser,Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
+    }
+    private void markOffParticipate()
+    {
+
+        if(eventDAO.verifyParticipate(idUser,Integer.parseInt(eventId)) == null)
+            Toast.makeText(getActivity(), "Heyy, você já desmarcou sua participação", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(getActivity(), eventDAO.markOffParticipate(idUser, Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
     }
 
     public void onClick(View view) {
@@ -162,7 +176,10 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                 showEventOnMap();
                 break;
             case R.id.EuVou:
-                participate();
+                if(((Button)view.findViewById(R.id.EuVou)).getText().equals(GO))
+                    markParticipate();
+                else
+                    markOffParticipate();
                 break;
         }
     }

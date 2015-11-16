@@ -29,8 +29,4 @@
         android:title="Sair"
         app:showAsAction="never" />
 
-    <item android:id="@+id/event_registration"
-        android:title="Cadastrar evento"
-        app:showAsAction="never" />
-
 </menu>

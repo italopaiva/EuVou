@@ -137,6 +137,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                     final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     eventId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
                     bundle.putString("idEventSearch", Integer.toString(eventId));
+
                     event.setArguments(bundle);
                     fragmentTransaction.replace(R.id.content, event);
                     fragmentTransaction.addToBackStack(null);

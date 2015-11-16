@@ -32,9 +32,6 @@ public class UserDAOTest extends TestCase {
     private static final String COLUMN_USER_BIRTHDATE = "birthDate";
     private static final String COLUMN_USER_STATE = "isActivity";
 
-    private Activity activity;
-
-
     public void testSave() throws ParseException, UserException {
             UserDAO userDAO = new UserDAO();
             User user;

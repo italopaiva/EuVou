@@ -17,6 +17,8 @@ import com.mathheals.euvou.controller.utility.Mask;
 import org.json.JSONException;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 import dao.EventDAO;
@@ -62,31 +64,76 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
     public void addEventCategories(View v){
         if(v.getId() == R.id.optionCinema){
             CheckBox cinemaCheckBox = (CheckBox) v;
-            categories.add(cinemaCheckBox.getText().toString());
+
+            if(cinemaCheckBox.isChecked()) {
+                categories.add(cinemaCheckBox.getText().toString());
+            }else{
+                categories.remove(cinemaCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionEducation) {
             CheckBox educationCheckBox = (CheckBox) v;
-            categories.add(educationCheckBox.getText().toString());
+
+            if(educationCheckBox.isChecked()) {
+                categories.add("Educacao");
+            }else{
+                categories.remove("Educacao");
+            }
         }else if(v.getId() == R.id.optionExposition){
             CheckBox expositionCheckBox = (CheckBox) v;
-            categories.add(expositionCheckBox.getText().toString());
+
+            if(expositionCheckBox.isChecked()) {
+                categories.add("Exposicao");
+            }else{
+                categories.remove("Exposicao");
+            }
         }else if(v.getId() == R.id.optionMuseum){
             CheckBox museumCheckBox = (CheckBox) v;
-            categories.add(museumCheckBox.getText().toString());
+
+            if(museumCheckBox.isChecked()) {
+                categories.add(museumCheckBox.getText().toString());
+            }else{
+                categories.remove(museumCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionOthers){
             CheckBox othersCheckBox = (CheckBox) v;
-            categories.add(othersCheckBox.getText().toString());
+
+            if(othersCheckBox.isChecked()) {
+                categories.add(othersCheckBox.getText().toString());
+            }else{
+                categories.remove(othersCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionParty){
             CheckBox partyCheckBox = (CheckBox) v;
-            categories.add(partyCheckBox.getText().toString());
+
+            if(partyCheckBox.isChecked()) {
+                categories.add(partyCheckBox.getText().toString());
+            }else{
+                categories.remove(partyCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionShow){
             CheckBox showCheckBox = (CheckBox) v;
-            categories.add(showCheckBox.getText().toString());
+
+            if(showCheckBox.isChecked()) {
+                categories.add(showCheckBox.getText().toString());
+            }else{
+                categories.remove(showCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionSports){
             CheckBox sportsCheckBox = (CheckBox) v;
-            categories.add(sportsCheckBox.getText().toString());
+
+            if(sportsCheckBox.isChecked()) {
+                categories.add(sportsCheckBox.getText().toString());
+            }else{
+                categories.remove(sportsCheckBox.getText().toString());
+            }
         }else if(v.getId() == R.id.optionTheater){
             CheckBox theaterCheckBox = (CheckBox) v;
-            categories.add(theaterCheckBox.getText().toString());
+
+            if(theaterCheckBox.isChecked()) {
+                categories.add(theaterCheckBox.getText().toString());
+            }else{
+                categories.remove(theaterCheckBox.getText().toString());
+            }
         }
     }
 
@@ -98,12 +145,30 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
 
             EditText dateEventField = (EditText) this.getActivity().findViewById(R.id.eventDate);
             String dateEvent = dateEventField.getText().toString();
+            String[] dateEventSplit = dateEvent.split("/");
+            dateEvent = dateEventSplit[2]+"-"+dateEventSplit[1]+"-"+dateEventSplit[0];
+
+            EditText hourEventField = (EditText) this.getActivity().findViewById(R.id.eventHour);
+            String eventHour = hourEventField.getText().toString();
+            String dateHourEvent = dateEvent + " " + eventHour;
 
             EditText descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
             String descriptionEvent = descriptionEventField.getText().toString();
 
+            EditText addressEventField = (EditText) this.getActivity().findViewById(R.id.eventAddress);
+            String addressEvent = addressEventField.getText().toString();
+
+            EditText priceEventRealField = (EditText) this.getActivity().findViewById(R.id.eventPriceReal);
+            EditText priceEventDecimalField = (EditText) this.getActivity().findViewById(R.id.eventPriceDecimal);
+            Integer priceEventReal = Integer.parseInt(priceEventRealField.getText().toString());
+            Integer priceEventDecimal = Integer.parseInt(priceEventDecimalField.getText().toString());
+            Integer priceEvent = priceEventReal * 100 + priceEventDecimal;
+
+            LoginUtility loginUtility = new LoginUtility(getActivity());
+            int idOwner = loginUtility.getUserId();
+
             try {
-                Event event = new Event(new LoginUtility().getUserId(),nameEvent, dateEvent, descriptionEvent,
+                Event event = new Event(idOwner, nameEvent, dateHourEvent, priceEvent, addressEvent, descriptionEvent,
                                         latitude, longitude, categories);
                 registerEvent(event);
 

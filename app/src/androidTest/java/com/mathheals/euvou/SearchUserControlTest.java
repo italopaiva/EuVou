@@ -32,16 +32,4 @@ public class SearchUserControlTest  extends ActivityInstrumentationTestCase2<Hom
         getActivity();
     }
 
-    public void testIfSearchUserOptionIsAvalaibleForUserLoggedOut() {
-        onView(withId(R.id.search)).check(matches(isDisplayed()));
-    }
-
-    public void testIfSearchResultIsDisplayed(){
-        onView(withId(R.id.search)).perform(click());
-        onView(withId(R.id.search_src_text)).perform(typeText("igodudu"), pressKey(66));
-        onView(withId(R.id.labelName)).check(matches(withText("Igor Duarte")));
-        onView(withId(R.id.labelBirthDate)).check(matches(withText("1995-11-14")));
-        onView(withId(R.id.labelMail)).check(matches(withText("igor-ribeiro@hotmail.com")));
-    }
-
 }

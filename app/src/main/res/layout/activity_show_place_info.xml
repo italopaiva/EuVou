@@ -1,0 +1,186 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:background="@color/gray_CDC9C9"
+    tools:context="com.mathheals.euvou.controller.show_place.ShowPlaceInfo">
+
+    <TextView
+        android:id="@+id/address"
+        android:text="Endereço: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/address_text"
+        android:layout_toRightOf="@id/address"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:maxLines="2"
+        android:scrollbars="vertical"
+        />
+
+    <TextView
+        android:id="@+id/operation"
+        android:text="Funcionamento: "
+        android:layout_below="@id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/operation_text"
+        android:maxLines="3"
+        android:scrollbars="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/operation"
+        android:layout_toRightOf="@+id/operation"
+        android:layout_toEndOf="@+id/operation" />
+
+    <TextView
+        android:id="@+id/phone"
+        android:text="Telefone: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/operation"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/rate_it_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grade"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:textStyle="italic"
+        android:text="Sua avaliação:"
+        />
+
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:rating="0.0"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="25dp"
+        android:visibility="invisible"
+        android:layout_below="@id/phone"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone_text"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/phone"
+        android:layout_toRightOf="@+id/phone"
+        android:layout_toEndOf="@+id/phone"
+        />
+
+    <TextView
+        android:id="@+id/grade"
+        android:text="Avaliação: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/grade_text"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/grade"
+        android:layout_toRightOf="@+id/grade"
+        android:layout_toEndOf="@+id/grade"
+        />
+
+    <TextView
+        android:id="@+id/description"
+        android:text="Descrição: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rate_it_text"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/description_text"
+        android:layout_marginLeft="10dp"
+        android:maxLines="3"
+        android:scrollbars="vertical"
+        android:layout_alignTop="@+id/description"
+        android:layout_toRightOf="@+id/description"
+        android:layout_toEndOf="@+id/description"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Exibir mapa"
+        android:id="@+id/button_show_map"
+        android:textColor="#FFFFFF"
+        android:background="@color/turquesa_app"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:onClick="showPlaceInfoOnClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Ocultar mapa"
+        android:id="@+id/button_hide_map"
+        android:textColor="#FFFFFF"
+        android:background="@color/turquesa_app"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:visibility="gone"
+        android:onClick="showPlaceInfoOnClick"/>
+
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/fragment_show_place_info_map"
+        tools:context="com.mathheals.euvou.controller.show_place.ShowPlaceInfo"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_below="@id/button_show_map"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+        />
+
+</RelativeLayout>
