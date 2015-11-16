@@ -16,6 +16,7 @@ import com.mathheals.euvou.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,23 +34,46 @@ public class ShowPlaceRanking extends AppCompatActivity {
     private JSONObject allPlaces;
     private ArrayList<Place> places;
     private ListView listView;
+    private List<Place> placeList;
 
     public ShowPlaceRanking() {
         // Required empty public constructor
     }
-    public JSONObject getPlaces()
-    {
-        placeDAO = new PlaceDAO(this);
-        return  placeDAO.searchAllPlaces();
-    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listView = (ListView) findViewById(R.id.listViewPlaces);
 
+        allPlaces = getPlaces();
+
+        try {
+            places = passJSONOBJECtoArrayList(allPlaces);
+        }catch( JSONException ex)
+        {
+
+        }catch(PlaceException ex)
+        {
+
+        }catch(ParseException ex)
+        {
+
+        }
+        placeList = orderedPlaceList(places);
+
+        PlaceAdapter placeAdapter = new PlaceAdapter(this,placeList);
+        listView.setAdapter(placeAdapter);
+
     }
 
-    public void passJSONOBJECtoArrayList(JSONObject JsonPlace) throws JSONException, PlaceException, ParseException {
+    //procura e retorna tdos os lugares cadastrados no banco
+    public JSONObject getPlaces()
+    {
+        placeDAO = new PlaceDAO(this);
+        return  placeDAO.searchAllPlaces();
+    }
+    //transforma os lugares cadastrados em arrayList
+    public ArrayList<Place> passJSONOBJECtoArrayList(JSONObject JsonPlace) throws JSONException, PlaceException, ParseException {
         places = new ArrayList<Place>();
 
         for(int i = 0; i<JsonPlace.length();i++)
@@ -65,11 +89,12 @@ public class ShowPlaceRanking extends AppCompatActivity {
                     JsonPlace.getJSONObject("" + i).getString("phonePlace"));
             places.add(singlePlace);
 
-
         }
+        return places;
 
     }
-    public List<Place> passArrayPlacesToList(ArrayList<Place> places)
+    //Transforma o arrayList em Lista para poder ordenar por avaliação
+    public List<Place> orderedPlaceList(ArrayList<Place> places)
     {
         List<Place> placeList = new ArrayList<Place>();
 
@@ -91,6 +116,7 @@ public class ShowPlaceRanking extends AppCompatActivity {
         return placeList;
 
     }
+    //
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
