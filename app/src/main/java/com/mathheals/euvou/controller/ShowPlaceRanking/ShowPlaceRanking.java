@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,16 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import dao.PlaceDAO;
 import exception.PlaceException;
 import model.Place;
 
 
-public class ShowPlaceRanking extends Fragment {
+public class ShowPlaceRanking extends AppCompatActivity {
 
     private PlaceDAO placeDAO;
     private JSONObject allPlaces;
@@ -35,12 +39,13 @@ public class ShowPlaceRanking extends Fragment {
     }
     public JSONObject getPlaces()
     {
-        placeDAO = new PlaceDAO(this.getActivity());
+        placeDAO = new PlaceDAO(this);
         return  placeDAO.searchAllPlaces();
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        listView = (ListView) findViewById(R.id.listViewPlaces);
 
     }
 
@@ -64,7 +69,28 @@ public class ShowPlaceRanking extends Fragment {
         }
 
     }
-    @Override
+    public List<Place> passArrayPlacesToList(ArrayList<Place> places)
+    {
+        List<Place> placeList = new ArrayList<Place>();
+
+        for(Place place:places)
+        {
+                placeList.add(place);
+        }
+        Collections.sort(placeList, new Comparator<Place>() {
+            @Override
+            public int compare(Place a, Place b) {
+                if(a.getEvaluate()<b.getEvaluate())
+                    return -1;
+                else if(a.getEvaluate()>b.getEvaluate())
+                    return 1;
+                else
+                    return 0;
+            }
+        });
+        return placeList;
+
+    }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
