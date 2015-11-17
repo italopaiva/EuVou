@@ -63,5 +63,6 @@
     <string name="event_not_found_message">Nenhum evento foi encontrado :(</string>
     <string name="title_activity_show_place_on_map">ShowPlaceOnMap</string>
     <string name="title_activity_show_single">ShowSingle</string>
+    <string name="visualizarRanking">Visualizar Rank Completo</string>
 
 </resources>

@@ -25,4 +25,8 @@ public class PlaceDAO extends DAO {
     {
         return this.executeConsult("SELECT * FROM vw_place ORDER BY evaluate DESC");
     }
+    public JSONObject searchTop5Places()
+    {
+        return this.executeConsult("SELECT * FROM vw_place ORDER BY evaluate DESC LIMIT 5");
+    }
 }
