@@ -23,6 +23,6 @@ public class PlaceDAO extends DAO {
     }
     public JSONObject searchAllPlaces()
     {
-        return this.executeConsult("SELECT * FROM vw_place");
+        return this.executeConsult("SELECT * FROM vw_place ORDER BY evaluate DESC");
     }
 }

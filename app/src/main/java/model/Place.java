@@ -14,6 +14,7 @@ public class Place {
     private final String INVALID_LONGITUDE= "Hey, sem a longitude não é possível encontrar o lugar";
     private final String INVALID_COMMENT= "Hey, o comentario não pode ser vazio";
 
+    private int id;
     private String name;
     private ArrayList<String> comment;
     private Float evaluate;
@@ -35,6 +36,19 @@ public class Place {
         setAddress(address);
         setPhone(phone);
         comment = new ArrayList<>();
+    }
+
+    public Place(int id, String name, String evaluate, String longitude, String latitude,
+                 String operation, String description, String address, String phone) throws PlaceException, ParseException {
+        setId(id);
+        setName(name);
+        setEvaluate(evaluate);
+        setLongitude(longitude);
+        setLatitude(latitude);
+        setOperation(operation);
+        setDescription(description);
+        setAddress(address);
+        setPhone(phone);
     }
 
     private void setAddress(String address) {
@@ -121,4 +135,13 @@ public class Place {
     private void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
 }

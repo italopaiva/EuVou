@@ -1,4 +1,4 @@
-package com.mathheals.euvou.controller.ShowPlaceRanking;
+package com.mathheals.euvou.controller.showPlaceRanking;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.mathheals.euvou.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.Place;
@@ -34,14 +33,15 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_show_place_ranking, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_show_place_rank, parent, false);
             viewHolder.placeName = (TextView) convertView.findViewById(R.id.placeName);
             viewHolder.placeEvaluation = (TextView) convertView.findViewById(R.id.placeEvaluation);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.placeName.setText(place.getName());
+        viewHolder.placeName.setText(
+                ((place.getName().length() > 30) ? place.getName().substring(0, 29).concat("...") : place.getName()));
         viewHolder.placeEvaluation.setText(place.getEvaluate().toString());
 
         return convertView;
