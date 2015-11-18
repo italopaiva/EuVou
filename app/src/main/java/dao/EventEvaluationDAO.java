@@ -16,12 +16,11 @@ public class EventEvaluationDAO extends DAO {
     public EventEvaluationDAO(Activity activity) {
         super(activity);
     }
+
     public void evaluateEvent(EventEvaluation evaluation) {
         final String QUERY;
 
-        JSONObject findEvaluation = executeConsult("SELECT * FROM evaluate_event WHERE idEvent = \""
-                                                   + evaluation.getEventId() + "\" "
-                                                   + "AND idUser = \"" + evaluation.getUserId() + "\"");
+        JSONObject findEvaluation = searchEventEvaluation(evaluation.getEventId(), evaluation.getUserId());
 
         if(findEvaluation==null) {
             QUERY = "INSERT INTO evaluate_event(grade, idUser, idEvent) VALUES (\"" + evaluation.getRating() + "\"," +
