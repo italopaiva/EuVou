@@ -46,6 +46,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private final String GO = "#EUVOU";
     private final String NOTGO = "#NÃOVOU";
 
+    private final String SUCCESSFULL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
 
     // fields for Event Evaluation
     private final Integer LOGGED_OUT = -1;
@@ -237,11 +238,29 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private void setRatingBar() {
         ratingBar = (RatingBar) showEventView.findViewById(R.id.ratingBar);
         ratingBar.setVisibility(View.VISIBLE);
+
+        EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
+
+        JSONObject evaluationJSON = eventEvaluationDAO.searchEventEvaluation(Integer.parseInt(eventId), userId);
+
+        if(evaluationJSON!=null){
+            Float evaluation = null;
+            try {
+                evaluation = new Float(evaluationJSON.getJSONObject("0").getDouble("grade"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            ratingBar.setRating(evaluation);
+        }
+
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2) {
                 setEventEvaluation(rateValue, userId, new Integer(eventId));
+
                 EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
+
                 eventEvaluationDAO.evaluateEvent(getEventEvaluation());
             }
         });
@@ -254,6 +273,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
     public void setEventEvaluation(Float rating, Integer userId, Integer eventId) {
         this.eventEvaluation = new EventEvaluation(rating, userId, eventId);
+        Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_EVALUATION_MESSAGE, Toast.LENGTH_LONG).show();
     }
 
     private void setRatingBarStyle() {
