@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import dao.UserDAO;
 
 public class ShowUser extends Fragment {
+    private String idUser;
 
     public ShowUser()
     {
@@ -27,10 +28,15 @@ public class ShowUser extends Fragment {
         View view = inflater.inflate(R.layout.show_user, container, false);
         UserDAO userDAO = new UserDAO(getActivity());
 
-        String nameUser=this.getArguments().getString("username");
-        JSONObject userData = userDAO.searchUserByUsername(nameUser);
+        idUser=this.getArguments().getString("id");
+        JSONObject userData = null;
+        try {
+            userData = new JSONObject(userDAO.searchUserById(Integer.parseInt(idUser)));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-       try {
+        try {
             String nameUserDB = userData.getJSONObject("0").getString("nameUser");
             String birthDateDB = userData.getJSONObject("0").getString("birthDate");
             String mailDB = userData.getJSONObject("0").getString("email");
@@ -44,10 +50,7 @@ public class ShowUser extends Fragment {
 
         } catch (JSONException e) {
             e.printStackTrace();
-        } catch(NullPointerException except)
-       {
-           Toast.makeText(getActivity(),"O nome não foi encontrado",Toast.LENGTH_LONG);
-       }
+        }
 
         return view;
     }

@@ -73,7 +73,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         participateButton.setOnClickListener(this);
 
         eventDAO = new EventDAO(this.getActivity());
-        eventId = this.getArguments().getString("idEventSearch");
+        eventId = this.getArguments().getString("id");
         JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
 
         setUserId(new LoginUtility(getActivity()).getUserId());
