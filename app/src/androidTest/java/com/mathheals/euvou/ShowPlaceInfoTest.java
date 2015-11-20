@@ -138,27 +138,4 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
     public void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
     }
-
-
-
-
-    public final class SetRating implements ViewAction {
-
-        @Override
-        public Matcher<View> getConstraints() {
-            Matcher<View> isRatingBarConstraint = isAssignableFrom(RatingBar.class);
-            return isRatingBarConstraint;
-        }
-
-        @Override
-        public String getDescription() {
-            return "Custom view action to set rating.";
-        }
-
-        @Override
-        public void perform(UiController uiController, View view) {
-            RatingBar ratingBar = (RatingBar) view;
-            ratingBar.setRating(3);
-        }
-    }
 }
