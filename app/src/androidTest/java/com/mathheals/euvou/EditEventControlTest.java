@@ -15,6 +15,7 @@ import dao.EventDAO;
 import exception.EventException;
 import model.Event;
 
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
@@ -74,6 +75,7 @@ public class EditEventControlTest extends ActivityInstrumentationTestCase2<HomeP
                 .perform(click());
         onView(withId(R.id.editRemoveButton)).perform(click());
         onView(withId(R.id.eventName)).perform(typeText("meuTeste"));
+        closeSoftKeyboard();
         onView(withText("Alterar")).perform(scrollTo());
         onView(withText("Alterar")).perform(click());
 
