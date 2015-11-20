@@ -14,6 +14,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFro
  */
 public class SetRating implements ViewAction {
 
+    public SetRating(Integer rating) {
+        setRating(rating);
+    }
+    private Integer rating;
     @Override
     public Matcher<View> getConstraints() {
         Matcher<View> isRatingBarConstraint = isAssignableFrom(RatingBar.class);
@@ -28,6 +32,14 @@ public class SetRating implements ViewAction {
     @Override
     public void perform(UiController uiController, View view) {
         RatingBar ratingBar = (RatingBar) view;
-        ratingBar.setRating(3);
+        ratingBar.setRating(getRating());
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }
