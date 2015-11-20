@@ -28,6 +28,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -78,7 +79,10 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
     }
 
     public void testIfRatingBarIsAvailableForLoggedOutUser() {
-        makeUserLogOut();
+        if(isUserLoggedIn) {
+            TestUtility.makeUserLogOut();
+            isUserLoggedIn = false;
+        }
         startShowPlaceInfoForSettedUpPlace();
         try {
             Thread.sleep(1000);
@@ -90,7 +94,10 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
 
     public void testIfRatingBarIsAvailableForLoggedInUser() {
         boolean result;
-        makeUserLogIn();
+        if(!isUserLoggedIn) {
+            TestUtility.makeUserLogIn();
+            isUserLoggedIn = true;
+        }
         startShowPlaceInfoForSettedUpPlace();
         try {
             onView(withId(R.id.ratingBar)).perform(new SetRating());
@@ -134,24 +141,6 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
 
 
 
-    private void makeUserLogIn() {
-        if(!isUserLoggedIn) {
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Entrar")).perform(click());
-            onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
-            onView(withId(R.id.passwordField)).perform(typeText("123456"));
-            onView(withText("Login")).perform(click());
-            isUserLoggedIn = true;
-        }
-    }
-
-    private void makeUserLogOut() {
-        if(isUserLoggedIn) {
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
-            isUserLoggedIn = false;
-        }
-    }
 
     public final class SetRating implements ViewAction {
 
