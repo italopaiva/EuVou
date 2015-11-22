@@ -48,7 +48,7 @@ public class EventDAOTest extends TestCase {
         Vector<String> category = new Vector<>();
         category.add("Outros");
 
-        Event event = new Event(3,"Evento Delete","14/02/2017","DESCRICAO", "12.20","78.41520",category);
+        Event event = new Event(3,"Evento Delete",10010, "FGA","14/02/2017","DESCRICAO", "12.20","78.41520",category);
 
         eventDAO.saveEvent(event);
         eventDAO.deleteEvent(event);
