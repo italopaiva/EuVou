@@ -10,9 +10,9 @@ public class EventEvaluation {
 
 
     public EventEvaluation(Float rating, Integer userId, Integer eventId) {
-        this.rating = rating;
-        this.userId = userId;
-        this.eventId = eventId;
+        setRating(rating);
+        setUserId(userId);
+        setEventId(eventId);
     }
 
     public Float getRating() {
