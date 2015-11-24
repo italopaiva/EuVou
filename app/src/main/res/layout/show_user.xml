@@ -64,4 +64,31 @@
             android:textColor = "#000000"
             android:id="@+id/labelMail" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/rate_user_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/grade"
+                android:text="Sua avaliação:"
+                android:layout_marginTop="10dp"
+                />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:rating="0.0"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:visibility="invisible"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+
 </LinearLayout>

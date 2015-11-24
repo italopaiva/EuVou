@@ -9,9 +9,9 @@ public class UserEvaluation {
     private Integer userEvaluatedId;
 
     public UserEvaluation(Float rating, Integer userId, Integer userEvaluatedId){
-        this.rating=rating;
-        this.userId=userId;
-        this.userEvaluatedId=userEvaluatedId;
+        setRating(rating);
+        setUserId(userId);
+        setUserEvaluatedId(userEvaluatedId);
     }
 
     public Float getRating() {
