@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import dao.UserDAO;
 import dao.UserEvaluationDAO;
+import exception.UserEvaluationException;
 import model.UserEvaluation;
 
 public class ShowUser extends android.support.v4.app.Fragment {
@@ -138,8 +139,21 @@ public class ShowUser extends android.support.v4.app.Fragment {
     }
 
     public void setUserEvaluation(Float rating, Integer userId, Integer userEvaluatedId) {
-        this.userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
-        Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_EVALUATION_MESSAGE, Toast.LENGTH_LONG).show();
+        try {
+            this.userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
+            Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_EVALUATION_MESSAGE, Toast.LENGTH_LONG).show();
+        }
+        catch (UserEvaluationException exception){
+            if(exception.getMessage()==UserEvaluation.EVALUATION_IS_INVALID){
+                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            if(exception.getMessage()==UserEvaluation.USER_EVALUATED_ID_IS_INVALID){
+                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            if(exception.getMessage()==UserEvaluation.USER_ID_IS_INVALID){
+                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void setRatingBarStyle() {
