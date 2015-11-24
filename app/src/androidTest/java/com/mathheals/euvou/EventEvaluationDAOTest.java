@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 import org.json.JSONException;
 import org.json.JSONObject;
 import dao.EventEvaluationDAO;
+import exception.EventEvaluationException;
 import model.EventEvaluation;
 
 /**
@@ -18,7 +19,12 @@ public class EventEvaluationDAOTest extends TestCase {
         final Integer EVENT_ID = 1;
 
         EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
-        eventEvaluationDAO.evaluateEvent(new EventEvaluation(RATING, USER_ID, EVENT_ID));
+        try {
+            eventEvaluationDAO.evaluateEvent(new EventEvaluation(RATING, USER_ID, EVENT_ID));
+        }
+        catch (EventEvaluationException exception){
+            fail();
+        }
         JSONObject jsonObject = eventEvaluationDAO.searchEventEvaluation(EVENT_ID, USER_ID);
 
         try {
