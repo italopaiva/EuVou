@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.utility.LoginUtility;
+import com.mathheals.euvou.controller.utility.Mask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -107,7 +108,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             eventPriceText = (TextView) showEventView.findViewById(R.id.eventPrice);
             name1Event.setText(eventNameDB);
             description.setText(eventDescription);
-            dateEvent.setText(getDateTimeInBrazilianFormat(eventDateTime));
+            dateEvent.setText(Mask.getDateTimeInBrazilianFormat(eventDateTime));
             setPriceText(eventPriceText, eventPrice);
             setCategoriesText(new Integer(eventId), eventCategoriesText);
             addressShow.setText(eventAdress);
@@ -183,7 +184,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) != null)
             Toast.makeText(getActivity(), "Heyy, você já marcou sua participação", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(getActivity(), eventDAO.markParticipate(userId,Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), eventDAO.markParticipate(userId, Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
     }
     private void markOffParticipate()
     {
@@ -279,18 +280,5 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private void setRatingBarStyle() {
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
-    }
-
-    String getDateTimeInBrazilianFormat(String dateTime) {
-        String[] dateAndTime = dateTime.split(" ");
-        String date = dateAndTime[0];
-
-        String[] dateSplit = date.split("-");
-
-        String brazilianDateFormat = dateSplit[2] + "-" +
-                                     dateSplit[1] + "-" +
-                                     dateSplit[0];
-
-        return brazilianDateFormat + " " + dateAndTime[1];
     }
 }
