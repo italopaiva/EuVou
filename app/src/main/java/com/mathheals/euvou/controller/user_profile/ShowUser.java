@@ -30,6 +30,32 @@ public class ShowUser extends Fragment {
         String nameUser=this.getArguments().getString("username");
         JSONObject userData = userDAO.searchUserByUsername(nameUser);
 
+        createTxtView(userData,view);
+        return view;
+
+    }
+    public void createTxtView(JSONObject userData,View view)
+    {
+        try {
+            String nameUserDB = userData.getJSONObject("0").getString("nameUser");
+            String birthDateDB = userData.getJSONObject("0").getString("birthDate");
+            String mailDB = userData.getJSONObject("0").getString("email");
+
+            TextView name= (TextView) view.findViewById(R.id.labelName);
+            TextView date = (TextView) view.findViewById(R.id.labelBirthDate);
+            TextView mail = (TextView) view.findViewById(R.id.labelMail);
+            name.setText(nameUserDB);
+            date.setText(birthDateDB);
+            mail.setText(mailDB);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch(NullPointerException except)
+        {
+            Toast.makeText(getActivity(),"O nome não foi encontrado",Toast.LENGTH_LONG);
+        }
+    }
+    /*
        try {
             String nameUserDB = userData.getJSONObject("0").getString("nameUser");
             String birthDateDB = userData.getJSONObject("0").getString("birthDate");
@@ -49,6 +75,5 @@ public class ShowUser extends Fragment {
            Toast.makeText(getActivity(),"O nome não foi encontrado",Toast.LENGTH_LONG);
        }
 
-        return view;
-    }
+        */
 }

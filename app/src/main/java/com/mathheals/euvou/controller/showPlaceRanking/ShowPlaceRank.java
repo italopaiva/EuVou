@@ -30,7 +30,6 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
     private JSONObject result;
     private ArrayList<Place> places;
 
-
     public ShowPlaceRank() {
         // Required empty public constructor
     }
@@ -51,11 +50,18 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
         return  vw;
     }
     private void fillList() {
-        try {
+        //try {
             int id = (new LoginUtility(getActivity())).getUserId();
             result = new PlaceDAO(getActivity()).searchAllPlaces();
-            //List<Map<String, String>> placeList= new ArrayList<Map<String, String>>();
-           places = new ArrayList<>();
+            places = new ArrayList<>();
+            populateArrayOfPlaces(result,places);
+            PlaceAdapter placeAdapter = new PlaceAdapter(getActivity(),places);
+            listView.setAdapter(placeAdapter);
+    }
+
+    public void populateArrayOfPlaces(JSONObject result,ArrayList<Place> places)
+    {
+        try {
             for (int i = 0; i < result.length(); i++) {
                 int idPlace = result.getJSONObject("" + i).getInt("idPlace");
                 String namePlace = result.getJSONObject("" + i).getString("namePlace");
@@ -70,26 +76,18 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
                         result.getJSONObject("" + i).getString("phonePlace")
                 );
                 places.add(aux);
-                //placeList.add(placeRank(place.getJSONObject("" + i).getString("namePlace"), place.getJSONObject("" + i).getString("evaluate")));
-
             }
-            PlaceAdapter placeAdapter = new PlaceAdapter(getActivity(),places);
-            /*SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(),placeList,
-                    android.R.layout.simple_list_item_2,
-                    new String[]{"Nome","Nota"}, new int[]{android.R.id.text1});
-
-            Toast.makeText(getActivity(), simpleAdapter.toString(), Toast.LENGTH_SHORT).show();
-*/
-            listView.setAdapter(placeAdapter);
-
-        } catch (JSONException e) {
+        }catch(JSONException e)
+        {
             e.printStackTrace();
-        } catch (PlaceException e) {
+        }catch(PlaceException e)
+        {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
+
     private HashMap<String, String> placeRank(String namePlace, String evaluate) {
         HashMap<String, String> place = new HashMap<String, String>();
         place.put("Nome", namePlace);
@@ -100,14 +98,6 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         startShowInfoActivity(position);
-        /*final android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        clicado = events.get(position);
-        EditOrRemoveFragment editOrRemoveFragment = new EditOrRemoveFragment();
-        editOrRemoveFragment.evento = clicado;
-        fragmentTransaction.replace(R.id.content_frame, editOrRemoveFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();*/
-
     }
 
     private void startShowInfoActivity(int id) {
@@ -129,5 +119,4 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
         placeInfo.putInt("idPlace", places.get(id).getId());
         return placeInfo;
     }
-
 }

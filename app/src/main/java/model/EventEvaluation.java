@@ -10,16 +10,16 @@ public class EventEvaluation {
 
 
     public EventEvaluation(Float rating, Integer userId, Integer eventId) {
-        this.rating = rating;
-        this.userId = userId;
-        this.eventId = eventId;
+        setRating(rating);
+        setUserId(userId);
+        setEventId(eventId);
     }
 
     public Float getRating() {
         return rating;
     }
 
-    public void setRating(Float rating) {
+    private void setRating(Float rating) {
         this.rating = rating;
     }
 
@@ -27,7 +27,7 @@ public class EventEvaluation {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    private void setUserId(Integer userId) {
         this.userId = userId;
     }
 

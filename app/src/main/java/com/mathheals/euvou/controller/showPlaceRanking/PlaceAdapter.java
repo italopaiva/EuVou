@@ -27,7 +27,6 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         Place place = getItem(position);
         ViewHolder viewHolder;
         if (convertView == null) {
@@ -42,7 +41,6 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         viewHolder.placeName.setText(
                 ((place.getName().length() > 40) ? place.getName().substring(0, 39).concat("...") : place.getName()));
         viewHolder.placeEvaluation.setText(place.getEvaluate().toString());
-
         return convertView;
     }
 }
