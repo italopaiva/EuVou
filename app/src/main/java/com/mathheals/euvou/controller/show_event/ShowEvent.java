@@ -107,7 +107,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             eventPriceText = (TextView) showEventView.findViewById(R.id.eventPrice);
             name1Event.setText(eventNameDB);
             description.setText(eventDescription);
-            dateEvent.setText(eventDateTime);
+            dateEvent.setText(getDateTimeInBrazilianFormat(eventDateTime));
             setPriceText(eventPriceText, eventPrice);
             setCategoriesText(new Integer(eventId), eventCategoriesText);
             addressShow.setText(eventAdress);
@@ -279,5 +279,18 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private void setRatingBarStyle() {
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
+    }
+
+    String getDateTimeInBrazilianFormat(String dateTime) {
+        String[] dateAndTime = dateTime.split(" ");
+        String date = dateAndTime[0];
+
+        String[] dateSplit = date.split("-");
+
+        String brazilianDateFormat = dateSplit[2] + "-" +
+                                     dateSplit[1] + "-" +
+                                     dateSplit[0];
+
+        return brazilianDateFormat + " " + dateAndTime[1];
     }
 }
