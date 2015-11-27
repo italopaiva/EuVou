@@ -41,6 +41,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     private Integer eventId;
     private JSONObject eventDATA;
     private TextView event_not_found_text;
+    private final String EVENT_COLUMN = "nameEvent";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,6 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setQueryHint(SEARCH_VIEW_HINT);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
@@ -81,29 +81,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                 int checkedButton = radioGroup.getCheckedRadioButtonId();
                 switch (checkedButton) {
                     case R.id.radio_events:
-                        //Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
-                        EventDAO eventDAO = new EventDAO(getParent());
-
-                        ArrayList<String> eventsFound = new ArrayList<String>();
-                        eventDATA = eventDAO.searchEventByNameGroup(query);
-                        final String EVENT_COLUMN = "nameEvent";
-
-                        if (eventDATA != null) {
-                            event_not_found_text.setVisibility(View.GONE);
-                            try {
-                                for (int i = 0; i < eventDATA.length(); ++i) {
-                                    eventsFound.add(eventDATA.getJSONObject(new Integer(i).toString()).getString(EVENT_COLUMN));
-                                }
-
-                                String[] eventsFoundArray = eventsFound.toArray(new String[eventsFound.size()]);
-                                showEventsAsList(eventsFoundArray);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            listView.setAdapter(null);
-                            event_not_found_text.setVisibility(View.VISIBLE);
-                        }
+                        eventStuffs(query);
                         break;
                 }
                 return true;
@@ -114,6 +92,32 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                 return true;
             }
         });
+    }
+
+    public void eventStuffs(String query)
+    {
+
+        EventDAO eventDAO = new EventDAO(getParent());
+        ArrayList<String> eventsFound = new ArrayList<String>();
+        eventDATA = eventDAO.searchEventByNameGroup(query);
+        final String EVENT_COLUMN = "nameEvent";
+
+        if (eventDATA != null) {
+            event_not_found_text.setVisibility(View.GONE);
+            try {
+                for (int i = 0; i < eventDATA.length(); ++i) {
+                    eventsFound.add(eventDATA.getJSONObject(new Integer(i).toString()).getString(EVENT_COLUMN));
+                }
+
+                String[] eventsFoundArray = eventsFound.toArray(new String[eventsFound.size()]);
+                showEventsAsList(eventsFoundArray);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            listView.setAdapter(null);
+            event_not_found_text.setVisibility(View.VISIBLE);
+        }
     }
 
     private void showEventsAsList(String[] eventNames) {
@@ -131,22 +135,26 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
 
             public void onItemClick(AdapterView<?> parent, View clickView,
                                     int position, long id) {
-                final String ID_COLUMN = "idEvent";
-
-                try {
-                    final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    eventId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
-                    bundle.putString("idEventSearch", Integer.toString(eventId));
-
-                    event.setArguments(bundle);
-                    fragmentTransaction.replace(R.id.content, event);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                onClickThings(bundle,event,position);
             }
         });
+    }
+    public void onClickThings(Bundle bundle, ShowEvent event,int position){
+
+        final String ID_COLUMN = "idEvent";
+
+        try {
+            final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            eventId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
+            bundle.putString("idEventSearch", Integer.toString(eventId));
+
+            event.setArguments(bundle);
+            fragmentTransaction.replace(R.id.content, event);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
     private void configActionBar() {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00C0C3")));
