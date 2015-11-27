@@ -1,4 +1,3 @@
-
 package com.mathheals.euvou.controller.utility;
 
 import android.text.Editable;
@@ -45,4 +44,18 @@ public abstract class Mask {
             public void afterTextChanged(Editable s) {}
         };
     }
+
+    public static String getDateTimeInBrazilianFormat(String dateTime) {
+        String[] dateAndTime = dateTime.split(" ");
+        String date = dateAndTime[0];
+
+        String[] dateSplit = date.split("-");
+
+        String brazilianDateFormat = dateSplit[2] + "-" +
+                dateSplit[1] + "-" +
+                dateSplit[0];
+
+        return brazilianDateFormat + " " + dateAndTime[1];
+    }
 }
+
