@@ -81,7 +81,7 @@ public class EditEventControlTest extends ActivityInstrumentationTestCase2<HomeP
 
         Vector<String> category = new Vector<String>();
         category.add("Show");
-        Event event = new Event(1,"Teste","30/11/2015", 6,"E","xablau","0","0",category);
+        Event event = new Event(1,"Teste",10010, "oi","30/11/2015","xablau","0","0",category);
 
         eventDAO.updateEvent(event);
     }
@@ -125,7 +125,7 @@ public class EditEventControlTest extends ActivityInstrumentationTestCase2<HomeP
 
          Vector<String> category = new Vector<String>();
          category.add("Show");
-         Event event = new Event(1,"Teste","30/11/2015", 6,"E","xablau","0","0",category);
+         Event event = new Event(1,"Teste",10010, "oi","30/11/2015","xablau","0","0",category);
          eventDAO.updateEvent(event);
      }
 
@@ -148,7 +148,7 @@ public class EditEventControlTest extends ActivityInstrumentationTestCase2<HomeP
          category.add("Esporte");
          category.add("Museu");
          category.add("Show");
-         Event event = new Event(1,"Teste","30/11/2015", 6,"E","xablau","0","0",category);
+         Event event = new Event(1,"Teste",10010, "oi","30/11/2015","xablau","0","0",category);
 
          eventDAO.updateEvent(event);
 
@@ -182,7 +182,7 @@ public class EditEventControlTest extends ActivityInstrumentationTestCase2<HomeP
 
          category.clear();
          category.add("Show");
-         event = new Event(1,"Teste","30/11/2015", 6,"E","xablau","0","0",category);
+         event = new Event(1,"Teste",10010, "oi","30/11/2015","xablau","0","0",category);
          eventDAO.updateEvent(event);
      }
  }

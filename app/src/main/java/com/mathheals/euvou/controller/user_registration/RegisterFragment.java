@@ -64,7 +64,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         EditText passwordField = (EditText) this.getActivity().findViewById(R.id.passwordField);
         String password = passwordField.getText().toString();
 
-        EditText passwordConfirmField = (EditText) this.getActivity().findViewById(R.id.confirmPasswordField);
+        EditText passwordConfirmField = (EditText) this.getActivity().findViewById(R.id.confirmMailPassword);
         String passwordConfirm = passwordConfirmField.getText().toString();
 
         try {
@@ -92,30 +92,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             if (message.equals(User.EMAIL_CANT_BE_EMPTY_EMAIL)) {
                 mailField.requestFocus();
                 mailField.setError(message);
-            }
-
-            if(message.equals(User.NAME_CANT_BE_EMPTY_NAME)){
-                nameField.requestFocus();
-                nameField.setError(message);
-            }
-            if(message.equals(User.NAME_CANT_BE_EMPTY_NAME)){
-                nameField.requestFocus();
-                nameField.setError(message);
-            }
-
-            if(message.equals(User.NAME_CANT_BE_HIGHER_THAN_50)){
-                nameField.requestFocus();
-                nameField.setError(message);
-            }
-
-            if(message.equals(User.NAME_CANT_BE_EMPTY_NAME)){
-                nameField.requestFocus();
-                nameField.setError(message);
-            }
-
-            if(message.equals(User.NAME_CANT_BE_HIGHER_THAN_50)){
-                nameField.requestFocus();
-                nameField.setError(message);
             }
 
             if (message.equals(User.EMAIL_CANT_BE_HIGHER_THAN_150)) {
@@ -158,11 +134,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 passwordField.setError(message);
             }
 
-            if(message.equals(User.PASSWORD_ARE_NOT_EQUALS)){
-                passwordField.requestFocus();
-                passwordField.requestFocus();
-            }
-
             if (message.equals(User.BIRTH_DATE_CANT_BE_EMPTY)) {
                 birthDateField.requestFocus();
                 birthDateField.setError(message);
@@ -176,6 +147,16 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             if(message.equals(User.USERNAME_EXISTENT)){
                 usernameField.requestFocus();
                 usernameField.setError(message);
+            }
+
+            if(message.equals(User.CONFIRM_PASSWORD_CANT_BE_EMPTY)){
+                passwordConfirmField.requestFocus();
+                passwordConfirmField.setError(message);
+            }
+
+            if(message.equals(User.EMAIL_CONFIRMATION_CANT_BE_EMPTY)){
+                mailConfirmField.requestFocus();
+                mailConfirmField.setError(message);
             }
         }
 
