@@ -39,7 +39,7 @@ public class Place {
     }
 
     public Place(int id, String name, String evaluate, String longitude, String latitude,
-                 String operation, String description, String address, String phone) throws PlaceException, ParseException {
+        String operation, String description, String address, String phone) throws PlaceException, ParseException {
         setId(id);
         setName(name);
         setEvaluate(evaluate);
@@ -101,9 +101,7 @@ public class Place {
     private void setEvaluate(String evaluate) throws NumberFormatException{
         if(evaluate.equals("null")) {
             this.evaluate = 0.0F;
-        }
-        else
-        {
+        } else {
             this.evaluate = Float.parseFloat(evaluate);
         }
     }

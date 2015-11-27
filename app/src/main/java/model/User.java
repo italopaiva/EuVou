@@ -109,13 +109,11 @@ public class User {
     private void setName(String name) throws UserException {
 
         if(!name.isEmpty() && name!=null){
-
             if(name.length() <= MAX_LENGTH_NAME){
                 this.name = name;
             }else{
                 throw new UserException(NAME_CANT_BE_HIGHER_THAN_50);
             }
-
         }else{
             throw new UserException(NAME_CANT_BE_EMPTY_NAME);
         }

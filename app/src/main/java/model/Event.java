@@ -115,15 +115,12 @@ public class Event {
     }
 
     public void setEvaluation(Integer evaluation) throws  EventException{
-        if(evaluation >=1 && evaluation<=5)
-        {
+        if(evaluation >=1 && evaluation<=5) {
             this.evaluation = evaluation;
         }
-        else
-        {
+        else {
             throw new EventException(INVALID_EVALUATION);
         }
-
     }
 
     public void setPrice(Integer price) throws EventException{
@@ -139,13 +136,11 @@ public class Event {
     }
 
     public void setAddress(String adress) throws EventException{
-        if(!(adress.isEmpty()) && adress!=null)
-        {
+        if(!(adress.isEmpty()) && adress!=null) {
             this.adress = adress;
         }else{
             throw new EventException(ADDRESS_IS_EMPTY);
         }
-
     }
 
     public int getIdEvent() {
@@ -161,21 +156,16 @@ public class Event {
     }
 
     public void setLongitude(String longitude) throws EventException{
-        if(!(longitude.toString().isEmpty()) && longitude!=null)
-        {
+        if(!(longitude.toString().isEmpty()) && longitude!=null) {
             Double longitudeDouble = Double.parseDouble(longitude);
             if(longitudeDouble >= -180 && longitudeDouble <= 180) {
                 this.longitude = longitudeDouble;
-
-            }else
-            {
+            }else {
                 throw  new EventException(LONGITUDE_IS_INVALID);
             }
-        }else
-        {
+        }else {
             throw new EventException(LONGITUDE_IS_EMPTY);
         }
-
     }
 
     public String getNameEvent(){
@@ -184,12 +174,10 @@ public class Event {
 
     public void setNameEvent(String nameEvent) throws EventException {
         if(!nameEvent.isEmpty() && nameEvent!= null) {
-
             if(nameEvent.length() <= MAX_LENGTH_NAME)
             {
                 this.nameEvent = nameEvent;
-            }else
-            {
+            }else {
                 throw new EventException(NAME_CANT_BE_GREATER_THAN_50);
             }
         }else{
@@ -202,18 +190,15 @@ public class Event {
     }
 
     public void setDescription(String description) throws EventException{
-        if(!description.isEmpty() && description !=null)
-        {
+        if(!description.isEmpty() && description !=null) {
             if(description.length() < MAX_LENGTH_DESCRIPTION)
             {
                 this.description = description;
-            }else
-            {
+            }else {
                 throw new EventException(DESCRIPTION_CANT_BE_GREATER_THAN);
             }
 
-        }else
-        {
+        }else {
             throw new EventException(DESCRIPTION_CANT_BE_EMPTY);
         }
 
@@ -224,18 +209,14 @@ public class Event {
     }
 
     public void setLatitude(String latitude) throws EventException{
-        if(!(latitude.toString().isEmpty()) && latitude!=null)
-        {
+        if(!(latitude.toString().isEmpty()) && latitude!=null) {
             Double latitudeDouble = Double.parseDouble(latitude);
-            if(latitudeDouble >= -90 && latitudeDouble <= 90)
-            {
+            if(latitudeDouble >= -90 && latitudeDouble <= 90) {
                 this.latitude = latitudeDouble;
-            }else
-            {
+            }else {
                 throw  new EventException(LATITUDE_IS_INVALID);
             }
-        }else
-        {
+        }else {
             throw  new EventException(LANTITUDE_IS_EMPTY);
         }
     }
