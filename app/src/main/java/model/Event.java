@@ -66,17 +66,6 @@ public class Event {
         setLongitude(longitude);
     }
 
-    public Event(String nameEvent,String dateTimeEvent, Integer price, String address, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
-        setAddress(address);
-        setPrice(price);
-        setNameEvent(nameEvent);
-        setDateTimeEvent(dateTimeEvent);
-        setDescription(description);
-        setLatitude(latitude);
-        setLongitude(longitude);
-        setCategory(category);
-    }
-
     public Event(int idEvent, String nameEvent, Integer price, String address, String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
         setIdEvent(idEvent);
         setNameEvent(nameEvent);
@@ -87,56 +76,6 @@ public class Event {
         setLatitude(latitude);
         setLongitude(longitude);
         setCategory(category);
-    }
-
-    public Event(String nameEvent, Integer price, String address, String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
-        setNameEvent(nameEvent);
-        setAddress(address);
-        setPrice(price);
-        setDateTimeEvent(dateTimeEvent);
-        setDescription(description);
-        setLatitude(latitude);
-        setLongitude(longitude);
-    }
-
-    public Event(int idOwner,String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, Vector<String> category) throws EventException, ParseException {
-        setIdOwner(idOwner);
-        setNameEvent(nameEvent);
-        setDateTimeEvent(dateTimeEvent);
-        setDescription(description);
-        setLatitude(latitude);
-        setLongitude(longitude);
-        setCategory(category);
-    }
-
-    public Event(int idOwner,String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
-        setIdOwner(idOwner);
-        setNameEvent(nameEvent);
-        setDateTimeEvent(dateTimeEvent);
-        setDescription(description);
-        setLatitude(latitude);
-        setLongitude(longitude);
-    }
-
-    public Event(int idEvent, int idOwner,String nameEvent,String dateTimeEvent, String description,String latitude, String longitude) throws EventException, ParseException {
-        setIdEvent(idEvent);
-        setIdOwner(idOwner);
-        setNameEvent(nameEvent);
-        setDateTimeEvent(dateTimeEvent);
-        setDescription(description);
-        setLatitude(latitude);
-        setLongitude(longitude);
-    }
-
-    public Event(int id,int owner, String nameEvent,String dateTimeEvent, String description,String latitude, String longitude, String evaluate) throws EventException, ParseException {
-        setEvaluation((evaluate.equals("null"))? 1 : Integer.parseInt(evaluate));
-        setIdEvent(id);
-        setIdOwner(owner);
-        setNameEvent(nameEvent);
-        setDateTimeEvent(dateTimeEvent);
-        setDescription(description);
-        setLatitude(latitude);
-        setLongitude(longitude);
     }
 
     public String getDateTimeEvent() {
@@ -176,7 +115,7 @@ public class Event {
     }
 
     public void setEvaluation(Integer evaluation) throws  EventException{
-        if(evaluation >1 && evaluation<5)
+        if(evaluation >=1 && evaluation<=5)
         {
             this.evaluation = evaluation;
         }
