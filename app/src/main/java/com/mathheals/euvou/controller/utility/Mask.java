@@ -1,3 +1,4 @@
+
 package com.mathheals.euvou.controller.utility;
 
 import android.text.Editable;
@@ -18,8 +19,24 @@ public abstract class Mask {
             public void onTextChanged(CharSequence s, int start, int before,int count) {
                 String str = Mask.unmask(s.toString());
                 String mascara = "";
-                checkUpdating(isUpdating,str,old);
-                forMask(old,str,mask,mascara);
+                if (isUpdating) {
+                    old = str;
+                    isUpdating = false;
+                    return;
+                }
+                int i = 0;
+                for (char m : mask.toCharArray()) {
+                    if (m != '#' && str.length() > old.length()) {
+                        mascara += m;
+                        continue;
+                    }
+                    try {
+                        mascara += str.charAt(i);
+                    } catch (Exception e) {
+                        break;
+                    }
+                    i++;
+                }
                 isUpdating = true;
                 ediTxt.setText(mascara);
                 ediTxt.setSelection(mascara.length());
@@ -27,29 +44,5 @@ public abstract class Mask {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void afterTextChanged(Editable s) {}
         };
-    }
-    public static void forMask(String old,String str,final String mask,String mascara)
-    {
-        int i = 0;
-        for (char m : mask.toCharArray()) {
-            if (m != '#' && str.length() > old.length()) {
-                mascara += m;
-                continue;
-            }
-            try {
-                mascara += str.charAt(i);
-            } catch (Exception e) {
-                break;
-            }
-            i++;
-        }
-    }
-    public static void  checkUpdating(boolean isUpdating,String old, String str)
-    {
-        if (isUpdating) {
-            old = str;
-            isUpdating = false;
-            return;
-        }
     }
 }

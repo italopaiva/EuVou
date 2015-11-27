@@ -21,6 +21,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
 
     private static final String SUCCESSFULL_CADASTRATION_MESSAGE = "Bem vindo ao #EuVou :)";
+    private EditText field;
+    private EditText nameField, birthDateField, mailField, mailConfirmationField, usernameField, passwordField, passwordConfirmField;
+    private String name, birthDate, username, mail, password, passwordConfirm, mailConfirm;
+
 
     public RegisterFragment() {
     }
@@ -37,44 +41,54 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     private void registerUser(User user) {
-
         UserDAO userDAO = new UserDAO(getActivity());
         userDAO.save(user);
+    }
+
+    private String getTextTyped(int fieldId){
+        field = getEditTextById(fieldId);
+        String typed = field.getText().toString();
+
+        return typed;
+    }
+
+    private EditText getEditTextById(int fieldId){
+        return (EditText) this.getActivity().findViewById(fieldId);
+    }
+
+    private void startLoginActivity(){
+        Activity activity = getActivity();
+        Intent myIntent = new Intent(activity, LoginActivity.class);
+        activity.startActivity(myIntent);
 
     }
 
     @Override
     public void onClick(View v) {
 
-        EditText nameField = (EditText) this.getActivity().findViewById(R.id.nameField);
-        String name = nameField.getText().toString();
+        name = getTextTyped(R.id.nameField);
+        birthDate = getTextTyped(R.id.dateField);
+        mail = getTextTyped(R.id.mailField);
+        mailConfirm = getTextTyped(R.id.confirmMailField);
+        username = getTextTyped(R.id.loginField);
+        password = getTextTyped(R.id.passwordField);
+        mailConfirm = getTextTyped(R.id.confirmMailField);
+        passwordConfirm = getTextTyped(R.id.confirmPasswordField);
 
-        EditText birthDateField = (EditText) this.getActivity().findViewById(R.id.dateField);
-        String birthDate = birthDateField.getText().toString();
-
-        EditText mailField = (EditText) this.getActivity().findViewById(R.id.mailField);
-        String mail = mailField.getText().toString();
-
-        EditText mailConfirmField = (EditText) this.getActivity().findViewById(R.id.confirmMailField);
-        String mailConfirm = mailConfirmField.getText().toString();
-
-        EditText usernameField = (EditText) this.getActivity().findViewById(R.id.loginField);
-        String username = usernameField.getText().toString();
-
-        EditText passwordField = (EditText) this.getActivity().findViewById(R.id.passwordField);
-        String password = passwordField.getText().toString();
-
-        EditText passwordConfirmField = (EditText) this.getActivity().findViewById(R.id.confirmMailPassword);
-        String passwordConfirm = passwordConfirmField.getText().toString();
+        nameField = getEditTextById(R.id.nameField);
+        birthDateField = getEditTextById(R.id.dateField);
+        mailField = getEditTextById(R.id.mailField);
+        usernameField = getEditTextById(R.id.loginField);
+        passwordField = getEditTextById(R.id.passwordField);
+        mailConfirmationField = getEditTextById(R.id.confirmMailField);
+        passwordConfirmField = getEditTextById(R.id.confirmPasswordField);
 
         try {
             User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);
             registerUser(new User(name, username, mail, password, birthDate));
 
             Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE, Toast.LENGTH_LONG).show();
-            Activity activity = getActivity();
-            Intent myIntent = new Intent(activity, LoginActivity.class);
-            activity.startActivity(myIntent);
+            startLoginActivity();
 
         } catch (Exception e) {
             String message = e.getMessage();
@@ -155,8 +169,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             }
 
             if(message.equals(User.EMAIL_CONFIRMATION_CANT_BE_EMPTY)){
-                mailConfirmField.requestFocus();
-                mailConfirmField.setError(message);
+                mailConfirmationField.requestFocus();
+                mailConfirmationField.setError(message);
             }
         }
 
