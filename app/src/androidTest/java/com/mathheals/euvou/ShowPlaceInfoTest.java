@@ -99,10 +99,8 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
             isUserLoggedIn = true;
         }
         startShowPlaceInfoForSettedUpPlace();
-        try {int[] ratingNumbersForTest = new int[]{1, 3, 5};
-
-            for(Integer ratingNumber : ratingNumbersForTest)
-                onView(withId(R.id.ratingBar)).perform(new SetRating(ratingNumber));
+        try {
+            onView(withId(R.id.ratingBar)).perform(new SetRating());
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -140,4 +138,5 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
     public void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
     }
+
 }

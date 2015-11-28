@@ -25,6 +25,7 @@ import dao.EvaluatePlaceDAO;
 import dao.EventCategoryDAO;
 import dao.EventDAO;
 import dao.EventEvaluationDAO;
+import exception.EventEvaluationException;
 import model.EventEvaluation;
 
 
@@ -73,7 +74,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         participateButton.setOnClickListener(this);
 
         eventDAO = new EventDAO(this.getActivity());
-        eventId = this.getArguments().getString("idEventSearch");
+        eventId = this.getArguments().getString("id");
         JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
 
         setUserId(new LoginUtility(getActivity()).getUserId());
@@ -183,7 +184,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) != null)
             Toast.makeText(getActivity(), "Heyy, você já marcou sua participação", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(getActivity(), eventDAO.markParticipate(userId,Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), eventDAO.markParticipate(userId, Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
     }
     private void markOffParticipate()
     {
@@ -272,8 +273,20 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     }
 
     public void setEventEvaluation(Float rating, Integer userId, Integer eventId) {
-        this.eventEvaluation = new EventEvaluation(rating, userId, eventId);
-        Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_EVALUATION_MESSAGE, Toast.LENGTH_LONG).show();
+        try {
+            this.eventEvaluation = new EventEvaluation(rating, userId, eventId);
+            Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_EVALUATION_MESSAGE, Toast.LENGTH_LONG).show();
+        }catch (EventEvaluationException exception){
+            if(exception.getMessage() == EventEvaluation.EVALUATION_IS_INVALID){
+                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            if(exception.getMessage() == EventEvaluation.EVENT_ID_IS_INVALID){
+                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            if(exception.getMessage() == EventEvaluation.USER_ID_IS_INVALID){
+                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void setRatingBarStyle() {
