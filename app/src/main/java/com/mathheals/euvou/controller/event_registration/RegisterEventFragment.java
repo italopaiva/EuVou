@@ -37,6 +37,7 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
     Vector<String> categories= new Vector<>();
     private EditText nameEventField, dateEventField, hourEventField, descriptionEventField, addressEventField, priceEventRealField,
                      priceEventDecimalField;
+    private EditAndRegisterUtility  editAndRegisterUtility = new EditAndRegisterUtility();
 
     public RegisterEventFragment(){
     }
@@ -152,19 +153,6 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         this.addressEventField = (EditText) view.findViewById(R.id.eventAddress);
     }
 
-    public void setDescriptionEvenField(EditText descriptionEventField, String message) {
-        descriptionEventField.requestFocus();
-        descriptionEventField.setError(message);
-    }
-    public void setDateEventField(EditText dateEventField, String message) {
-        dateEventField.requestFocus();
-        dateEventField.setError(message);
-    }
-    public void setNameEventField(EditText NameEventField, String message) {
-        NameEventField.requestFocus();
-        NameEventField.setError(message);
-    }
-
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.saveEvent){
@@ -200,22 +188,22 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
                 if (message.equals(Event.ADDRESS_IS_EMPTY)){
                 }
                 if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
-                    setDescriptionEvenField(descriptionEventField,message);
+                    editAndRegisterUtility.setMessageError(descriptionEventField, message);
                 }
                 if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)) {
-                    setDescriptionEvenField(descriptionEventField, message);
+                    editAndRegisterUtility.setMessageError(descriptionEventField, message);
                 }
                 if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
-                    setDateEventField(dateEventField, message);
+                    editAndRegisterUtility.setMessageError(dateEventField, message);
                 }
                 if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
-                    setNameEventField(nameEventField,message);
+                    editAndRegisterUtility.setMessageError(nameEventField, message);
                 }
                 if(message.equals(Event.INVALID_EVENT_DATE)){
-                    setDateEventField(dateEventField, message);
+                    editAndRegisterUtility.setMessageError(dateEventField, message);
                 }
                 if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
-                    setNameEventField(nameEventField,message);
+                    editAndRegisterUtility.setMessageError(nameEventField, message);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();

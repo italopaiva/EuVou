@@ -12,14 +12,8 @@ public class EditAndRegisterUtility {
 
     }
 
-    public String getTextTyped(int fieldId, Fragment fragment){
-        EditText field = getEditTextById(fieldId, fragment);
-        String typed = field.getText().toString();
-
-        return typed;
-    }
-
-    public EditText getEditTextById(int fieldId, Fragment fragment){
-        return (EditText) fragment.getActivity().findViewById(fieldId);
+    public void setMessageError(EditText editText, String message) {
+        editText.requestFocus();
+        editText.setError(message);
     }
 }

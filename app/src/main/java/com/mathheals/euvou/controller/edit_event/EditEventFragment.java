@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.event_registration.LocalEventActivity;
+import com.mathheals.euvou.controller.utility.EditAndRegisterUtility;
 import com.mathheals.euvou.controller.utility.Mask;
 
 import org.json.JSONArray;
@@ -39,6 +40,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     private CheckBox showCheckBox, expositionCheckBox, cinemaCheckBox, museumCheckBox, theaterCheckBox, educationCheckBox,
                      othersCheckBox,sportsCheckBox, partyCheckBox;
     Vector<String> categories= new Vector<>();
+    private EditAndRegisterUtility  editAndRegisterUtility = new EditAndRegisterUtility();
 
 
     public EditEventFragment() {
@@ -197,11 +199,6 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         eventDAO.updateEvent(event);
     }
 
-    public void setDescriptionError(EditText editText, String message) {
-        editText.requestFocus();
-        editText.setError(message);
-    }
-
     public void updateEvent(){
 
         String nameEvent = nameField.getText().toString();
@@ -236,22 +233,22 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
             if(message.equals(Event.ADDRESS_IS_EMPTY)){
             }
             if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
-                setDescriptionError(descriptionField, message);
+                editAndRegisterUtility.setMessageError(descriptionField, message);
             }
             if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)){
-                setDescriptionError(descriptionField, message);
+                editAndRegisterUtility.setMessageError(descriptionField, message);
             }
             if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
-                setDescriptionError(descriptionField, message);
+                editAndRegisterUtility.setMessageError(dateField, message);
             }
             if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
-                setDescriptionError(descriptionField, message);
+                editAndRegisterUtility.setMessageError(nameField, message);
             }
             if(message.equals(Event.INVALID_EVENT_DATE)){
-                setDescriptionError(descriptionField, message);
+                editAndRegisterUtility.setMessageError(dateField, message);
             }
             if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
-                setDescriptionError(descriptionField, message);
+                editAndRegisterUtility.setMessageError(nameField, message);
             }
         } catch (ParseException e) {
             e.printStackTrace();
