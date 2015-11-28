@@ -231,6 +231,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
             //Verify address field
             if(message.equals(Event.ADDRESS_IS_EMPTY)){
+                editAndRegisterUtility.setMessageError(addressField, message);
             }
             if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
                 editAndRegisterUtility.setMessageError(descriptionField, message);

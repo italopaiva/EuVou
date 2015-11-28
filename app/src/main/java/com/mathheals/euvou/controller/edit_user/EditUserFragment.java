@@ -32,7 +32,7 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
     private final int LOGGED_OUT = -1;
     private EditAndRegisterUtility utilityForEdit = new EditAndRegisterUtility();
     private String name, birthDate, mail, mailConfirm, password, passwordConfirm;
-    private EditText nameField, birthDateField, mailField, mailConfirmationField, passwordField, passwordConfirmField, usernameField;
+    private EditText nameField, birthDateField, mailField, mailConfirmationField, passwordField, passwordConfirmField;
     private EditAndRegisterUtility  editAndRegisterUtility = new EditAndRegisterUtility();
 
     public EditUserFragment() {
@@ -160,6 +160,12 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
             }
             if (message.equals(User.INVALID_BIRTH_DATE)) {
                 editAndRegisterUtility.setMessageError(birthDateField, message);
+            }
+            if(message.equals(User.EMAIL_CONFIRMATION_CANT_BE_EMPTY)){
+                editAndRegisterUtility.setMessageError(mailConfirmationField, message);
+            }
+            if(message.equals(User.CONFIRM_PASSWORD_CANT_BE_EMPTY)){
+                editAndRegisterUtility.setMessageError(passwordConfirmField, message);
             }
         }
 
