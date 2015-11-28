@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.utility.EditAndRegisterUtility;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 import com.mathheals.euvou.controller.utility.Mask;
 
@@ -29,6 +30,9 @@ import model.User;
 public class EditUserFragment extends Fragment implements View.OnClickListener {
     private int USER_STATUS;
     private final int LOGGED_OUT = -1;
+    private EditAndRegisterUtility utilityForEdit = new EditAndRegisterUtility();
+    private String name, birthDate, mail, mailConfirm, password, passwordConfirm;
+    private EditText nameField, mailField, passwordField, birthDateField, mailConfirmField, passwordConfirmField;
 
     public EditUserFragment() {
     }
@@ -89,23 +93,19 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        EditText nameField = (EditText) this.getActivity().findViewById(R.id.nameField);
-        String name = nameField.getText().toString();
+        name = utilityForEdit.getTextTyped(R.id.nameField, this);
+        birthDate = utilityForEdit.getTextTyped(R.id.dateField, this);
+        mail = utilityForEdit.getTextTyped(R.id.mailField, this);
+        mailConfirm = utilityForEdit.getTextTyped(R.id.confirmMailField, this);
+        passwordConfirm = utilityForEdit.getTextTyped(R.id.confirmPasswordField, this);
+        password = utilityForEdit.getTextTyped(R.id.passwordField, this);
 
-        EditText birthDateField = (EditText) this.getActivity().findViewById(R.id.dateField);
-        String birthDate = birthDateField.getText().toString();
-
-        EditText mailField = (EditText) this.getActivity().findViewById(R.id.mailField);
-        String mail = mailField.getText().toString();
-
-        EditText mailConfirmField = (EditText) this.getActivity().findViewById(R.id.confirmMailField);
-        String mailConfirm = mailConfirmField.getText().toString();
-
-        EditText passwordField = (EditText) this.getActivity().findViewById(R.id.passwordField);
-        String password = passwordField.getText().toString();
-
-        EditText passwordConfirmField = (EditText) this.getActivity().findViewById(R.id.confirmPasswordField);
-        String passwordConfirm = passwordConfirmField.getText().toString();
+        nameField = utilityForEdit.getEditTextById(R.id.nameField, this);
+        birthDateField = utilityForEdit.getEditTextById(R.id.birthDateField, this);
+        mailField = utilityForEdit.getEditTextById(R.id.mailField, this);
+        mailConfirmField = utilityForEdit.getEditTextById(R.id.mailConfirmField, this);
+        passwordField = utilityForEdit.getEditTextById(R.id.passwordField, this);
+        passwordConfirmField = utilityForEdit.getEditTextById(R.id.passwordConfirmField, this);
 
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
         USER_STATUS = loginUtility.getUserId();

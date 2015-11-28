@@ -114,7 +114,7 @@
            android:id="@+id/saveButton"
            android:textColor="#FFFFFF"
            android:background="#00C0C3"
-           android:text="Cadastrar Evento"  />
+           android:text="Cadastrar"  />
 
     </LinearLayout>
 </ScrollView>

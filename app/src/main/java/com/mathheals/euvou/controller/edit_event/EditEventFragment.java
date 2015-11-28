@@ -35,6 +35,9 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     private static final String SUCCESSFULL_UPDATE_MESSAGE = "Evento alterado com sucesso :)";
     private String latitude;
     private String longitude;
+    private EditText nameField, dateField, hourField, descriptionField, addressField, priceDecimalField, priceRealField;
+    private CheckBox showCheckBox, expositionCheckBox, cinemaCheckBox, museumCheckBox, theaterCheckBox, educationCheckBox,
+                     othersCheckBox,sportsCheckBox, partyCheckBox;
     Vector<String> categories= new Vector<>();
 
 
@@ -42,38 +45,38 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         // Required empty public constructor
     }
 
+    public void formatDate(JSONObject jsonEvent) throws JSONException {
+
+        String dateHourEvent = jsonEvent.getJSONObject("0").getString("dateTimeEvent");
+        String[] dateHourEventSplit = dateHourEvent.split(" ");
+
+        String dateEvent = dateHourEventSplit[0];
+        String[] dateEventSplit = dateEvent.split("-");
+        dateEvent = dateEventSplit[2]+"/"+dateEventSplit[1]+"/"+dateEventSplit[0];
+
+        String hourEvent = dateHourEventSplit[1];
+
+        this.dateField.setText(dateEvent);
+        this.hourField.setText(hourEvent);
+
+    }
+
+    public void formatPrice(JSONObject jsonEvent) throws JSONException {
+        Integer priceEvent = jsonEvent.getJSONObject("0").getInt("price");
+        this.priceRealField.setText(Integer.toString(priceEvent/100));
+        this.priceDecimalField.setText(Integer.toString(priceEvent - priceEvent / 100 * 100));
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         idEvent = this.getArguments().getInt("idEvent");
 
         View view = inflater.inflate(R.layout.fragment_edit_event, container, false);
 
-        EditText nameField = (EditText) view.findViewById(R.id.eventName);
-
-        EditText dateField = (EditText) view.findViewById(R.id.eventDate);
-        dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
-
-        EditText hourField = (EditText) view.findViewById(R.id.eventHour);
-
-        EditText descriptionField = (EditText) view.findViewById(R.id.eventDescription);
-
-        EditText priceRealField = (EditText) view.findViewById(R.id.eventPriceReal);
-        EditText priceDecimalField = (EditText) view.findViewById(R.id.eventPriceDecimal);
-
-        EditText addressField = (EditText) view.findViewById(R.id.eventAddress);
-
-        CheckBox showCheckbox = (CheckBox) view.findViewById(R.id.optionShow);
-        CheckBox expositionCheckbox = (CheckBox) view.findViewById(R.id.optionExposition);
-        CheckBox cinemaCheckbox = (CheckBox) view.findViewById(R.id.optionCinema);
-        CheckBox theaterCheckbox = (CheckBox) view.findViewById(R.id.optionTheater);
-        CheckBox partyCheckbox = (CheckBox) view.findViewById(R.id.optionParty);
-        CheckBox educationCheckbox = (CheckBox) view.findViewById(R.id.optionEducation);
-        CheckBox museumCheckbox = (CheckBox) view.findViewById(R.id.optionMuseum);
-        CheckBox sportsCheckbox = (CheckBox) view.findViewById(R.id.optionSports);
-        CheckBox othersCheckbox = (CheckBox) view.findViewById(R.id.optionOthers);
+        setingEditText(view);
+        setingCheckBoxs(view);
 
         EventDAO eventDAO = new EventDAO(getActivity());
         EventCategoryDAO eventCategoryDAO = new EventCategoryDAO(getActivity());
@@ -87,27 +90,14 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
             String nameEvent = jsonEvent.getJSONObject("0").getString("nameEvent");
             nameField.setText(nameEvent);
 
-            String dateHourEvent = jsonEvent.getJSONObject("0").getString("dateTimeEvent");
-            String[] dateHourEventSplit = dateHourEvent.split(" ");
-
-            String dateEvent = dateHourEventSplit[0];
-            String[] dateEventSplit = dateEvent.split("-");
-            dateEvent = dateEventSplit[2]+"/"+dateEventSplit[1]+"/"+dateEventSplit[0];
-
-            String hourEvent = dateHourEventSplit[1];
-
-            dateField.setText(dateEvent);
-            hourField.setText(hourEvent);
-
             String descriptionEvent = jsonEvent.getJSONObject("0").getString("description");
             descriptionField.setText(descriptionEvent);
 
             String addressEvent = jsonEvent.getJSONObject("0").getString("address");
             addressField.setText(addressEvent);
 
-            Integer priceEvent = jsonEvent.getJSONObject("0").getInt("price");
-            priceRealField.setText(Integer.toString(priceEvent/100));
-            priceDecimalField.setText(Integer.toString(priceEvent - priceEvent / 100 * 100));
+            formatDate(jsonEvent);
+            formatPrice(jsonEvent);
 
             latitude = jsonEvent.getJSONObject("0").getString("latitude");
             longitude = jsonEvent.getJSONObject("0").getString("longitude");
@@ -125,39 +115,39 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
                 switch (nameCategory){
                     case "Show":
-                        showCheckbox.setChecked(true);
+                        showCheckBox.setChecked(true);
                         categories.add("Show");
                         break;
                     case "Teatro":
-                        theaterCheckbox.setChecked(true);
+                        theaterCheckBox.setChecked(true);
                         categories.add("Teatro");
                         break;
                     case "Cinema":
-                        cinemaCheckbox.setChecked(true);
+                        cinemaCheckBox.setChecked(true);
                         categories.add("Cinema");
                         break;
                     case "Balada":
-                        partyCheckbox.setChecked(true);
+                        partyCheckBox.setChecked(true);
                         categories.add("Balada");
                         break;
                     case "Museu":
-                        museumCheckbox.setChecked(true);
+                        museumCheckBox.setChecked(true);
                         categories.add("Museu");
                         break;
                     case "Educacao":
-                        educationCheckbox.setChecked(true);
+                        educationCheckBox.setChecked(true);
                         categories.add("Educacao");
                         break;
                     case "Exposicao":
-                        expositionCheckbox.setChecked(true);
+                        expositionCheckBox.setChecked(true);
                         categories.add("Exposicao");
                         break;
                     case "Esporte":
-                        sportsCheckbox.setChecked(true);
+                        sportsCheckBox.setChecked(true);
                         categories.add("Esporte");
                         break;
                     case "Outros":
-                        othersCheckbox.setChecked(true);
+                        othersCheckBox.setChecked(true);
                         break;
                 }
             }
@@ -179,12 +169,36 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         return view;
     }
 
+    private void setingEditText(View view){
+        this.nameField = (EditText) view.findViewById(R.id.eventName);
+        this.dateField = (EditText) view.findViewById(R.id.eventDate);
+        dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
+        this.hourField = (EditText) view.findViewById(R.id.eventHour);
+        this.descriptionField = (EditText) view.findViewById(R.id.eventDescription);
+        this.priceRealField = (EditText) view.findViewById(R.id.eventPriceReal);
+        this.priceDecimalField = (EditText) view.findViewById(R.id.eventPriceDecimal);
+        this.addressField = (EditText) view.findViewById(R.id.eventAddress);
+    }
+
+    private void setingCheckBoxs(View view){
+        this.showCheckBox = (CheckBox) view.findViewById(R.id.optionShow);
+        this.expositionCheckBox = (CheckBox) view.findViewById(R.id.optionExposition);
+        this.cinemaCheckBox = (CheckBox) view.findViewById(R.id.optionCinema);
+        this.theaterCheckBox = (CheckBox) view.findViewById(R.id.optionTheater);
+        this.partyCheckBox = (CheckBox) view.findViewById(R.id.optionParty);
+        this.educationCheckBox = (CheckBox) view.findViewById(R.id.optionEducation);
+        this.museumCheckBox = (CheckBox) view.findViewById(R.id.optionMuseum);
+        this.sportsCheckBox = (CheckBox) view.findViewById(R.id.optionSports);
+        this.othersCheckBox = (CheckBox) view.findViewById(R.id.optionOthers);
+    }
+
     private void updateEventOnDataBase(Event event){
         EventDAO eventDAO = new EventDAO(getActivity());
         eventDAO.updateEvent(event);
     }
 
     public void updateEvent(){
+
         EditText nameField = (EditText) this.getActivity().findViewById(R.id.eventName);
         String nameEvent = nameField.getText().toString();
 

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.login_user.LoginActivity;
+import com.mathheals.euvou.controller.utility.EditAndRegisterUtility;
 import com.mathheals.euvou.controller.utility.Mask;
 
 import dao.UserDAO;
@@ -24,6 +25,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private EditText field;
     private EditText nameField, birthDateField, mailField, mailConfirmationField, usernameField, passwordField, passwordConfirmField;
     private String name, birthDate, username, mail, password, passwordConfirm, mailConfirm;
+    private EditAndRegisterUtility utilityForRegister = new EditAndRegisterUtility();
 
 
     public RegisterFragment() {
@@ -45,17 +47,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         userDAO.save(user);
     }
 
-    private String getTextTyped(int fieldId){
-        field = getEditTextById(fieldId);
-        String typed = field.getText().toString();
-
-        return typed;
-    }
-
-    private EditText getEditTextById(int fieldId){
-        return (EditText) this.getActivity().findViewById(fieldId);
-    }
-
     private void startLoginActivity(){
         Activity activity = getActivity();
         Intent myIntent = new Intent(activity, LoginActivity.class);
@@ -66,22 +57,22 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        name = getTextTyped(R.id.nameField);
-        birthDate = getTextTyped(R.id.dateField);
-        mail = getTextTyped(R.id.mailField);
-        mailConfirm = getTextTyped(R.id.confirmMailField);
-        username = getTextTyped(R.id.loginField);
-        password = getTextTyped(R.id.passwordField);
-        mailConfirm = getTextTyped(R.id.confirmMailField);
-        passwordConfirm = getTextTyped(R.id.confirmPasswordField);
+        name = utilityForRegister.getTextTyped(R.id.nameField, this);
+        birthDate = utilityForRegister.getTextTyped(R.id.dateField, this);
+        mail = utilityForRegister.getTextTyped(R.id.mailField, this);
+        mailConfirm = utilityForRegister.getTextTyped(R.id.confirmMailField, this);
+        username = utilityForRegister.getTextTyped(R.id.loginField, this);
+        password = utilityForRegister.getTextTyped(R.id.passwordField, this);
+        mailConfirm = utilityForRegister.getTextTyped(R.id.confirmMailField, this);
+        passwordConfirm = utilityForRegister.getTextTyped(R.id.confirmPasswordField, this);
 
-        nameField = getEditTextById(R.id.nameField);
-        birthDateField = getEditTextById(R.id.dateField);
-        mailField = getEditTextById(R.id.mailField);
-        usernameField = getEditTextById(R.id.loginField);
-        passwordField = getEditTextById(R.id.passwordField);
-        mailConfirmationField = getEditTextById(R.id.confirmMailField);
-        passwordConfirmField = getEditTextById(R.id.confirmPasswordField);
+        nameField = utilityForRegister.getEditTextById(R.id.nameField, this);
+        birthDateField = utilityForRegister.getEditTextById(R.id.dateField, this);
+        mailField = utilityForRegister.getEditTextById(R.id.mailField, this);
+        usernameField = utilityForRegister.getEditTextById(R.id.loginField, this);
+        passwordField = utilityForRegister.getEditTextById(R.id.passwordField, this);
+        mailConfirmationField = utilityForRegister.getEditTextById(R.id.confirmMailField, this);
+        passwordConfirmField = utilityForRegister.getEditTextById(R.id.confirmPasswordField, this);
 
         try {
             User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);
@@ -173,6 +164,5 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 mailConfirmationField.setError(message);
             }
         }
-
     }
 }
