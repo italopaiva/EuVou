@@ -197,6 +197,11 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         eventDAO.updateEvent(event);
     }
 
+    public void setDescriptionError(EditText editText, String message) {
+        editText.requestFocus();
+        editText.setError(message);
+    }
+
     public void updateEvent(){
 
         String nameEvent = nameField.getText().toString();
@@ -229,37 +234,24 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
             //Verify address field
             if(message.equals(Event.ADDRESS_IS_EMPTY)){
-
             }
-
             if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
-                descriptionField.requestFocus();
-                descriptionField.setError(message);
+                setDescriptionError(descriptionField, message);
             }
-
             if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)){
-                descriptionField.requestFocus();
-                descriptionField.setError(message);
+                setDescriptionError(descriptionField, message);
             }
-
             if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
-                dateField.requestFocus();
-                dateField.setError(message);
+                setDescriptionError(descriptionField, message);
             }
-
             if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
-                nameField.requestFocus();
-                nameField.setError(message);
+                setDescriptionError(descriptionField, message);
             }
-
             if(message.equals(Event.INVALID_EVENT_DATE)){
-                dateField.requestFocus();
-                dateField.setError(message);
+                setDescriptionError(descriptionField, message);
             }
-
             if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
-                nameField.requestFocus();
-                nameField.setError(message);
+                setDescriptionError(descriptionField, message);
             }
         } catch (ParseException e) {
             e.printStackTrace();

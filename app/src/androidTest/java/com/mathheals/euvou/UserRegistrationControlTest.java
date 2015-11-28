@@ -185,7 +185,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.passwordField)).check(matches(isDisplayed()));
         onView(withId(R.id.passwordField)).perform(typeText("1234567"));
-        onView(withId(R.id.confirmMailPassword)).perform(click());
+        onView(withId(R.id.confirmPasswordField)).perform(click());
         onView(withId(R.id.passwordField)).check(matches(withText("1234567")));
     }
 
@@ -207,10 +207,10 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
-        onView(withId(R.id.confirmMailPassword)).check(matches(isDisplayed()));
-        onView(withId(R.id.confirmMailPassword)).perform(typeText("1234567"));
+        onView(withId(R.id.confirmPasswordField)).check(matches(isDisplayed()));
+        onView(withId(R.id.confirmPasswordField)).perform(typeText("1234567"));
         onView(withId(R.id.passwordField)).perform(click());
-        onView(withId(R.id.confirmMailPassword)).check(matches(withText("1234567")));
+        onView(withId(R.id.confirmPasswordField)).check(matches(withText("1234567")));
     }
 
 }

@@ -72,6 +72,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         this.birthDate = birthDateField.getText().toString();
     }
 
+    public void setMessageError(EditText editText, String message) {
+        editText.requestFocus();
+        editText.setError(message);
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -85,86 +90,55 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             startLoginActivity();
 
         } catch (Exception e) {
+
             String message = e.getMessage();
-
             if (message.equals(User.NAME_CANT_BE_EMPTY_NAME)) {
-                nameField.requestFocus();
-                nameField.setError(message);
+                setMessageError(nameField, message);
             }
-
             if (message.equals(User.NAME_CANT_BE_HIGHER_THAN_50)) {
-                nameField.requestFocus();
-                nameField.setError(message);
+                setMessageError(nameField, message);
             }
-
             if (message.equals(User.EMAIL_CANT_BE_EMPTY_EMAIL)) {
-                mailField.requestFocus();
-                mailField.setError(message);
+                setMessageError(mailField, message);
             }
-
             if (message.equals(User.EMAIL_CANT_BE_HIGHER_THAN_150)) {
-                mailField.requestFocus();
-                mailField.setError(message);
+                setMessageError(mailField, message);
             }
-
             if (message.equals(User.INVALID_EMAIL)) {
-                mailField.requestFocus();
-                mailField.setError(message);
+                setMessageError(mailField, message);
             }
-
-            if(message.equals(User.EMAIL_ARE_NOT_EQUALS)){
-                mailField.requestFocus();
-                mailField.setError(message);
+            if (message.equals(User.EMAIL_ARE_NOT_EQUALS)){
+                setMessageError(mailField, message);
             }
-
             if (message.equals(User.USERNAME_CANT_BE_EMPTY_USERNAME)) {
-                usernameField.requestFocus();
-                usernameField.setError(message);
+                setMessageError(usernameField, message);
             }
-
             if (message.equals(User.USERNAME_CANT_BE_HIGHER_THAN_100)) {
-                usernameField.requestFocus();
-                usernameField.setError(message);
+                setMessageError(usernameField, message);
             }
-
             if (message.equals(User.PASSWORD_CANT_BE_EMPTY_PASSWORD)) {
-                passwordField.requestFocus();
-                passwordField.setError(message);
+                setMessageError(passwordField, message);
             }
-
             if (message.equals(User.PASSWORD_CANT_BE_LESS_THAN_6)) {
-                passwordField.requestFocus();
-                passwordField.setError(message);
+                setMessageError(passwordField, message);
             }
-
-            if(message.equals(User.PASSWORD_ARE_NOT_EQUALS)){
-                passwordField.requestFocus();
-                passwordField.setError(message);
+            if (message.equals(User.PASSWORD_ARE_NOT_EQUALS)){
+                setMessageError(passwordField, message);
             }
-
             if (message.equals(User.BIRTH_DATE_CANT_BE_EMPTY)) {
-                birthDateField.requestFocus();
-                birthDateField.setError(message);
+                setMessageError(birthDateField, message);
             }
-
             if (message.equals(User.INVALID_BIRTH_DATE)) {
-                birthDateField.requestFocus();
-                birthDateField.setError(message);
+                setMessageError(birthDateField, message);
             }
-
-            if(message.equals(User.USERNAME_EXISTENT)){
-                usernameField.requestFocus();
-                usernameField.setError(message);
+            if (message.equals(User.USERNAME_EXISTENT)){
+                setMessageError(usernameField, message);
             }
-
-            if(message.equals(User.CONFIRM_PASSWORD_CANT_BE_EMPTY)){
-                passwordConfirmField.requestFocus();
-                passwordConfirmField.setError(message);
+            if (message.equals(User.CONFIRM_PASSWORD_CANT_BE_EMPTY)){
+                setMessageError(passwordConfirmField, message);
             }
-
             if(message.equals(User.EMAIL_CONFIRMATION_CANT_BE_EMPTY)){
-                mailConfirmationField.requestFocus();
-                mailConfirmationField.setError(message);
+                setMessageError(passwordConfirmField, message);
             }
         }
     }
