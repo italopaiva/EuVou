@@ -152,6 +152,19 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         this.addressEventField = (EditText) view.findViewById(R.id.eventAddress);
     }
 
+    public void setDescriptionEvenField(EditText descriptionEventField, String message) {
+        descriptionEventField.requestFocus();
+        descriptionEventField.setError(message);
+    }
+    public void setDateEventField(EditText dateEventField, String message) {
+        dateEventField.requestFocus();
+        dateEventField.setError(message);
+    }
+    public void setNameEventField(EditText NameEventField, String message) {
+        NameEventField.requestFocus();
+        NameEventField.setError(message);
+    }
+
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.saveEvent){
@@ -177,59 +190,43 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
 
             try {
                 Event event = new Event(idOwner, nameEvent, dateHourEvent, priceEvent, addressEvent, descriptionEvent,
-                                        latitude, longitude, categories);
+                        latitude, longitude, categories);
                 registerEvent(event);
 
                 Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE, Toast.LENGTH_LONG).show();
             } catch (EventException e) {
                 String message = e.getMessage();
 
-                //Verify address field
-                if(message.equals(Event.ADDRESS_IS_EMPTY)){
-
+                if (message.equals(Event.ADDRESS_IS_EMPTY)){
                 }
-
                 if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
-                    descriptionEventField.requestFocus();
-                    descriptionEventField.setError(message);
+                    setDescriptionEvenField(descriptionEventField,message);
                 }
-
-                if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)){
-                    descriptionEventField.requestFocus();
-                    descriptionEventField.setError(message);
+                if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)) {
+                    setDescriptionEvenField(descriptionEventField, message);
                 }
-
                 if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
-                    dateEventField.requestFocus();
-                    dateEventField.setError(message);
+                    setDateEventField(dateEventField, message);
                 }
-
                 if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
-                    nameEventField.requestFocus();
-                    nameEventField.setError(message);
+                    setNameEventField(nameEventField,message);
                 }
-
                 if(message.equals(Event.INVALID_EVENT_DATE)){
-                    dateEventField.requestFocus();
-                    dateEventField.setError(message);
+                    setDateEventField(dateEventField, message);
                 }
-
                 if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
-                    nameEventField.requestFocus();
-                    nameEventField.setError(message);
+                    setNameEventField(nameEventField,message);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
-
             }
         }
-        else if(v.getId() == R.id.eventLocal){
+        else if (v.getId() == R.id.eventLocal){
             Intent map = new Intent(getActivity(), LocalEventActivity.class);
             startActivityForResult(map, 2);
         }else{
             addEventCategories(v);
         }
-
     }
 
     @Override
