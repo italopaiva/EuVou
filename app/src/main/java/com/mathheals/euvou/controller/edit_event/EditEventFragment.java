@@ -76,6 +76,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragment_edit_event, container, false);
 
         setingEditText(view);
+        dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
         setingCheckBoxs(view);
 
         EventDAO eventDAO = new EventDAO(getActivity());
@@ -172,7 +173,6 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     private void setingEditText(View view){
         this.nameField = (EditText) view.findViewById(R.id.eventName);
         this.dateField = (EditText) view.findViewById(R.id.eventDate);
-        dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
         this.hourField = (EditText) view.findViewById(R.id.eventHour);
         this.descriptionField = (EditText) view.findViewById(R.id.eventDescription);
         this.priceRealField = (EditText) view.findViewById(R.id.eventPriceReal);
@@ -199,27 +199,20 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
     public void updateEvent(){
 
-        EditText nameField = (EditText) this.getActivity().findViewById(R.id.eventName);
         String nameEvent = nameField.getText().toString();
-
-        EditText dateField = (EditText) this.getActivity().findViewById(R.id.eventDate);
         String dateEvent = dateField.getText().toString();
+
         String[] dateEventSplit = dateEvent.split("/");
         dateEvent = dateEventSplit[2]+"-"+dateEventSplit[1]+"-"+dateEventSplit[0];
 
-        EditText hourField = (EditText) this.getActivity().findViewById(R.id.eventHour);
         String hourEvent = hourField.getText().toString();
 
         String dateHourEvent = dateEvent + " " + hourEvent;
 
-        EditText descriptionField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
         String descriptionEvent = descriptionField.getText().toString();
 
-        EditText addresField = (EditText) this.getActivity().findViewById(R.id.eventAddress);
-        String addresEvent = addresField.getText().toString();
+        String addresEvent = addressField.getText().toString();
 
-        EditText priceRealField = (EditText) this.getActivity().findViewById(R.id.eventPriceReal);
-        EditText priceDecimalField = (EditText) this.getActivity().findViewById(R.id.eventPriceDecimal);
         Integer eventPriceReal = Integer.parseInt(priceRealField.getText().toString());
         Integer eventPriceDecimal = Integer.parseInt(priceDecimalField.getText().toString());
         Integer priceEvent = eventPriceReal * 100 + eventPriceDecimal;

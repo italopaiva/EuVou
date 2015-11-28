@@ -22,6 +22,4 @@ public class EditAndRegisterUtility {
     public EditText getEditTextById(int fieldId, Fragment fragment){
         return (EditText) fragment.getActivity().findViewById(fieldId);
     }
-
-
 }

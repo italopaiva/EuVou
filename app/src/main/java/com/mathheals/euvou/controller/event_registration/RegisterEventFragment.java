@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.utility.EditAndRegisterUtility;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 import com.mathheals.euvou.controller.utility.Mask;
 
@@ -34,6 +35,8 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
     private String latitude;
     private String longitude;
     Vector<String> categories= new Vector<>();
+    private EditText nameEventField, dateEventField, hourEventField, descriptionEventField, addressEventField, priceEventRealField,
+                     priceEventDecimalField;
 
     public RegisterEventFragment(){
     }
@@ -51,9 +54,11 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         Button eventLocal = (Button) view.findViewById(R.id.eventLocal);
         eventLocal.setOnClickListener(this);
 
+        setingEditText(view);
+
         //Adding mask to eventDate Field
         EditText eventDate = (EditText) view.findViewById(R.id.eventDate);
-        eventDate.addTextChangedListener(Mask.insert("##/##/####", eventDate));
+        dateEventField.addTextChangedListener(Mask.insert("##/##/####", dateEventField));
 
         //Adding listener to CheckBoxs to verify if each CheckBox is checked or not
         addCheckBoxListeners(view);
@@ -137,29 +142,32 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         }
     }
 
+    private void setingEditText(View view){
+        this.nameEventField = (EditText) view.findViewById(R.id.eventName);
+        this.dateEventField = (EditText) view.findViewById(R.id.eventDate);
+        this.hourEventField = (EditText) view.findViewById(R.id.eventHour);
+        this.descriptionEventField = (EditText) view.findViewById(R.id.eventDescription);
+        this.priceEventRealField = (EditText) view.findViewById(R.id.eventPriceReal);
+        this.priceEventDecimalField = (EditText) view.findViewById(R.id.eventPriceDecimal);
+        this.addressEventField = (EditText) view.findViewById(R.id.eventAddress);
+    }
+
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.saveEvent){
-            EditText nameEventField = (EditText) this.getActivity().findViewById(R.id.eventName);
             String nameEvent = nameEventField.getText().toString();
-
-            EditText dateEventField = (EditText) this.getActivity().findViewById(R.id.eventDate);
             String dateEvent = dateEventField.getText().toString();
+
             String[] dateEventSplit = dateEvent.split("/");
             dateEvent = dateEventSplit[2]+"-"+dateEventSplit[1]+"-"+dateEventSplit[0];
 
-            EditText hourEventField = (EditText) this.getActivity().findViewById(R.id.eventHour);
             String eventHour = hourEventField.getText().toString();
             String dateHourEvent = dateEvent + " " + eventHour;
 
-            EditText descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
             String descriptionEvent = descriptionEventField.getText().toString();
 
-            EditText addressEventField = (EditText) this.getActivity().findViewById(R.id.eventAddress);
             String addressEvent = addressEventField.getText().toString();
 
-            EditText priceEventRealField = (EditText) this.getActivity().findViewById(R.id.eventPriceReal);
-            EditText priceEventDecimalField = (EditText) this.getActivity().findViewById(R.id.eventPriceDecimal);
             Integer priceEventReal = Integer.parseInt(priceEventRealField.getText().toString());
             Integer priceEventDecimal = Integer.parseInt(priceEventDecimalField.getText().toString());
             Integer priceEvent = priceEventReal * 100 + priceEventDecimal;

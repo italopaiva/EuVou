@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.login_user.LoginActivity;
-import com.mathheals.euvou.controller.utility.EditAndRegisterUtility;
 import com.mathheals.euvou.controller.utility.Mask;
 
 import dao.UserDAO;
@@ -22,10 +21,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
 
     private static final String SUCCESSFULL_CADASTRATION_MESSAGE = "Bem vindo ao #EuVou :)";
-    private EditText field;
     private EditText nameField, birthDateField, mailField, mailConfirmationField, usernameField, passwordField, passwordConfirmField;
     private String name, birthDate, username, mail, password, passwordConfirm, mailConfirm;
-    private EditAndRegisterUtility utilityForRegister = new EditAndRegisterUtility();
 
 
     public RegisterFragment() {
@@ -36,8 +33,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.register_user, container, false);
         Button register = (Button) view.findViewById(R.id.saveButton);
         register.setOnClickListener(this);
-        EditText dateField = (EditText) view.findViewById(R.id.dateField);
-        dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
+        setingEditText(view);
+        birthDateField.addTextChangedListener(Mask.insert("##/##/####", birthDateField));
 
         return view;
     }
@@ -54,25 +51,31 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    private void setingEditText(View view){
+        this.nameField = (EditText) view.findViewById(R.id.nameField);
+        this.birthDateField = (EditText) view.findViewById(R.id.dateField);
+        this.mailField = (EditText) view.findViewById(R.id.mailField);
+        this.usernameField = (EditText) view.findViewById(R.id.loginField);
+        this.passwordField = (EditText) view.findViewById(R.id.passwordField);
+        this.mailConfirmationField = (EditText) view.findViewById(R.id.confirmMailField);
+        this.passwordConfirmField = (EditText) view.findViewById(R.id.confirmPasswordField);
+        this.birthDateField = (EditText) view.findViewById(R.id.dateField);
+    }
+
+    private void setingTextTyped(){
+        this.name = nameField.getText().toString();
+        this.username = usernameField.getText().toString();
+        this.mail = mailField.getText().toString();
+        this.mailConfirm = mailConfirmationField.getText().toString();
+        this.password = passwordField.getText().toString();
+        this.passwordConfirm = passwordConfirmField.getText().toString();
+        this.birthDate = birthDateField.getText().toString();
+    }
+
     @Override
     public void onClick(View v) {
 
-        name = utilityForRegister.getTextTyped(R.id.nameField, this);
-        birthDate = utilityForRegister.getTextTyped(R.id.dateField, this);
-        mail = utilityForRegister.getTextTyped(R.id.mailField, this);
-        mailConfirm = utilityForRegister.getTextTyped(R.id.confirmMailField, this);
-        username = utilityForRegister.getTextTyped(R.id.loginField, this);
-        password = utilityForRegister.getTextTyped(R.id.passwordField, this);
-        mailConfirm = utilityForRegister.getTextTyped(R.id.confirmMailField, this);
-        passwordConfirm = utilityForRegister.getTextTyped(R.id.confirmPasswordField, this);
-
-        nameField = utilityForRegister.getEditTextById(R.id.nameField, this);
-        birthDateField = utilityForRegister.getEditTextById(R.id.dateField, this);
-        mailField = utilityForRegister.getEditTextById(R.id.mailField, this);
-        usernameField = utilityForRegister.getEditTextById(R.id.loginField, this);
-        passwordField = utilityForRegister.getEditTextById(R.id.passwordField, this);
-        mailConfirmationField = utilityForRegister.getEditTextById(R.id.confirmMailField, this);
-        passwordConfirmField = utilityForRegister.getEditTextById(R.id.confirmPasswordField, this);
+        setingTextTyped();
 
         try {
             User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);

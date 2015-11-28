@@ -32,7 +32,7 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
     private final int LOGGED_OUT = -1;
     private EditAndRegisterUtility utilityForEdit = new EditAndRegisterUtility();
     private String name, birthDate, mail, mailConfirm, password, passwordConfirm;
-    private EditText nameField, mailField, passwordField, birthDateField, mailConfirmField, passwordConfirmField;
+    private EditText nameField, birthDateField, mailField, mailConfirmationField, passwordField, passwordConfirmField, usernameField;
 
     public EditUserFragment() {
     }
@@ -46,12 +46,8 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
 
         UserDAO userDAO = new UserDAO(this.getActivity());
 
-        EditText nameField = (EditText) view.findViewById(R.id.nameField);
-
-        EditText dateField = (EditText) view.findViewById(R.id.dateField);
-        dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
-
-        EditText mailField = (EditText) view.findViewById(R.id.mailField);
+        setingEditText(view);
+        birthDateField.addTextChangedListener(Mask.insert("##/##/####", birthDateField));
 
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
         USER_STATUS = loginUtility.getUserId();
@@ -73,7 +69,7 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
             birthDate = birthDateSplit[2]+"/"+birthDateSplit[1]+"/"+birthDateSplit[0];
 
             nameField.setText(nameUser);
-            dateField.setText(birthDate);
+            birthDateField.setText(birthDate);
             mailField.setText(mail);
 
         } catch (JSONException e) {
@@ -91,21 +87,29 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
         userDAO.update(user);
     }
 
+    private void setingEditText(View view){
+        this.nameField = (EditText) view.findViewById(R.id.nameField);
+        this.birthDateField = (EditText) view.findViewById(R.id.dateField);
+        this.mailField = (EditText) view.findViewById(R.id.mailField);
+        this.passwordField = (EditText) view.findViewById(R.id.passwordField);
+        this.mailConfirmationField = (EditText) view.findViewById(R.id.confirmMailField);
+        this.passwordConfirmField = (EditText) view.findViewById(R.id.confirmPasswordField);
+        this.birthDateField = (EditText) view.findViewById(R.id.dateField);
+    }
+
+    private void setingTextTyped(){
+        this.name = nameField.getText().toString();
+        this.mail = mailField.getText().toString();
+        this.mailConfirm = mailConfirmationField.getText().toString();
+        this.password = passwordField.getText().toString();
+        this.passwordConfirm = passwordConfirmField.getText().toString();
+        this.birthDate = birthDateField.getText().toString();
+    }
+
     @Override
     public void onClick(View v) {
-        name = utilityForEdit.getTextTyped(R.id.nameField, this);
-        birthDate = utilityForEdit.getTextTyped(R.id.dateField, this);
-        mail = utilityForEdit.getTextTyped(R.id.mailField, this);
-        mailConfirm = utilityForEdit.getTextTyped(R.id.confirmMailField, this);
-        passwordConfirm = utilityForEdit.getTextTyped(R.id.confirmPasswordField, this);
-        password = utilityForEdit.getTextTyped(R.id.passwordField, this);
 
-        nameField = utilityForEdit.getEditTextById(R.id.nameField, this);
-        birthDateField = utilityForEdit.getEditTextById(R.id.birthDateField, this);
-        mailField = utilityForEdit.getEditTextById(R.id.mailField, this);
-        mailConfirmField = utilityForEdit.getEditTextById(R.id.mailConfirmField, this);
-        passwordField = utilityForEdit.getEditTextById(R.id.passwordField, this);
-        passwordConfirmField = utilityForEdit.getEditTextById(R.id.passwordConfirmField, this);
+        setingTextTyped();
 
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
         USER_STATUS = loginUtility.getUserId();
