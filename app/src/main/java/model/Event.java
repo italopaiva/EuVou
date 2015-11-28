@@ -54,6 +54,12 @@ public class Event {
         setCategory(category);
     }
 
+    public Event(int idOwner, String nameEvent, int eventEvaluation) throws EventException, ParseException{
+        setIdOwner(idOwner);
+        setNameEvent(nameEvent);
+        setEvaluation(eventEvaluation);
+    }
+
     public Event(int idEvent, int idOwner, String nameEvent, String dateTimeEvent, Integer price, String address, String description, String latitude, String longitude) throws EventException, ParseException{
         setIdEvent(idEvent);
         setIdOwner(idOwner);

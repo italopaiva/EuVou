@@ -10,9 +10,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.event_registration.RegisterEventFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import dao.EventRecommendationDAO;
 
 public class ShowTop5Rank extends android.support.v4.app.Fragment implements OnClickListener {
 
@@ -30,6 +36,7 @@ public class ShowTop5Rank extends android.support.v4.app.Fragment implements OnC
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vw = inflater.inflate(R.layout.fragment_show_top5_rank, container, false);
+
         Button bt = (Button) vw.findViewById(R.id.more);
         bt.setOnClickListener(this);
         return vw;
