@@ -79,6 +79,10 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
             e.printStackTrace();
         } catch (EventException e) {
             e.printStackTrace();
+        }catch( NullPointerException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(),"Sem eventos criados",Toast.LENGTH_SHORT).show();
+
         }
     }
     private HashMap<String, String> createEvent(String name, String number) {
