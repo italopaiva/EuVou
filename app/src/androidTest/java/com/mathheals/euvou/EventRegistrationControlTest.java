@@ -23,8 +23,13 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 /**
  * Created by izabela on 29/11/15.
@@ -103,10 +108,23 @@ public class EventRegistrationControlTest extends ActivityInstrumentationTestCas
     }
 
     public void testChoosePlaceOnMap() {
+        final String SUCESSFULL_CHOICE_MESSAGE = "Local selecionado com sucesso";
         if(!isLoged.hasUserLoggedIn()){
             setLogin.makeUserLogIn();
         }
         openRegisterEvent();
+        onView(withId(R.id.eventLocal)).perform(click());
+        onView(withId(R.id.map)).perform(click());
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(withText(SUCESSFULL_CHOICE_MESSAGE))
+                .inRoot(withDecorView(not(is(getActivity().getWindow().getDecorView()))))
+                .check(matches(isDisplayed()));
     }
 
     private void openRegisterEvent() {
