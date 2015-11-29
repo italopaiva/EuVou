@@ -213,9 +213,14 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
                 startActivity(intent);
                 return true;
             case R.id.myEvents:
+                try{
                 fragmentTransaction.replace(R.id.content_frame, new ListEvents());
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();}
+                catch (NullPointerException exception)
+                {
+                    Toast.makeText(getBaseContext(),"Sem eventos criados",Toast.LENGTH_SHORT).show();
+                }
                 return true;
             default:
                 return false;
