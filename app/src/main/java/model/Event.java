@@ -22,7 +22,7 @@ public class Event {
     public static final String ADDRESS_IS_EMPTY = "Hey, você esqueceu de nos informar o endereço do evento!";
     public static final String INVALID_EVENT_DATE = "Hey, você informou uma data errada, pay attention guy!";
     public static final String EVENT_DATE_IS_EMPTY = "Hey, você esqueceu de informar a data do evento, cuidado!";
-    private static final String CATEGORY_IS_INVALID = "Hey, você esqueceu de informar a categoria do evento, preenche ela aí vai!";
+    public static final String CATEGORY_IS_INVALID = "Hey, você esqueceu de informar a categoria do evento, preenche ela aí vai!";
 
 
     private int idEvent;

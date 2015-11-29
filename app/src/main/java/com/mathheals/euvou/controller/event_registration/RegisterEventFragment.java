@@ -186,6 +186,7 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
                 String message = e.getMessage();
 
                 if (message.equals(Event.ADDRESS_IS_EMPTY)){
+                    editAndRegisterUtility.setMessageError(addressEventField, message);
                 }
                 if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
                     editAndRegisterUtility.setMessageError(descriptionEventField, message);
