@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.event_registration.LocalEventActivity;
+import com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Rank;
 import com.mathheals.euvou.controller.utility.EditAndRegisterUtility;
 import com.mathheals.euvou.controller.utility.Mask;
 
@@ -165,6 +166,9 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
         //Adding listener to CheckBoxs to verify if each CheckBox is checked or not
         addCheckBoxListeners(view);
+
+        Button removeEvent = (Button)view.findViewById(R.id.removeEvent);
+        removeEvent.setOnClickListener(this);
 
         Button updateEvent = (Button)view.findViewById(R.id.updateEvent);
         updateEvent.setOnClickListener(this);
@@ -337,7 +341,11 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         if(v.getId() == R.id.updateEvent) {
             updateEvent();
-        }else if(v.getId() == R.id.eventLocal){
+        }
+        else if(v.getId() == R.id.removeEvent){
+            removeEvent(idEvent);
+        }
+        else if(v.getId() == R.id.eventLocal){
             Intent map = new Intent(getActivity(), LocalEventActivity.class);
             startActivityForResult(map, 2);
         }else{
@@ -391,5 +399,19 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         CheckBox othersCategory = (CheckBox) v.findViewById(R.id.optionOthers);
         othersCategory.setOnClickListener(this);
 
+    }
+
+    private void removeEvent(int eventId)
+    {
+        EventDAO eventDAO = new EventDAO(getActivity());
+        if(eventDAO.deleteEvent(eventId).contains("Salvo")) {
+            Toast.makeText(getActivity(), "Deletado com sucesso", Toast.LENGTH_LONG).show();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, new ShowTop5Rank());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+        else
+            Toast.makeText(getActivity(),"Houve um erro",Toast.LENGTH_LONG).show();
     }
 }

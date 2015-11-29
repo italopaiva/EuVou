@@ -45,9 +45,10 @@ public class EventDAO extends DAO {
         }
 
     }
-    public  String deleteEvent(Event event)
+
+    public  String deleteEvent(int idEvent)
     {
-        return this.executeQuery("DELETE FROM tb_event WHERE idEvent ="+event.getIdEvent());
+        return this.executeQuery("DELETE FROM tb_event WHERE idEvent ="+idEvent);
     }
 
     public void updateEvent(Event event)
