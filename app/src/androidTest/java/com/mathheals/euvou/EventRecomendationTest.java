@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.mathheals.euvou.controller.home_page.HomePage;
+import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +24,8 @@ public class EventRecomendationTest  extends ActivityInstrumentationTestCase2<Ho
     public final String TOP_ONE_EVENT_NAME = "Festa";
     private Activity activity;
     private ListView list;
+    private static final int USER_LOGGED_OUT = -1;
+    private boolean isUserLoggedIn;
 
     public EventRecomendationTest() {
         super(HomePage.class);
@@ -32,12 +35,18 @@ public class EventRecomendationTest  extends ActivityInstrumentationTestCase2<Ho
     public void setUp() throws Exception {
         super.setUp();
         activity = getActivity();
-        list = (ListView) activity.findViewById(R.id.list_view_event_recomendations);
+        setIsUserLoggedIn(new LoginUtility(activity).getUserId() != USER_LOGGED_OUT);
     }
 
     @Test
     public void testIfAnyEventIsRecommended() {
         assertNotNull("The list was not loaded", list);
+        openTopOneEvent();
+        onView(withId(R.id.event_name_text)).check(matches(isDisplayed()));
+    }
+
+    private void openTopOneEvent() {
+        list = (ListView) activity.findViewById(R.id.list_view_event_recomendations);
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -48,6 +57,42 @@ public class EventRecomendationTest  extends ActivityInstrumentationTestCase2<Ho
 
         });
         getInstrumentation().waitForIdleSync();
-        onView(withId(R.id.event_name_text  )).check(matches(isDisplayed()));
+    }
+
+    public void testUserWithoutRecomendations() {
+        final String LOGIN = "izabiza";
+        final String PASSWORD = "123456";
+
+        if(isUserLoggedIn)
+            TestUtility.makeUserLogOut();
+        TestUtility.makeUserLogIn(LOGIN, PASSWORD);
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        boolean result = false;
+        int numberOfEVentsRecomended = -1;
+
+        list = (ListView) activity.findViewById(R.id.list_view_event_recomendations);
+
+        if(list == null)
+            result = true;
+        else
+            numberOfEVentsRecomended = list.getAdapter().getCount();
+        if(numberOfEVentsRecomended == 0)
+            result = true;
+
+        TestUtility.makeUserLogOut();
+        TestUtility.makeUserLogIn();
+        isUserLoggedIn = true;
+
+        assertTrue(result);
+    }
+
+    public void setIsUserLoggedIn(boolean isUserLoggedIn) {
+        this.isUserLoggedIn = isUserLoggedIn;
     }
 }

@@ -27,4 +27,12 @@ public class TestUtility {
         onView(withText("Sair")).perform(click());
     }
 
+    public static void makeUserLogIn(String login, String password) {
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Entrar")).perform(click());
+        onView(withId(R.id.usernameField)).perform(typeText(login));
+        onView(withId(R.id.passwordField)).perform(typeText(password));
+        onView(withText("Login")).perform(click());
+    }
+
 }
