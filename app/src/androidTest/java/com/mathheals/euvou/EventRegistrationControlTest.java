@@ -101,4 +101,16 @@ public class EventRegistrationControlTest extends ActivityInstrumentationTestCas
 
         onView(withId(R.id.eventAddress)).check(matches(hasErrorText(event.ADDRESS_IS_EMPTY)));
     }
+
+    public void testChoosePlaceOnMap() {
+        if(!isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogIn();
+        }
+        openRegisterEvent();
+    }
+
+    private void openRegisterEvent() {
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar Evento")).perform(click());
+    }
 }
