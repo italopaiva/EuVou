@@ -215,13 +215,13 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         String query = searchView.getQuery().toString();
         switch(checkedId) {
             case R.id.radio_events:
-                Toast.makeText(getBaseContext(), "AGORA EM EVENTOS: " + query, Toast.LENGTH_LONG).show();
+
                 break;
             case R.id.radio_places:
-                Toast.makeText(getBaseContext(), "AGORA EM LOCAIS: " + query, Toast.LENGTH_LONG).show();
+
                 break;
             case R.id.radio_people:
-                Toast.makeText(getBaseContext(), "AGORA EM PESSOAS: " + query, Toast.LENGTH_LONG).show();
+                
                 break;
         }
     }
