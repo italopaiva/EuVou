@@ -22,6 +22,7 @@ import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static android.support.test.espresso.matcher.ViewMatchers.isChecked;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
@@ -45,6 +46,32 @@ public class EventRegistrationControlTest extends ActivityInstrumentationTestCas
         getActivity();
         isLoged = new LoginUtility(getActivity());
         device = UiDevice.getInstance(getInstrumentation());
+    }
+
+    public void testCategoriesCheckBox(){
+        if(!isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogIn();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar Evento")).perform(click());
+        onView(withId(R.id.optionShow)).perform(click());
+        onView(withId(R.id.optionShow)).check(matches(isChecked()));
+        onView(withId(R.id.optionCinema)).perform(click());
+        onView(withId(R.id.optionCinema)).check(matches(isChecked()));
+        onView(withId(R.id.optionEducation)).perform(click());
+        onView(withId(R.id.optionEducation)).check(matches(isChecked()));
+        onView(withId(R.id.optionExposition)).perform(click());
+        onView(withId(R.id.optionExposition)).check(matches(isChecked()));
+        onView(withId(R.id.optionMuseum)).perform(click());
+        onView(withId(R.id.optionMuseum)).check(matches(isChecked()));
+        onView(withId(R.id.optionOthers)).perform(click());
+        onView(withId(R.id.optionOthers)).check(matches(isChecked()));
+        onView(withId(R.id.optionSports)).perform(click());
+        onView(withId(R.id.optionSports)).check(matches(isChecked()));
+        onView(withId(R.id.optionParty)).perform(click());
+        onView(withId(R.id.optionParty)).check(matches(isChecked()));
+        onView(withId(R.id.optionTheater)).perform(click());
+        onView(withId(R.id.optionTheater)).check(matches(isChecked()));
     }
 
     public void testRegisterEventButtonWithEmptyAddress(){
@@ -75,5 +102,15 @@ public class EventRegistrationControlTest extends ActivityInstrumentationTestCas
         onView(withId(R.id.eventAddress)).check(matches(hasErrorText(event.ADDRESS_IS_EMPTY)));
     }
 
+    public void testChoosePlaceOnMap() {
+        if(!isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogIn();
+        }
+        openRegisterEvent();
+    }
 
+    private void openRegisterEvent() {
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar Evento")).perform(click());
+    }
 }
