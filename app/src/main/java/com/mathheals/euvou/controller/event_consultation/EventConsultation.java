@@ -221,7 +221,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
 
                 break;
             case R.id.radio_people:
-                
+
                 break;
         }
     }
