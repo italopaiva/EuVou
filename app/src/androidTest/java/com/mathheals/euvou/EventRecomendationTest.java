@@ -40,13 +40,13 @@ public class EventRecomendationTest  extends ActivityInstrumentationTestCase2<Ho
 
     @Test
     public void testIfAnyEventIsRecommended() {
+        list = (ListView) activity.findViewById(R.id.list_view_event_recomendations);
         assertNotNull("The list was not loaded", list);
         openTopOneEvent();
         onView(withId(R.id.event_name_text)).check(matches(isDisplayed()));
     }
 
     private void openTopOneEvent() {
-        list = (ListView) activity.findViewById(R.id.list_view_event_recomendations);
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
