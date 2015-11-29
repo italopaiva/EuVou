@@ -21,11 +21,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import dao.EventRecommendationDAO;
-import dao.PlaceDAO;
 import exception.EventException;
-import exception.PlaceException;
 import model.Event;
-import model.Place;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,7 +46,7 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
         // Inflate the layout for this fragment
         View vw = inflater.inflate(R.layout.fragment_recommend_event, container, false);
         // Inflate the layout for this fragment
-        listView = (ListView) vw.findViewById(R.id.listViewEvents);
+        listView = (ListView) vw.findViewById(R.id.list_view_event_recomendations);
         listView.setOnItemClickListener(this);
 
         LoginUtility loginUtility = new LoginUtility(getActivity());
