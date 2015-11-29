@@ -62,27 +62,29 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
 
     private void fillList() {
         EventRecommendationDAO eventRecommendationDAO = new EventRecommendationDAO();
-        eventDATA = eventRecommendationDAO.recommendEvents(idUser);
 
         events = new ArrayList<>();
 
-        for(int i=0; i<eventDATA.length(); i++){
-            try {
-                int idEvent = eventDATA.getJSONObject(Integer.toString(i)).getInt("idEvent");
-                String nameEvent = eventDATA.getJSONObject(Integer.toString(i)).getString("nameEvent");
-                int eventEvaluation = 4;
+        try{
+            eventDATA = eventRecommendationDAO.recommendEvents(idUser);
 
-                Event event = new Event(idEvent, nameEvent, eventEvaluation);
+            for(int i=0; i<eventDATA.length(); i++){
+                    int idEvent = eventDATA.getJSONObject(Integer.toString(i)).getInt("idEvent");
+                    String nameEvent = eventDATA.getJSONObject(Integer.toString(i)).getString("nameEvent");
+                    int eventEvaluation = 4;
 
-                events.add(event);
+                    Event event = new Event(idEvent, nameEvent, eventEvaluation);
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            } catch (EventException e) {
-                e.printStackTrace();
+                    events.add(event);
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (EventException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e){
+            Toast.makeText(getActivity().getBaseContext(), "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
         }
 
         EventAdapter eventAdapter = new EventAdapter(getActivity(),events);
