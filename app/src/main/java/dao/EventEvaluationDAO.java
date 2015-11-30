@@ -23,11 +23,11 @@ public class EventEvaluationDAO extends DAO {
         JSONObject findEvaluation = searchEventEvaluation(evaluation.getEventId(), evaluation.getUserId());
 
         if(findEvaluation==null) {
-            QUERY = "INSERT INTO evaluate_event(grade, idUser, idEvent) VALUES (\"" + evaluation.getRating() + "\"," +
+            QUERY = "INSERT INTO participate(grade, idUser, idEvent) VALUES (\"" + evaluation.getRating() + "\"," +
                     "\"" + evaluation.getUserId() + "\"," +
                     "\"" + evaluation.getEventId() + "\")";
         }else{
-            QUERY = "UPDATE evaluate_event SET grade = \"" +evaluation.getRating() + "\" " +
+            QUERY = "UPDATE participate SET grade = \"" +evaluation.getRating() + "\" " +
                     "WHERE idEvent = \"" + evaluation.getEventId() + "\" AND idUser = \"" + evaluation.getUserId() + "\"";
         }
 
@@ -35,7 +35,7 @@ public class EventEvaluationDAO extends DAO {
     }
 
     public JSONObject searchEventEvaluation(int eventId, int userId) {
-        final String QUERY = "SELECT * FROM evaluate_event WHERE idUser = \"" + userId
+        final String QUERY = "SELECT * FROM participate WHERE idUser = \"" + userId
                             + "\" AND idEvent = " + eventId;
         return executeConsult(QUERY);
     }
