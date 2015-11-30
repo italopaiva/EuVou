@@ -17,6 +17,8 @@ import dao.UserDAO;
 import exception.EventException;
 import model.Event;
 import model.User;
+
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -56,7 +58,15 @@ public class RemoveEventControlTest extends ActivityInstrumentationTestCase2<Hom
         device = UiDevice.getInstance(getInstrumentation());
     }
 
-    public void testRemoveButton() throws ParseException, EventException {
+    public void testIfRemoveEventOptionIsDisplayedForUserLoggedOut(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Meus Eventos")).check(doesNotExist());
+    }
+
+    public void testRemoveEventButton() throws ParseException, EventException {
 
         if(!isLoged.hasUserLoggedIn()){
             setLogin.makeUserLogIn();

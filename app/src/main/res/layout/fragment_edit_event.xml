@@ -233,7 +233,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
                 android:background="#00C0C3"
-                android:text="Atualizar"
+                android:text="Alterar"
                 android:layout_gravity="left"
                 />
 
