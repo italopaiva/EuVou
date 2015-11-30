@@ -79,7 +79,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
 
         setUserId(new LoginUtility(getActivity()).getUserId());
-        if(userId != LOGGED_OUT) {
+        if(userId == LOGGED_OUT) {
             participateButton.setVisibility(showEventView.GONE);
         }
         else {

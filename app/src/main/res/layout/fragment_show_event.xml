@@ -131,26 +131,31 @@
             android:layout_marginBottom="20dp"/>
     </LinearLayout>
 
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
 
-    <Button
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/showEventOnMapButton"
-        android:textColor="#FFF"
-        android:text="@string/button_show_map_txt"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/turquesa_app" />
+        <Button
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/showEventOnMapButton"
+            android:textColor="#FFF"
+            android:text="@string/button_show_map_txt"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/turquesa_app" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/EuVou"
-        android:text="#EuVou"
-        android:layout_below="@+id/eventPlaces"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:background="@color/green"></Button>
-    
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EuVou"
+            android:text="#EuVou"
+            android:background="@color/green"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"></Button>
+     </RelativeLayout>
 </LinearLayout>
 
 </ScrollView>

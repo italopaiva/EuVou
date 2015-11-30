@@ -37,6 +37,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasToString;
+import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 
 /**
@@ -164,5 +165,69 @@ public class    EventConsultationTest extends ActivityInstrumentationTestCase2<H
 
     public void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
+    }
+    public void testMarkParticipateNotLoged()
+    {
+        if(isUserLoggedIn){
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Sair")).perform(click());
+        }
+
+        onView(withId(R.id.search)).perform(click());
+        onView(isAssignableFrom(EditText.class)).perform(typeText("t"), pressKey(66));
+        onData(hasToString(containsString("t")))
+                .inAdapterView(withId(R.id.events_list)).atPosition(0)
+                .perform(click());
+        onView(withId(R.id.EuVou)).check(matches(not(isDisplayed())));
+    }
+
+    private void markClique()
+    {
+        onView(withId(R.id.search)).perform(click());
+        onView(isAssignableFrom(EditText.class)).perform(typeText("t"), pressKey(66));
+        onData(hasToString(containsString("t")))
+                .inAdapterView(withId(R.id.events_list)).atPosition(0)
+                .perform(click());
+    }
+
+
+    public void testMarkParticipateTwoTimeLoged() {
+        if (!isUserLoggedIn) {
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Entrar")).perform(click());
+            onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
+            onView(withId(R.id.passwordField)).perform(typeText("123456"));
+            onView(withText("Login")).perform(click());
+        }
+        markClique();
+        onView(withId(R.id.EuVou)).perform(click());
+        onView(withId(R.id.EuVou)).perform(click());
+
+        onView(withId(R.id.search)).perform(click());
+        onView(withContentDescription("Navigate up")).perform(click());
+        onView(withText("EuVou")).check(matches(isDisplayed()));
+        markClique();
+        onView(withId(R.id.EuVou)).perform(click());
+        onView(withId(R.id.EuVou)).perform(click());
+    }
+
+    public void testMarkOffParticipateTwoTimeLoged() {
+        if (!isUserLoggedIn) {
+            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+            onView(withText("Entrar")).perform(click());
+            onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
+            onView(withId(R.id.passwordField)).perform(typeText("123456"));
+            onView(withText("Login")).perform(click());
+        }
+        markClique();
+        onView(withId(R.id.EuVou)).perform(click());
+        onView(withId(R.id.EuVou)).perform(click());
+
+        onView(withId(R.id.search)).perform(click());
+        onView(withContentDescription("Navigate up")).perform(click());
+        onView(withText("EuVou")).check(matches(isDisplayed()));
+        markClique();
+        onView(withId(R.id.EuVou)).perform(click());
+        onView(withId(R.id.EuVou)).perform(click());
     }
 }
