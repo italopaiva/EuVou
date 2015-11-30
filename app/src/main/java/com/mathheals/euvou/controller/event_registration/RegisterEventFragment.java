@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
-import com.mathheals.euvou.controller.utility.EditAndRegisterUtility;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 import com.mathheals.euvou.controller.utility.Mask;
 
@@ -35,9 +34,6 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
     private String latitude;
     private String longitude;
     Vector<String> categories= new Vector<>();
-    private EditText nameEventField, dateEventField, hourEventField, descriptionEventField, addressEventField, priceEventRealField,
-                     priceEventDecimalField;
-    private EditAndRegisterUtility  editAndRegisterUtility = new EditAndRegisterUtility();
 
     public RegisterEventFragment(){
     }
@@ -55,11 +51,9 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         Button eventLocal = (Button) view.findViewById(R.id.eventLocal);
         eventLocal.setOnClickListener(this);
 
-        setingEditText(view);
-
         //Adding mask to eventDate Field
         EditText eventDate = (EditText) view.findViewById(R.id.eventDate);
-        dateEventField.addTextChangedListener(Mask.insert("##/##/####", dateEventField));
+        eventDate.addTextChangedListener(Mask.insert("##/##/####", eventDate));
 
         //Adding listener to CheckBoxs to verify if each CheckBox is checked or not
         addCheckBoxListeners(view);
@@ -143,79 +137,110 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         }
     }
 
-    private void setingEditText(View view){
-        this.nameEventField = (EditText) view.findViewById(R.id.eventName);
-        this.dateEventField = (EditText) view.findViewById(R.id.eventDate);
-        this.hourEventField = (EditText) view.findViewById(R.id.eventHour);
-        this.descriptionEventField = (EditText) view.findViewById(R.id.eventDescription);
-        this.priceEventRealField = (EditText) view.findViewById(R.id.eventPriceReal);
-        this.priceEventDecimalField = (EditText) view.findViewById(R.id.eventPriceDecimal);
-        this.addressEventField = (EditText) view.findViewById(R.id.eventAddress);
-    }
-
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.saveEvent){
+            EditText nameEventField = (EditText) this.getActivity().findViewById(R.id.eventName);
             String nameEvent = nameEventField.getText().toString();
+
+            EditText dateEventField = (EditText) this.getActivity().findViewById(R.id.eventDate);
             String dateEvent = dateEventField.getText().toString();
 
-            String[] dateEventSplit = dateEvent.split("/");
-            dateEvent = dateEventSplit[2]+"-"+dateEventSplit[1]+"-"+dateEventSplit[0];
-
+            EditText hourEventField = (EditText) this.getActivity().findViewById(R.id.eventHour);
             String eventHour = hourEventField.getText().toString();
-            String dateHourEvent = dateEvent + " " + eventHour;
 
+            EditText descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
             String descriptionEvent = descriptionEventField.getText().toString();
 
+            EditText addressEventField = (EditText) this.getActivity().findViewById(R.id.eventAddress);
             String addressEvent = addressEventField.getText().toString();
 
-            Integer priceEventReal = Integer.parseInt(priceEventRealField.getText().toString());
-            Integer priceEventDecimal = Integer.parseInt(priceEventDecimalField.getText().toString());
-            Integer priceEvent = priceEventReal * 100 + priceEventDecimal;
+            EditText priceEventRealField = (EditText) this.getActivity().findViewById(R.id.eventPriceReal);
+            String priceEventReal = priceEventRealField.getText().toString();
+
+            EditText priceEventDecimalField = (EditText) this.getActivity().findViewById(R.id.eventPriceDecimal);
+            String priceEventDecimal = priceEventDecimalField.getText().toString();
 
             LoginUtility loginUtility = new LoginUtility(getActivity());
             int idOwner = loginUtility.getUserId();
 
             try {
-                Event event = new Event(idOwner, nameEvent, dateHourEvent, priceEvent, addressEvent, descriptionEvent,
-                        latitude, longitude, categories);
+                Event event = new Event(idOwner, nameEvent, dateEvent, eventHour, priceEventReal, priceEventDecimal, addressEvent, descriptionEvent,
+                                        latitude, longitude, categories);
                 registerEvent(event);
 
                 Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE, Toast.LENGTH_LONG).show();
             } catch (EventException e) {
                 String message = e.getMessage();
 
-                if (message.equals(Event.ADDRESS_IS_EMPTY)){
-                    editAndRegisterUtility.setMessageError(addressEventField, message);
+                //Verify address field
+                if(message.equals(Event.ADDRESS_IS_EMPTY)){
+                    addressEventField.requestFocus();
+                    addressEventField.setError(message);
                 }
+
+                if(message.equals(Event.INVALID_EVENT_HOUR)){
+                    hourEventField.requestFocus();
+                    hourEventField.setError(message);
+                }
+
+                if(message.equals(Event.EVENT_HOUR_IS_EMPTY)){
+                    hourEventField.requestFocus();
+                    hourEventField.setError(message);
+                }
+
                 if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
-                    editAndRegisterUtility.setMessageError(descriptionEventField, message);
+                    descriptionEventField.requestFocus();
+                    descriptionEventField.setError(message);
                 }
-                if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)) {
-                    editAndRegisterUtility.setMessageError(descriptionEventField, message);
+
+                if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)){
+                    descriptionEventField.requestFocus();
+                    descriptionEventField.setError(message);
                 }
+
                 if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
-                    editAndRegisterUtility.setMessageError(dateEventField, message);
+                    dateEventField.requestFocus();
+                    dateEventField.setError(message);
                 }
+
                 if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
-                    editAndRegisterUtility.setMessageError(nameEventField, message);
+                    nameEventField.requestFocus();
+                    nameEventField.setError(message);
                 }
+
                 if(message.equals(Event.INVALID_EVENT_DATE)){
-                    editAndRegisterUtility.setMessageError(dateEventField, message);
+                    dateEventField.requestFocus();
+                    dateEventField.setError(message);
                 }
+
                 if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
-                    editAndRegisterUtility.setMessageError(nameEventField, message);
+                    nameEventField.requestFocus();
+                    nameEventField.setError(message);
                 }
+
+                if(message.equals(Event.PRICE_REAL_IS_EMPTY)){
+                    priceEventRealField.requestFocus();
+                    priceEventRealField.setError(message);
+                }
+
+                if(message.equals(Event.PRICE_DECIMAL_IS_EMPTY)){
+                    priceEventDecimalField.requestFocus();
+                    priceEventDecimalField.setError(message);
+                }
+
             } catch (ParseException e) {
                 e.printStackTrace();
+
             }
         }
-        else if (v.getId() == R.id.eventLocal){
+        else if(v.getId() == R.id.eventLocal){
             Intent map = new Intent(getActivity(), LocalEventActivity.class);
             startActivityForResult(map, 2);
         }else{
             addEventCategories(v);
         }
+
     }
 
     @Override
