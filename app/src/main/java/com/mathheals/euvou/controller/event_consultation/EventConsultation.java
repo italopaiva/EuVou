@@ -215,13 +215,8 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         String query = searchView.getQuery().toString();
         switch(checkedId) {
             case R.id.radio_events:
-
-                break;
-            case R.id.radio_places:
-
                 break;
             case R.id.radio_people:
-
                 break;
         }
     }

@@ -66,7 +66,6 @@ public class    EventConsultationTest extends ActivityInstrumentationTestCase2<H
         onView(withId(R.id.search)).perform(click());
         onView(withId(R.id.radio_events)).check(matches(isDisplayed()));
         onView(withId(R.id.radio_people)).check(matches(isDisplayed()));
-        onView(withId(R.id.radio_places)).check(matches(isDisplayed()));
     }
 
     public void testIfAnyEventWasFound() {
@@ -90,10 +89,6 @@ public class    EventConsultationTest extends ActivityInstrumentationTestCase2<H
         onView(withId(R.id.radio_people))
                 .perform(click());
         onView(withId(R.id.radio_people))
-                .check(matches(isChecked()));
-        onView(withId(R.id.radio_places))
-                .perform(click());
-        onView(withId(R.id.radio_places))
                 .check(matches(isChecked()));
         onView(withId(R.id.radio_events))
                 .perform(click());
