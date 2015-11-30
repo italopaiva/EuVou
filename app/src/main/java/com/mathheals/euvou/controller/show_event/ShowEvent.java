@@ -184,16 +184,21 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     {
         if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) != null)
             Toast.makeText(getActivity(), "Heyy, você já marcou sua participação", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(getActivity(), eventDAO.markParticipate(userId, Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
+        else {
+            eventDAO.markParticipate(userId, Integer.parseInt(eventId));
+            Toast.makeText(getActivity(),"Salvo com sucesso" , Toast.LENGTH_SHORT).show();
+        }
     }
     private void markOffParticipate()
     {
 
         if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) == null)
             Toast.makeText(getActivity(), "Heyy, você já desmarcou sua participação", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(getActivity(), eventDAO.markOffParticipate(userId, Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
+        else{
+
+            eventDAO.markOffParticipate(userId, Integer.parseInt(eventId));
+            Toast.makeText(getActivity(),"Salvo com sucesso" , Toast.LENGTH_SHORT).show();
+        };
     }
 
     public void onClick(View view) {
@@ -291,7 +296,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     }
 
     private void setRatingBarStyle() {
-        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+/*        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
-    }
+ */   }
 }
