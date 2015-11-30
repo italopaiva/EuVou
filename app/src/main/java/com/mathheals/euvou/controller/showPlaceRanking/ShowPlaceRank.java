@@ -44,7 +44,7 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
                              Bundle savedInstanceState) {
         View vw = inflater.inflate(R.layout.fragment_show_place_rank, container, false);
         // Inflate the layout for this fragment
-        listView = (ListView) vw.findViewById(R.id.listViewPlaces);
+        listView = (ListView) vw.findViewById(R.id.listViewPlacesTotall);
         listView.setOnItemClickListener(this);
         fillList();
         return  vw;
@@ -87,14 +87,6 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
             e.printStackTrace();
         }
     }
-
-    private HashMap<String, String> placeRank(String namePlace, String evaluate) {
-        HashMap<String, String> place = new HashMap<String, String>();
-        place.put("Nome", namePlace);
-        place.put("Nota", evaluate);
-        return place;
-    }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         startShowInfoActivity(position);

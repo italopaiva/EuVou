@@ -6,7 +6,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listViewPlaces"
+        android:id="@+id/listViewPlaces5"
         android:layout_below="@+id/placeName" />
 
     <TextView
