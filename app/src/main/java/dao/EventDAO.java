@@ -121,4 +121,20 @@ public class EventDAO extends DAO {
         return this.executeQuery("DELETE FROM participate WHERE idEvent=" + idEvent + " AND idUser=" + idUser);
     }
 
+    public void saveEventWithId(Event event)
+    {
+        executeQuery("insert into tb_event(idEvent,nameEvent, idOwner, price, address, dateTimeEvent,description,longitude,latitude) VALUES('" +
+                event.getIdEvent() + "', '" + event.getNameEvent() + "', '" + event.getIdOwner() + "', '" + event.getPrice() + "', '" + event.getAddress() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
+                "" + event.getLongitude() + "," + event.getLatitude() + ")");
+
+        Vector<String> categories = event.getCategory();
+        JSONObject jsonObject = executeConsult("SELECT idEvent FROM tb_event WHERE nameEvent = \"" + event.getNameEvent() + "\"");
+        int idEvent = 0;
+        try {
+            idEvent = jsonObject.getJSONObject("0").getInt("idEvent");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

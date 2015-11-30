@@ -56,7 +56,7 @@ public class RemoveEventControlTest extends ActivityInstrumentationTestCase2<Hom
         device = UiDevice.getInstance(getInstrumentation());
     }
 
-    public void testSomething() throws ParseException, EventException {
+    public void testRemoveButton() throws ParseException, EventException {
 
         if(!isLoged.hasUserLoggedIn()){
             setLogin.makeUserLogIn();
@@ -71,5 +71,7 @@ public class RemoveEventControlTest extends ActivityInstrumentationTestCase2<Hom
         onView(withId(R.id.removeEvent)).perform(scrollTo());
         onView(withId(R.id.removeEvent)).perform(click());
         onView(withText("Deletado com sucesso")).inRoot(withDecorView(not(is(getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        Event event = new Event(1,3,"Teste","2015-12-20 14:00:00",10010,"oi","xablau","0","0");
+        new EventDAO().saveEventWithId(event);
     }
 }
