@@ -1,0 +1,49 @@
+<%- model_class = Activity -%>
+<div class="page-header">
+  <h1>Atividades</h1>
+</div>
+<%= form_tag(activities_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Buscar atividades", class: 'search-bar' %>
+  <%= submit_tag "Buscar", class: 'btn btn-default' %>
+  <br><br>
+<% end %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name("Nome") %></th>
+      <th><%= model_class.human_attribute_name("Descrição") %></th>
+      <th><%= model_class.human_attribute_name("Tipo da atividade") %></th>
+      <th><%= model_class.human_attribute_name("Data de Criação") %></th>
+      <th><%=t '.actions', :default => t("Ações") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @activities.each do |activity| %>
+      <tr>
+        <td><%= link_to activity.id, activity_path(activity) %></td>
+        <td><%= activity.name %></td>
+        <td><%= activity.description %></td>
+        <td><%= activity.activity_type %></td>
+        <td><%=l activity.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("Adicionar Subatividade")),
+                      edit_activity_path(activity), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.edit', :default => t("Ver Subatividades")),
+                      edit_activity_path(activity), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.edit', :default => t("Editar")),
+                      edit_activity_path(activity), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("Deletar")),
+                      activity_path(activity),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("Criar nova atividade")),
+            new_activity_path,
+            :class => 'btn btn-success' %>

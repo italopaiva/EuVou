@@ -1,0 +1,12 @@
+<%= bootstrap_form_for @activity, :html => { :class => "form-horizontal activity" } do |f| %>
+  <div class="col-md-6">
+    <%= f.text_field :name, label: "Nome da Atividade" %>
+    <%= f.text_area :description, label: "Descrição da Atividade" %>
+    <%= f.form_group :activity_type, label: { text: "Tipo" } do %>
+        <%= f.radio_button :activity_type, "Consultoria", label: "Consultoria" %>
+        <%= f.radio_button :activity_type, "Administrativa", label: "Administrativa" %>
+    <% end %>
+    <%= f.submit "Salvar", class: "btn btn-success" %>
+    <%= f.button "Limpar Formulário", type: :reset, class: "btn" %>
+  </div>
+<% end %>

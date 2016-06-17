@@ -1,0 +1,20 @@
+<%= bootstrap_form_for(@subatividade) do |f| %>
+  
+  <div class="col-md-6">
+    <%= f.text_field :name, label: "Nome da Subatividade" %>
+    <%= f.text_area :description, label: "Descrição da Subatividade" %>
+    <%= f.number_field :duration, label: "Duração da Subatividade (em horas)" %>
+    <%= f.form_group :location, label: { text: "Localização" } do  %>
+      <%= f.radio_button :location,"Presencial", label: "Presencial" %>
+      <%= f.radio_button :location,"Não presencial", label: "Não presencial"%>
+    <% end %>
+    <%= f.form_group :progress, label: { text: "Andamento" } do  %>
+      <%= f.radio_button :progress,"A começar", label: "A começar" %>
+      <%= f.radio_button :progress,"Em execução", label: "Em execução"%>
+      <%= f.radio_button :progress,"Terminada", label: "Terminada"%>
+    <% end %>
+    <%= f.submit "Salvar", class: "btn btn-success" %>
+    <%= f.button "Limpar Formulário", type: :resset, class: "btn btn-default" %>
+    <%= link_to 'Voltar', subatividades_path , class: "btn btn-default" %>
+  </div>
+<% end %>

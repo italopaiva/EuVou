@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Subatividades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Duration</th>
+      <th>Location</th>
+      <th>Progress</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subatividades.each do |subatividade| %>
+      <tr>
+        <td><%= subatividade.name %></td>
+        <td><%= subatividade.description %></td>
+        <td><%= subatividade.duration %></td>
+        <td><%= subatividade.location %></td>
+        <td><%= subatividade.progress %></td>
+        <td><%= link_to 'Show', subatividade %></td>
+        <td><%= link_to 'Edit', edit_subatividade_path(subatividade) %></td>
+        <td><%= link_to 'Destroy', subatividade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Subatividade', new_subatividade_path %>

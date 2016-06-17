@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @subatividade.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @subatividade.description %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @subatividade.duration %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @subatividade.location %>
+</p>
+
+<p>
+  <strong>Progress:</strong>
+  <%= @subatividade.progress %>
+</p>
+
+<%= link_to 'Edit', edit_subatividade_path(@subatividade) %> |
+<%= link_to 'Back', subatividades_path %>
