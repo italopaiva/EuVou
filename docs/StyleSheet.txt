@@ -58,4 +58,27 @@ Operands and Atribuition Signs
 
 Commits
 
-	
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Commentaries
+
+    When have just one line //
+        Ex1:  //Comment One
+
+    If it haves more than one line use /**/
+        Ex2:
+        /*
+        Commentary
+        with more
+        than one
+        line
+        */
+
+
+
+
+
+
