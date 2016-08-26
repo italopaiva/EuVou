@@ -61,6 +61,9 @@ Operands and Atribuition Signs
 Committs
 
 	Committs must have titles and descriptions.
+	Committs must include just one file per each commit.
+	Each commit should represent a change in at least 100 lines.
+	
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
