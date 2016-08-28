@@ -1,6 +1,5 @@
 package com.mathheals.euvou.controller.event_recommendation;
 
-
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.mathheals.euvou.R;
+import com.mathheals.euvou.R;//BAD CODE
 import com.mathheals.euvou.controller.show_event.ShowEvent;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
@@ -24,10 +23,8 @@ import dao.EventRecommendationDAO;
 import exception.EventException;
 import model.Event;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class RecommendEvent extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener{
+public class RecommendEvent extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener
+{
 
     private ListView listView;
     ArrayList<Event> events;
@@ -35,16 +32,17 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
     private int idUser;
 
 
-    public RecommendEvent() {
+    public RecommendEvent()
+    {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
-        View vw = inflater.inflate(R.layout.fragment_recommend_event, container, false);
+        View vw = inflater.inflate(R.layout.fragment_recommend_event, container, false);//BAD CODE
         // Inflate the layout for this fragment
         listView = (ListView) vw.findViewById(R.id.list_view_event_recomendations);
         listView.setOnItemClickListener(this);
@@ -52,23 +50,28 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
         LoginUtility loginUtility = new LoginUtility(getActivity());
         idUser = loginUtility.getUserId();
 
-        if(idUser == -1){
+        if(idUser == -1)
+        {
             Toast.makeText(getActivity().getBaseContext(), "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
-        }else {
+        }else
+        {
             fillList();
         }
-        return  vw;
+        return  vw;//BAD CODE
     }
 
-    private void fillList() {
+    private void fillList()
+    {
         EventRecommendationDAO eventRecommendationDAO = new EventRecommendationDAO();
 
         events = new ArrayList<>();
 
-        try{
+        try
+        {
             eventDATA = eventRecommendationDAO.recommendEvents(idUser);
 
-            for(int i=0; i<eventDATA.length(); i++){
+            for(int i=0 ; i < eventDATA.length() ; i++)
+            {
                     int idEvent = eventDATA.getJSONObject(Integer.toString(i)).getInt("idEvent");
                     String nameEvent = eventDATA.getJSONObject(Integer.toString(i)).getString("nameEvent");
                     int eventEvaluation = 4;
@@ -77,13 +80,21 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
 
                     events.add(event);
             }
-        } catch (JSONException e) {
+        }
+        catch (JSONException e)
+        {
             e.printStackTrace();
-        } catch (ParseException e) {
+        }
+        catch (ParseException e)
+        {
             e.printStackTrace();
-        } catch (EventException e) {
+        }
+        catch (EventException e)
+        {
             e.printStackTrace();
-        } catch (NullPointerException e){
+        }
+        catch (NullPointerException e)
+        {
             Toast.makeText(getActivity().getBaseContext(), "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
         }
 
@@ -93,24 +104,27 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
         final String ID_COLUMN = "idEvent";
 
         int eventId;
         final Bundle bundle = new Bundle();
         final ShowEvent event = new ShowEvent();
 
-        try {
+        try
+        {
             final android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             eventId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
             bundle.putString("idEventSearch", Integer.toString(eventId));
 
             event.setArguments(bundle);
-            //fragmentTransaction.replace(R.id.content_frame, event);
-            fragmentTransaction.add(R.id.content_frame, event);
+            fragmentTransaction.add(R.id.content_frame, event);//BAD CODE
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-        } catch (JSONException e) {
+        }
+        catch (JSONException e)
+        {
             e.printStackTrace();
         }
 

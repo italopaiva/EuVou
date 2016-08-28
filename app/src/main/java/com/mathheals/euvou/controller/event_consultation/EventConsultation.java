@@ -155,7 +155,9 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                             {
                                 e.printStackTrace();
                             }
-                        } else {
+                        }
+                        else
+                        {
                             listView.setAdapter(null);
                             event_not_found_text.setText(PEOPLE_NOT_FOUND_MESSAGE);
                             event_not_found_text.setVisibility(View.VISIBLE);
@@ -167,39 +169,42 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String newText)
+            {
                 return true;
+            }
             }
         });
     }
 
-    private void showEventsAsList(String[] eventNames) {
+    private void showEventsAsList(String[] eventNames)
+    {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
-                R.layout.event_consultation_list_view,
-                eventNames);
+                R.layout.event_consultation_list_view, eventNames);//BAD CODE
         listView.setAdapter(adapter);
 
     }
 
-    private void showPeopleAsList(String[] peopleNames){
+    private void showPeopleAsList(String[] peopleNames)
+    {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
-                R.layout.event_consultation_list_view,
-                peopleNames);
+                R.layout.event_consultation_list_view, peopleNames);//BAD CODE
         listView.setAdapter(adapter);
     }
 
-    private void setListViewListener() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void setListViewListener()
+    {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             final Bundle bundle = new Bundle();
             final ShowEvent event = new ShowEvent();
             final ShowUser user = new ShowUser();
 
-            public void onItemClick(AdapterView<?> parent, View clickView,
-                                    int position, long id) {
-                //final String ID_COLUMN = "idEvent";
+            public void onItemClick(AdapterView<?> parent, View clickView, int position, long id) {
                 final String ID_COLUMN = option=="event" ? "idEvent" : (option=="people" ? "idUser" : "idPlace");
 
-                try {
+                try
+                {
                     final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     idItem = new Integer((option=="event" ? eventDATA : peopleDATA).getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
                     bundle.putString("id", Integer.toString(idItem));
@@ -209,21 +214,26 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                     fragmentTransaction.replace(R.id.content, option == "event" ? event : user);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
-                } catch (JSONException e) {
+                }
+                catch (JSONException e)
+                {
                     e.printStackTrace();
                 }
             }
         });
     }
-    private void configActionBar() {
+
+    private void configActionBar()
+    {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00C0C3")));
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         switch(item.getItemId()) {
-            case android.R.id.home:
+            case android.R.id.home://BAD CODE
                 Intent intent = new Intent(this, HomePage.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -232,12 +242,14 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         return super.onOptionsItemSelected(item);
     }
 
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
+    public void onCheckedChanged(RadioGroup group, int checkedId)
+    {
         String query = searchView.getQuery().toString();
-        switch(checkedId) {
-            case R.id.radio_events:
+        switch(checkedId)
+        {
+            case R.id.radio_events://BAD CODE
                 break;
-            case R.id.radio_people:
+            case R.id.radio_people://BAD CODE
                 break;
         }
     }
