@@ -33,7 +33,8 @@ import java.util.ArrayList;
 import dao.EventDAO;
 import dao.UserDAO;
 
-public class EventConsultation extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class EventConsultation extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener
+{
 
     private RadioGroup radioGroup;
     private ActionBar actionBar;
@@ -45,48 +46,57 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     private TextView event_not_found_text;
 
     private JSONObject peopleDATA;
-    private static final String PEOPLE_NOT_FOUND_MESSAGE = "Nenhum usuário foi encontrado :(";
+    private static final String PEOPLE_NOT_FOUND_MESSAGE = "Nenhum usuário foi encontrado.";
 
     String option;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_consultation);
-        listView = (ListView) findViewById(R.id.events_list);
-        event_not_found_text = (TextView) findViewById(R.id.event_not_found_text);
+        setContentView(R.layout.activity_event_consultation);//BAD CODE
+        listView = (ListView) findViewById(R.id.events_list);//BAD CODE
+        event_not_found_text = (TextView) findViewById(R.id.event_not_found_text);//BAD CODE
         setListViewListener();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_event_consultation, menu);
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        /*
+        Inflate the menu.
+        This adds items to the action bar if it is present.
+        */
+        getMenuInflater().inflate(R.menu.menu_event_consultation, menu);//BAD CODE
         actionBar = getSupportActionBar();
 
         setSearchBar(menu);
         configActionBar();
 
-        radioGroup = (RadioGroup) findViewById(R.id.search_radio_group);
+        radioGroup = (RadioGroup) findViewById(R.id.search_radio_group);//BAD CODE
         radioGroup.setOnCheckedChangeListener(this);
         return true;
     }
 
-    private void setSearchBar(Menu menu) {
+    private void setSearchBar(Menu menu)
+    {
         final String SEARCH_VIEW_HINT = "Pesquisar";
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();//BAD CODE
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setQueryHint(SEARCH_VIEW_HINT);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
 
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String query)
+            {
                 int checkedButton = radioGroup.getCheckedRadioButtonId();
-                switch (checkedButton) {
+                switch (checkedButton)
+                {
                     case R.id.radio_events:
                         //Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
                         option="event";
@@ -96,25 +106,31 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         eventDATA = eventDAO.searchEventByNameGroup(query);
                         final String EVENT_COLUMN = "nameEvent";
 
-                        if (eventDATA != null) {
+                        if (eventDATA != null)
+                        {
                             event_not_found_text.setVisibility(View.GONE);
-                            try {
-                                for (int i = 0; i < eventDATA.length(); ++i) {
+                            try
+                            {
+                                for (int i = 0; i < eventDATA.length(); ++i)
+                                {
                                     eventsFound.add(eventDATA.getJSONObject(new Integer(i).toString()).getString(EVENT_COLUMN));
                                 }
 
                                 String[] eventsFoundArray = eventsFound.toArray(new String[eventsFound.size()]);
                                 showEventsAsList(eventsFoundArray);
-                            } catch (JSONException e) {
+                            } catch (JSONException e)
+                            {
                                 e.printStackTrace();
                             }
-                        } else {
+                        }
+                        else
+                        {
                             listView.setAdapter(null);
                             event_not_found_text.setVisibility(View.VISIBLE);
                         }
                         break;
 
-                    case R.id.radio_people:
+                    case R.id.radio_people://BAD CODE
                         option="people";
                         UserDAO userDAO = new UserDAO(getParent());
 
@@ -122,16 +138,21 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         peopleDATA = userDAO.searchUserByName(query);
                         final String NAME_USER_COLUMN = "nameUser";
 
-                        if (peopleDATA != null) {
+                        if (peopleDATA != null)
+                        {
                             event_not_found_text.setVisibility(View.GONE);
-                            try {
-                                for (int i = 0; i < peopleDATA.length(); i++) {
+                            try
+                            {
+                                for (int i = 0; i < peopleDATA.length(); i++)
+                                {
                                     peopleFound.add(peopleDATA.getJSONObject(new Integer(i).toString()).getString(NAME_USER_COLUMN));
                                 }
 
                                 String[] peopleFoundArray = peopleFound.toArray(new String[peopleFound.size()]);
                                 showPeopleAsList(peopleFoundArray);
-                            } catch (JSONException e) {
+                            }
+                            catch (JSONException e)
+                            {
                                 e.printStackTrace();
                             }
                         } else {
