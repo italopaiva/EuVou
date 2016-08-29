@@ -32,7 +32,8 @@ import dao.EventDAO;
 import exception.EventException;
 import model.Event;
 
-public class EditEventFragment extends Fragment implements View.OnClickListener {
+public class EditEventFragment extends Fragment implements View.OnClickListener
+{
 
     private int idEvent;
     private static final String SUCCESSFULL_UPDATE_MESSAGE = "Evento alterado com sucesso :)";
@@ -47,11 +48,13 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     private EditAndRegisterUtility  editAndRegisterUtility = new EditAndRegisterUtility();
 
 
-    public EditEventFragment() {
+    public EditEventFragment()
+    {
         // Required empty public constructor
     }
 
-    public void formatDate(JSONObject jsonEvent) throws JSONException {
+    public void formatDate(JSONObject jsonEvent) throws JSONException
+    {
 
         String dateHourEvent = jsonEvent.getJSONObject("0").getString("dateTimeEvent");
         String[] dateHourEventSplit = dateHourEvent.split(" ");
@@ -67,7 +70,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    public void formatPrice(JSONObject jsonEvent) throws JSONException {
+    public void formatPrice(JSONObject jsonEvent) throws JSONException
+    {
         Integer priceEvent = jsonEvent.getJSONObject("0").getInt("price");
         this.priceRealField.setText(Integer.toString(priceEvent / 100));
         this.priceDecimalField.setText(Integer.toString(priceEvent - priceEvent / 100 * 100));
