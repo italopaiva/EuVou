@@ -32,7 +32,8 @@ import dao.EventDAO;
 import exception.EventException;
 import model.Event;
 
-public class EditEventFragment extends Fragment implements View.OnClickListener {
+public class EditEventFragment extends Fragment implements View.OnClickListener
+{
 
     private int idEvent;
     private static final String SUCCESSFULL_UPDATE_MESSAGE = "Evento alterado com sucesso :)";
@@ -47,11 +48,13 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     private EditAndRegisterUtility  editAndRegisterUtility = new EditAndRegisterUtility();
 
 
-    public EditEventFragment() {
+    public EditEventFragment()
+    {
         // Required empty public constructor
     }
 
-    public void formatDate(JSONObject jsonEvent) throws JSONException {
+    public void formatDate(JSONObject jsonEvent) throws JSONException
+    {
 
         String dateHourEvent = jsonEvent.getJSONObject("0").getString("dateTimeEvent");
         String[] dateHourEventSplit = dateHourEvent.split(" ");
@@ -67,7 +70,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    public void formatPrice(JSONObject jsonEvent) throws JSONException {
+    public void formatPrice(JSONObject jsonEvent) throws JSONException
+    {
         Integer priceEvent = jsonEvent.getJSONObject("0").getInt("price");
         this.priceRealField.setText(Integer.toString(priceEvent / 100));
         this.priceDecimalField.setText(Integer.toString(priceEvent - priceEvent / 100 * 100));
@@ -75,7 +79,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
 
         idEvent = this.getArguments().getInt("idEvent");
 
@@ -248,25 +253,32 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
             String message = e.getMessage();
 
             //Verify address field
-            if(message.equals(Event.ADDRESS_IS_EMPTY)){
+            if(message.equals(Event.ADDRESS_IS_EMPTY))
+            {
                 editAndRegisterUtility.setMessageError(addressField, message);
             }
-            if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
+            if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY))
+            {
                 editAndRegisterUtility.setMessageError(descriptionField, message);
             }
-            if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)){
+            if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN))
+            {
                 editAndRegisterUtility.setMessageError(descriptionField, message);
             }
-            if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
+            if(message.equals(Event.EVENT_DATE_IS_EMPTY))
+            {
                 editAndRegisterUtility.setMessageError(dateField, message);
             }
-            if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
+            if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME))
+            {
                 editAndRegisterUtility.setMessageError(nameField, message);
             }
-            if(message.equals(Event.INVALID_EVENT_DATE)){
+            if(message.equals(Event.INVALID_EVENT_DATE))
+            {
                 editAndRegisterUtility.setMessageError(dateField, message);
             }
-            if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
+            if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50))
+            {
                 editAndRegisterUtility.setMessageError(nameField, message);
             }
         } catch (ParseException e)
@@ -276,7 +288,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-    private void addEventCategories(View view){
+    private void addEventCategories(View view)
+    {
         if(view.getId() == Read.id.optionCinema)
         {
             CheckBox cinemaCheckBox = (CheckBox) iew;

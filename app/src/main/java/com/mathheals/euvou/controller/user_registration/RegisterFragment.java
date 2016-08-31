@@ -18,7 +18,8 @@ import com.mathheals.euvou.controller.utility.Mask;
 import dao.UserDAO;
 import model.User;
 
-public class RegisterFragment extends Fragment implements View.OnClickListener {
+public class RegisterFragment extends Fragment implements View.OnClickListener
+{
 
 
     private static final String SUCCESSFULL_CADASTRATION_MESSAGE = "Bem vindo ao #EuVou :)";
@@ -27,11 +28,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private EditAndRegisterUtility editAndRegisterUtility = new EditAndRegisterUtility();
 
 
-    public RegisterFragment() {
+    public RegisterFragment()
+    {
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.register_user, container, false);
         Button register = (Button) view.findViewById(R.id.saveButton);
         register.setOnClickListener(this);
@@ -41,19 +45,22 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    private void registerUser(User user) {
+    private void registerUser(User user)
+    {
         UserDAO userDAO = new UserDAO(getActivity());
         userDAO.save(user);
     }
 
-    private void startLoginActivity(){
+    private void startLoginActivity()
+    {
         Activity activity = getActivity();
         Intent myIntent = new Intent(activity, LoginActivity.class);
         activity.startActivity(myIntent);
 
     }
 
-    private void setingEditText(View view){
+    private void setingEditText(View view)
+    {
         this.nameField = (EditText) view.findViewById(R.id.nameField);
         this.birthDateField = (EditText) view.findViewById(R.id.dateField);
         this.mailField = (EditText) view.findViewById(R.id.mailField);
@@ -64,7 +71,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         this.birthDateField = (EditText) view.findViewById(R.id.dateField);
     }
 
-    private void setingTextTyped(){
+    private void setingTextTyped()
+    {
         this.name = nameField.getText().toString();
         this.username = usernameField.getText().toString();
         this.mail = mailField.getText().toString();
@@ -75,66 +83,85 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
 
         setingTextTyped();
 
-        try {
+        try
+        {
             User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);
             registerUser(new User(name, username, mail, password, birthDate));
 
             Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE, Toast.LENGTH_LONG).show();
             startLoginActivity();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
 
             String message = e.getMessage();
-            if (message.equals(User.NAME_CANT_BE_EMPTY_NAME)) {
+            if (message.equals(User.NAME_CANT_BE_EMPTY_NAME))
+            {
                 editAndRegisterUtility.setMessageError(nameField, message);
             }
-            if (message.equals(User.NAME_CANT_BE_HIGHER_THAN_50)) {
+            if (message.equals(User.NAME_CANT_BE_HIGHER_THAN_50))
+            {
                 editAndRegisterUtility.setMessageError(nameField, message);
             }
-            if (message.equals(User.EMAIL_CANT_BE_EMPTY_EMAIL)) {
+            if (message.equals(User.EMAIL_CANT_BE_EMPTY_EMAIL))
+            {
                 editAndRegisterUtility.setMessageError(mailField, message);
             }
-            if (message.equals(User.EMAIL_CANT_BE_HIGHER_THAN_150)) {
+            if (message.equals(User.EMAIL_CANT_BE_HIGHER_THAN_150))
+            {
                 editAndRegisterUtility.setMessageError(mailField, message);
             }
-            if (message.equals(User.INVALID_EMAIL)) {
+            if (message.equals(User.INVALID_EMAIL))
+            {
                 editAndRegisterUtility.setMessageError(mailField, message);
             }
-            if (message.equals(User.EMAIL_ARE_NOT_EQUALS)){
+            if (message.equals(User.EMAIL_ARE_NOT_EQUALS))
+            {
                 editAndRegisterUtility.setMessageError(mailField, message);
             }
-            if (message.equals(User.USERNAME_CANT_BE_EMPTY_USERNAME)) {
+            if (message.equals(User.USERNAME_CANT_BE_EMPTY_USERNAME))
+            {
                 editAndRegisterUtility.setMessageError(usernameField, message);
             }
-            if (message.equals(User.USERNAME_CANT_BE_HIGHER_THAN_100)) {
+            if (message.equals(User.USERNAME_CANT_BE_HIGHER_THAN_100))
+            {
                 editAndRegisterUtility.setMessageError(usernameField, message);
             }
-            if (message.equals(User.PASSWORD_CANT_BE_EMPTY_PASSWORD)) {
+            if (message.equals(User.PASSWORD_CANT_BE_EMPTY_PASSWORD))
+            {
                 editAndRegisterUtility.setMessageError(passwordField, message);
             }
-            if (message.equals(User.PASSWORD_CANT_BE_LESS_THAN_6)) {
+            if (message.equals(User.PASSWORD_CANT_BE_LESS_THAN_6))
+            {
                 editAndRegisterUtility.setMessageError(passwordField, message);
             }
-            if (message.equals(User.PASSWORD_ARE_NOT_EQUALS)){
+            if (message.equals(User.PASSWORD_ARE_NOT_EQUALS))
+            {
                 editAndRegisterUtility.setMessageError(passwordField, message);
             }
-            if (message.equals(User.BIRTH_DATE_CANT_BE_EMPTY)) {
+            if (message.equals(User.BIRTH_DATE_CANT_BE_EMPTY))
+            {
                 editAndRegisterUtility.setMessageError(birthDateField, message);
             }
-            if (message.equals(User.INVALID_BIRTH_DATE)) {
+            if (message.equals(User.INVALID_BIRTH_DATE))
+            {
                 editAndRegisterUtility.setMessageError(birthDateField, message);
             }
-            if (message.equals(User.USERNAME_EXISTENT)){
+            if (message.equals(User.USERNAME_EXISTENT))
+            {
                 editAndRegisterUtility.setMessageError(usernameField, message);
             }
-            if (message.equals(User.CONFIRM_PASSWORD_CANT_BE_EMPTY)){
+            if (message.equals(User.CONFIRM_PASSWORD_CANT_BE_EMPTY))
+            {
                 editAndRegisterUtility.setMessageError(passwordConfirmField, message);
             }
-            if(message.equals(User.EMAIL_CONFIRMATION_CANT_BE_EMPTY)){
+            if(message.equals(User.EMAIL_CONFIRMATION_CANT_BE_EMPTY))
+            {
                 editAndRegisterUtility.setMessageError(mailConfirmationField, message);
             }
         }
