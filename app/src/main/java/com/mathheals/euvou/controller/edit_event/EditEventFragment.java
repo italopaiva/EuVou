@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.RequiresPermission;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +85,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
 
         idEvent = this.getArguments().getInt("idEvent");
 
-        View view = inflater.inflate(Read.layout.fragment_edit_event, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_event, container, false);
 
         setingEditText(view);
         dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
@@ -174,16 +175,16 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
         }
 
         //Adding listener to eventLocal EditText
-        Button eventLocal = (Button) view.findViewById(Read.id.eventLocal);
+        Button eventLocal = (Button) view.findViewById(R.id.eventLocal);
         eventLocal.setOnClickListener(this);
 
         //Adding listener to CheckBoxs to verify if each CheckBox is checked or not
         addCheckBoxListeners(view);
 
-        Button removeEvent = (Button)view.findViewById(Read.id.removeEvent);
+        Button removeEvent = (Button)view.findViewById(R.id.removeEvent);
         removeEvent.setOnClickListener(this);
 
-        Button updateEvent = (Button)view.findViewById(Read.id.updateEvent);
+        Button updateEvent = (Button)view.findViewById(R.id.updateEvent);
         updateEvent.setOnClickListener(this);
 
         return view;
@@ -191,26 +192,26 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
 
     private void setingEditText(View view)
     {
-        this.nameField = (EditText) view.findViewById(Read.id.eventName);
-        this.dateField = (EditText) view.findViewById(Read.id.eventDate);
-        this.hourField = (EditText) view.findViewById(Read.id.eventHour);
-        this.descriptionField = (EditText) view.findViewById(Read.id.eventDescription);
-        this.priceRealField = (EditText) view.findViewById(Read.id.eventPriceReal);
-        this.priceDecimalField = (EditText) view.findViewById(Read.id.eventPriceDecimal);
-        this.addressField = (EditText) view.findViewById(Read.id.eventAddress);
+        this.nameField = (EditText) view.findViewById(R.id.eventName);
+        this.dateField = (EditText) view.findViewById(R.id.eventDate);
+        this.hourField = (EditText) view.findViewById(R.id.eventHour);
+        this.descriptionField = (EditText) view.findViewById(R.id.eventDescription);
+        this.priceRealField = (EditText) view.findViewById(R.id.eventPriceReal);
+        this.priceDecimalField = (EditText) view.findViewById(R.id.eventPriceDecimal);
+        this.addressField = (EditText) view.findViewById(R.id.eventAddress);
     }
 
     private void setingCheckBoxs(View view)
     {
-        this.showCheckBox = (CheckBox) view.findViewById(Read.id.optionShow);
-        this.expositionCheckBox = (CheckBox) view.findViewById(Read.id.optionExposition);
-        this.cinemaCheckBox = (CheckBox) view.findViewById(Read.id.optionCinema);
-        this.theaterCheckBox = (CheckBox) view.findViewById(Read.id.optionTheater);
-        this.partyCheckBox = (CheckBox) view.findViewById(Read.id.optionParty);
-        this.educationCheckBox = (CheckBox) view.findViewById(Read.id.optionEducation);
-        this.museumCheckBox = (CheckBox) view.findViewById(Read.id.optionMuseum);
-        this.sportsCheckBox = (CheckBox) view.findViewById(Read.id.optionSports);
-        this.othersCheckBox = (CheckBox) view.findViewById(Read.id.optionOthers);
+        this.showCheckBox = (CheckBox) view.findViewById(R.id.optionShow);
+        this.expositionCheckBox = (CheckBox) view.findViewById(R.id.optionExposition);
+        this.cinemaCheckBox = (CheckBox) view.findViewById(R.id.optionCinema);
+        this.theaterCheckBox = (CheckBox) view.findViewById(R.id.optionTheater);
+        this.partyCheckBox = (CheckBox) view.findViewById(R.id.optionParty);
+        this.educationCheckBox = (CheckBox) view.findViewById(R.id.optionEducation);
+        this.museumCheckBox = (CheckBox) view.findViewById(R.id.optionMuseum);
+        this.sportsCheckBox = (CheckBox) view.findViewById(R.id.optionSports);
+        this.othersCheckBox = (CheckBox) view.findViewById(R.id.optionOthers);
     }
 
     private void updateEventOnDataBase(Event event)
@@ -290,9 +291,9 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
 
     private void addEventCategories(View view)
     {
-        if(view.getId() == Read.id.optionCinema)
+        if(view.getId() == R.id.optionCinema)
         {
-            CheckBox cinemaCheckBox = (CheckBox) iew;
+            CheckBox cinemaCheckBox = (CheckBox) view;
 
             if(cinemaCheckBox.isChecked())
             {
@@ -303,7 +304,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
                 categories.remove(cinemaCheckBox.getText().toString());
             }
         }
-        else if(view.getId() == Read.id.optionEducation)
+        else if(view.getId() == R.id.optionEducation)
         {
             CheckBox educationCheckBox = (CheckBox) view;
 
@@ -316,7 +317,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
                 categories.remove("Educacao");
             }
         }
-        else if(view.getId() == Read.id.optionExposition)
+        else if(view.getId() == R.id.optionExposition)
         {
             CheckBox expositionCheckBox = (CheckBox) view;
 
@@ -329,7 +330,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
                 categories.remove("Exposicao");
             }
         }
-        else if(view.getId() == Read.id.optionMuseum)
+        else if(view.getId() == R.id.optionMuseum)
         {
             CheckBox museumCheckBox = (CheckBox) view;
 
@@ -341,7 +342,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
                 categories.remove(museumCheckBox.getText().toString());
             }
         }
-        else if(view.getId() == Read.id.optionOthers)
+        else if(view.getId() == R.id.optionOthers)
         {
             CheckBox othersCheckBox = (CheckBox) view;
 
@@ -354,7 +355,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
                 categories.remove(othersCheckBox.getText().toString());
             }
         }
-        else if(view.getId() == Read.id.optionParty)
+        else if(view.getId() == R.id.optionParty)
         {
             CheckBox partyCheckBox = (CheckBox) view;
 
@@ -367,7 +368,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
                 categories.remove(partyCheckBox.getText().toString());
             }
         }
-        else if(view.getId() == Read.id.optionShow)
+        else if(view.getId() == R.id.optionShow)
         {
             CheckBox showCheckBox = (CheckBox) view;
 
@@ -380,7 +381,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
                 categories.remove(showCheckBox.getText().toString());
             }
         }
-        else if(view.getId() == Read.id.optionSports)
+        else if(view.getId() == R.id.optionSports)
         {
             CheckBox sportsCheckBox = (CheckBox) view;
 
@@ -393,7 +394,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
                 categories.remove(sportsCheckBox.getText().toString());
             }
         }
-        else if(view.getId() == Read.id.optionTheater)
+        else if(view.getId() == R.id.optionTheater)
         {
             CheckBox theaterCheckBox = (CheckBox) view;
 
@@ -411,15 +412,15 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view)
     {
-        if(view.getId() == Read.id.updateEvent)
+        if(view.getId() == R.id.updateEvent)
         {
             updateEvent();
         }
-        else if(view.getId() == Read.id.removeEvent)
+        else if(view.getId() == R.id.removeEvent)
         {
             removeEvent(idEvent);
         }
-        else if(view.getId() == Read.id.eventLocal)
+        else if(view.getId() == R.id.eventLocal)
         {
             Intent map = new Intent(getActivity(), LocalEventActivity.class);
             startActivityForResult(map, 2);
@@ -457,31 +458,31 @@ public class EditEventFragment extends Fragment implements View.OnClickListener
     private void addCheckBoxListeners(View view)
     {
 
-        CheckBox showCategory = (CheckBox) view.findViewById(Read.id.optionShow);
+        CheckBox showCategory = (CheckBox) view.findViewById(R.id.optionShow);
         showCategory.setOnClickListener(this);
 
-        CheckBox expositionCategory = (CheckBox) view.findViewById(Read.id.optionExposition);
+        CheckBox expositionCategory = (CheckBox) view.findViewById(R.id.optionExposition);
         expositionCategory.setOnClickListener(this);
 
-        CheckBox museumCategory = (CheckBox) view.findViewById(Read.id.optionMuseum);
+        CheckBox museumCategory = (CheckBox) view.findViewById(R.id.optionMuseum);
         museumCategory.setOnClickListener(this);
 
-        CheckBox cinemaCategory = (CheckBox) view.findViewById(Read.id.optionCinema);
+        CheckBox cinemaCategory = (CheckBox) view.findViewById(R.id.optionCinema);
         cinemaCategory.setOnClickListener(this);
 
-        CheckBox theaterCategory = (CheckBox) view.findViewById(Read.id.optionTheater);
+        CheckBox theaterCategory = (CheckBox) view.findViewById(R.id.optionTheater);
         theaterCategory.setOnClickListener(this);
 
-        CheckBox partyCategory = (CheckBox) view.findViewById(Read.id.optionParty);
+        CheckBox partyCategory = (CheckBox) view.findViewById(R.id.optionParty);
         partyCategory.setOnClickListener(this);
 
-        CheckBox educationCategory = (CheckBox) view.findViewById(Read.id.optionEducation);
+        CheckBox educationCategory = (CheckBox) view.findViewById(R.id.optionEducation);
         educationCategory.setOnClickListener(this);
 
-        CheckBox sportsCategory = (CheckBox) view.findViewById(Read.id.optionSports);
+        CheckBox sportsCategory = (CheckBox) view.findViewById(R.id.optionSports);
         sportsCategory.setOnClickListener(this);
 
-        CheckBox othersCategory = (CheckBox) view.findViewById(Read.id.optionOthers);
+        CheckBox othersCategory = (CheckBox) view.findViewById(R.id.optionOthers);
         othersCategory.setOnClickListener(this);
 
     }
