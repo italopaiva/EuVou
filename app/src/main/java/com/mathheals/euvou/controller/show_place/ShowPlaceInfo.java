@@ -20,14 +20,15 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.mathheals.euvou.R;
+import com.mathheals.euvou.R;//BAD CODE
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import dao.EvaluatePlaceDAO;
 import model.Evaluation;
 import model.Place;
 
-public class ShowPlaceInfo extends FragmentActivity {
+public class ShowPlaceInfo extends FragmentActivity
+{
 
     private final Integer LOGGED_OUT = -1;
     protected GoogleMap mMap;
@@ -60,12 +61,13 @@ public class ShowPlaceInfo extends FragmentActivity {
     private Evaluation ratingEvaluation;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    { //BAD CODE Whats is onCreate?
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_place_info);
+        setContentView(R.layout.activity_show_place_info);//BAD CODE
 
-        setShowMapButton((Button) findViewById(R.id.button_show_map));
-        setHideMapButton((Button) findViewById(R.id.button_hide_map));
+        setShowMapButton((Button) findViewById(R.id.button_show_map));//BAD CODE
+        setHideMapButton((Button) findViewById(R.id.button_hide_map));//BAD CODE
 
         setUserId(new LoginUtility(this).getUserId());
         setIsUserLoggedIn(userId != LOGGED_OUT);
@@ -79,17 +81,20 @@ public class ShowPlaceInfo extends FragmentActivity {
         setRatingBarIfNeeded();
     }
 
-    private void setRatingBarIfNeeded() {
+    private void setRatingBarIfNeeded()
+    {
         if(isUserLoggedIn)
             setRatingBar();
     }
 
-    private void setRatingBar() {
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+    private void setRatingBar()
+    {
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);//BAD CODE
         ratingBar.setVisibility(View.VISIBLE);
         ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2) {
+            public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2)
+            {//BAD CODE agr0 arg2
                 setRatingEvaluation(idPlace, userId, rateValue);
                 EvaluatePlaceDAO evaluatePlaceDAO = new EvaluatePlaceDAO();
                 evaluatePlaceDAO.evaluatePlace(ratingEvaluation);
@@ -98,25 +103,30 @@ public class ShowPlaceInfo extends FragmentActivity {
         setRatingBarStyle();
     }
 
-    private void setRatingBarStyle() {
+    private void setRatingBarStyle()
+    {
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);//BAD CODE
     }
 
-    private void setUpMapIfNeeded() {
+    private void setUpMapIfNeeded()
+    {
         // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
+        if (mMap == null)
+        {
             // Try to obtain the map from the SupportMapFragment.
             mMapFragment = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_show_place_info_map));
             mMap = mMapFragment.getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null) {
+            if (mMap != null)
+            {
                 setUpMap();
             }
         }
     }
-    
-    private void setUpMap() {
+
+    private void setUpMap()
+    {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(getLatitude(), getLongitude()), 9));
         markPlaceOnMap();
