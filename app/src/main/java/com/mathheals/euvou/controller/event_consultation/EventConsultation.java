@@ -39,24 +39,21 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     private RadioGroup radioGroup;
     private ActionBar actionBar;
     private SearchView searchView;
-
     private ListView listView;
     private Integer idItem;
     private JSONObject eventDATA;
     private TextView event_not_found_text;
-
     private JSONObject peopleDATA;
+    private String option;
     private static final String PEOPLE_NOT_FOUND_MESSAGE = "Nenhum usuário foi encontrado.";
-
-    String option;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_consultation);//BAD CODE
-        listView = (ListView) findViewById(R.id.events_list);//BAD CODE
-        event_not_found_text = (TextView) findViewById(R.id.event_not_found_text);//BAD CODE
+        setContentView(R.layout.activity_event_consultation);
+        listView = (ListView) findViewById(R.id.events_list);
+        event_not_found_text = (TextView) findViewById(R.id.event_not_found_text);
         setListViewListener();
     }
 
@@ -67,13 +64,13 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         Inflate the menu.
         This adds items to the action bar if it is present.
         */
-        getMenuInflater().inflate(R.menu.menu_event_consultation, menu);//BAD CODE
+        getMenuInflater().inflate(R.menu.menu_event_consultation, menu);
         actionBar = getSupportActionBar();
 
         setSearchBar(menu);
         configActionBar();
 
-        radioGroup = (RadioGroup) findViewById(R.id.search_radio_group);//BAD CODE
+        radioGroup = (RadioGroup) findViewById(R.id.search_radio_group);
         radioGroup.setOnCheckedChangeListener(this);
         return true;
     }
@@ -83,11 +80,10 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         final String SEARCH_VIEW_HINT = "Pesquisar";
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.search).getActionView();//BAD CODE
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setQueryHint(SEARCH_VIEW_HINT);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
         {
 
@@ -173,7 +169,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
             {
                 return true;
             }
-            }
+            
         });
     }
 

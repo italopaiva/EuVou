@@ -16,7 +16,8 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_local_event);
         setUpMapIfNeeded();
@@ -24,7 +25,8 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
         setUpMapIfNeeded();
     }
@@ -44,7 +46,8 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
      * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
      * method in {@link #onResume()} to guarantee that it will be called.
      */
-    private void setUpMapIfNeeded() {
+    private void setUpMapIfNeeded()
+    {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
@@ -63,14 +66,17 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
      * <p/>
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
-    private void setUpMap() {
+    private void setUpMap()
+    {
+
     }
 
     @Override
-    public void onMapClick(LatLng latLng) {
+    public void onMapClick(LatLng latLng)
+    {
         Intent resultado = new Intent();
-        resultado.putExtra("longitude", " "+latLng.longitude);
-        resultado.putExtra("latitude", " "+latLng.latitude);
+        resultado.putExtra("longitude", " " + latLng.longitude);
+        resultado.putExtra("latitude", " " + latLng.latitude);
         setResult(Activity.RESULT_OK, resultado);
         finish();
     }

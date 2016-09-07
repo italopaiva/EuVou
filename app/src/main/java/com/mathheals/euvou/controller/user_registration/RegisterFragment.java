@@ -46,7 +46,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, 
+                             Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.register_user, container, false);
         Button register = (Button) view.findViewById(R.id.saveButton);
@@ -102,13 +103,21 @@ public class RegisterFragment extends Fragment implements View.OnClickListener
 
         try
         {
-            User user = new User(name, username, mail, mailConfirm, password, passwordConfirm, birthDate);
+            User user = new User(name, 
+                                 username,
+                                 mail,
+                                 mailConfirm,
+                                 password,
+                                 passwordConfirm,
+                                 birthDate);
+
             registerUser(new User(name, username, mail, password, birthDate));
 
-            Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE, Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE,
+                           Toast.LENGTH_LONG).show();
             startLoginActivity();
 
-        } catch (Exception e)
+        } catch (Exception e) //Verificar esse tipo de exceção
         {
 
             String message = e.getMessage();
@@ -185,7 +194,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener
 
         }else
         {
-
+            //nothing to do
         }
     }
 }

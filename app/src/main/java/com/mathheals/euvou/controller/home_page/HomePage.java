@@ -85,14 +85,14 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
 
         String filter = ((EditText)findViewById(R.id.place_search)).getText().toString();
         Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
-        if(filter.isEmpty())
+        if(!(filter.isEmpty()))
         {
-            Toast.makeText(this, INVALID_SEARCH, Toast.LENGTH_LONG).show();
-        }
-        else{
             map.putExtra(QUERY, filter);
             HomePage.this.startActivity(map);
             drawerLayout.closeDrawer(linearLayout);
+        }
+        else{
+            Toast.makeText(this, INVALID_SEARCH, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -238,9 +238,9 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
             case R.id.myEvents:
                 try
                 {
-                fragmentTransaction.replace(R.id.content_frame, new ListEvents());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                    fragmentTransaction.replace(R.id.content_frame, new ListEvents());
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
                 catch (NullPointerException exception)
                 {
