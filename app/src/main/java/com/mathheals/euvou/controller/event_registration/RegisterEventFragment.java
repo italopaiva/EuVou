@@ -25,21 +25,22 @@ import dao.EventDAO;
 import exception.EventException;
 import model.Event;
 
-/**
- * Created by izabela on 13/10/15.
- */
-public class RegisterEventFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
+public class RegisterEventFragment extends android.support.v4.app.Fragment implements View.OnClickListener
+{
 
     private static final String SUCCESSFULL_CADASTRATION_MESSAGE = "Evento cadastrado com sucesso :)";
     private String latitude;
     private String longitude;
-    Vector<String> categories= new Vector<>();
+    private Vector<String> categories= new Vector<>();
 
-    public RegisterEventFragment(){
+    public RegisterEventFragment()
+    {
+
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.register_event, container, false);
 
@@ -61,85 +62,121 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         return view;
     }
 
-    public void addEventCategories(View v){
-        if(v.getId() == R.id.optionCinema){
+    public void addEventCategories(View v)
+    {
+        if(v.getId() == R.id.optionCinema)
+        {
             CheckBox cinemaCheckBox = (CheckBox) v;
 
-            if(cinemaCheckBox.isChecked()) {
+            if(cinemaCheckBox.isChecked())
+            {
                 categories.add(cinemaCheckBox.getText().toString());
-            }else{
+            }
+            else
+            {
                 categories.remove(cinemaCheckBox.getText().toString());
             }
-        }else if(v.getId() == R.id.optionEducation) {
+        }else if(v.getId() == R.id.optionEducation)
+        {
             CheckBox educationCheckBox = (CheckBox) v;
 
-            if(educationCheckBox.isChecked()) {
+            if(educationCheckBox.isChecked())
+            {
                 categories.add("Educacao");
-            }else{
+            }
+            else
+            {
                 categories.remove("Educacao");
             }
-        }else if(v.getId() == R.id.optionExposition){
+        }else if(v.getId() == R.id.optionExposition)
+        {
             CheckBox expositionCheckBox = (CheckBox) v;
 
-            if(expositionCheckBox.isChecked()) {
+            if(expositionCheckBox.isChecked())
+            {
                 categories.add("Exposicao");
-            }else{
+            }
+            else
+            {
                 categories.remove("Exposicao");
             }
-        }else if(v.getId() == R.id.optionMuseum){
+        }else if(v.getId() == R.id.optionMuseum)
+        {
             CheckBox museumCheckBox = (CheckBox) v;
 
-            if(museumCheckBox.isChecked()) {
+            if(museumCheckBox.isChecked())
+            {
                 categories.add(museumCheckBox.getText().toString());
-            }else{
+            }else
+            {
                 categories.remove(museumCheckBox.getText().toString());
             }
-        }else if(v.getId() == R.id.optionOthers){
+        }else if(v.getId() == R.id.optionOthers)
+        {
             CheckBox othersCheckBox = (CheckBox) v;
 
-            if(othersCheckBox.isChecked()) {
+            if(othersCheckBox.isChecked())
+            {
                 categories.add(othersCheckBox.getText().toString());
-            }else{
+            }
+            else
+            {
                 categories.remove(othersCheckBox.getText().toString());
             }
-        }else if(v.getId() == R.id.optionParty){
+        }else if(v.getId() == R.id.optionParty)
+        {
             CheckBox partyCheckBox = (CheckBox) v;
 
-            if(partyCheckBox.isChecked()) {
+            if(partyCheckBox.isChecked())
+            {
                 categories.add(partyCheckBox.getText().toString());
-            }else{
+            }else
+            {
                 categories.remove(partyCheckBox.getText().toString());
             }
-        }else if(v.getId() == R.id.optionShow){
+        }else if(v.getId() == R.id.optionShow)
+        {
             CheckBox showCheckBox = (CheckBox) v;
 
-            if(showCheckBox.isChecked()) {
+            if(showCheckBox.isChecked())
+            {
                 categories.add(showCheckBox.getText().toString());
-            }else{
+            }else
+            {
                 categories.remove(showCheckBox.getText().toString());
             }
-        }else if(v.getId() == R.id.optionSports){
+        }else if(v.getId() == R.id.optionSports)
+        {
             CheckBox sportsCheckBox = (CheckBox) v;
 
-            if(sportsCheckBox.isChecked()) {
+            if(sportsCheckBox.isChecked())
+            {
                 categories.add(sportsCheckBox.getText().toString());
-            }else{
+            }
+            else
+            {
                 categories.remove(sportsCheckBox.getText().toString());
             }
-        }else if(v.getId() == R.id.optionTheater){
+        }else if(v.getId() == R.id.optionTheater)
+        {
             CheckBox theaterCheckBox = (CheckBox) v;
 
-            if(theaterCheckBox.isChecked()) {
+            if(theaterCheckBox.isChecked())
+            {
                 categories.add(theaterCheckBox.getText().toString());
-            }else{
+            }
+            else
+            {
                 categories.remove(theaterCheckBox.getText().toString());
             }
         }
     }
 
     @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.saveEvent){
+    public void onClick(View v)
+    {
+        if(v.getId() == R.id.saveEvent)
+        {
             EditText nameEventField = (EditText) this.getActivity().findViewById(R.id.eventName);
             String nameEvent = nameEventField.getText().toString();
 
@@ -164,47 +201,57 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
             LoginUtility loginUtility = new LoginUtility(getActivity());
             int idOwner = loginUtility.getUserId();
 
-            try {
-                Event event = new Event(idOwner, nameEvent, dateEvent, eventHour, priceEventReal, priceEventDecimal, addressEvent, descriptionEvent,
-                                        latitude, longitude, categories);
+            try
+            {
+                Event event = new Event(idOwner, nameEvent, dateEvent, eventHour,
+                                        priceEventReal, priceEventDecimal, addressEvent,
+                                        descriptionEvent, latitude, longitude, categories);
                 registerEvent(event);
 
                 Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE, Toast.LENGTH_LONG).show();
-            } catch (EventException e) {
+            } catch (EventException e)
+            {
                 String message = e.getMessage();
 
                 //Verify address field
-                if(message.equals(Event.ADDRESS_IS_EMPTY)){
+                if(message.equals(Event.ADDRESS_IS_EMPTY))
+                {
                     addressEventField.requestFocus();
                     addressEventField.setError(message);
                 }
 
-                if(message.equals(Event.INVALID_EVENT_HOUR)){
+                if(message.equals(Event.INVALID_EVENT_HOUR))
+                {
                     hourEventField.requestFocus();
                     hourEventField.setError(message);
                 }
 
-                if(message.equals(Event.EVENT_HOUR_IS_EMPTY)){
+                if(message.equals(Event.EVENT_HOUR_IS_EMPTY))
+                {
                     hourEventField.requestFocus();
                     hourEventField.setError(message);
                 }
 
-                if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
+                if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY))
+                {
                     descriptionEventField.requestFocus();
                     descriptionEventField.setError(message);
                 }
 
-                if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)){
+                if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN))
+                {
                     descriptionEventField.requestFocus();
                     descriptionEventField.setError(message);
                 }
 
-                if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
+                if(message.equals(Event.EVENT_DATE_IS_EMPTY))
+                {
                     dateEventField.requestFocus();
                     dateEventField.setError(message);
                 }
 
-                if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
+                if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME))
+                {
                     nameEventField.requestFocus();
                     nameEventField.setError(message);
                 }

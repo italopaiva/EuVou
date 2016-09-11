@@ -1,0 +1,97 @@
+﻿------------------------------------------------------------------------------------------------------------------------------------------------
+
+Names
+
+	Variable: Use the camelCase standard.
+		Ex1: int firstVariable;
+		Ex2: float secondVariable;
+
+
+	Classes: Use the camelCase standard with the first letter in uppercase.
+		Ex1: class Person {};
+		Ex1: class MathematicProfessor extends Person {};
+
+
+	Methods: Use the camelCase standard.
+		Ex1: int method1(int parameter1);
+		Ex2: int method2(float parameter2);
+
+	Use abbreviations just in variables, and, when declared, it should have and comentary explaining it.
+		Ex1: app //Aplication
+		Ex2: GHO //Global Health Organization
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Identation
+
+	When using curly brackets "{" and "}", use then one line below. Use a tab size four after every scope change.
+		Ex1: if(age<18)
+			 {
+				//Code
+			 }
+
+		Ex2: switch(number)
+			 {
+				case 1:
+				{
+					//Use curly brackets just if the case have more than one line.
+			 		break;
+				}
+			 	case 2:
+			 		break;
+			 	case 3:
+			 		break;
+			 	default:
+			 }
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Operands and Atribuition Signs
+
+	Both of them use the same standard: space between words or numbers.
+		Ex1: for(int i = 0; i <= 2; i++);
+		Ex2: b = c + a;
+
+		Ps: In example one, notice that for increment operation is not use space between the number and the operand.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Committs
+
+	Committs must have titles and descriptions.
+	Committs must include just one file per each commit.
+	Each commit should represent a change in at least 100 lines.
+	
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Commentaries
+
+    When have just one line //
+        Ex1:  //Comment One
+
+    If it haves more than one line use /**/
+        Ex2:
+        /*
+        Commentary
+        with more
+        than one
+        line
+        */
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+Markers
+
+    When a part of the code need future rewrite //BAD CODE
+        Ex1: int r = a + b  //BAD CODE
+
+    If your already start to rewrite a code and not finished yet //NOT FINISHED
+        Ex2:
+        int result;
+
+		result =  firstNumber + b;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+

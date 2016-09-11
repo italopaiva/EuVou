@@ -23,9 +23,12 @@ import model.Event;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditOrRemoveFragment extends android.support.v4.app.Fragment  implements View.OnClickListener{
 
-    public EditOrRemoveFragment() {
+public class EditOrRemoveFragment extends android.support.v4.app.Fragment  implements View.OnClickListener
+{
+
+    public EditOrRemoveFragment()
+    {
         // Required empty public constructor
     }
 
@@ -35,7 +38,8 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.edit_or_remove_event_fragment, container, false);
 
         Button editOrRemoveButton = (Button) view.findViewById(R.id.editRemoveButton);
@@ -64,8 +68,10 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
     }
 
     @Override
-    public void onClick(View v) {
-        if(v.getId()==R.id.editRemoveButton){
+    public void onClick(View view)
+    {
+        if(view.getId()==R.id.editRemoveButton)
+        {
             EditEventFragment editEventFragment = new EditEventFragment();
             Bundle bundle = new Bundle();
 

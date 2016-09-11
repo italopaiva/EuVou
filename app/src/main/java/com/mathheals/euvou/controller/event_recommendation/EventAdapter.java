@@ -13,31 +13,39 @@ import java.util.List;
 
 import model.Event;
 
-/**
- * Created by igor on 27/11/15.
- */
-public class EventAdapter extends ArrayAdapter<Event> {
-    public EventAdapter(Context context, List<Event> events) {
+/*
+Created by igor on 27/11/15.
+*/
+
+public class EventAdapter extends ArrayAdapter<Event>
+{
+    public EventAdapter(Context context, List<Event> events)
+    {
         super(context, 0, events);
     }
 
-    private static class ViewHolder {
+    private static class ViewHolder
+    {
         TextView eventName;
         TextView eventEvaluation;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
 
         Event event = getItem(position);
         ViewHolder viewHolder;
-        if (convertView == null) {
+        if (convertView == null)
+        {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_recommend_event, parent, false);
             viewHolder.eventName = (TextView) convertView.findViewById(R.id.eventName);
             viewHolder.eventEvaluation = (TextView) convertView.findViewById(R.id.eventEvaluation);
             convertView.setTag(viewHolder);
-        } else {
+        }
+        else
+        {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.eventName.setText(
