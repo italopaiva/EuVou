@@ -126,7 +126,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         }
                         break;
 
-                    case R.id.radio_people://BAD CODE
+                    case R.id.radio_people:
                         option="people";
                         UserDAO userDAO = new UserDAO(getParent());
 
@@ -169,14 +169,14 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
             {
                 return true;
             }
-            
+
         });
     }
 
     private void showEventsAsList(String[] eventNames)
     {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
-                R.layout.event_consultation_list_view, eventNames);//BAD CODE
+                R.layout.event_consultation_list_view, eventNames);
         listView.setAdapter(adapter);
 
     }
@@ -184,7 +184,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     private void showPeopleAsList(String[] peopleNames)
     {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
-                R.layout.event_consultation_list_view, peopleNames);//BAD CODE
+                R.layout.event_consultation_list_view, peopleNames);
         listView.setAdapter(adapter);
     }
 
@@ -229,7 +229,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     public boolean onOptionsItemSelected(MenuItem item)
     {
         switch(item.getItemId()) {
-            case android.R.id.home://BAD CODE
+            case android.R.id.home:
                 Intent intent = new Intent(this, HomePage.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -243,9 +243,9 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         String query = searchView.getQuery().toString();
         switch(checkedId)
         {
-            case R.id.radio_events://BAD CODE
+            case R.id.radio_events:
                 break;
-            case R.id.radio_people://BAD CODE
+            case R.id.radio_people:
                 break;
         }
     }

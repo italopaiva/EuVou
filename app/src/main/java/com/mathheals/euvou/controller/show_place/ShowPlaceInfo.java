@@ -20,7 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.mathheals.euvou.R;//BAD CODE
+import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import dao.EvaluatePlaceDAO;
@@ -62,12 +62,12 @@ public class ShowPlaceInfo extends FragmentActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
-    { //BAD CODE Whats is onCreate?
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_place_info);//BAD CODE
+        setContentView(R.layout.activity_show_place_info);
 
-        setShowMapButton((Button) findViewById(R.id.button_show_map));//BAD CODE
-        setHideMapButton((Button) findViewById(R.id.button_hide_map));//BAD CODE
+        setShowMapButton((Button) findViewById(R.id.button_show_map));
+        setHideMapButton((Button) findViewById(R.id.button_hide_map));
 
         setUserId(new LoginUtility(this).getUserId());
         setIsUserLoggedIn(userId != LOGGED_OUT);
@@ -89,12 +89,12 @@ public class ShowPlaceInfo extends FragmentActivity
 
     private void setRatingBar()
     {
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);//BAD CODE
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         ratingBar.setVisibility(View.VISIBLE);
         ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2)
-            {//BAD CODE agr0 arg2
+            {
                 setRatingEvaluation(idPlace, userId, rateValue);
                 EvaluatePlaceDAO evaluatePlaceDAO = new EvaluatePlaceDAO();
                 evaluatePlaceDAO.evaluatePlace(ratingEvaluation);
@@ -106,7 +106,7 @@ public class ShowPlaceInfo extends FragmentActivity
     private void setRatingBarStyle()
     {
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);//BAD CODE
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
     }
 
     private void setUpMapIfNeeded()

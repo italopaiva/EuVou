@@ -115,7 +115,7 @@ public class EditUserFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v)
-    {//BAD CODE
+    {
 
         setingTextTyped();
 
